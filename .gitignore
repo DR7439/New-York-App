@@ -1,23 +1,29 @@
-# Node
-node_modules/
+# React + Node
+frontend/node_modules/
+frontend/build/
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/.env
+frontend/.DS_Store
 
-# Python
-*.pyc
-__pycache__/
-
-# Django
-*.log
-*.pot
-*.pyc
-__pycache__/
-db.sqlite3
-media/
-
-# React
-build/
+# Python + Django
+*backend/*.pyc
+backend/__pycache__/
+backend/*.log
+backend/*.pot
+backend/db.sqlite3
+backend/media/
+backend/.env
+backend/.DS_Store
 
 # Jupyter Notebooks
-.ipynb_checkpoints/
+data-analytics/.ipynb_checkpoints/
+data-analytics/*.pyc
+data-analytics/__pycache__/
+data-analytics/.env
 
 # macOS
 .DS_Store
+
+# Env Files
+*.env
