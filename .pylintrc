@@ -1,0 +1,10 @@
+[MASTER]
+ignore-patterns=.*_test\.py$
+
+[MESSAGES CONTROL]
+enable=missing-docstring
+
+[DOCSTRING]
+check-missing-module-docstring=yes
+check-missing-class-docstring=yes
+check-missing-function-docstring=yes
