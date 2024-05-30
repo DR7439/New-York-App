@@ -3,17 +3,17 @@ name: Pylint
 on:
   push:
     branches: 
-      - '**'
+      - '**' 
   pull_request:
     branches:
-      - '**'
+      - '**'  
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.11", "3.12"]
     steps:
     - uses: actions/checkout@v4
 
@@ -27,30 +27,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint nbconvert nbqa
 
-    - name: Get list of changed files
-      id: changed-files
+    - name: Convert Notebooks and Run Pylint
       run: |
-        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- '*.py' '*.ipynb')
-        echo "::set-output name=files::$CHANGED_FILES"
-
-    - name: Convert Notebooks to Python Scripts
-      if: steps.changed-files.outputs.files
-      run: |
-        for notebook in $(echo "${{ steps.changed-files.outputs.files }}" | grep '.ipynb'); do
+        # Convert notebooks to Python scripts
+        for notebook in $(git ls-files '*.ipynb'); do
           jupyter nbconvert --to script "$notebook"
         done
-
-    - name: Run Pylint on changed files
-      if: steps.changed-files.outputs.files
-      run: |
-        FILES=$(echo "${{ steps.changed-files.outputs.files }}" | grep '.py' | tr '\n' ' ')
-        if [ -n "$FILES" ]; then
-          pylint $FILES
-        fi
+        
+        # Run Pylint on both .py files and converted notebooks
+        pylint $(git ls-files '*.py') $(git ls-files '*.ipynb' | sed 's/.ipynb$/.py/')
 
     - name: Clean up converted notebook scripts
-      if: steps.changed-files.outputs.files
       run: |
-        for notebook in $(echo "${{ steps.changed-files.outputs.files }}" | grep '.ipynb'); do
-          rm -f "${notebook%.ipynb}.py"
-        done
+        # Remove converted Python scripts from notebooks
+        rm -f $(git ls-files '*.ipynb' | sed 's/.ipynb$/.py/')
