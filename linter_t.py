@@ -8,7 +8,7 @@ def wrong_hello_world_2():
     This function prints "Hello, world!" to the console.
     """
     toPrint = "Hello, world!" #not snake case!!
-    print(ToPrint)
+    print(toPrint)
 
 
 def correct_hello_world():
