@@ -1,0 +1,4 @@
+Django>=4.2,<5.0
+djangorestframework>=3.14,<4.0
+gunicorn>=20.1,<21.0
+psycopg2-binary>=2.9,<3.0  # If you are using PostgreSQL, otherwise you can remove this
