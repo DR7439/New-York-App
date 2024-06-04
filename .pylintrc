@@ -1,0 +1,5 @@
+[MASTER]
+ignore-patterns=.*_test\.py$
+
+[MESSAGES CONTROL]
+enable=missing-docstring
