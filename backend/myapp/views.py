@@ -1,5 +1,5 @@
 # myapp/views.py
-
+from .models import CustomUser
 from django.contrib.auth import authenticate
 from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
@@ -14,7 +14,7 @@ class UserCreate(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         username = request.data.get("username")
-        if User.objects.filter(username=username).exists():
+        if CustomUser.objects.filter(username=username).exists():
             return Response(
                 {"error": "A user with that username already exists."},
                 status=status.HTTP_400_BAD_REQUEST,
