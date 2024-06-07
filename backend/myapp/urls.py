@@ -1,8 +1,10 @@
-# myapp/urls.py
+"""
+URL Configuration for the 'myapp' application.
+"""
 
 from django.urls import path
-from .views import UserCreate, MyTokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView
+from .views import UserCreate, MyTokenObtainPairView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
