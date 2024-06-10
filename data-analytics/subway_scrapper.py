@@ -11,7 +11,7 @@ api_url = "https://data.ny.gov/resource/wujg-7c2s.csv"
 offset = 0
 limit = 1000
 total_rows = 58306773
-output_file = "full_data.csv"
+output_file = "full_subway_data.csv"
 
 # Check if there's an existing file to resume from
 if os.path.exists(output_file):
