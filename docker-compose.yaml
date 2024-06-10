@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: ./backend
     container_name: django_backend
     command: >
-      sh -c "python manage.py migrate &&
+      sh -c "/wait-for-it.sh db:5432 -- python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
@@ -36,7 +34,7 @@ services:
       - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING}
 
   db:
-    image: postgres:13
+    image: postgres:16
     container_name: postgres_db
     volumes:
       - postgres_data:/var/lib/postgresql/data

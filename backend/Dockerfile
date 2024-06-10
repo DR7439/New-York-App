@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the current directory contents into the container at /app
 COPY . .
+COPY wait-for-it.sh /wait-for-it.sh
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
@@ -18,4 +19,4 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 
 # Run the Django development server
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "/wait-for-it.sh db:5432 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
