@@ -120,4 +120,5 @@ class SearchCreate(generics.CreateAPIView):
         """
         serializer.save(user=self.request.user)
         search_id = serializer.instance.id
+        print("search_id: ", search_id)
         background_task.delay(search_id)
