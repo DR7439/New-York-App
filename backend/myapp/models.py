@@ -56,7 +56,7 @@ class Zone(models.Model):
     boundary_coordinates = models.JSONField()  # Store the boundary coordinates as JSON
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Search(models.Model):
     """
@@ -73,7 +73,7 @@ class Search(models.Model):
         gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
     """
     name = models.CharField(max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date_of_advertising = models.DateField()
     date_search_made_on = models.DateField()
     target_market_interests = models.JSONField()  # Store the list as JSON
