@@ -9,6 +9,11 @@ frontend/.DS_Store
 # Python + Django
 *backend/*.pyc
 backend/__pycache__/
+backend/target_advert/__pycache__/
+backend/user_login/__pycache__/
+backend/user_login/migrations/
+backend/myapp/__pycache__/
+backend/myapp/migrations/
 backend/*.log
 backend/*.pot
 backend/db.sqlite3
