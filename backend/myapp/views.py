@@ -2,8 +2,9 @@
 from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser
-from .serializers import UserSerializer, MyTokenObtainPairSerializer
+from .models import CustomUser, Search
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer
+from .tasks import background_task
 
 class UserCreate(generics.CreateAPIView):
     """
@@ -88,3 +89,35 @@ class MyTokenObtainPairView(TokenObtainPairView):
             'token': token,
             'user': UserSerializer(user).data
         })
+    
+
+class SearchCreate(generics.CreateAPIView):
+    """
+    API view for creating a new search.
+
+    This view handles the creation of new searches. It inherits from Django Rest Framework's 
+    `CreateAPIView`, which provides the `create` method for handling POST requests.
+
+    Attributes:
+        queryset (QuerySet): The queryset used for retrieving search instances.
+        serializer_class (Serializer): The serializer class used for validating and deserializing input, 
+                                       and for serializing output.
+        permission_classes (tuple): The permission classes that this view requires.
+    """
+    queryset = Search.objects.all()
+    serializer_class = SearchSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        """
+        Handles the creation of a new search instance.
+
+        Args:
+            serializer (Serializer): The serializer instance containing the validated data.
+
+        Returns:
+            None
+        """
+        serializer.save(user=self.request.user)
+        search_id = serializer.instance.id
+        background_task.delay(search_id)
