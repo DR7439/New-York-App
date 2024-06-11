@@ -18,5 +18,7 @@ EXPOSE 8000
 # Define environment variable
 ENV PYTHONUNBUFFERED=1
 
-# Run the Django development server
-CMD ["sh", "-c", "/wait-for-it.sh db:5432 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# Run the Django development server with superuser creation
+CMD ["bash", "-c", "/wait-for-it.sh db:5432 -- python manage.py migrate && \
+                   python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '$DJANGO_SUPERUSER_EMAIL', '$DJANGO_SUPERUSER_PASSWORD')\" && \
+                   python manage.py runserver 0.0.0.0:8000"]
