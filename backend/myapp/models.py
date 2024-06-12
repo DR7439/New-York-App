@@ -7,6 +7,11 @@ that extends Django's AbstractUser.
 Classes:
     CustomUser: A custom user model that extends Django's AbstractUser, adding additional fields 
                 for name and credits.
+    Zone: Represents a geographical zone with a name, and boundary coordinates.
+    Search: Represents a search created by a user for advertising purposes.
+    Busyness: Represents the busyness score for a specific zone at a particular datetime.
+    Demographic: Represents the demographic score for a search in a specific zone at a datetime.
+
 """
 
 from django.contrib.auth.models import AbstractUser
@@ -38,3 +43,74 @@ class CustomUser(AbstractUser):
             str: The username of the user.
         """
         return str(self.username)
+    
+class Zone(models.Model):
+    """
+    Represents a geographical zone with a unique identifier, name, and boundary coordinates.
+
+    Attributes:
+        name (str): The name of the zone.
+        boundary_coordinates (JSON): JSON field storing the boundary coordinates of the zone.
+    """
+    name = models.CharField(max_length=255)
+    boundary_coordinates = models.JSONField()  # Store the boundary coordinates as JSON
+
+    def __str__(self):
+        return str(self.name)
+
+class Search(models.Model):
+    """
+    Represents a search created by a user for advertising purposes.
+
+    Attributes:
+        name (str): The name of the search.
+        user (User): The user who created the search.
+        date_of_advertising (date): The date when the advertisement will be displayed.
+        date_search_made_on (date): The date when the search was made.
+        target_market_interests (JSON): JSON field storing a list of target market interests.
+        min_age (int): The minimum age of the target demographic.
+        max_age (int): The maximum age of the target demographic.
+        gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
+    """
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    date_of_advertising = models.DateField()
+    date_search_made_on = models.DateField()
+    target_market_interests = models.JSONField()  # Store the list as JSON
+    min_age = models.IntegerField()
+    max_age = models.IntegerField()
+    gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
+
+class Busyness(models.Model):
+    """
+    Represents the busyness score for a specific zone at a particular datetime.
+
+    Attributes:
+        datetime (datetime): The date and time of the busyness score.
+        zone (Zone): The zone for which the busyness score is recorded.
+        busyness_score (float): The busyness score for the zone at the given datetime.
+    """
+    datetime = models.DateTimeField()
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    busyness_score = models.FloatField()
+
+    class Meta:
+        unique_together = ('datetime', 'zone')
+
+class Demographic(models.Model):
+    """
+    Represents the demographic score for a search in a specific zone at a particular datetime.
+
+    Attributes:
+        datetime (datetime): The date and time of the demographic data.
+        zone (Zone): The zone for which the demographic data is recorded.
+        search (Search): The related search for which the demographic data was collected.
+        score (float): The score representing the demographic data for the search in the zone at the given datetime.
+    """
+    datetime = models.DateTimeField()
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    search = models.ForeignKey(Search, on_delete=models.CASCADE)
+    score = models.FloatField()
+
+    class Meta:
+        unique_together = ('datetime', 'zone', 'search')
