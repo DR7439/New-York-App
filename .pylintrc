@@ -1,5 +1,14 @@
 [MASTER]
 ignore-patterns=.*_test\.py$
 
+[MASTER]
+load-plugins = pylint_django
+
+[TYPECHECK]
+django-settings-module = target_advert.settings
+
 [MESSAGES CONTROL]
 enable=missing-docstring
+
+disable=
+    E0401,
