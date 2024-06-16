@@ -4,7 +4,7 @@ import { Button, Checkbox, Col, Form, Input, Row, Typography } from "antd";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
-import LeftSide from "./components/LeftSide";
+import LeftSide from "./components/authentication/LeftSide";
 
 function Login() {
   const { loginUser } = useContext(AuthContext);

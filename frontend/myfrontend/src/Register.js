@@ -4,19 +4,20 @@ import { Button, Col, Form, Input, Row } from "antd";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
-import LeftSide from "./components/LeftSide";
+import LeftSide from "./components/authentication/LeftSide";
 const Register = () => {
+  const [form] = Form.useForm();
   const { registerUser } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("hieulee");
+  const [email, setEmail] = useState("hieulee@gmail.com");
+  const [password, setPassword] = useState("123456");
+  const [name, setName] = useState("hieu");
   const [credits, setCredits] = useState(0);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    console.log("submit");
     try {
       await registerUser(username, password, name, credits);
       navigate("/dashboard");
@@ -35,7 +36,7 @@ const Register = () => {
       <Col span={12} className="flex items-center justify-center">
         <div className="space-y-4 mx-auto max-w-xl w-full">
           <h1 className="text-4xl font-medium">Welcome!</h1>
-          <Form onSubmit={handleSubmit} layout="vertical">
+          <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Form.Item
               label="Username"
               name="username"
@@ -50,7 +51,7 @@ const Register = () => {
             <Form.Item
               label="Email address"
               name="email"
-              rules={[{ required: true }]}
+              rules={[{ required: true, type: "email" }]}
             >
               <Input
                 value={email}
@@ -74,13 +75,13 @@ const Register = () => {
               <Button type="primary" htmlType="submit">
                 Sign up
               </Button>
-              <p className="pt-2">
-                Already have an account? {" "}
-                <Link to="/login" className="text-blue-600">
-                  Sign in now
-                </Link>
-              </p>
             </Form.Item>
+            <p className="pt-2">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-600">
+                Sign in now
+              </Link>
+            </p>
           </Form>
         </div>
       </Col>
