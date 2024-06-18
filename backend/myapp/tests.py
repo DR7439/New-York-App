@@ -7,13 +7,14 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 import datetime
 import json
+from django.utils import timezone
 
 # To note: run using -> python manage.py test myapp, in backend directory.
 
 # Setting up a test case for the CustomUser model.
 class CUTestCase(TestCase):
     
-    def set_up(self):
+    def setUp(self):
         """
         Create a CustomUser instance for testing.
         """
@@ -24,7 +25,7 @@ class CUTestCase(TestCase):
             credits=1000
         )
         
-    def fields_test(self):
+    def test_fields(self):
         """
         Test the fields of CustomUser.
         """
@@ -33,7 +34,7 @@ class CUTestCase(TestCase):
         self.assertEqual(self.user.name, "DRtest")
         self.assertEqual(self.user.credits, 1000)
         
-    def default_credits_test(self):
+    def test_default_credits(self):
         """
         Test the default credits field of CustomUser (we currently have it set to 0).
         """
@@ -45,7 +46,7 @@ class CUTestCase(TestCase):
         
         self.assertEqual(no_credits.credits, 0)
         
-    def credits_test(self):
+    def test_credits(self):
         """
         Test the credits field of CustomUser.
         """
@@ -67,15 +68,14 @@ class UserCreateTest(APITestCase):
         """
         Test to see if we can create a new user.
         """
-        url = reverse("register") 
+        url = reverse("register")
         data = {
-            'username': "testuser2",
-            'password': "testpassword",
-            'name': "DRTestUser"
+            "username": "DRTestUser",
+            "password": "DRTestPassword",
+            "email": "test@example.com"
         }
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(CustomUser.objects.count(), 1)
         self.assertEqual(CustomUser.objects.get().username, "DRTestUser")
         
     def test_create_user_with_existing_username(self):
@@ -96,7 +96,7 @@ class UserCreateTest(APITestCase):
 # Setting up a test to verify token generation. 
 class TokenTest(APITestCase):
     
-    def set_up(self):
+    def setUp(self):
         """
         Creating a user for testing token generatiorn 
         """
@@ -133,7 +133,108 @@ class TokenTest(APITestCase):
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         
+class SearchTest(TestCase):
+
+    def setUp(self):
+        """
+        Set up a user and a search instance for testing.
+        """
+        self.user = CustomUser.objects.create_user(username="testuser4", password="blahblah")
+        self.search = Search.objects.create(
+            name="Testing Search",
+            user=self.user,
+            date_of_advertising=datetime.date.today(),
+            date_search_made_on=datetime.date.today(),
+            target_market_interests=json.dumps(["sports", "food"]),
+            min_age=23,
+            max_age=50,
+            gender="M"
+        )
+
+    def test_search_creation(self):
+        """
+        Testing the creation of a Search instance.
+        """
+        self.assertEqual(self.search.name, "Testing Search")
+        self.assertEqual(self.search.user, self.user)
+        self.assertEqual(self.search.target_market_interests, json.dumps(["sports", "food"]))
+        self.assertEqual(self.search.min_age, 23)
+        self.assertEqual(self.search.max_age, 50)
+        self.assertEqual(self.search.gender, 'M')
         
+class ZoneTest(TestCase):
+
+    def setUp(self):
+        """
+        Setting up a zone instance for testing.
+        """
+        self.zone = Zone.objects.create(
+            name="Testing Zone",
+            boundary_coordinates=json.dumps({"type": "Polygon", "coordinates": [[[0, 0], [1, 1], [1, 0], [0, 0]]]})
+        )
+
+    def test_zone_creation(self):
+        """
+        Testing the creation of a Zone instance.
+        """
+        self.assertEqual(self.zone.name, "Testing Zone")
+        self.assertEqual(self.zone.boundary_coordinates, json.dumps({"type": "Polygon", "coordinates": [[[0, 0], [1, 1], [1, 0], [0, 0]]]}))
+
+    def test_str_method(self):
+        """
+        Testing the __str__ method of the Zone model.
+        """
+        self.assertEqual(str(self.zone), "Testing Zone")
+
+
+class DemographicModelTest(TestCase):
+  
+    def setUp(self):
+        """
+        Setting up a zone, user, search, and demographic instance for testing.
+        """
+        self.zone = Zone.objects.create(
+            name="Testing Zone",
+            boundary_coordinates=json.dumps({"type": "Polygon", "coordinates": [[[0, 0], [1, 1], [1, 0], [0, 0]]]})
+        )
+        self.user = CustomUser.objects.create_user(username="testuser5", password="blahblah")
+        self.search = Search.objects.create(
+            name="Testing Zone",
+            user=self.user,
+            date_of_advertising=datetime.date.today(),
+            date_search_made_on=datetime.date.today(),
+            target_market_interests=json.dumps(["sports", "food"]),
+            min_age=23,
+            max_age=35,
+            gender="M"
+        )
+        self.demographic = Demographic.objects.create(
+            datetime=timezone.now(),
+            zone=self.zone,
+            search=self.search,
+            score=99.9
+        )
+
+    def test_demographic_creation(self):
+        """
+        Testing the creation of a Demographic instance.
+        """
+        self.assertEqual(self.demographic.zone, self.zone)
+        self.assertEqual(self.demographic.search, self.search)
+        self.assertEqual(self.demographic.score, 99.9)
+
+    def test_unique_together_constraint(self):
+        """
+        Testing the unqiue constraint on the Demographic model.
+        """
+        duplicate_demographic = Demographic(
+            datetime=self.demographic.datetime,
+            zone=self.zone,
+            search=self.search,
+            score=98
+        )
+        with self.assertRaises(IntegrityError):
+            duplicate_demographic.save()
         
         
 
