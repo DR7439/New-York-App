@@ -25,10 +25,31 @@ export default function Onboard(){
     //     token: { colorBgContainer, borderRadiusLG },
     //   } = theme.useToken();
 
-      const [size, setSize] = useState('middle');
-      const handleSizeChange = (e) => {
-        setSize(e.target.value);
-      };
+    const [size, setSize] = useState('middle');
+    const [searchName, setsearchName]=useState("");
+    const [businessType, setBusinessType]=useState(null);
+    const [targetGender, settargetGender]=useState(null);
+    const [targetAge, settargetAge]=useState([]);
+    const [dateRange, setDateRange] = useState(null);
+    
+    const handleSizeChange = (e) => {
+    setSize(e.target.value);
+    };
+
+    const handleDateChange = (dates) => {
+    setDateRange(dates);
+    };
+
+    const handletargetAge = (selectedAgeGroup)=>{
+        if (!targetAge.includes(selectedAgeGroup)){
+            settargetAge([...targetAge, selectedAgeGroup])
+        }
+        else{
+            settargetAge(targetAge.filter((ageGroup)=>
+                ageGroup!==selectedAgeGroup))
+        }
+        
+    };
 
     return (
 
@@ -81,7 +102,12 @@ export default function Onboard(){
                                         },
                                     ]}
                                 >
-                                    <Input />
+                                    <Input 
+                                    value={searchName}
+                                    onChange = {(e)=>setsearchName(e.target.value)}
+                                    placeholder="Search Name"
+                                    
+                                    />
                                 </Form.Item>
                                 <Form.Item
                                     name="business type"
@@ -92,7 +118,7 @@ export default function Onboard(){
                                     },
                                     ]}
                                 >
-                                    <Select placeholder="Select Business Type">
+                                    <Select placeholder="Select Business Type" value={businessType} onChange={(value)=>setBusinessType(value)}>
                                     <Option value="Restaurant">Restaurant</Option>
                                     <Option value="Education">Education</Option>
                                     <Option value="Technology">Technology</Option>
@@ -107,9 +133,10 @@ export default function Onboard(){
                                     },
                                     ]}
                                 >
-                                    <Select placeholder="Select Gender">
+                                    <Select placeholder="Select Gender" value={targetGender} onChange={(value)=>settargetGender(value)}>
                                     <Option value="Male">Male</Option>
                                     <Option value="Female">Female</Option>
+                                    <Option value="Male and Female">Male and Female</Option>
                                     <Option value="Other">Other</Option>
                                     </Select>
                                 </Form.Item>
@@ -126,6 +153,8 @@ export default function Onboard(){
                                         mode="tags"
                                         size={size}
                                         placeholder="Select age group"
+                                        value={targetAge}
+                                        onChange={handletargetAge}
                                         
                                     >
                                         <Option value="18-25">18-25</Option>
@@ -136,7 +165,7 @@ export default function Onboard(){
                                 </Form.Item>
 
                                 <Form.Item>
-                                    <DatePicker.RangePicker/>
+                                    <DatePicker.RangePicker value={dateRange} onChange={handleDateChange}/>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type = "primary" htmlType = "submit">Start my free search</Button>
