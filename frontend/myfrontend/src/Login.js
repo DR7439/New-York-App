@@ -1,6 +1,6 @@
 // src/Login.js
 
-import { Button, Checkbox, Col, Form, Input, Row, Typography } from "antd";
+import { Button, Checkbox, Col, Form, Input, Row } from "antd";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
@@ -8,15 +8,15 @@ import LeftSide from "./components/authentication/LeftSide";
 
 function Login() {
   const { loginUser } = useContext(AuthContext);
+  const [form] = Form.useForm();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     await loginUser(username, password);
-    navigate("/dashboard");
+    navigate("/");
   };
   return (
     <Row className="h-screen">
@@ -24,10 +24,10 @@ function Login() {
       <Col span={12} className="flex items-center justify-center">
         <div className="space-y-4 mx-auto max-w-xl w-full">
           <h1 className="text-4xl font-medium">Welcome back!</h1>
-          <Form onSubmit={handleSubmit} layout="vertical">
+          <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Form.Item
-              label="Email address"
-              name="email"
+              label="Username"
+              name="username"
               rules={[{ required: true }]}
             >
               <Input
