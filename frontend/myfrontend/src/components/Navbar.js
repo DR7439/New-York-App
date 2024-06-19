@@ -7,10 +7,16 @@ import clsx from "clsx";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function NavItem({ children, to }) {
+const NAV_ITEMS = [
+  { to: "/", icon: <DashboardOutlined />, title: "Dashboard" },
+  { to: "/credits", icon: <ShoppingOutlined />, title: "Credits" },
+  { to: "/settings", icon: <SettingOutlined />, title: "Settings" },
+];
+
+function NavItem({ item }) {
   return (
     <NavLink
-      to={to}
+      to={item.to}
       className={({ isActive }) =>
         clsx(
           "flex items-center gap-2 py-5 px-6",
@@ -18,7 +24,8 @@ function NavItem({ children, to }) {
         )
       }
     >
-      {children}
+      {item.icon}
+      <span>{item.title}</span>
     </NavLink>
   );
 }
@@ -26,18 +33,9 @@ function NavItem({ children, to }) {
 let Navbar = () => {
   return (
     <ul className="w-72 border-r space-y-2 py-2">
-      <NavItem to="/">
-        <DashboardOutlined />
-        <span>Dashboard</span>
-      </NavItem>
-      <NavItem to="/credits">
-        <ShoppingOutlined />
-        <span>Credits</span>
-      </NavItem>
-      <NavItem to="/settings">
-        <SettingOutlined />
-        <span>Settings</span>
-      </NavItem>
+      {NAV_ITEMS.map((item) => (
+        <NavItem key={item.to} item={item} />
+      ))}
     </ul>
   );
 };
