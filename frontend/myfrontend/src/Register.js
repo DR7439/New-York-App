@@ -20,7 +20,7 @@ const Register = () => {
     console.log("submit");
     try {
       await registerUser(username, password, name, credits);
-      navigate("/");
+      navigate("/onboarding");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);

@@ -17,6 +17,7 @@ import PublicRoute from "./PublicRoute";
 import { ConfigProvider } from "antd";
 import Credits from "./Credits";
 import Settings from "./Settings";
+import Onboard from "./Onboard";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/credits" element={<Credits/>} />
                 <Route path="/settings" element={<Settings/>} />
+                <Route path="/onboarding" element={<Onboard/>} />
               </Route>
               <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
