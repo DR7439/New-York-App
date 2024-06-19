@@ -10,6 +10,9 @@ module.exports = {
           "calc(100vh - 48px)",
       }
     },
+    fontFamily:{
+      'roboto': ['Roboto', 'sans-serif']
+    }
   },
   plugins: [],
 }
