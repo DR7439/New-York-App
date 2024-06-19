@@ -1,9 +1,13 @@
 import { BellOutlined, SettingOutlined } from "@ant-design/icons";
 import { Avatar, Badge } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthContext";
 
 let Header = () => {
+  const { authState } = useContext(AuthContext);
+  let username = authState.user.username;
+
   return (
     <div className="text-white bg-blue-600 h-12 py-2 px-4 flex items-center justify-between">
       <div className="text-2xl font-medium">Ad Optima</div>
@@ -18,7 +22,7 @@ let Header = () => {
           <div className="border rounded-full h-fit">
             <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" size="small"/>
           </div>
-          <span>Serati Ma</span>
+          <span>{username}</span>
         </div>
       </div>
     </div>
