@@ -122,3 +122,19 @@ class SearchCreate(generics.CreateAPIView):
         search_id = serializer.instance.id
         print("search_id: ", search_id)
         background_task.delay(search_id)
+
+
+class SearchList(generics.ListAPIView):
+    """
+    API view for listing searches related to the authenticated user.
+
+    This view handles GET requests and returns a list of searches associated with the current user.
+    """
+    serializer_class = SearchSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Return the queryset of searches for the authenticated user.
+        """
+        return Search.objects.filter(user=self.request.user)
