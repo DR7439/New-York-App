@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{html,js}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "screen-no-nav":
+          "calc(100vh - 48px)",
+      }
+    },
   },
   plugins: [],
 }
