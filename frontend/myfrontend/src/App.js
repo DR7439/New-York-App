@@ -15,6 +15,8 @@ import Dashboard from "./Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { ConfigProvider } from "antd";
+import Credits from "./Credits";
+import Settings from "./Settings";
 
 const App = () => {
   return (
@@ -30,7 +32,9 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
               </Route>
               <Route element={<PrivateRoute />}>
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/credits" element={<Credits/>} />
+                <Route path="/settings" element={<Settings/>} />
               </Route>
               <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
