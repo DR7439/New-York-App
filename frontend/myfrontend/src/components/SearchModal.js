@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import SearchForm from "./SearchForm";
 const SearchModalTrigger = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -24,9 +25,7 @@ const SearchModalTrigger = () => {
         okText="Search"
         onCancel={handleCancel}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <SearchForm showSubmitButton={false} />
       </Modal>
     </>
   );
