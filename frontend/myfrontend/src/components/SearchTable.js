@@ -1,11 +1,24 @@
-// src/Dashboard.js
-
-import { DeleteOutlined, DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Input, Space, Table, Tag } from "antd";
+import {
+  DeleteOutlined,
+  DownOutlined,
+  ExclamationCircleFilled,
+} from "@ant-design/icons";
+import {
+  Button,
+  Dropdown,
+  Input,
+  Modal,
+  Space,
+  Table,
+  Tag,
+  message,
+} from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchModalTrigger from "./SearchModal";
 const { Search } = Input;
+const { confirm } = Modal;
+
 const dropdownItems = [
   {
     key: "1",
@@ -86,7 +99,7 @@ const columns = [
     ),
   },
 ];
-const data = [
+const dummyData = [
   {
     key: "1",
     name: "Restaurant search",
@@ -112,9 +125,7 @@ const data = [
 function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
-  const handleDelete = () => {
-    console.log("Delete");
-  };
+  let [data, setData] = useState(dummyData);
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
@@ -131,6 +142,23 @@ function SearchTable() {
   const filteredData = data.filter((record) =>
     record.name.toLowerCase().includes(searchKey.toLowerCase())
   );
+
+  const showConfirm = () => {
+    confirm({
+      title: "Are you sure you want to delete this search?",
+      icon: <ExclamationCircleFilled />,
+      content: "Deleted searches can’t be restored.",
+      okText: "Yes",
+      onOk() {
+        const newData = data.filter(
+          (record) => !selectedRowKeys.includes(record.key)
+        );
+        setData(newData);
+        message.success("Deleted search");
+      },
+    });
+  };
+
   return (
     <div>
       <h2 className="text-3xl font-medium">Search History</h2>
@@ -160,7 +188,7 @@ function SearchTable() {
           <Button
             type="text"
             disabled={selectedRowKeys.length === 0}
-            onClick={handleDelete}
+            onClick={showConfirm}
             className="text-blue-600"
           >
             <DeleteOutlined />
