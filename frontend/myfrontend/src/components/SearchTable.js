@@ -1,118 +1,125 @@
 // src/Dashboard.js
 
-import { DownOutlined, PlusOutlined, SmileOutlined } from "@ant-design/icons";
+import { DeleteOutlined, DownOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, Space, Table, Tag } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import SearchModalTrigger from "./SearchModal";
 const { Search } = Input;
-
+const dropdownItems = [
+  {
+    key: "1",
+    label: "This Month",
+  },
+  {
+    key: "2",
+    label: "Last 6 Months",
+  },
+  {
+    key: "3",
+    label: "Last Year",
+  },
+];
+const columns = [
+  {
+    title: "Search Name",
+    dataIndex: "name",
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    render: (text, record) => (
+      <Link to={`/search/${record.id}`} className="text-blue-600">
+        {text}
+      </Link>
+    ),
+  },
+  {
+    title: "Business Type",
+    dataIndex: "type",
+    sorter: (a, b) => a.type.localeCompare(b.type),
+  },
+  {
+    title: "Target Gender",
+    dataIndex: "gender",
+    sorter: (a, b) => a.gender.localeCompare(b.gender),
+  },
+  {
+    title: "Target Age",
+    dataIndex: "age",
+    filters: [
+      {
+        text: "18-25",
+        value: "18-25",
+      },
+      {
+        text: "25-40",
+        value: "25-40",
+      },
+      {
+        text: "40-60",
+        value: "40-60",
+      },
+    ],
+    onFilter: (value, record) => record.address.indexOf(value) === 0,
+    render: () => (
+      <div className="flex items-center">
+        <Tag>18-25</Tag>
+        <Tag>25-40</Tag>
+        <Tag>40-60</Tag>
+      </div>
+    ),
+  },
+  {
+    title: "Target Date",
+    render: () => (
+      <div className="flex items-center">
+        <Tag>2024-06-06</Tag>
+        <Tag>2024-07-01</Tag>
+      </div>
+    ),
+  },
+  {
+    title: "Action",
+    render: () => (
+      <div className="space-y-2">
+        <Button type="link">Duplicate</Button>
+        <Button type="link">View</Button>
+      </div>
+    ),
+  },
+];
+const data = [
+  {
+    key: "1",
+    name: "Restaurant search",
+    type: "restaurant",
+    gender: "Both Genders",
+    age: 32,
+  },
+  {
+    key: "2",
+    name: "Education search",
+    type: "education",
+    gender: "Male",
+    age: 42,
+  },
+  {
+    key: "3",
+    name: "Tech search",
+    type: "technology",
+    gender: "Female",
+    age: 32,
+  },
+];
 function SearchTable() {
-  const items = [
-    {
-      key: "1",
-      label: "This Month",
-    },
-    {
-      key: "2",
-      label: "Last 6 Months",
-    },
-    {
-      key: "3",
-      label: "Last Year"
-    },
-  ];
-  const columns = [
-    {
-      title: "Search Name",
-      dataIndex: "name",
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortDirections: ["descend"],
-    },
-    {
-      title: "Business Type",
-      dataIndex: "type",
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortDirections: ["descend"],
-    },
-    {
-      title: "Target Gender",
-      dataIndex: "gender",
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortDirections: ["descend"],
-    },
-    {
-      title: "Target Age",
-      dataIndex: "age",
-      filters: [
-        {
-          text: 'London',
-          value: 'London',
-        },
-        {
-          text: 'New York',
-          value: 'New York',
-        },
-      ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
-      render: () => (
-        <div className="flex items-center">
-          <Tag>Tag 1</Tag>
-          <Tag>Tag 2</Tag>
-          <Tag>Tag 2</Tag>
-        </div>
-      ),
-    },
-    {
-      title: "Target Date",
-      render: () => (
-        <div className="flex items-center">
-          <Tag>Tag 1</Tag>
-          <Tag>Tag 2</Tag>
-        </div>
-      ),
-    },
-    {
-      title: "Action",
-      render: () => (
-        <div className="space-y-2">
-          <Button type="link">Duplicate</Button>
-          <Button type="link">View</Button>
-        </div>
-      ),
-    },
-  ];
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      type: "Restaurant",
-      gender: "Both Genders",
-      age: 32,
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-    },
-    {
-      key: "4",
-      name: "Disabled User",
-      age: 99,
-    },
-  ];
+  let [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  let [searchKey, setSearchKey] = useState("");
+  const handleDelete = () => {
+    console.log("Delete");
+  };
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+    onChange: (selectedRowKeys) => {
+      setSelectedRowKeys(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({
       disabled: record.name === "Disabled User",
@@ -120,6 +127,10 @@ function SearchTable() {
       name: record.name,
     }),
   };
+
+  const filteredData = data.filter((record) =>
+    record.name.toLowerCase().includes(searchKey.toLowerCase())
+  );
   return (
     <div>
       <h2 className="text-3xl font-medium">Search History</h2>
@@ -131,7 +142,7 @@ function SearchTable() {
               className="cursor-pointer"
               trigger={["click"]}
               menu={{
-                items,
+                dropdownItems,
               }}
             >
               <Space>
@@ -140,9 +151,19 @@ function SearchTable() {
               </Space>
             </Dropdown>
           </div>
-          <Search placeholder="Can't find your search result?" />
-          <Button icon={<PlusOutlined />} type="primary">
-            Add New Search
+          <Search
+            placeholder="Can't find your search result?"
+            value={searchKey}
+            onChange={(e) => setSearchKey(e.target.value)}
+          />
+          <SearchModalTrigger />
+          <Button
+            type="text"
+            disabled={selectedRowKeys.length === 0}
+            onClick={handleDelete}
+            className="text-blue-600"
+          >
+            <DeleteOutlined />
           </Button>
         </div>
       </div>
@@ -153,7 +174,7 @@ function SearchTable() {
           ...rowSelection,
         }}
         columns={columns}
-        dataSource={data}
+        dataSource={filteredData}
       />
     </div>
   );
