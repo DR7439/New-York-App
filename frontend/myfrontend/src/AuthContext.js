@@ -31,10 +31,11 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    const registerUser = async (username, password, name, credits) => {
+    const registerUser = async (username, email, password, name, credits) => { 
         try {
             await axios.post('http://127.0.0.1:8000/api/register/', {
                 username,
+                email,  
                 password,
                 name,
                 credits,
@@ -42,7 +43,7 @@ const AuthProvider = ({ children }) => {
             await loginUser(username, password);
         } catch (error) {
             console.error(error);
-            throw error;  // Ensure error is thrown
+            throw error;  
         }
     };
 
