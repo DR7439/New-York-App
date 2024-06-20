@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
             setAuthState({ token, user });
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
             console.error(error);
             throw error;  // Ensure error is thrown
