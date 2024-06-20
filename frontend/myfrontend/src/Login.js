@@ -18,6 +18,11 @@ function Login() {
     await loginUser(username, password);
     navigate("/");
   };
+
+  const handlePasswordReset = () => { 
+    navigate('/password-reset');
+};
+  
   return (
     <Row className="h-screen">
       <LeftSide />
@@ -52,9 +57,9 @@ function Login() {
               <Checkbox value={remember} onChange={setRemember}>
                 Remember me
               </Checkbox>
-              <a href="/" className="text-blue-600">
-                Forgot password?
-              </a>
+              <button type="button" className="text-blue-600" onClick={handlePasswordReset}>
+                 Forgot Password?
+               </button>
             </p>
             <Form.Item className="pt-3">
               <Button type="primary" htmlType="submit">

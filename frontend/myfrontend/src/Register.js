@@ -30,11 +30,6 @@ const Register = () => {
     }
   };
 
-    const handlePasswordReset = () => { 
-        navigate('/password-reset');
-    };
-
-
   return (
     <Row className="h-screen">
       <LeftSide />
@@ -87,7 +82,6 @@ const Register = () => {
               <Link to="/login" className="text-blue-600">
                 Sign in now
               </Link>
-              <button type="button" onClick={handlePasswordReset}>Forgot Password?</button>
             </p>
           </Form>
         </div>
