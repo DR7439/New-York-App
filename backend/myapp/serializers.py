@@ -41,7 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
             fields (tuple): The fields of the model to include in the serialized representation.
         """
         model = CustomUser
-        fields = ('username', 'password', 'name', 'credits')
+        fields = ('username', 'password', 'name', 'email')
 
     def create(self, validated_data):
         """
@@ -57,7 +57,8 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             password=validated_data['password'],
             name=validated_data.get('name', ''),
-            credits=validated_data.get('credits', 0)
+            credits=1000,
+            email=validated_data['email']
         )
         return user
 

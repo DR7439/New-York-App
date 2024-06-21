@@ -6,6 +6,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer
 from .tasks import background_task
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+
 
 class UserCreate(generics.CreateAPIView):
     """
@@ -45,9 +52,15 @@ class UserCreate(generics.CreateAPIView):
                       or an error message if the username already exists.
         """
         username = request.data.get("username")
+        email = request.data.get("email")
         if CustomUser.objects.filter(username=username).exists():
             return Response(
                 {"error": "A user with that username already exists."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if CustomUser.objects.filter(email=email).exists():
+            return Response(
+                {"error": "A user with that email already exists."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return super().create(request, *args, **kwargs)
@@ -121,3 +134,42 @@ class SearchAPIView(APIView):
             background_task.delay(search_id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        
+class PasswordResetRequestView(APIView):
+    permission_classes = (AllowAny,)  # Add this line
+
+    def post(self, request):
+        email = request.data.get('email')
+        try:
+            user = CustomUser.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_url = f'http://localhost:3000/reset-password/{uid}/{token}/'
+            send_mail(
+                'Password Reset Request',
+                f'Click the link to reset your password: {reset_url}',
+                'noreply@example.com',
+                [user.email],
+            )
+            return Response({'message': 'Password reset link sent'}, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User with this email does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+class PasswordResetConfirmView(APIView):
+    permission_classes = (AllowAny,)  # Add this line
+
+    def post(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(pk=uid)
+            if default_token_generator.check_token(user, token):
+                password = request.data.get('password')
+                user.set_password(password)
+                user.save()
+                return Response({'message': 'Password reset successful'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'Invalid user'}, status=status.HTTP_400_BAD_REQUEST)
+
