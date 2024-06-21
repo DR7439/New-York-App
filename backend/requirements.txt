@@ -5,3 +5,5 @@ psycopg2-binary>=2.9,<3.0  # If you are using PostgreSQL, otherwise you can remo
 djangorestframework-simplejwt>=5.2.2,<6.0
 python-dotenv>=1.0.0,<2.0.0
 django-cors-headers>=3.14,<4.0
+celery==5.2.3
+redis==3.5.3

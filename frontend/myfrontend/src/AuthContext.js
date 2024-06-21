@@ -24,17 +24,18 @@ const AuthProvider = ({ children }) => {
             setAuthState({ token, user });
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
             console.error(error);
             throw error;  // Ensure error is thrown
         }
     };
 
-    const registerUser = async (username, password, name, credits) => {
+    const registerUser = async (username, email, password, name, credits) => { 
         try {
             await axios.post('http://127.0.0.1:8000/api/register/', {
                 username,
+                email,  
                 password,
                 name,
                 credits,
@@ -42,7 +43,7 @@ const AuthProvider = ({ children }) => {
             await loginUser(username, password);
         } catch (error) {
             console.error(error);
-            throw error;  // Ensure error is thrown
+            throw error;  
         }
     };
 
