@@ -15,7 +15,7 @@ Classes:
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search
+from .models import Search, AgeCategory
 
 CustomUser = get_user_model()
 
@@ -101,6 +101,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         """
         raise NotImplementedError("Update method is not implemented")
     
+class AgeCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AgeCategory
+        fields = ['age_range']
+
 class SearchSerializer(serializers.ModelSerializer):
     """
     Serializer for the Search model.
@@ -112,8 +117,9 @@ class SearchSerializer(serializers.ModelSerializer):
         fields (list): The list of model fields to include in the serialization.
         read_only_fields (list): The list of fields that should be read-only.
     """
+    target_age = serializers.PrimaryKeyRelatedField(queryset=AgeCategory.objects.all(), many=True)
 
     class Meta:
         model = Search
-        fields = ['name', 'user', 'date_of_advertising', 'date_search_made_on', 'target_market_interests', 'min_age', 'max_age', 'gender']
+        fields = ['name', 'user', 'date_of_advertising', 'date_search_made_on', 'target_market_interests', 'target_age', 'gender']
         read_only_fields = ['user']
