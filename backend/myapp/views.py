@@ -1,6 +1,7 @@
 #from django.contrib.auth import authenticate
 from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer
@@ -91,50 +92,32 @@ class MyTokenObtainPairView(TokenObtainPairView):
         })
     
 
-class SearchCreate(generics.CreateAPIView):
+class SearchAPIView(APIView):
     """
-    API view for creating a new search.
+    API view for handling searches related to the authenticated user.
 
-    This view handles the creation of new searches. It inherits from Django Rest Framework's 
-    `CreateAPIView`, which provides the `create` method for handling POST requests.
-
-    Attributes:
-        queryset (QuerySet): The queryset used for retrieving search instances.
-        serializer_class (Serializer): The serializer class used for validating and deserializing input, 
-                                       and for serializing output.
-        permission_classes (tuple): The permission classes that this view requires.
+    This view handles GET, POST, and DELETE requests for searches associated with the current user.
     """
-    queryset = Search.objects.all()
-    serializer_class = SearchSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def perform_create(self, serializer):
-        """
-        Handles the creation of a new search instance.
-
-        Args:
-            serializer (Serializer): The serializer instance containing the validated data.
-
-        Returns:
-            None
-        """
-        serializer.save(user=self.request.user)
-        search_id = serializer.instance.id
-        print("search_id: ", search_id)
-        background_task.delay(search_id)
-
-
-class SearchList(generics.ListAPIView):
-    """
-    API view for listing searches related to the authenticated user.
-
-    This view handles GET requests and returns a list of searches associated with the current user.
-    """
-    serializer_class = SearchSerializer
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = SearchSerializer
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         """
-        Return the queryset of searches for the authenticated user.
+        Handles GET requests and returns a list of searches for the authenticated user.
         """
-        return Search.objects.filter(user=self.request.user)
+        searches = Search.objects.filter(user=request.user)
+        serializer = self.serializer_class(searches, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests and creates a new search for the authenticated user.
+        """
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            search_id = serializer.instance.id
+            print("search_id: ", search_id)
+            background_task.delay(search_id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
