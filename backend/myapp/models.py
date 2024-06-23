@@ -57,6 +57,15 @@ class Zone(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
+class AgeCategory(models.Model):
+    """
+    Represents an age category for target demographics.
+    """
+    age_range = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.age_range
 
 class Search(models.Model):
     """
@@ -68,8 +77,7 @@ class Search(models.Model):
         date_of_advertising (date): The date when the advertisement will be displayed.
         date_search_made_on (date): The date when the search was made.
         target_market_interests (JSON): JSON field storing a list of target market interests.
-        min_age (int): The minimum age of the target demographic.
-        max_age (int): The maximum age of the target demographic.
+        target_age (ManyToManyField): Many-to-many relationship with AgeCategory.
         gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
     """
     name = models.CharField(max_length=255)
@@ -77,9 +85,12 @@ class Search(models.Model):
     date_of_advertising = models.DateField()
     date_search_made_on = models.DateField()
     target_market_interests = models.JSONField()  # Store the list as JSON
-    min_age = models.IntegerField()
-    max_age = models.IntegerField()
+    target_age = models.ManyToManyField(AgeCategory)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
+
+    def __str__(self):
+        return self.name
+
 
 class Busyness(models.Model):
     """
