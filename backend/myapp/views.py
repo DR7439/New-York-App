@@ -3,8 +3,8 @@ from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer
+from .models import CustomUser, Search, Interest
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer
 from .tasks import background_task
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -134,6 +134,25 @@ class SearchAPIView(APIView):
             background_task.delay(search_id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class InterestAPIView(APIView):
+    """
+    API view for handling interests.
+
+    This view handles GET requests for the list of all interests.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = InterestSerializer
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and returns a list of all interests.
+        """
+        interests = Interest.objects.all()
+        serializer = self.serializer_class(interests, many=True)
+        return Response(serializer.data)
+
 
         
 class PasswordResetRequestView(APIView):

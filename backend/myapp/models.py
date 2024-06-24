@@ -66,6 +66,19 @@ class AgeCategory(models.Model):
 
     def __str__(self):
         return self.age_range
+    
+class Interest(models.Model):
+    """
+    Represents an interest that can be targeted in a search.
+
+    Attributes:
+        name (str): The name of the interest.
+    """
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
 
 class Search(models.Model):
     """
@@ -76,7 +89,7 @@ class Search(models.Model):
         user (User): The user who created the search.
         date_of_advertising (date): The date when the advertisement will be displayed.
         date_search_made_on (date): The date when the search was made.
-        target_market_interests (JSON): JSON field storing a list of target market interests.
+        target_market_interests (ManyToManyField): Many-to-many relationship with Interest.
         target_age (ManyToManyField): Many-to-many relationship with AgeCategory.
         gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
     """
@@ -84,7 +97,7 @@ class Search(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date_of_advertising = models.DateField()
     date_search_made_on = models.DateField()
-    target_market_interests = models.JSONField()  # Store the list as JSON
+    target_market_interests = models.ManyToManyField(Interest)
     target_age = models.ManyToManyField(AgeCategory)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
 
