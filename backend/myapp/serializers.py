@@ -122,7 +122,7 @@ class SearchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Search
-        fields = ['id', 'name', 'user', 'date_of_advertising', 'date_search_made_on', 'target_market_interests', 'target_age', 'gender']
+        fields = ['id', 'name', 'user', 'start_date', 'end_date', 'date_search_made_on', 'target_market_interests', 'target_age', 'gender']
         read_only_fields = ['user']
 
 
