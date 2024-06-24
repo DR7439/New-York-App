@@ -118,11 +118,11 @@ class SearchSerializer(serializers.ModelSerializer):
         read_only_fields (list): The list of fields that should be read-only.
     """
     target_age = serializers.PrimaryKeyRelatedField(queryset=AgeCategory.objects.all(), many=True)
-    target_market_interests = serializers.PrimaryKeyRelatedField(queryset=Interest.objects.all(), many=True)
+    target_market_interests = serializers.SlugRelatedField(queryset=Interest.objects.all(), many=True, slug_field='name')
 
     class Meta:
         model = Search
-        fields = ['id','name', 'user', 'date_of_advertising', 'date_search_made_on', 'target_market_interests', 'target_age', 'gender']
+        fields = ['id', 'name', 'user', 'date_of_advertising', 'date_search_made_on', 'target_market_interests', 'target_age', 'gender']
         read_only_fields = ['user']
 
 
@@ -138,4 +138,5 @@ class InterestSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Interest
-        fields = ['id', 'name']
+        fields = ['name']
+
