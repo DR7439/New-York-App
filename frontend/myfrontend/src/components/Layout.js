@@ -9,8 +9,10 @@ let Layout = ({ children }) => {
       <Header />
       <div className="flex">
         <Navbar />
-        <div className="space-y-12 max-w-6xl mx-auto py-10">
-          <Outlet />
+        <div className="h-screen-no-nav overflow-auto w-full">
+          <div className="space-y-12 max-w-6xl mx-auto py-10 ">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
