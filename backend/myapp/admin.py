@@ -34,9 +34,9 @@ class SearchAdmin(admin.ModelAdmin):
     This class customizes the admin interface for the Search model, 
     adding display, search, filter, and ordering options.
     """
-    list_display = ('name', 'user', 'date_of_advertising', 'date_search_made_on', 'display_target_age', 'gender')
+    list_display = ('name', 'user', 'start_date','end_date', 'date_search_made_on', 'display_target_age', 'gender')
     search_fields = ('name', 'user__username', 'user__email')
-    list_filter = ('date_of_advertising', 'date_search_made_on', 'target_age', 'gender')
+    list_filter = ('start_date','end_date', 'date_search_made_on', 'target_age', 'gender')
     ordering = ('date_search_made_on',)
 
     def display_target_age(self, obj):
