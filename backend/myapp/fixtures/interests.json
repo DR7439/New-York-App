@@ -1,0 +1,6 @@
+[
+    {"model": "myapp.interest", "pk": "Technology", "fields": {}},
+    {"model": "myapp.interest", "pk": "Sports", "fields": {}},
+    {"model": "myapp.interest", "pk": "Music", "fields": {}},
+    {"model": "myapp.interest", "pk": "Travel", "fields": {}}
+]
