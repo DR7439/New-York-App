@@ -72,9 +72,9 @@ class Interest(models.Model):
     Represents an interest that can be targeted in a search.
 
     Attributes:
-        name (str): The name of the interest.
+        name (str): The name of the interest, used as the primary key.
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, primary_key=True)
 
     def __str__(self):
         return self.name
@@ -103,6 +103,7 @@ class Search(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class Busyness(models.Model):
