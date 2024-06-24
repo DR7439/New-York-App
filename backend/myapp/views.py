@@ -135,6 +135,24 @@ class SearchAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+class SingleSearchAPIView(APIView):
+    """
+    API view for handling a single search instance based on the ID.
+
+    This view handles GET requests for retrieving a single search instance.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, id, *args, **kwargs):
+        """
+        Handles GET requests and returns a single search instance for the authenticated user.
+        """
+        try:
+            search = Search.objects.get(id=id, user=request.user)
+            serializer = SearchSerializer(search)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Search.DoesNotExist:
+            return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class InterestAPIView(APIView):
     """
