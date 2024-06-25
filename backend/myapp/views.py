@@ -3,8 +3,8 @@ from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer
+from .models import CustomUser, Search, Interest, Zone
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer
 from .tasks import background_task
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -171,7 +171,14 @@ class InterestAPIView(APIView):
         serializer = self.serializer_class(interests, many=True)
         return Response(serializer.data)
 
-
+class ZoneListView(APIView):
+    """
+    API view to retrieve zone coordinates.
+    """
+    def get(self, request, *args, **kwargs):
+        zones = Zone.objects.all()
+        serializer = ZoneSerializer(zones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
