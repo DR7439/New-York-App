@@ -67,9 +67,8 @@ class DemographicAdmin(admin.ModelAdmin):
     This class customizes the admin interface for the Demographic model, 
     adding display, search, filter, and ordering options.
     """
-    list_display = ('datetime', 'zone', 'search', 'score')
+    list_display = ('zone', 'search', 'score')
     search_fields = ('zone__name', 'search__name')
-    list_filter = ('datetime', 'zone', 'search')
-    ordering = ('datetime',)
+    list_filter = ('zone', 'search')
 
 admin.site.register(Demographic, DemographicAdmin)
