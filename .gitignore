@@ -13,8 +13,9 @@ backend/target_advert/__pycache__/
 backend/user_login/__pycache__/
 backend/user_login/migrations/
 backend/myapp/__pycache__/
-#backend/myapp/migrations/
 backend/myapp/migrations/__pycache__/
+backend\myapp\management\__pycache__\
+backend\myapp\management\commands\__pycache__\
 backend/*.log
 backend/*.pot
 backend/db.sqlite3
