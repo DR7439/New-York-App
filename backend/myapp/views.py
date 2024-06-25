@@ -3,8 +3,8 @@ from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest, Zone
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer
 from .tasks import background_task
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -179,6 +179,32 @@ class ZoneListView(APIView):
         zones = Zone.objects.all()
         serializer = ZoneSerializer(zones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class SearchScoresView(APIView):
+    """
+    API view to retrieve demographic and busyness scores for a search.
+    """
+    def get(self, request, search_id, *args, **kwargs):
+        try:
+            search = Search.objects.get(id=search_id)
+        except Search.DoesNotExist:
+            return Response({"error": "Search not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        zones = Zone.objects.all()
+        data = []
+
+        for zone in zones:
+            demographic = Demographic.objects.get(search=search, zone=zone)
+            busyness_scores = Busyness.objects.filter(zone=zone, datetime__range=[search.start_date, search.end_date])
+
+            zone_data = {
+                'zone_id': zone.id,
+                'demographic_score': demographic.score,
+                'busyness_scores': BusynessSerializer(busyness_scores, many=True).data
+            }
+            data.append(zone_data)
+
+        return Response({"zones": data}, status=status.HTTP_200_OK)
         
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
