@@ -1,34 +1,37 @@
 from celery import shared_task
-# from .models import Search, Busyness, Demographic, Zone
-# import pickle
-# import datetime
+from django.utils import timezone
+from .models import Search, Busyness, Demographic, Zone
+import random
+import datetime
 
 @shared_task
 def background_task(search_id):
-    print('Running background task. Seacrching for search_id:', search_id)
-    print(search_id)
-    # search = Search.objects.get(id=search_id)
-    
-    # # Load your pickle model files
-    # with open('busyness_model.pkl', 'rb') as f:
-    #     busyness_model = pickle.load(f)
-    
-    # with open('demographic_model.pkl', 'rb') as f:
-    #     demographic_model = pickle.load(f)
-    
-    # # Generate predictions and populate tables
-    # search_datetime = datetime.datetime.combine(search.date_search_made_on, datetime.time.min)
-    # zones = Zone.objects.all()  # Assuming predictions need to be made for all zones
-    # for zone in zones:
-    #     for minute in range(0, 1440, 15):  # Every 15 minutes
-    #         dt = search_datetime + datetime.timedelta(minutes=minute)
-    #         # Example prediction using the models (adjust as needed)
-    #         busyness_score = busyness_model.predict([[dt, zone.zone_id]])
-    #         demographic_score = demographic_model.predict([[dt, zone.zone_id, search.id]])
-            
-    #         # Populate the Busyness table
-    #         if not Busyness.objects.filter(datetime=dt, zone=zone).exists():
-    #             Busyness.objects.create(datetime=dt, zone=zone, busyness_score=busyness_score)
-            
-    #         # Populate the Demographic table
-    #         Demographic.objects.create(datetime=dt, zone=zone, search=search, score=demographic_score)
+    print(f'Background task started for search_id: {search_id}')
+    search = Search.objects.get(id=search_id)
+    zones = Zone.objects.all()
+
+    # Create random demographic scores for each zone for the search
+    for zone in zones:
+        Demographic.objects.update_or_create(
+            zone=zone,
+            search=search,
+            defaults={'score': random.uniform(0, 100)}
+        )
+
+    # Generate random busyness scores for each hour of each day between start_date and end_date
+    current_date = search.start_date
+    end_date = search.end_date
+
+    while current_date <= end_date:
+        for hour in range(24):
+            for zone in zones:
+                naive_datetime = datetime.datetime.combine(current_date, datetime.time(hour=hour))
+                aware_datetime = timezone.make_aware(naive_datetime)
+                Busyness.objects.update_or_create(
+                    datetime=aware_datetime,
+                    zone=zone,
+                    defaults={'busyness_score': random.uniform(0, 100)}
+                )
+        current_date += datetime.timedelta(days=1)
+
+    print(f'Background task completed for search_id: {search_id}')
