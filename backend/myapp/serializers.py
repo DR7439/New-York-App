@@ -15,7 +15,7 @@ Classes:
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search, AgeCategory, Interest
+from .models import Search, AgeCategory, Interest, Zone
 
 CustomUser = get_user_model()
 
@@ -140,3 +140,7 @@ class InterestSerializer(serializers.ModelSerializer):
         model = Interest
         fields = ['name']
 
+class ZoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Zone
+        fields = ['id','name', 'boundary_coordinates']
