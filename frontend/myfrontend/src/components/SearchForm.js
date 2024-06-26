@@ -119,6 +119,7 @@ export default function SearchForm({showSubmitButton = true}) {
       >
         <Select
           mode="tags"
+
           size={size}
           placeholder="Select age group"
           value={targetAge}
@@ -128,6 +129,8 @@ export default function SearchForm({showSubmitButton = true}) {
           <Option value="25-40">25-40</Option>
           <Option value="40-60">40-60</Option>
           <Option value="60+">60+</Option>
+          {/* <Option value="60+">60+</Option> */}
+
         </Select>
       </Form.Item>
 
