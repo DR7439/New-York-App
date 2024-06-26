@@ -9,6 +9,8 @@ export default function SearchForm({showSubmitButton = true}) {
   const [businessType, setBusinessType] = useState(null);
   const [targetGender, settargetGender] = useState(null);
   const [targetAge, settargetAge] = useState([]);
+  const [targetMarket, settargetMarket] = useState([]);
+
   const [dateRange, setDateRange] = useState(null);
 
   const handleSizeChange = (e) => {
@@ -25,6 +27,16 @@ export default function SearchForm({showSubmitButton = true}) {
     } else {
       settargetAge(
         targetAge.filter((ageGroup) => ageGroup !== selectedAgeGroup)
+      );
+    }
+  };
+
+  const handletargetMarketInterest = (selectedMarket) => {
+    if (!targetMarket.includes(selectedMarket)) {
+      settargetMarket([...targetMarket, selectedMarket]);
+    } else {
+      settargetMarket(
+        targetMarket.filter((SelectedTargetMarket) => SelectedTargetMarket !== selectedMarket)
       );
     }
   };
@@ -57,8 +69,8 @@ export default function SearchForm({showSubmitButton = true}) {
         />
       </Form.Item>
       <Form.Item
-        name="business type"
-        label="Business Type"
+        name="target market"
+        label="Target Market Interest"
         rules={[
           {
             required: true,
@@ -66,9 +78,10 @@ export default function SearchForm({showSubmitButton = true}) {
         ]}
       >
         <Select
-          placeholder="Select Business Type"
-          value={businessType}
-          onChange={(value) => setBusinessType(value)}
+          mode="tags"
+          placeholder="Select Target Market Interest"
+          value={targetMarket}
+          onChange={settargetMarket}
         >
           <Option value="Restaurant">Restaurant</Option>
           <Option value="Education">Education</Option>
