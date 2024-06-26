@@ -153,6 +153,17 @@ class SingleSearchAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Search.DoesNotExist:
             return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id, *args, **kwargs):
+        """
+        Handles DELETE requests and deletes a single search instance for the authenticated user.
+        """
+        try:
+            search = Search.objects.get(id=id, user=request.user)
+            search.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Search.DoesNotExist:
+            return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class InterestAPIView(APIView):
     """
