@@ -6,6 +6,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
+import { render } from "react-dom";
 
 const columns = [
   {
@@ -14,12 +15,18 @@ const columns = [
     sorter: (a, b) => a - b,
   },
   {
-    title: "Recommended Date",
-    dataIndex: "recommendedDate",
+    title: "Location",
+    dataIndex: "location",
+    sorter: (a, b) => a.location.localeCompare(b.location),
   },
   {
-    title: "Recommended Time",
-    dataIndex: "recommendedTime",
+    title: "Market Interest",
+    dataIndex: "marketInterest",
+    render: (text, record) => text.join(", "),
+  },
+  {
+    title: "Time",
+    dataIndex: "time",
     filters: [
       {
         text: "09:00",
@@ -39,17 +46,10 @@ const columns = [
       },
     ],
     // onFilter: (value, record) => record.address.indexOf(value) === 0,
-    render: (value, record) => (
-      <div className="flex items-center">
-        {record.recommendedTime.map((time) => (
-          <Tag key={time}>{time}</Tag>
-        ))}
-      </div>
-    ),
   },
   {
-    title: "Avg. Demographic Score",
-    dataIndex: "avgDemographicScore",
+    title: "Demographic Score",
+    dataIndex: "demographicScore",
     sorter: (a, b) => a.avgDemographicScore - b.avgDemographicScore,
     render: (text, record) => (
       <div className="flex items-center justify-center">
@@ -60,8 +60,8 @@ const columns = [
     ),
   },
   {
-    title: "Avg. Busyness Score",
-    dataIndex: "avgBusynessScore",
+    title: "Busyness Score",
+    dataIndex: "busynessScore",
     sorter: (a, b) => a.avgBusynessScore - b.avgBusynessScore,
     render: (text, record) => (
       <div className="flex items-center justify-center">
@@ -75,38 +75,43 @@ const columns = [
 const dummyData = [
   {
     ranking: 1,
-    recommendedDate: "2024-06-06",
-    recommendedTime: ["09:00", "10:00", "11:00", "12:00"],
-    avgDemographicScore: 50,
-    avgBusynessScore: 50,
+    location: "Central Park",
+    marketInterest: ["Music", "Technology", "Sports"],
+    time: "09:00",
+    demographicScore: 50,
+    busynessScore: 50,
   },
   {
     ranking: 2,
-    recommendedDate: "2024-06-07",
-    recommendedTime: ["09:00", "10:00", "11:00", "12:00"],
-    avgDemographicScore: 60,
-    avgBusynessScore: 60,
+    location: "Upper East Side",
+    marketInterest: ["Music", "Travel", "Sports"],
+    time: ["12:00"],
+    demographicScore: 60,
+    busynessScore: 60,
   },
   {
     ranking: 3,
-    recommendedDate: "2024-06-08",
-    recommendedTime: ["09:00", "10:00", "11:00", "12:00"],
-    avgDemographicScore: 70,
-    avgBusynessScore: 70,
+    location: "East Village",
+    marketInterest: ["Sports"],
+    time: "11:00",
+    demographicScore: 70,
+    busynessScore: 70,
   },
   {
     ranking: 4,
-    recommendedDate: "2024-06-09",
-    recommendedTime: ["09:00", "10:00", "11:00", "12:00"],
-    avgDemographicScore: 80,
-    avgBusynessScore: 80,
+    location: "Harlem",
+    marketInterest: ["Music", "Sports"],
+    time: "12:00",
+    demographicScore: 80,
+    busynessScore: 80,
   },
   {
     ranking: 5,
-    recommendedDate: "2024-06-10",
-    recommendedTime: ["09:00", "10:00", "11:00", "12:00"],
-    avgDemographicScore: 90,
-    avgBusynessScore: 90,
+    location: "Central Park",
+    marketInterest: ["Music", "Travel", "Technology", "Sports"],
+    time: "10:00",
+    demographicScore: 90,
+    busynessScore: 90,
   },
 ];
 
@@ -149,20 +154,12 @@ const Analytics = () => {
       </div>
       <div>
         <div className="flex items-center justify-between mt-7">
-          <p className="font-medium">Recent searches</p>
+          <h4 className="text-2xl font-medium">Recommendations</h4>
           <div className="flex gap-4 items-center">
             <SearchModalTrigger />
           </div>
         </div>
-      </div>
-      <Table
-        className="mt-4"
-        pagination={false}
-        columns={columns}
-        dataSource={dummyData}
-      />
-      <div className="space-y-8">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center mt-4">
           <span>Select Target Date</span>
           <Select
             className="w-60"
@@ -171,6 +168,9 @@ const Analytics = () => {
             options={dateOptions}
           />
         </div>
+      </div>
+      <Table className="mt-4" columns={columns} dataSource={dummyData} />
+      <div className="space-y-8">
         <table className="table-fixed w-full mt-4 border border-neutral-400/30 border-collapse">
           <tbody>
             <tr>
@@ -193,6 +193,9 @@ const Analytics = () => {
             </tr>
           </tbody>
         </table>
+        <div>
+          <h4 className="text-2xl font-medium">Data Analysis</h4>
+        </div>
         <div>
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
           <LineChart />
