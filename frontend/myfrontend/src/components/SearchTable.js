@@ -13,9 +13,10 @@ import {
   Tag,
   message,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchModalTrigger from "./SearchModal";
+import axios from "axios";
 const { Search } = Input;
 const { confirm } = Modal;
 
@@ -126,6 +127,12 @@ function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
   let [data, setData] = useState(dummyData);
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/search").then((res) => {
+      console.log(res);
+    });
+  }, []);
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
