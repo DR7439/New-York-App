@@ -154,7 +154,7 @@ const Analytics = () => {
       </div>
       <div>
         <div className="flex items-center justify-between mt-7">
-          <h4 className="text-2xl font-medium">Recommendations</h4>
+          <h4 className="text-xl font-medium">Recommendations</h4>
           <div className="flex gap-4 items-center">
             <SearchModalTrigger />
           </div>
@@ -171,30 +171,8 @@ const Analytics = () => {
       </div>
       <Table className="mt-4" columns={columns} dataSource={dummyData} />
       <div className="space-y-8">
-        <table className="table-fixed w-full mt-4 border border-neutral-400/30 border-collapse">
-          <tbody>
-            <tr>
-              <td className="w-60 p-4 bg-neutral-200 border border-neutral-400/30">
-                Target Market Interest
-              </td>
-              <td className="p-4 border border-neutral-400/30">
-                Technology, Sports, Music, Travel
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4 w-60 bg-neutral-200 border border-neutral-400/30">
-                Recommended Time & Busyness Score
-              </td>
-              <td className="p-4 border border-neutral-400/30">
-                Time: 10:00 AM; Score: 75.3 <br /> Time: 11:30 AM; Score: 78.3{" "}
-                <br /> Time: 17:00 PM; Score: 80.3 <br /> Time: 18:00 PM; Score:
-                90.0
-              </td>
-            </tr>
-          </tbody>
-        </table>
         <div>
-          <h4 className="text-2xl font-medium">Data Analysis</h4>
+          <h4 className="text-xl font-medium">Data Analysis</h4>
         </div>
         <div>
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
