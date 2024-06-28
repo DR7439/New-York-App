@@ -17,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchModalTrigger from "./SearchModal";
 import axios from "axios";
+import { AGES_RANGES, GENDERS } from "../constant";
 const { Search } = Input;
 const { confirm } = Modal;
 
@@ -46,18 +47,20 @@ const columns = [
     ),
   },
   {
-    title: "Business Type",
-    dataIndex: "type",
+    title: "Target market interest",
+    dataIndex: "target_market_interests",
     sorter: (a, b) => a.type.localeCompare(b.type),
+    render: (text, record) => text.join(", "),
   },
   {
     title: "Target Gender",
     dataIndex: "gender",
     sorter: (a, b) => a.gender.localeCompare(b.gender),
+    render: (text, record) => GENDERS[text],
   },
   {
     title: "Target Age",
-    dataIndex: "age",
+    dataIndex: "target_age",
     filters: [
       {
         text: "18-25",
@@ -73,20 +76,20 @@ const columns = [
       },
     ],
     onFilter: (value, record) => record.address.indexOf(value) === 0,
-    render: () => (
+    render: (value) => (
       <div className="flex items-center">
-        <Tag>18-25</Tag>
-        <Tag>25-40</Tag>
-        <Tag>40-60</Tag>
+        {value.map((ageIndex, idx) => (
+          <Tag key={idx}>{AGES_RANGES[ageIndex]}</Tag>
+        ))}
       </div>
     ),
   },
   {
     title: "Target Date",
-    render: () => (
+    render: (text, record) => (
       <div className="flex items-center">
-        <Tag>2024-06-06</Tag>
-        <Tag>2024-07-01</Tag>
+        <Tag>{record.start_date}</Tag>
+        <Tag>{record.end_date}</Tag>
       </div>
     ),
   },
@@ -100,38 +103,47 @@ const columns = [
     ),
   },
 ];
-const dummyData = [
-  {
-    key: "1",
-    name: "Restaurant search",
-    type: "restaurant",
-    gender: "Both Genders",
-    age: 32,
-  },
-  {
-    key: "2",
-    name: "Education search",
-    type: "education",
-    gender: "Male",
-    age: 42,
-  },
-  {
-    key: "3",
-    name: "Tech search",
-    type: "technology",
-    gender: "Female",
-    age: 32,
-  },
-];
+
+// const dummyData = [
+//   {
+//     key: "1",
+//     name: "Restaurant search",
+//     type: "restaurant",
+//     gender: "Both Genders",
+//     age: 32,
+//   },
+//   {
+//     key: "2",
+//     name: "Education search",
+//     type: "education",
+//     gender: "Male",
+//     age: 42,
+//   },
+//   {
+//     key: "3",
+//     name: "Tech search",
+//     type: "technology",
+//     gender: "Female",
+//     age: 32,
+//   },
+// ];
 function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
-  let [data, setData] = useState(dummyData);
+  let [data, setData] = useState([]);
+
+  const fetchSearches = async () => {
+    try {
+      const res = await axios.get("/api/search");
+      console.log("🚀 ~ fetchSearches ~ res:", res.data);
+      setData(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/search").then((res) => {
-      console.log(res);
-    });
+    fetchSearches();
   }, []);
 
   // rowSelection object indicates the need for row selection
