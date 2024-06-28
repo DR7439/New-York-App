@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
     const loginUser = async (username, password) => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+            const response = await axios.post('/api/login/', {
                 username,
                 password,
             });
@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
 
     const registerUser = async (username, email, password, name, credits) => { 
         try {
-            await axios.post('http://127.0.0.1:8000/api/register/', {
+            await axios.post('/api/register/', {
                 username,
                 email,  
                 password,

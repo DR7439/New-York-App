@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import SearchModalTrigger from "./SearchModal";
 import axios from "axios";
 import { AGES_RANGES, GENDERS } from "../constant";
+import useSearches from "../hooks/useSearches";
 const { Search } = Input;
 const { confirm } = Modal;
 
@@ -104,47 +105,10 @@ const columns = [
   },
 ];
 
-// const dummyData = [
-//   {
-//     key: "1",
-//     name: "Restaurant search",
-//     type: "restaurant",
-//     gender: "Both Genders",
-//     age: 32,
-//   },
-//   {
-//     key: "2",
-//     name: "Education search",
-//     type: "education",
-//     gender: "Male",
-//     age: 42,
-//   },
-//   {
-//     key: "3",
-//     name: "Tech search",
-//     type: "technology",
-//     gender: "Female",
-//     age: 32,
-//   },
-// ];
 function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
-  let [data, setData] = useState([]);
-
-  const fetchSearches = async () => {
-    try {
-      const res = await axios.get("/api/search");
-      console.log("🚀 ~ fetchSearches ~ res:", res.data);
-      setData(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchSearches();
-  }, []);
+  let data = useSearches();
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
@@ -172,7 +136,7 @@ function SearchTable() {
         const newData = data.filter(
           (record) => !selectedRowKeys.includes(record.key)
         );
-        setData(newData);
+        // setData(newData);
         message.success("Deleted search");
       },
     });
