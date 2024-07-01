@@ -1,6 +1,6 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axios from "axios";
+import axiosInstance from "../axiosInstance"; 
 import React from "react";
 import { AGES_RANGES } from "../constant";
 import useInterests from "../hooks/useInterests";
@@ -29,7 +29,7 @@ export default function SearchForm({ showSubmitButton = true }) {
     data.append("gender", values.targetGender);
     // cors allow origin
     try {
-      const res = await axios.post("/api/search/", data);
+      const res = await axiosInstance.post("/api/search/", data);
       console.log("9779 res", res);
     } catch (error) {
       console.error(error);
