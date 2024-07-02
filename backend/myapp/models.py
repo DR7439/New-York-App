@@ -49,9 +49,11 @@ class Zone(models.Model):
     Represents a geographical zone with a unique identifier, name, and boundary coordinates.
 
     Attributes:
+        id (int): The unique identifier for the zone.
         name (str): The name of the zone.
         boundary_coordinates (JSON): JSON field storing the boundary coordinates of the zone.
     """
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     boundary_coordinates = models.JSONField()  # Store the boundary coordinates as JSON
 
