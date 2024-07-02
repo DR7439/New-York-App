@@ -82,6 +82,20 @@ class Interest(models.Model):
         return self.name
 
 
+class PopulationData(models.Model):
+    """
+    Represents population data for each zone and age category.
+    """
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    age_category = models.ForeignKey(AgeCategory, on_delete=models.CASCADE)
+    population = models.IntegerField()
+
+    class Meta:
+        unique_together = ('zone', 'age_category')
+
+    def __str__(self):
+        return f"{self.zone.name} - {self.age_category.age_range}: {self.population}"
+
 class Search(models.Model):
     """
     Represents a search created by a user for advertising purposes.
