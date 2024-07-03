@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer
 from .tasks import background_task
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -216,7 +216,22 @@ class SearchScoresView(APIView):
             data.append(zone_data)
 
         return Response({"zones": data}, status=status.HTTP_200_OK)
-        
+    
+class ZoneDetailView(APIView):
+    """
+    API view to retrieve detailed information about a zone, including age demographics.
+    """
+    def get(self, request, zone_id, *args, **kwargs):
+        try:
+            zone = Zone.objects.get(id=zone_id)
+        except Zone.DoesNotExist:
+            return Response({'error': 'Zone not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ZoneDetailSerializer(zone)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
 
