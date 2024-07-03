@@ -3,6 +3,7 @@
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from './axiosInstance';
 
 const AuthContext = createContext();
 
@@ -16,7 +17,7 @@ const AuthProvider = ({ children }) => {
 
     const loginUser = async (username, password) => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+            const response = await axiosInstance.post('/api/login/', {
                 username,
                 password,
             });
@@ -24,7 +25,7 @@ const AuthProvider = ({ children }) => {
             setAuthState({ token, user });
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
             console.error(error);
             throw error;  // Ensure error is thrown
@@ -33,7 +34,7 @@ const AuthProvider = ({ children }) => {
 
     const registerUser = async (username, email, password, name, credits) => { 
         try {
-            await axios.post('http://127.0.0.1:8000/api/register/', {
+            await axiosInstance.post('/api/register/', {
                 username,
                 email,  
                 password,

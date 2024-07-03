@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     "myapp", 
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 REST_FRAMEWORK = {
@@ -79,6 +80,7 @@ JWT_AUTH = {
 # Add CORS settings if needed
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    'http://127.0.0.1:3000',
 ]
 
 AUTH_USER_MODEL = 'myapp.CustomUser'
@@ -92,6 +94,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'corsheaders.middleware.CorsMiddleware',
+    'myapp.middleware.JWTSessionMiddleware',
 ]
 
 ROOT_URLCONF = "target_advert.urls"
@@ -188,3 +191,5 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER') 
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CORS_ALLOW_CREDENTIALS = True
