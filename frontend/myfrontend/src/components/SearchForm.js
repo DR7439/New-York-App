@@ -12,14 +12,10 @@ export default function SearchForm({ showSubmitButton = true }) {
   const [form] = useForm();
   let onFinish = async (values) => {
     let data = new FormData();
-    data.append(
-      "csrfmiddlewaretoken",
-      "sL32YvjLvsKN3f7zka6TV8XMjiNHuEZ7UGzMavnP6Fw0hrOJr556hDc9qERf579z"
-    );
     data.append("name", values.name);
-    data.append("start_date", values.dateRange[0].toISOString());
-    data.append("end_date", values.dateRange[1].toISOString());
-    data.append("date_search_made_on", new Date().toISOString());
+    data.append("start_date", values.dateRange[0].toISOString().split("T")[0]);
+    data.append("end_date", values.dateRange[1].toISOString().split("T")[0]);
+    data.append("date_search_made_on", new Date().toISOString().split("T")[0]);
     values.targetMarkets.forEach((market) => {
       data.append("target_market_interests", market);
     });

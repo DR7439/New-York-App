@@ -25,7 +25,7 @@ const SearchModalTrigger = () => {
         okText="Search"
         onCancel={handleCancel}
       >
-        <SearchForm showSubmitButton={false} />
+        <SearchForm showSubmitButton={true} />
       </Modal>
     </>
   );
