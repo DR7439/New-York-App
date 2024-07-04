@@ -3,10 +3,12 @@ import { Avatar, Badge } from "antd";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import { useNoti } from "../hooks/useNoti";
 
 let Header = () => {
   const { authState } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { openNotification, notiNumber, notiHolder } = useNoti();
 
   let username = authState.user.username;
 
@@ -23,12 +25,13 @@ let Header = () => {
           <SettingOutlined />
         </Link>
         <Badge
-          count={5}
+          count={notiNumber}
           size="small"
           className="text-white"
           style={{ backgroundColor: "#ff4d4f" }}
+          onClick={openNotification}
         >
-          <BellOutlined />
+          <BellOutlined className="cursor-pointer"/>
         </Badge>
         <div className="flex items-center gap-2">
           <div className="border rounded-full h-fit">
@@ -40,6 +43,7 @@ let Header = () => {
           <span>{username}</span>
         </div>
       </div>
+      {notiHolder}
     </div>
   );
 };

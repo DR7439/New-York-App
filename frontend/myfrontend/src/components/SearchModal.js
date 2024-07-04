@@ -53,7 +53,6 @@ function SearchModal() {
 
   useEffect(() => {
     if (isModalOpen && initialForm) {
-      console.log("9779 form", initialForm);
       form.setFieldsValue({
         name: initialForm.name,
         targetMarkets: initialForm.target_market_interests,
