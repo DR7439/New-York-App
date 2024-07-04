@@ -1,7 +1,7 @@
 // src/Dashboard.js
 import React from "react";
 import { Select, Table, Tag } from "antd";
-import SearchModalTrigger from "./components/SearchModal";
+import { SearchModalTrigger } from "./components/SearchModal";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";

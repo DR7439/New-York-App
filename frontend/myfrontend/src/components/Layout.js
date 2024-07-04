@@ -3,11 +3,13 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import Notification from "./Notification";
+import SearchModal from "./SearchModal";
 
 let Layout = () => {
   return (
     <>
       <Notification />
+      <SearchModal />
       <div className="flex flex-col h-screen">
         <Header />
         <div className="flex gap-4">
