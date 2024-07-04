@@ -13,12 +13,11 @@ import {
   Tag,
   message,
 } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import SearchModalTrigger from "./SearchModal";
-import axios from "axios";
 import { AGES_RANGES, GENDERS } from "../constant";
 import useSearches from "../hooks/useSearches";
+import SearchModalTrigger from "./SearchModal";
 const { Search } = Input;
 const { confirm } = Modal;
 
@@ -108,7 +107,13 @@ const columns = [
 function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
-  let data = useSearches();
+  let {searches} = useSearches();
+  let data = [...searches].reverse().map((search, index) => {
+    return {
+      key: search.id,
+      ...search,
+    }
+  })
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
@@ -133,9 +138,9 @@ function SearchTable() {
       content: "Deleted searches can’t be restored.",
       okText: "Yes",
       onOk() {
-        const newData = data.filter(
-          (record) => !selectedRowKeys.includes(record.key)
-        );
+        // const newData = data.filter(
+        //   (record) => !selectedRowKeys.includes(record.key)
+        // );
         // setData(newData);
         message.success("Deleted search");
       },

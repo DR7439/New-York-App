@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import SearchForm from "./SearchForm";
+import { useForm } from "antd/es/form/Form";
 const SearchModalTrigger = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [form] = useForm();
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
-    setIsModalOpen(false);
+    form.submit();
+    // setIsModalOpen(false);
+  };
+  const handleSuccess = () => {
+    setIsModalOpen(false)
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -25,7 +32,12 @@ const SearchModalTrigger = () => {
         okText="Search"
         onCancel={handleCancel}
       >
-        <SearchForm showSubmitButton={false} />
+        <SearchForm
+          formInstance={form}
+          showSubmitButton={false}
+          onSubmit={handleOk}
+          onSuccess={handleSuccess}
+        />
       </Modal>
     </>
   );

@@ -1,14 +1,21 @@
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { useEffect, useState } from "react";
+import { atom, useRecoilState } from "recoil";
+const state = atom({
+  key: "interests",
+  default: [],
+});
 
 export default function useInterests() {
-  let [interests, setInterests] = useState([]);
+  let [interests, setInterests] = useRecoilState(state);
   let fetchInterests = async () => {
-    let res = await axios.get("/api/interests/");
+    let res = await axiosInstance.get("/api/interests/");
     setInterests(res.data);
   };
   useEffect(() => {
-    fetchInterests();
+    if (interests.length === 0) {
+      fetchInterests();
+    }
   }, []);
   return interests;
 }

@@ -6,7 +6,6 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
-import { render } from "react-dom";
 
 const columns = [
   {
@@ -123,24 +122,6 @@ const targetDates = [
   "2024-06-10",
 ];
 const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
-
-const data = [
-  { time: "1", value: 3 },
-  { time: "2", value: 4 },
-  { time: "3", value: 3.5 },
-  { time: "4", value: 5 },
-  { time: "5", value: 4.9 },
-  { time: "6", value: 6 },
-  { time: "7", value: 7 },
-  { time: "8", value: 9 },
-  { time: "9", value: 13 },
-];
-
-const props = {
-  data,
-  xField: "time",
-  yField: "value",
-};
 
 const Analytics = () => {
   let [selectedDate, setSelectedDate] = useState(targetDates[0]);
