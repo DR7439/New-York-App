@@ -4,12 +4,14 @@ import axiosInstance from "../axiosInstance";
 import React from "react";
 import { AGES_RANGES } from "../constant";
 import useInterests from "../hooks/useInterests";
+import useSearches from "../hooks/useSearches";
 
 const { Option } = Select;
 
-export default function SearchForm({ showSubmitButton = true }) {
+export default function SearchForm({ formInstance, onSuccess,showSubmitButton = true }) {
   const interests = useInterests();
-  const [form] = useForm();
+  const {fetchSearches} = useSearches();
+  const [form] = useForm(formInstance);
   let onFinish = async (values) => {
     let data = new FormData();
     data.append("name", values.name);
@@ -26,6 +28,8 @@ export default function SearchForm({ showSubmitButton = true }) {
     // cors allow origin
     try {
       const res = await axiosInstance.post("/api/search/", data);
+      onSuccess && onSuccess()
+      fetchSearches()
       console.log("9779 res", res);
     } catch (error) {
       console.error(error);

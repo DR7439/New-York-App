@@ -107,7 +107,13 @@ const columns = [
 function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
-  let data = useSearches();
+  let {searches} = useSearches();
+  let data = [...searches].reverse().map((search, index) => {
+    return {
+      key: search.id,
+      ...search,
+    }
+  })
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
