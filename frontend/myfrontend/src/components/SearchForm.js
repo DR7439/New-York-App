@@ -1,53 +1,57 @@
-import React, { useState } from "react";
-import { Button, Form, Input, DatePicker, Select } from "antd";
+import { Button, DatePicker, Form, Input, Select } from "antd";
+import { useForm } from "antd/es/form/Form";
+import axiosInstance from "../axiosInstance";
+import React from "react";
+import { AGES_RANGES } from "../constant";
+import useInterests from "../hooks/useInterests";
+import useSearches from "../hooks/useSearches";
 
 const { Option } = Select;
 
-export default function SearchForm({showSubmitButton = true}) {
-  const [size, setSize] = useState("middle");
-  const [searchName, setsearchName] = useState("");
-  const [businessType, setBusinessType] = useState(null);
-  const [targetGender, settargetGender] = useState(null);
-  const [targetAge, settargetAge] = useState([]);
-  const [targetMarket, settargetMarket] = useState([]);
-
-  const [dateRange, setDateRange] = useState(null);
-
-  const handleSizeChange = (e) => {
-    setSize(e.target.value);
-  };
-
-  const handleDateChange = (dates) => {
-    setDateRange(dates);
-  };
-
-  const handletargetAge = (selectedAgeGroup) => {
-    if (!targetAge.includes(selectedAgeGroup)) {
-      settargetAge([...targetAge, selectedAgeGroup]);
-    } else {
-      settargetAge(
-        targetAge.filter((ageGroup) => ageGroup !== selectedAgeGroup)
-      );
-    }
-  };
-
-  const handletargetMarketInterest = (selectedMarket) => {
-    if (!targetMarket.includes(selectedMarket)) {
-      settargetMarket([...targetMarket, selectedMarket]);
-    } else {
-      settargetMarket(
-        targetMarket.filter((SelectedTargetMarket) => SelectedTargetMarket !== selectedMarket)
-      );
+export default function SearchForm({
+  formInstance,
+  onSuccess,
+  showSubmitButton = true,
+  formRef,
+}) {
+  const interests = useInterests();
+  const { fetchSearches } = useSearches();
+  const [form] = useForm(formInstance);
+  let onFinish = async (values) => {
+    console.log("🚀 ~ onFinish ~ values:", values)
+    let data = new FormData();
+    data.append("name", values.name);
+    data.append("start_date", values.dateRange[0].toISOString().split("T")[0]);
+    data.append("end_date", values.dateRange[1].toISOString().split("T")[0]);
+    data.append("date_search_made_on", new Date().toISOString().split("T")[0]);
+    values.targetMarkets.forEach((market) => {
+      data.append("target_market_interests", market);
+    });
+    values.targetAges.forEach((age) => {
+      data.append("target_age", age);
+    });
+    data.append("gender", values.targetGender);
+    // cors allow origin
+    try {
+      const res = await axiosInstance.post("/api/search/", data);
+      onSuccess && onSuccess();
+      fetchSearches();
+      console.log("9779 res", res);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
     <Form
+      ref={formRef}
       name="basic"
+      form={form}
       layout="vertical"
       style={{
         maxWidth: 600,
       }}
+      onFinish={onFinish}
       initialValues={{
         remember: true,
       }}
@@ -55,21 +59,17 @@ export default function SearchForm({showSubmitButton = true}) {
     >
       <Form.Item
         label="Search Name"
-        name="search name"
+        name="name"
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <Input
-          value={searchName}
-          onChange={(e) => setsearchName(e.target.value)}
-          placeholder="Search Name"
-        />
+        <Input placeholder="Search Name" />
       </Form.Item>
       <Form.Item
-        name="target market"
+        name="targetMarkets"
         label="Target Market Interest"
         rules={[
           {
@@ -77,19 +77,16 @@ export default function SearchForm({showSubmitButton = true}) {
           },
         ]}
       >
-        <Select
-          mode="tags"
-          placeholder="Select Target Market Interest"
-          value={targetMarket}
-          onChange={settargetMarket}
-        >
-          <Option value="Restaurant">Restaurant</Option>
-          <Option value="Education">Education</Option>
-          <Option value="Technology">Technology</Option>
+        <Select mode="tags" placeholder="Select Target Market Interest">
+          {interests.map((interest, index) => (
+            <Option key={index} value={interest.name}>
+              {interest.name}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
       <Form.Item
-        name="target gender"
+        name="targetGender"
         label="Target Gender"
         rules={[
           {
@@ -97,19 +94,14 @@ export default function SearchForm({showSubmitButton = true}) {
           },
         ]}
       >
-        <Select
-          placeholder="Select Gender"
-          value={targetGender}
-          onChange={(value) => settargetGender(value)}
-        >
-          <Option value="Male">Male</Option>
-          <Option value="Female">Female</Option>
-          <Option value="Male and Female">Male and Female</Option>
-          <Option value="Other">Other</Option>
+        <Select placeholder="Select Gender">
+          <Option value="M">Male</Option>
+          <Option value="F">Female</Option>
+          <Option value="B">Both Genders</Option>
         </Select>
       </Form.Item>
       <Form.Item
-        name="target age"
+        name="targetAges"
         label="Target Age"
         rules={[
           {
@@ -117,39 +109,33 @@ export default function SearchForm({showSubmitButton = true}) {
           },
         ]}
       >
-        <Select
-          mode="tags"
-
-          size={size}
-          placeholder="Select age group"
-          value={targetAge}
-          onChange={handletargetAge}
-        >
-          <Option value="18-25">18-25</Option>
-          <Option value="25-40">25-40</Option>
-          <Option value="40-60">40-60</Option>
-          <Option value="60+">60+</Option>
-          <Option value="60+">60+</Option>
-
+        <Select mode="tags" placeholder="Select age group">
+          {AGES_RANGES.map((age_range, index) => (
+            <Option key={index} value={index}>
+              {age_range}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
 
       <Form.Item
-        name="date"
+        name="dateRange"
         label="Target Date"
         rules={[
           {
             required: true,
           },
         ]}
-        >
-        <DatePicker.RangePicker className="w-full" value={dateRange} onChange={handleDateChange} />
+      >
+        <DatePicker.RangePicker className="w-full" />
       </Form.Item>
-      {showSubmitButton && <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Start my free search
-        </Button>
-      </Form.Item>}
+      {showSubmitButton && (
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Start my free search
+          </Button>
+        </Form.Item>
+      )}
     </Form>
   );
 }
