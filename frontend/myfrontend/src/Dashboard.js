@@ -3,6 +3,7 @@
 import { Button, Col, Row, Statistic } from "antd";
 import SearchTable from "./components/SearchTable";
 import { ShoppingOutlined } from "@ant-design/icons";
+import Credit from "./Credits.js"
 const Dashboard = () => {
   return (
     <>
@@ -12,7 +13,7 @@ const Dashboard = () => {
           Track your credit usage and search history.{" "}
         </p>
       </div>
-      <div>
+      {/* <div>
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-medium">Credit Usage</h2>
           <Button type="primary" icon={<ShoppingOutlined />}>
@@ -30,7 +31,8 @@ const Dashboard = () => {
             <Statistic title="Average monthly usage" value={0} />
           </Col>
         </Row>
-      </div>
+      </div> */}
+      <Credit/>
       <SearchTable />
     </>
   );
