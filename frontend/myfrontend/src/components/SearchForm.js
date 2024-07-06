@@ -18,7 +18,6 @@ export default function SearchForm({
   const { fetchSearches } = useSearches();
   const [form] = useForm(formInstance);
   let onFinish = async (values) => {
-    console.log("🚀 ~ onFinish ~ values:", values)
     let data = new FormData();
     data.append("name", values.name);
     data.append("start_date", values.dateRange[0].toISOString().split("T")[0]);
@@ -36,7 +35,6 @@ export default function SearchForm({
       const res = await axiosInstance.post("/api/search/", data);
       onSuccess && onSuccess();
       fetchSearches();
-      console.log("9779 res", res);
     } catch (error) {
       console.error(error);
     }

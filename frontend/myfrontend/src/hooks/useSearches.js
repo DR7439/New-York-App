@@ -9,7 +9,6 @@ const state = atom({
 export default function useSearches() {
   const [searches, setSearches] = useRecoilState(state);
   const fetchSearches = async () => {
-    console.log('9779 fetchSearches')
     try {
       const res = await axiosInstance.get("/api/search/");  
       setSearches(res.data);
