@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, PredictionInputSerializer
 from .tasks import background_task
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -12,7 +12,13 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from django.http import JsonResponse
+import json
+import os
+import json
+import joblib
 
+from predictions_function import make_predictions
 
 class UserCreate(generics.CreateAPIView):
     """
@@ -186,6 +192,7 @@ class ZoneListView(APIView):
     """
     API view to retrieve zone coordinates.
     """
+    permission_classes = [permissions.AllowAny]
     def get(self, request, *args, **kwargs):
         zones = Zone.objects.all()
         serializer = ZoneSerializer(zones, many=True)
@@ -233,7 +240,7 @@ class ZoneDetailView(APIView):
 
 
 class PasswordResetRequestView(APIView):
-    permission_classes = (AllowAny,)  # Add this line
+    permission_classes = (AllowAny,)
 
     def post(self, request):
         email = request.data.get('email')
@@ -253,7 +260,7 @@ class PasswordResetRequestView(APIView):
             return Response({'error': 'User with this email does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
 class PasswordResetConfirmView(APIView):
-    permission_classes = (AllowAny,)  # Add this line
+    permission_classes = (AllowAny,)  
 
     def post(self, request, uidb64, token):
         try:
@@ -269,3 +276,56 @@ class PasswordResetConfirmView(APIView):
         except CustomUser.DoesNotExist:
             return Response({'error': 'Invalid user'}, status=status.HTTP_400_BAD_REQUEST)
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+class PredictBusynessAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = PredictionInputSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            prediction_time = data['prediction_time']
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            ingestions_dir = os.path.join(base_dir, 'model_data')
+            zones_df_path = os.path.join(ingestions_dir, data['zones_df'])
+            historical_data_path = os.path.join(ingestions_dir, data['latest_historical_data'])
+            model_path = os.path.join(ingestions_dir, 'xgboost_busyness_model.pkl')
+
+            if not os.path.exists(model_path):
+                return Response({'error': f'Model file {model_path} not found'}, status=status.HTTP_400_BAD_REQUEST)
+            if not os.path.exists(zones_df_path):
+                return Response({'error': f'Zones DataFrame file {zones_df_path} not found'}, status=status.HTTP_400_BAD_REQUEST)
+            if not os.path.exists(historical_data_path):
+                return Response({'error': f'Historical data file {historical_data_path} not found'}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                predictions_df = make_predictions(
+                    prediction_time,
+                    path_to_zones_csv=zones_df_path,
+                    path_to_latest_historical_data_csv=historical_data_path,
+                    path_to_pickle_file=model_path
+                )
+                predictions = predictions_df.to_dict(orient='records')
+            except Exception as e:
+                logger.error(f'Prediction failed: {str(e)}')
+                return Response({'error': f'Prediction failed: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response({'predictions': predictions}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        logger.warning(f'Invalid method {request.method} used on {request.path}')
+        return Response({'error': 'Invalid HTTP method. Only POST requests are allowed.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+class TestMethodAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        return JsonResponse({'message': 'POST request received.'}, status=status.HTTP_200_OK)
+
+    def get(self, request):
+        return JsonResponse({'error': 'Invalid HTTP method. Only POST requests are allowed.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

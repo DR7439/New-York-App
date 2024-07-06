@@ -8,3 +8,6 @@ django-cors-headers>=3.14,<4.0
 celery==5.2.3
 redis==3.5.3
 geopandas
+xgboost==1.4.2
+scikit-learn
+joblib

@@ -176,3 +176,11 @@ class ZoneDetailSerializer(serializers.ModelSerializer):
     def get_age_demographics(self, obj):
         demographics = PopulationData.objects.filter(zone=obj)
         return {data.age_category.age_range: data.population for data in demographics}
+    
+class PredictionInputSerializer(serializers.Serializer):
+    """
+    Serializer for the input data required for busyness prediction.
+    """
+    prediction_time = serializers.DateTimeField(format='%Y-%m-%dT%H:%M:%S')
+    zones_df = serializers.CharField()
+    latest_historical_data = serializers.CharField()

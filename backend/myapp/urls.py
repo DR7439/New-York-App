@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, PredictBusynessAPIView, TestMethodAPIView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
@@ -16,4 +16,7 @@ urlpatterns = [
     path('searches/<int:search_id>/scores/', SearchScoresView.as_view(), name='search-scores'),
     path('password-reset/', PasswordResetRequestView.as_view(), name='password_reset_request'),
     path('reset-password/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('predict_busyness/', PredictBusynessAPIView.as_view(), name='predict_busyness'),
+    path('test_method/', TestMethodAPIView.as_view(), name='test_method'),
+
 ]
