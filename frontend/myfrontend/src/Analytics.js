@@ -6,6 +6,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
+import Maps from "./components/Maps";
 
 const columns = [
   {
@@ -132,6 +133,7 @@ const Analytics = () => {
         <p className="mt-2 text-neutral-500">
           View detailed search results with data analysis and recommendations.
         </p>
+        <Maps/>
       </div>
       <div>
         <div className="flex items-center justify-between mt-7">
