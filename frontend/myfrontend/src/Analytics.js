@@ -1,11 +1,12 @@
 // src/Dashboard.js
-import React from "react";
+import React, {useEffect} from "react";
 import { Select, Table, Tag } from "antd";
 import { SearchModalTrigger } from "./components/SearchModal";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
+import {Link, useParam} from "react-router-dom"
 import Maps from "./components/Maps";
 
 const columns = [
