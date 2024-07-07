@@ -23,7 +23,7 @@ export default function Credits() {
             <Statistic title="Used today" value={0} />
           </Col>
           <Col span={8}>
-            <Statistic title="Average monthly usage" value={0} />
+            <Statistic title="Used this month" value={0} />
           </Col>
         </Row>
       </div>
