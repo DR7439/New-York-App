@@ -7,7 +7,7 @@ import { AuthContext } from './AuthContext';
 const PublicRoute = () => {
     const { authState } = useContext(AuthContext);
 
-    return authState.token ? <Navigate to="/dashboard" /> : <Outlet />;
+    return authState.token ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default PublicRoute;

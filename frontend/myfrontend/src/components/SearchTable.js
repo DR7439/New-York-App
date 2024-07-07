@@ -13,6 +13,7 @@ import {
   Table,
   Tag,
 } from "antd";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
@@ -21,28 +22,55 @@ import useSearches from "../hooks/useSearches";
 import { SearchModalTrigger, useSearchModal } from "./SearchModal";
 const { Search } = Input;
 const { confirm } = Modal;
+const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
+dayjs.extend(isSameOrAfter);
 
-const dropdownItems = [
-  {
-    key: "1",
-    label: "This Month",
+const items = [
+  { key: "1", 
+    label: "Today", 
+    date: dayjs().subtract(1, "day")
   },
-  {
-    key: "2",
-    label: "Last 6 Months",
+  { key: "2", 
+    label: "This Week",
+    date: dayjs().subtract(1, "week")
   },
   {
     key: "3",
+    label: "This Month",
+    date: dayjs().subtract(1, "month")
+  },
+  {
+    key: "4",
+    label: "Last 6 Months",
+    date: dayjs().subtract(6, "month")
+  },
+  {
+    key: "5",
     label: "Last Year",
+    date: dayjs().subtract(1, "year")
   },
 ];
 
 function SearchTable() {
+  let [dropdownKey, setDropDownKey] = useState("1");
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
   let { searches, fetchSearches } = useSearches();
-  let { isModalOpen, setIsModalOpen, setInitialForm } = useSearchModal();
-  let data = [...searches].reverse().map((search, index) => {
+  let {  setIsModalOpen, setInitialForm } = useSearchModal();
+  let dropDownMenu = {
+    items,
+    onClick: ({ item, key }) => {
+      setDropDownKey(key);
+    }
+  };
+  const selectedItem = items.find((item) => item.key === dropdownKey);
+  const dropdownLabel = selectedItem.label;
+  let data = [...searches].filter(search => {
+    let createdDate = dayjs(search.date_search_made_on);
+    return createdDate.isSameOrAfter(selectedItem.date)
+  })
+    
+  data = [...data].reverse().map((search, index) => {
     return {
       key: search.id,
       ...search,
@@ -54,7 +82,7 @@ function SearchTable() {
       dataIndex: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (text, record) => (
-        <Link to={`/search/${record.id}`} className="text-blue-600">
+        <Link to={`/analytics/${record.id}`} className="text-blue-600">
           {text}
         </Link>
       ),
@@ -178,12 +206,11 @@ function SearchTable() {
             <Dropdown
               className="cursor-pointer"
               trigger={["click"]}
-              menu={{
-                dropdownItems,
-              }}
+              menu={dropDownMenu}
+              value
             >
               <Space>
-                <span className="text-sm">This Week</span>
+                <span className="text-sm">{dropdownLabel}</span>
                 <DownOutlined className="text-[12px]" />
               </Space>
             </Dropdown>

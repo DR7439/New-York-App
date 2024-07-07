@@ -1,12 +1,13 @@
 // src/Dashboard.js
-import React, {useEffect} from "react";
-import { Select, Table, Tag } from "antd";
+import React, { useEffect } from "react";
+import { Breadcrumb, Select, Table, Tag } from "antd";
 import { SearchModalTrigger } from "./components/SearchModal";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
-import {Link, useParam} from "react-router-dom"
+import { Link, useParams } from "react-router-dom";
+import useSearches from "./hooks/useSearches";
 import Maps from "./components/Maps";
 
 const columns = [
@@ -126,15 +127,35 @@ const targetDates = [
 const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
 
 const Analytics = () => {
+  let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(targetDates[0]);
+  let { getSearchById } = useSearches();
+  let [search, setSearch] = useState(null);
+  useEffect(() => {
+    getSearchById(id).then(setSearch);
+  }, []);
+  let searchName = search ? search.name : "";
   return (
     <>
-      <div>
+      <Breadcrumb
+        items={[
+          {
+            title: <Link to="/">Dashboard</Link>,
+          },
+          {
+            title: "Search History",
+          },
+          {
+            title: searchName,
+          },
+        ]}
+      />
+      <div className="mt-12">
         <h1 className="text-4xl font-medium">Analytics</h1>
         <p className="mt-2 text-neutral-500">
           View detailed search results with data analysis and recommendations.
         </p>
-        <Maps/>
+        <Maps />
       </div>
       <div>
         <div className="flex items-center justify-between mt-7">

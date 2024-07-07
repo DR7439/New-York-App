@@ -54,9 +54,9 @@ const App = () => {
                   <Route path="/credits" element={<Credits />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/onboarding" element={<Onboard />} />
-                  <Route path="/analytics" element={<Analytics />} />
+                  <Route path="/analytics/:id" element={<Analytics />} />
                 </Route>
-                <Route path="*" element={<Navigate to="/dashboard" />} />
+                <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </AuthProvider>
           </ConfigProvider>
