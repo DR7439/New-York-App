@@ -49,9 +49,11 @@ class Zone(models.Model):
     Represents a geographical zone with a unique identifier, name, and boundary coordinates.
 
     Attributes:
+        id (int): The unique identifier for the zone.
         name (str): The name of the zone.
         boundary_coordinates (JSON): JSON field storing the boundary coordinates of the zone.
     """
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     boundary_coordinates = models.JSONField()  # Store the boundary coordinates as JSON
 
@@ -79,6 +81,20 @@ class Interest(models.Model):
     def __str__(self):
         return self.name
 
+
+class PopulationData(models.Model):
+    """
+    Represents population data for each zone and age category.
+    """
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    age_category = models.ForeignKey(AgeCategory, on_delete=models.CASCADE)
+    population = models.IntegerField()
+
+    class Meta:
+        unique_together = ('zone', 'age_category')
+
+    def __str__(self):
+        return f"{self.zone.name} - {self.age_category.age_range}: {self.population}"
 
 class Search(models.Model):
     """
