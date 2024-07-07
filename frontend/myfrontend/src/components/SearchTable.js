@@ -52,7 +52,7 @@ const items = [
 ];
 
 function SearchTable() {
-  let [dropdownKey, setDropDownKey] = useState("1");
+  let [dropdownKey, setDropDownKey] = useState("2");
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
   let { searches, fetchSearches } = useSearches();
@@ -239,6 +239,7 @@ function SearchTable() {
         }}
         columns={columns}
         dataSource={filteredData}
+        pagination={{ defaultPageSize: 10, showQuickJumper: true, showSizeChanger: true }}
       />
     </div>
   );

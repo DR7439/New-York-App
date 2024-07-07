@@ -9,6 +9,7 @@ import ColumnChart from "./components/ColumnChart";
 import { Link, useParams } from "react-router-dom";
 import useSearches from "./hooks/useSearches";
 import Maps from "./components/Maps";
+import axiosInstance from "./axiosInstance";
 
 const columns = [
   {
@@ -133,6 +134,8 @@ const Analytics = () => {
   let [search, setSearch] = useState(null);
   useEffect(() => {
     getSearchById(id).then(setSearch);
+    // axiosInstance.get(`/api/searches/${id}/scores`)
+    // axiosInstance.get(`/api/zones`)
   }, []);
   let searchName = search ? search.name : "";
   return (
@@ -174,7 +177,16 @@ const Analytics = () => {
           />
         </div>
       </div>
-      <Table className="mt-4" columns={columns} dataSource={dummyData} />
+      <Table
+        className="mt-4"
+        columns={columns}
+        dataSource={dummyData}
+        pagination={{
+          defaultPageSize: 10,
+          showQuickJumper: true,
+          showSizeChanger: true,
+        }}
+      />
       <div className="space-y-8">
         <div>
           <h4 className="text-xl font-medium">Data Analysis</h4>
