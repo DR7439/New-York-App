@@ -6,7 +6,7 @@ import {
     InfoWindow
     } from "@vis.gl/react-google-maps"
 
-import axios from "axios"
+import axiosInstance from "../axiosInstance";
 import React, {useState, useEffect, useRef} from "react";
 const google = window.google;
 
@@ -15,7 +15,7 @@ const google = window.google;
         const mapRef = useRef(null);
         const [zoneData, setZoneData]=useState([])
         const getZonesData = ()=>{
-            axios.get("/api/zones")
+            axiosInstance.get("/api/zones")
             .then(res=>{
                 console.log(res.data);
                 setZoneData(res.data);
