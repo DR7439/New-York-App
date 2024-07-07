@@ -1,5 +1,6 @@
 import { Button, DatePicker, Form, Input, Modal, Tabs } from "antd";
 import { useState } from "react";
+import ResetPasswordForm from "./components/ResetPasswordForm";
 
 function PersonalInfo() {
   let [open, setOpen] = useState(false);
@@ -198,8 +199,8 @@ export default function Settings() {
             },
             {
               key: "2",
-              label: "ChangePassword",
-              children: <ResetPassword />,
+              label: "Change Password",
+              children: <ResetPasswordForm label="Enter your email address to request the link to reset password." />,
             },
           ]}
           onChange={onChange}
