@@ -86,6 +86,7 @@ CORS_ALLOWED_ORIGINS = [
 AUTH_USER_MODEL = 'myapp.CustomUser'
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -93,9 +94,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
-    'myapp.middleware.JWTSessionMiddleware',
+    'myapp.middleware.JWTSessionMiddleware',  
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "target_advert.urls"
 
@@ -191,5 +193,3 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER') 
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-CORS_ALLOW_CREDENTIALS = True

@@ -15,7 +15,7 @@ Classes:
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic
+from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData
 
 CustomUser = get_user_model()
 
@@ -164,3 +164,15 @@ class ZoneScoresSerializer(serializers.Serializer):
     zone_id = serializers.IntegerField(source='zone.id')
     demographic_score = serializers.FloatField()
     busyness_scores = BusynessSerializer(many=True)
+
+
+class ZoneDetailSerializer(serializers.ModelSerializer):
+    age_demographics = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Zone
+        fields = ['id', 'name', 'age_demographics']
+
+    def get_age_demographics(self, obj):
+        demographics = PopulationData.objects.filter(zone=obj)
+        return {data.age_category.age_range: data.population for data in demographics}
