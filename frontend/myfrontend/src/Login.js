@@ -1,12 +1,13 @@
 // src/Login.js
 
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 function Login() {
   const { loginUser } = useContext(AuthContext);
+  const [sending, setSending] = useState(false);
   const [form] = Form.useForm();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +15,19 @@ function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    await loginUser(username, password);
-    navigate("/");
+    try {
+      setSending(true);
+      await loginUser(username, password);
+      navigate("/");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.detail) {
+        message.error(err.response.data.detail);
+      } else {
+        message.error("An error occurred. Please try again.");
+      }
+    } finally {
+      setSending(false);
+    }
   };
 
   const handlePasswordReset = () => {
@@ -62,7 +74,7 @@ function Login() {
           </button>
         </p>
         <Form.Item className="pt-3">
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={sending} disabled={sending}>
             Sign in
           </Button>
           <p className="pt-2">

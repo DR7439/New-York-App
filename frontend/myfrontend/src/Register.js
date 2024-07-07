@@ -1,6 +1,6 @@
 // src/Register.js
 
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
@@ -14,18 +14,23 @@ const Register = () => {
   const [credits] = useState(0);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const [sending, setSending] = useState(false);
   const handleSubmit = async () => {
-    console.log("submit");
     try {
+      setSending(true);
       await registerUser(username, email, password, name, credits);
       navigate("/onboarding");
+      message.success("You have successfully registered!");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
+        message.error(err.response.data.error);
       } else {
         setError("An error occurred. Please try again.");
+        message.error("An error occurred. Please try again.");
       }
+    } finally {
+      setSending(false);
     }
   };
 
@@ -51,6 +56,7 @@ const Register = () => {
           rules={[{ required: true, type: "email" }]}
         >
           <Input
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter email address"
@@ -69,7 +75,12 @@ const Register = () => {
           />
         </Form.Item>
         <Form.Item className="pt-3">
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={sending}
+            disabled={sending}
+          >
             Sign up
           </Button>
         </Form.Item>
