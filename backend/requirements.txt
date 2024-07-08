@@ -11,3 +11,5 @@ geopandas
 xgboost==2.0.3
 scikit-learn
 joblib
+numpy
+pandas
