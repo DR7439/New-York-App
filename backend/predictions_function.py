@@ -2,26 +2,38 @@ import pandas as pd
 import numpy as np
 import pickle
 
-def make_predictions(prediction_time, path_to_zones_csv='./model_data/zones_df.csv', path_to_latest_historical_data_csv='./model_data/latest_historical_data.csv', path_to_pickle_file='./model_data/xgboost_busyness_model.pkl'):
-    # Load the model from pickle file
+def make_predictions(prediction_time,path_to_pickle_file, path_to_zones_csv, path_to_latest_historical_data_csv):
+    
+    '''
+    this functions returns a pandas dataframe with the predictions for the specified time for all taxi zones.
+    make sure to import pickle, pandas as pd and numpy as np
+
+    '''
+    
+    # prediction_time = '2024-04-02 08:00:00'
+
+
+    # Load the model from a pickle file
     with open(path_to_pickle_file, 'rb') as f:
         pipeline = pickle.load(f)
 
-    # Read zones data and latest historical data
-    zones_df = pd.read_csv(path_to_zones_csv)
-    latest_data = pd.read_csv(path_to_latest_historical_data_csv)
 
     # Define the date for prediction
-    start_date = pd.Timestamp('2024-04-01 00:00:00') # last time recorded in the dataset.
-    end_date = pd.Timestamp(prediction_time) # the time when we are interested to make a prediction.
+    start_date = pd.Timestamp('2024-04-01 00:00:00') #last time recorded in the dataset.
+    end_date = pd.Timestamp(prediction_time) #the time when we are interested to make a prediction.
 
-    # This is the range of timestamps for which the model will be run.
+    #this is the rane of timestamps for which the model will be run.
     date_range = pd.date_range(start=start_date + pd.Timedelta(hours=1), end=end_date, freq='H')
 
-    # Return the zone_ids from zones_df and save them in a list
+
+    # zones_df = df[['zone_id', 'subway_station_present','zone_area_km2']].drop_duplicates()
+
+    zones_df = pd.read_csv(path_to_zones_csv)
+
+    #return the zone_ids from zones_df and save them in a list
     zones = zones_df['zone_id'].tolist()
 
-    # Construct the time and zone columns and add them to the future_df
+    #construct the time and zone columns and add them to the future_df
     future_df = pd.DataFrame([(zone, date) for zone in zones for date in date_range], columns=['zone_id', 'transit_timestamp'])
 
     # Merge the zones_df to include subway_station_present in future_df
@@ -39,7 +51,7 @@ def make_predictions(prediction_time, path_to_zones_csv='./model_data/zones_df.c
 
     # Create cyclic features for hour, month, week, and year
     min_year = 2022
-    max_year = max(2024, end_date.year)
+    max_year = max(2024,end_date.year)
 
     future_df['hour_sin'] = np.sin(2 * np.pi * future_df['hour'] / 24)
     future_df['hour_cos'] = np.cos(2 * np.pi * future_df['hour'] / 24)
@@ -54,25 +66,25 @@ def make_predictions(prediction_time, path_to_zones_csv='./model_data/zones_df.c
     future_df['year_sin'] = np.sin(2 * np.pi * (future_df['year'] - min_year) / (max_year - min_year + 1))
     future_df['year_cos'] = np.cos(2 * np.pi * (future_df['year'] - min_year) / (max_year - min_year + 1))
 
+
     # Initialize columns for rolling and lagged features
     rolling_features = ['rolling_mean_24h', 'rolling_std_24h', 'rolling_mean_7d', 'rolling_std_7d']
     lagged_features = ['lag_1h', 'lag_24h', 'lag_7d']
     log_features = ['log_' + feat for feat in rolling_features + lagged_features]
 
-    # Fill the values with NaN initially.
+    # fill the values with NaN initially.
     for feat in rolling_features + lagged_features + log_features:
         future_df[feat] = np.nan
 
-    # Prepend latest_data to future_df
+    # Copy the latest available rolling and lagged feature values to the future DataFrame
+    # latest_data = df[df['transit_timestamp'] >= (start_date - pd.Timedelta(days=60))].reset_index(drop=True)
+    latest_data = pd.read_csv(path_to_latest_historical_data_csv)
     latest_data['transit_timestamp'] = pd.to_datetime(latest_data['transit_timestamp'])
+    # Prepend latest_data to future_df
     combined_df = pd.concat([latest_data, future_df], ignore_index=True)
 
     # Sort by 'transit_timestamp' to ensure correct order
     combined_df = combined_df.sort_values(by='transit_timestamp').reset_index(drop=True)
-
-    # Drop unnecessary columns if they exist
-    columns_to_drop = ['total_ridership', 'subway_ridership', 'taxi_ridership', 'log_taxi_ridership', 'log_subway_ridership', 'log_zone_area_km2', 'busyness_score']
-    combined_df.drop(columns=[col for col in columns_to_drop if col in combined_df.columns], inplace=True)
 
     features = [
         'hour_sin', 'hour_cos', 'day_sin', 'day_cos', 'weekday_sin', 'weekday_cos', 'month_sin', 'month_cos', 'week_sin', 'week_cos', 'year_sin', 'year_cos',
@@ -83,9 +95,15 @@ def make_predictions(prediction_time, path_to_zones_csv='./model_data/zones_df.c
 
     future_df = combined_df.copy()
 
+
+    future_df.drop(['total_ridership', 'subway_ridership', 'taxi_ridership','log_taxi_ridership','log_subway_ridership','log_zone_area_km2','busyness_score'], axis=1, inplace=True)
+
+
     # Iterate through the date range and fill missing data
     for date in date_range:
         for zone in zones:
+            # zone_df = future_df[future_df['zone_id'] == zone]
+            # current_idx = (future_df['zone_id'] == zone) & (future_df['transit_timestamp'] <= date)
             zone_df = future_df[(future_df['zone_id'] == zone) & (future_df['transit_timestamp'] <= date)]
             current_idx = (future_df['zone_id'] == zone) & (future_df['transit_timestamp'] == date)
             # Update rolling and lagged features
