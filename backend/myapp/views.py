@@ -2,6 +2,7 @@
 from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, PredictionRequestSerializer, PredictionSerializer
@@ -11,6 +12,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
+from django.db.models import F, FloatField, ExpressionWrapper, Value
+from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from django.http import JsonResponse
@@ -239,6 +242,39 @@ class ZoneDetailView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class TopNScoresView(APIView):
+    """
+    API view to retrieve top N combined demographic and busyness scores for a search.
+    """
+    def get(self, request, search_id, top_n, *args, **kwargs):
+        search = get_object_or_404(Search, id=search_id)
+        top_n = min(top_n, 100)
+        
+        top_scores = (
+            Busyness.objects
+            .filter(datetime__range=[search.start_date, search.end_date])
+            .annotate(
+                demographic_score=Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)),
+                combined_score=ExpressionWrapper(
+                    Cast(F('busyness_score'), FloatField()) + Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)), 
+                    output_field=FloatField()
+                )
+            )
+            .order_by('-combined_score')[:top_n]
+        )
+
+        data = [
+            {
+                "zone_id": score.zone.id,
+                "datetime": score.datetime,
+                "demographic_score": score.demographic_score,
+                "busyness_score": score.busyness_score,
+                "combined_score": score.combined_score
+            }
+            for score in top_scores
+        ]
+
+        return Response({"top_scores": data}, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)

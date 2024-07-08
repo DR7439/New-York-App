@@ -10,6 +10,8 @@ def background_task(search_id):
     search = Search.objects.get(id=search_id)
     zones = Zone.objects.all()
 
+    
+
     # Create random demographic scores for each zone for the search
     for zone in zones:
         Demographic.objects.update_or_create(
@@ -35,3 +37,7 @@ def background_task(search_id):
         current_date += datetime.timedelta(days=1)
 
     print(f'Background task completed for search_id: {search_id}')
+
+
+def get_demographic(search, zones):
+    pass

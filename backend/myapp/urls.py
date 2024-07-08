@@ -1,13 +1,13 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, PredictBusynessAPIView, TestMethodAPIView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, PredictBusynessAPIView, TestMethodAPIView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path('searches/<int:search_id>/top-scores/<int:top_n>/', TopNScoresView.as_view(), name='top-scores'),
     path('search/', SearchAPIView.as_view(), name='search_api'),
     path('search/<int:id>/', SingleSearchAPIView.as_view(), name='single_search_api'),
     path('interests/', InterestAPIView.as_view(), name='interests'),
