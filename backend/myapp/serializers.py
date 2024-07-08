@@ -15,7 +15,7 @@ Classes:
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search
+from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData
 
 CustomUser = get_user_model()
 
@@ -41,7 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
             fields (tuple): The fields of the model to include in the serialized representation.
         """
         model = CustomUser
-        fields = ('username', 'password', 'name', 'credits')
+        fields = ('username', 'password', 'name', 'email')
 
     def create(self, validated_data):
         """
@@ -57,7 +57,8 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             password=validated_data['password'],
             name=validated_data.get('name', ''),
-            credits=validated_data.get('credits', 0)
+            credits=1000,
+            email=validated_data['email']
         )
         return user
 
@@ -100,6 +101,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         """
         raise NotImplementedError("Update method is not implemented")
     
+class AgeCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AgeCategory
+        fields = ['age_range']
+
 class SearchSerializer(serializers.ModelSerializer):
     """
     Serializer for the Search model.
@@ -111,8 +117,62 @@ class SearchSerializer(serializers.ModelSerializer):
         fields (list): The list of model fields to include in the serialization.
         read_only_fields (list): The list of fields that should be read-only.
     """
+    target_age = serializers.PrimaryKeyRelatedField(queryset=AgeCategory.objects.all(), many=True)
+    target_market_interests = serializers.SlugRelatedField(queryset=Interest.objects.all(), many=True, slug_field='name')
 
     class Meta:
         model = Search
-        fields = ['name', 'user', 'date_of_advertising', 'date_search_made_on', 'target_market_interests', 'min_age', 'max_age', 'gender']
+        fields = ['id', 'name', 'user', 'start_date', 'end_date', 'date_search_made_on', 'target_market_interests', 'target_age', 'gender']
         read_only_fields = ['user']
+
+
+class InterestSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Interest model.
+
+    Converts Interest instances to JSON representations and vice versa.
+
+    Meta Attributes:
+        model (Interest): The model class being serialized.
+        fields (list): The list of model fields to include in the serialization.
+    """
+    class Meta:
+        model = Interest
+        fields = ['name']
+
+class ZoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Zone
+        fields = ['id','name', 'boundary_coordinates']
+
+class BusynessSerializer(serializers.ModelSerializer):
+    time = serializers.DateTimeField(source='datetime')
+    score = serializers.FloatField(source='busyness_score')
+
+    class Meta:
+        model = Busyness
+        fields = ['time', 'score']
+
+class DemographicSerializer(serializers.ModelSerializer):
+    demographic_score = serializers.FloatField(source='score')
+
+    class Meta:
+        model = Demographic
+        fields = ['demographic_score']
+
+class ZoneScoresSerializer(serializers.Serializer):
+    zone_id = serializers.IntegerField(source='zone.id')
+    demographic_score = serializers.FloatField()
+    busyness_scores = BusynessSerializer(many=True)
+
+
+class ZoneDetailSerializer(serializers.ModelSerializer):
+    age_demographics = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Zone
+        fields = ['id', 'name', 'age_demographics']
+
+    def get_age_demographics(self, obj):
+        demographics = PopulationData.objects.filter(zone=obj)
+        return {data.age_category.age_range: data.population for data in demographics}

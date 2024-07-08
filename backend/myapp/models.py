@@ -49,14 +49,52 @@ class Zone(models.Model):
     Represents a geographical zone with a unique identifier, name, and boundary coordinates.
 
     Attributes:
+        id (int): The unique identifier for the zone.
         name (str): The name of the zone.
         boundary_coordinates (JSON): JSON field storing the boundary coordinates of the zone.
     """
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     boundary_coordinates = models.JSONField()  # Store the boundary coordinates as JSON
 
     def __str__(self):
         return str(self.name)
+    
+class AgeCategory(models.Model):
+    """
+    Represents an age category for target demographics.
+    """
+    age_range = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.age_range
+    
+class Interest(models.Model):
+    """
+    Represents an interest that can be targeted in a search.
+
+    Attributes:
+        name (str): The name of the interest, used as the primary key.
+    """
+    name = models.CharField(max_length=255, primary_key=True)
+
+    def __str__(self):
+        return self.name
+
+
+class PopulationData(models.Model):
+    """
+    Represents population data for each zone and age category.
+    """
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    age_category = models.ForeignKey(AgeCategory, on_delete=models.CASCADE)
+    population = models.IntegerField()
+
+    class Meta:
+        unique_together = ('zone', 'age_category')
+
+    def __str__(self):
+        return f"{self.zone.name} - {self.age_category.age_range}: {self.population}"
 
 class Search(models.Model):
     """
@@ -65,21 +103,26 @@ class Search(models.Model):
     Attributes:
         name (str): The name of the search.
         user (User): The user who created the search.
-        date_of_advertising (date): The date when the advertisement will be displayed.
+        start_date (date): The start date of the search.
+        end_date (date): The end date of the search.
         date_search_made_on (date): The date when the search was made.
-        target_market_interests (JSON): JSON field storing a list of target market interests.
-        min_age (int): The minimum age of the target demographic.
-        max_age (int): The maximum age of the target demographic.
+        target_market_interests (ManyToManyField): Many-to-many relationship with Interest.
+        target_age (ManyToManyField): Many-to-many relationship with AgeCategory.
         gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
     """
     name = models.CharField(max_length=255)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    date_of_advertising = models.DateField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     date_search_made_on = models.DateField()
-    target_market_interests = models.JSONField()  # Store the list as JSON
-    min_age = models.IntegerField()
-    max_age = models.IntegerField()
+    target_market_interests = models.ManyToManyField(Interest)
+    target_age = models.ManyToManyField(AgeCategory)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
+
+    def __str__(self):
+        return self.name
+
+
 
 class Busyness(models.Model):
     """
@@ -102,15 +145,13 @@ class Demographic(models.Model):
     Represents the demographic score for a search in a specific zone at a particular datetime.
 
     Attributes:
-        datetime (datetime): The date and time of the demographic data.
         zone (Zone): The zone for which the demographic data is recorded.
         search (Search): The related search for which the demographic data was collected.
         score (float): The score representing the demographic data for the search in the zone at the given datetime.
     """
-    datetime = models.DateTimeField()
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
     search = models.ForeignKey(Search, on_delete=models.CASCADE)
     score = models.FloatField()
 
     class Meta:
-        unique_together = ('datetime', 'zone', 'search')
+        unique_together = ('zone', 'search')

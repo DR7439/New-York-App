@@ -1,10 +1,22 @@
 #from django.contrib.auth import authenticate
 from rest_framework import generics, permissions, status  # Ensure this import
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer
 from .tasks import background_task
+from django.contrib.auth import login
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.db.models import F, FloatField, ExpressionWrapper, Value
+from django.db.models.functions import Coalesce, Cast
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+
 
 class UserCreate(generics.CreateAPIView):
     """
@@ -44,9 +56,15 @@ class UserCreate(generics.CreateAPIView):
                       or an error message if the username already exists.
         """
         username = request.data.get("username")
+        email = request.data.get("email")
         if CustomUser.objects.filter(username=username).exists():
             return Response(
                 {"error": "A user with that username already exists."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if CustomUser.objects.filter(email=email).exists():
+            return Response(
+                {"error": "A user with that email already exists."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return super().create(request, *args, **kwargs)
@@ -85,40 +103,210 @@ class MyTokenObtainPairView(TokenObtainPairView):
         response = super().post(request, *args, **kwargs)
         token = response.data['access']
         user = CustomUser.objects.get(username=request.data['username'])
+
+        login(request, user)
+
         return Response({
             'token': token,
-            'user': UserSerializer(user).data
+            'user': UserSerializer(user).data,
+            'sessionid': request.session.session_key
         })
     
 
-class SearchCreate(generics.CreateAPIView):
+class SearchAPIView(APIView):
     """
-    API view for creating a new search.
+    API view for handling searches related to the authenticated user.
 
-    This view handles the creation of new searches. It inherits from Django Rest Framework's 
-    `CreateAPIView`, which provides the `create` method for handling POST requests.
-
-    Attributes:
-        queryset (QuerySet): The queryset used for retrieving search instances.
-        serializer_class (Serializer): The serializer class used for validating and deserializing input, 
-                                       and for serializing output.
-        permission_classes (tuple): The permission classes that this view requires.
+    This view handles GET, POST, and DELETE requests for searches associated with the current user.
     """
-    queryset = Search.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = SearchSerializer
-    permission_classes = (permissions.IsAuthenticated,)
 
-    def perform_create(self, serializer):
+    def get(self, request, *args, **kwargs):
         """
-        Handles the creation of a new search instance.
-
-        Args:
-            serializer (Serializer): The serializer instance containing the validated data.
-
-        Returns:
-            None
+        Handles GET requests and returns a list of searches for the authenticated user.
         """
-        serializer.save(user=self.request.user)
-        search_id = serializer.instance.id
-        print("search_id: ", search_id)
-        background_task.delay(search_id)
+        searches = Search.objects.filter(user=request.user)
+        serializer = self.serializer_class(searches, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests and creates a new search for the authenticated user.
+        """
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            search_id = serializer.instance.id
+            print("search_id: ", search_id)
+            background_task.delay(search_id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class SingleSearchAPIView(APIView):
+    """
+    API view for handling a single search instance based on the ID.
+
+    This view handles GET requests for retrieving a single search instance.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, id, *args, **kwargs):
+        """
+        Handles GET requests and returns a single search instance for the authenticated user.
+        """
+        try:
+            search = Search.objects.get(id=id, user=request.user)
+            serializer = SearchSerializer(search)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Search.DoesNotExist:
+            return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id, *args, **kwargs):
+        """
+        Handles DELETE requests and deletes a single search instance for the authenticated user.
+        """
+        try:
+            search = Search.objects.get(id=id, user=request.user)
+            search.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Search.DoesNotExist:
+            return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
+
+class InterestAPIView(APIView):
+    """
+    API view for handling interests.
+
+    This view handles GET requests for the list of all interests.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = InterestSerializer
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and returns a list of all interests.
+        """
+        interests = Interest.objects.all()
+        serializer = self.serializer_class(interests, many=True)
+        return Response(serializer.data)
+
+class ZoneListView(APIView):
+    """
+    API view to retrieve zone coordinates.
+    """
+    def get(self, request, *args, **kwargs):
+        zones = Zone.objects.all()
+        serializer = ZoneSerializer(zones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class SearchScoresView(APIView):
+    """
+    API view to retrieve demographic and busyness scores for a search.
+    """
+    def get(self, request, search_id, *args, **kwargs):
+        try:
+            search = Search.objects.get(id=search_id)
+        except Search.DoesNotExist:
+            return Response({"error": "Search not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        zones = Zone.objects.all()
+        data = []
+
+        for zone in zones:
+            demographic = Demographic.objects.get(search=search, zone=zone)
+            busyness_scores = Busyness.objects.filter(zone=zone, datetime__range=[search.start_date, search.end_date])
+
+            zone_data = {
+                'zone_id': zone.id,
+                'demographic_score': demographic.score,
+                'busyness_scores': BusynessSerializer(busyness_scores, many=True).data
+            }
+            data.append(zone_data)
+
+        return Response({"zones": data}, status=status.HTTP_200_OK)
+    
+class ZoneDetailView(APIView):
+    """
+    API view to retrieve detailed information about a zone, including age demographics.
+    """
+    def get(self, request, zone_id, *args, **kwargs):
+        try:
+            zone = Zone.objects.get(id=zone_id)
+        except Zone.DoesNotExist:
+            return Response({'error': 'Zone not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ZoneDetailSerializer(zone)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TopNScoresView(APIView):
+    """
+    API view to retrieve top N combined demographic and busyness scores for a search.
+    """
+    def get(self, request, search_id, top_n, *args, **kwargs):
+        search = get_object_or_404(Search, id=search_id)
+        top_n = min(top_n, 100)
+        
+        top_scores = (
+            Busyness.objects
+            .filter(datetime__range=[search.start_date, search.end_date])
+            .annotate(
+                demographic_score=Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)),
+                combined_score=ExpressionWrapper(
+                    Cast(F('busyness_score'), FloatField()) + Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)), 
+                    output_field=FloatField()
+                )
+            )
+            .order_by('-combined_score')[:top_n]
+        )
+
+        data = [
+            {
+                "zone_id": score.zone.id,
+                "datetime": score.datetime,
+                "demographic_score": score.demographic_score,
+                "busyness_score": score.busyness_score,
+                "combined_score": score.combined_score
+            }
+            for score in top_scores
+        ]
+
+        return Response({"top_scores": data}, status=status.HTTP_200_OK)
+
+class PasswordResetRequestView(APIView):
+    permission_classes = (AllowAny,)  # Add this line
+
+    def post(self, request):
+        email = request.data.get('email')
+        try:
+            user = CustomUser.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_url = f'http://localhost:3000/reset-password/{uid}/{token}/'
+            send_mail(
+                'Password Reset Request',
+                f'Click the link to reset your password: {reset_url}',
+                'noreply@example.com',
+                [user.email],
+            )
+            return Response({'message': 'Password reset link sent'}, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User with this email does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+class PasswordResetConfirmView(APIView):
+    permission_classes = (AllowAny,)  # Add this line
+
+    def post(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(pk=uid)
+            if default_token_generator.check_token(user, token):
+                password = request.data.get('password')
+                user.set_password(password)
+                user.save()
+                return Response({'message': 'Password reset successful'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'Invalid user'}, status=status.HTTP_400_BAD_REQUEST)
+
