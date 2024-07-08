@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, PredictionInputSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, PredictionRequestSerializer, PredictionSerializer
+
 from .tasks import background_task
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -284,42 +285,30 @@ class PredictBusynessAPIView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        serializer = PredictionInputSerializer(data=request.data)
-        if serializer.is_valid():
-            data = serializer.validated_data
-            prediction_time = data['prediction_time']
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            ingestions_dir = os.path.join(base_dir, 'model_data')
-            zones_df_path = os.path.join(ingestions_dir, data['zones_df'])
-            historical_data_path = os.path.join(ingestions_dir, data['latest_historical_data'])
-            model_path = os.path.join(ingestions_dir, 'xgboost_busyness_model.pkl')
-
-            if not os.path.exists(model_path):
-                return Response({'error': f'Model file {model_path} not found'}, status=status.HTTP_400_BAD_REQUEST)
-            if not os.path.exists(zones_df_path):
-                return Response({'error': f'Zones DataFrame file {zones_df_path} not found'}, status=status.HTTP_400_BAD_REQUEST)
-            if not os.path.exists(historical_data_path):
-                return Response({'error': f'Historical data file {historical_data_path} not found'}, status=status.HTTP_400_BAD_REQUEST)
-
-            try:
-                predictions_df = make_predictions(
-                    prediction_time,
-                    path_to_zones_csv=zones_df_path,
-                    path_to_latest_historical_data_csv=historical_data_path,
-                    path_to_pickle_file=model_path
-                )
-                predictions = predictions_df.to_dict(orient='records')
-            except Exception as e:
-                logger.error(f'Prediction failed: {str(e)}')
-                return Response({'error': f'Prediction failed: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-            return Response({'predictions': predictions}, status=status.HTTP_200_OK)
-        else:
+        # Validate the request using the serializer
+        serializer = PredictionRequestSerializer(data=request.data)
+        if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        prediction_time = serializer.validated_data['prediction_time']
 
-    def get(self, request):
-        logger.warning(f'Invalid method {request.method} used on {request.path}')
-        return Response({'error': 'Invalid HTTP method. Only POST requests are allowed.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        # Define the paths to the necessary files
+        path_to_zones_csv = '../model_data/zones_df.csv'
+        path_to_latest_historical_data_csv = '../model_data/latest_historical_data.csv'
+        path_to_pickle_file = './model_data/xgboost_busyness_model.pkl'
+
+        # Make predictions
+        predictions = make_predictions(
+            prediction_time,
+            path_to_pickle_file,
+            path_to_zones_csv,
+            path_to_latest_historical_data_csv
+        )
+
+        # Serialize the predictions DataFrame to JSON
+        predictions_serializer = PredictionSerializer(predictions, many=True)
+
+        return Response(predictions_serializer.data)
     
 class TestMethodAPIView(APIView):
     permission_classes = [permissions.AllowAny]
