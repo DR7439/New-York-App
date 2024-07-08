@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer
 from .tasks import background_task
+from django.contrib.auth import login
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -102,9 +103,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
         response = super().post(request, *args, **kwargs)
         token = response.data['access']
         user = CustomUser.objects.get(username=request.data['username'])
+
+        login(request, user)
+
         return Response({
             'token': token,
-            'user': UserSerializer(user).data
+            'user': UserSerializer(user).data,
+            'sessionid': request.session.session_key
         })
     
 
