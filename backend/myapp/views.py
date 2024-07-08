@@ -11,8 +11,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.db.models import F, FloatField, ExpressionWrapper
-from django.db.models.functions import Coalesce
+from django.db.models import F, FloatField, ExpressionWrapper, Value
+from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
@@ -240,14 +240,15 @@ class TopNScoresView(APIView):
     """
     def get(self, request, search_id, top_n, *args, **kwargs):
         search = get_object_or_404(Search, id=search_id)
+        top_n = min(top_n, 100)
         
         top_scores = (
             Busyness.objects
             .filter(datetime__range=[search.start_date, search.end_date])
             .annotate(
-                demographic_score=Coalesce(F('zone__demographic__score'), 0),
+                demographic_score=Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)),
                 combined_score=ExpressionWrapper(
-                    F('busyness_score') + F('zone__demographic__score'), 
+                    Cast(F('busyness_score'), FloatField()) + Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)), 
                     output_field=FloatField()
                 )
             )
@@ -266,7 +267,6 @@ class TopNScoresView(APIView):
         ]
 
         return Response({"top_scores": data}, status=status.HTTP_200_OK)
-
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
