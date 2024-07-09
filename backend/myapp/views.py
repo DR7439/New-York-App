@@ -11,6 +11,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
+from django.utils.dateparse import parse_datetime
 from django.db.models import F, FloatField, ExpressionWrapper, Value
 from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
@@ -267,6 +268,60 @@ class TopNScoresView(APIView):
         ]
 
         return Response({"top_scores": data}, status=status.HTTP_200_OK)
+    
+
+class TopZonesView(APIView):
+    """
+    API view to retrieve top N zones based on combined demographic and busyness scores
+    and return the top 10 busyness scores and times for each zone.
+    """
+    def get(self, request, *args, **kwargs):
+        search_id = request.GET.get('search_id')
+        date_str = request.GET.get('date')
+        top_n = int(request.GET.get('top_n', 10))  # Default to 10 if 'top_n' is not provided
+        top_n = min(top_n, 60)  # Limit to a maximum of 100
+
+        search = get_object_or_404(Search, id=search_id)
+        date = parse_datetime(date_str)
+
+        # Ensure the provided date is within the range of the search
+        if not (search.start_date <= date.date() <= search.end_date):
+            return Response({"error": "Date is out of range for the specified search."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Compute combined scores and filter top N zones
+        top_zones = (
+            Busyness.objects
+            .filter(datetime__date=date.date())
+            .annotate(
+                demographic_score=Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)),
+                combined_score=ExpressionWrapper(
+                    Cast(F('busyness_score'), FloatField()) + Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)), 
+                    output_field=FloatField()
+                )
+            )
+            .values('zone_id', 'zone__demographic__score')
+            .distinct()
+            .order_by('-combined_score')[:top_n]
+        )
+
+        # Prepare the response data
+        data = []
+        for zone in top_zones:
+            zone_id = zone['zone_id']
+            demographic_score = zone['zone__demographic__score']
+            busyness_scores = (
+                Busyness.objects
+                .filter(zone_id=zone_id, datetime__date=date.date())
+                .order_by('-busyness_score')[:10]
+                .values_list('datetime', 'busyness_score')
+            )
+            data.append({
+                "zone_id": zone_id,
+                "demographic_score": demographic_score,
+                "busyness_scores": list(busyness_scores)
+            })
+
+        return Response(data, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
