@@ -13,7 +13,7 @@ from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.dateparse import parse_datetime
-from django.db.models import F, FloatField, ExpressionWrapper, Value
+from django.db.models import F, FloatField, ExpressionWrapper, Value, Max, Subquery, OuterRef
 from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -246,15 +246,21 @@ class TopNScoresView(APIView):
     """
     def get(self, request, search_id, top_n, *args, **kwargs):
         search = get_object_or_404(Search, id=search_id)
-        top_n = min(top_n, 100)
-        
+        top_n = min(top_n, 100)  # Limit to a maximum of 100
+
+        # Create a subquery to retrieve the demographic score for each zone in the search
+        demographic_subquery = Demographic.objects.filter(
+            zone=OuterRef('zone_id'), search=search
+        ).values('score')[:1]
+
+        # Annotate the Busyness queryset with the demographic score and combined score
         top_scores = (
             Busyness.objects
             .filter(datetime__range=[search.start_date, search.end_date])
             .annotate(
-                demographic_score=Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)),
+                demographic_score=Coalesce(Subquery(demographic_subquery), Value(0.0)),
                 combined_score=ExpressionWrapper(
-                    Cast(F('busyness_score'), FloatField()) + Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)), 
+                    F('busyness_score') + Coalesce(Subquery(demographic_subquery), Value(0.0)),
                     output_field=FloatField()
                 )
             )
@@ -273,18 +279,17 @@ class TopNScoresView(APIView):
         ]
 
         return Response({"top_scores": data}, status=status.HTTP_200_OK)
-    
 
 class TopZonesView(APIView):
     """
-    API view to retrieve top N zones based on combined demographic and busyness scores
+    API view to retrieve top N zones based on combined demographic and max busyness scores
     and return the top 10 busyness scores and times for each zone.
     """
     def get(self, request, *args, **kwargs):
         search_id = request.GET.get('search_id')
         date_str = request.GET.get('date')
         top_n = int(request.GET.get('top_n', 10))  # Default to 10 if 'top_n' is not provided
-        top_n = min(top_n, 60)  # Limit to a maximum of 100
+        top_n = min(top_n, 60)  # Limit to a maximum of 60
 
         search = get_object_or_404(Search, id=search_id)
         date = parse_datetime(date_str)
@@ -293,40 +298,51 @@ class TopZonesView(APIView):
         if not (search.start_date <= date.date() <= search.end_date):
             return Response({"error": "Date is out of range for the specified search."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Compute combined scores and filter top N zones
-        top_zones = (
-            Busyness.objects
-            .filter(datetime__date=date.date())
-            .annotate(
-                demographic_score=Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)),
-                combined_score=ExpressionWrapper(
-                    Cast(F('busyness_score'), FloatField()) + Coalesce(Cast(F('zone__demographic__score'), FloatField()), Value(0.0)), 
-                    output_field=FloatField()
-                )
-            )
-            .values('zone_id', 'zone__demographic__score')
-            .distinct()
-            .order_by('-combined_score')[:top_n]
-        )
+        # Step 3: Get busyness data for each zone for that day
+        busyness_data = Busyness.objects.filter(datetime__date=date.date())
 
-        # Prepare the response data
+        # Step 4: Find the max busyness for each zone
+        max_busyness_per_zone = busyness_data.values('zone_id').annotate(max_busyness=Max('busyness_score'))
+
+        # Step 5: Get the demographic score for the search and every zone
+        demographics = Demographic.objects.filter(search=search)
+
+        # Create a dictionary for easy lookup of demographic scores
+        demographic_scores = {d.zone_id: d.score for d in demographics}
+
+        # Step 6: Calculate the total score (max busyness + demographic score) for each zone
+        zone_scores = []
+        for item in max_busyness_per_zone:
+            zone_id = item['zone_id']
+            max_busyness = item['max_busyness']
+            demographic_score = demographic_scores.get(zone_id, 0)
+            total_score = max_busyness + demographic_score
+            zone_scores.append({
+                'zone_id': zone_id,
+                'total_score': total_score,
+                'demographic_score': demographic_score
+            })
+
+        # Step 7: Find the top N zones with the highest total score
+        top_zones = sorted(zone_scores, key=lambda x: x['total_score'], reverse=True)[:top_n]
+
+        # Step 8: Return the top 10 busiest times and scores for these top N zones
         data = []
         for zone in top_zones:
             zone_id = zone['zone_id']
-            demographic_score = zone['zone__demographic__score']
             busyness_scores = (
-                Busyness.objects
-                .filter(zone_id=zone_id, datetime__date=date.date())
+                busyness_data.filter(zone_id=zone_id)
                 .order_by('-busyness_score')[:10]
                 .values_list('datetime', 'busyness_score')
             )
             data.append({
                 "zone_id": zone_id,
-                "demographic_score": demographic_score,
+                "demographic_score": zone['demographic_score'],
                 "busyness_scores": list(busyness_scores)
             })
 
         return Response(data, status=status.HTTP_200_OK)
+
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
