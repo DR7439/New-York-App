@@ -95,6 +95,21 @@ services:
     networks:
       - mynetwork
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  
+      - ./frontend/myfrontend/build:/usr/share/nginx/html:ro  
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - mynetwork
+
+
 volumes:
   postgres_data:
 
