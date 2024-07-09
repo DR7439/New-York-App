@@ -331,7 +331,7 @@ class PredictBusynessAPIView(APIView):
         # Define the paths to the necessary files
         path_to_zones_csv = '../model_data/zones_df.csv'
         path_to_latest_historical_data_csv = '../model_data/latest_historical_data.csv'
-        path_to_pickle_file = './model_data/xgboost_busyness_model.pkl'
+        path_to_pickle_file = '../model_data/xgboost_busyness_model.pkl'
 
         # Make predictions
         predictions = make_predictions(
