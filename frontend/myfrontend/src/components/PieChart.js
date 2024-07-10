@@ -6,10 +6,22 @@ const PieChart = ({ zoneId }) => {
   function fetchData() {
     axiosInstance.get(`/api/zones/${zoneId}/interests`).then((res) => {
       if (res.data) {
-        let data = Object.keys(res.data).map((key) => ({
-          type: key.replaceAll("to", "-").replaceAll("years", ""),
-          point: res.data[key],
-        }));
+        let total = 0;
+        let data = Object.keys(res.data).map((key) => {
+          total += res.data[key];
+          return {
+            type: key.replaceAll("to", "-").replaceAll("years", ""),
+            point: res.data[key],
+          };
+        });
+        data =data.map((item) => {
+          let percent = Number(((item.point / total) * 100).toFixed(2));
+          let percentStr = "";
+          if (percent > 0) {
+            percentStr =  `${percent}%`;
+          }
+          return { ...item, percent: percentStr };
+        });
         setData(data);
       }
     });
@@ -30,11 +42,13 @@ const PieChart = ({ zoneId }) => {
     paddingRight: 80,
     innerRadius: 0.6,
     label: {
-      text: "type",
+      text: "percent",
       style: {
         fontWeight: "bold",
       },
-      position: "spider",
+    },
+    tooltip: {
+      title: "type",
     },
     legend: {
       color: {
@@ -47,11 +61,23 @@ const PieChart = ({ zoneId }) => {
       {
         type: "text",
         style: {
-          text: "Total 100%",
+          text: "Total",
           x: "50%",
-          y: "50%",
+          y: "46%",
           textAlign: "center",
-          fontSize: 28,
+          fontSize: 20,
+          fontStyle: 300,
+          textColor: "#f0f"
+        },
+      },
+      {
+        type: "text",
+        style: {
+          text: "100%",
+          x: "50%",
+          y: "54%",
+          textAlign: "center",
+          fontSize: 32,
           fontStyle: 500,
         },
       },
