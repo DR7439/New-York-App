@@ -134,48 +134,6 @@ function PersonalInfo() {
   );
 }
 
-function ResetPassword() {
-  let [form] = Form.useForm();
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
-  return (
-    <div className="mt-3">
-      <Form
-        form={form}
-        onFinish={handleSubmit}
-        layout="vertical"
-        style={{
-          maxWidth: 600,
-        }}
-      >
-        <Form.Item
-          name="email"
-          label="Enter your email address to request the link to reset your password."
-          required
-          rules={[
-            {
-              type: "email",
-              message: "Please enter a valid email address",
-            },
-            {
-              required: true,
-              message: "Please enter your email address",
-            },
-          ]}
-        >
-          <Input placeholder="Enter your email address" />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Request
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
-  );
-}
-
 export default function Settings() {
   const onChange = (key) => {
     console.log(key);
