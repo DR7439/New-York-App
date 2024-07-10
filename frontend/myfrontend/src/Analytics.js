@@ -1,8 +1,8 @@
 // src/Dashboard.js
 import React, { useEffect } from "react";
-import { Breadcrumb, Select, Table, Tag } from "antd";
+import { Breadcrumb, Select, Spin, Table, Tabs, Tag } from "antd";
 import { SearchModalTrigger } from "./components/SearchModal";
-import { CheckCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
@@ -11,133 +11,126 @@ import useSearches from "./hooks/useSearches";
 import Maps from "./components/Maps";
 import axiosInstance from "./axiosInstance";
 
+const timeFilters = [...Array(24).keys()].map((i) => ({
+  text: `${i}:00`,
+  value: `${i}:00`,
+}));
+console.log("🚀 ~ timeFilters ~ timeFilters:", timeFilters);
+
 const columns = [
   {
     title: "Ranking",
-    dataIndex: "ranking",
-    sorter: (a, b) => a - b,
+    dataIndex: "key",
+    sorter: (a, b) => a.key - b.key,
   },
   {
     title: "Location",
-    dataIndex: "location",
+    dataIndex: "zone_name",
     sorter: (a, b) => a.location.localeCompare(b.location),
   },
   {
-    title: "Market Interest",
-    dataIndex: "marketInterest",
-    render: (text, record) => text.join(", "),
-  },
-  {
     title: "Time",
-    dataIndex: "time",
-    filters: [
-      {
-        text: "09:00",
-        value: "09:00",
-      },
-      {
-        text: "10:00",
-        value: "10:00",
-      },
-      {
-        text: "11:00",
-        value: "11:00",
-      },
-      {
-        text: "12:00",
-        value: "12:00",
-      },
-    ],
+    dataIndex: "datetime",
+    filters: timeFilters,
+    render(text, record) {
+      // show the time in the table
+      let timeToShow = text.split("T")[1].split(":")[0];
+      return <span>{`${timeToShow}:00`}</span>;
+    },
+
     // onFilter: (value, record) => record.address.indexOf(value) === 0,
   },
   {
     title: "Demographic Score",
-    dataIndex: "demographicScore",
+    dataIndex: "demographic_score",
     sorter: (a, b) => a.avgDemographicScore - b.avgDemographicScore,
     render: (text, record) => (
       <div className="flex items-center justify-center">
         <Tag icon={<CheckCircleOutlined />} color="success">
-          {text}/100
+          {Number(text).toFixed(2)}/100
         </Tag>
       </div>
     ),
   },
   {
     title: "Busyness Score",
-    dataIndex: "busynessScore",
+    dataIndex: "busyness_score",
     sorter: (a, b) => a.avgBusynessScore - b.avgBusynessScore,
     render: (text, record) => (
       <div className="flex items-center justify-center">
         <Tag icon={<CheckCircleOutlined />} color="success">
-          {text}/100
+          {Number(text).toFixed(2)}/100
         </Tag>
       </div>
     ),
   },
 ];
-const dummyData = [
-  {
-    ranking: 1,
-    location: "Central Park",
-    marketInterest: ["Music", "Technology", "Sports"],
-    time: "09:00",
-    demographicScore: 50,
-    busynessScore: 50,
-  },
-  {
-    ranking: 2,
-    location: "Upper East Side",
-    marketInterest: ["Music", "Travel", "Sports"],
-    time: ["12:00"],
-    demographicScore: 60,
-    busynessScore: 60,
-  },
-  {
-    ranking: 3,
-    location: "East Village",
-    marketInterest: ["Sports"],
-    time: "11:00",
-    demographicScore: 70,
-    busynessScore: 70,
-  },
-  {
-    ranking: 4,
-    location: "Harlem",
-    marketInterest: ["Music", "Sports"],
-    time: "12:00",
-    demographicScore: 80,
-    busynessScore: 80,
-  },
-  {
-    ranking: 5,
-    location: "Central Park",
-    marketInterest: ["Music", "Travel", "Technology", "Sports"],
-    time: "10:00",
-    demographicScore: 90,
-    busynessScore: 90,
-  },
-];
 
-const targetDates = [
-  "2024-06-06",
-  "2024-06-07",
-  "2024-06-08",
-  "2024-06-09",
-  "2024-06-10",
-];
-const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
+function getDateArray(startDate, endDate) {
+  let dates = [];
+  let currentDate = new Date(startDate);
+  while (currentDate <= new Date(endDate)) {
+    dates.push(currentDate.toISOString().split("T")[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return dates;
+}
 
 const Analytics = () => {
   let { id } = useParams();
-  let [selectedDate, setSelectedDate] = useState(targetDates[0]);
+  let [selectedDate, setSelectedDate] = useState(null);
+  let [selectedZone, setSelectedZone] = useState(null);
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
+  let [topZones, setTopZones] = useState([]);
+  let [tableData, setTableData] = useState([]);
+  async function loadTableDataByDate(date) {
+    axiosInstance
+      .get(`/api/top-zones/?search_id=${id}&date=${date}`)
+      .then((res) => {
+        setTopZones(res.data);
+        setSelectedZone(res.data[0].zone_id);
+      });
+
+    axiosInstance
+      .get(`/api/searches/${id}/top-scores/${id}/?date=${date}`)
+      .then((res) => {
+        let data =
+          res.data?.top_scores.map((item, ind) => ({
+            key: ind + 1,
+            ...item,
+          })) || [];
+        setTableData(data);
+      });
+  }
   useEffect(() => {
-    getSearchById(id).then(setSearch);
-    // axiosInstance.get(`/api/searches/${id}/scores`)
+    // /top-zones/?n=5&search_id=1&date=2024-07-10
+    getSearchById(id).then((search) => {
+      setSearch(search);
+      setSelectedDate(search.start_date);
+    });
+    // axiosInstance.get(`/api/searches/${id}/top-scores/5/`);
     // axiosInstance.get(`/api/zones`)
   }, []);
+  useEffect(() => {
+    if (search) {
+      loadTableDataByDate(selectedDate);
+      // axiosInstance.get(`/api/searches/${id}/top-scores/5/`).then(data => {
+      //   setTableData(data.data);
+      // });
+    }
+  }, [search, selectedDate]);
   let searchName = search ? search.name : "";
+  if (!search) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <Spin indicator={<LoadingOutlined spin />} size="large" />
+      </div>
+    );
+  }
+  const targetDates = getDateArray(search.start_date, search.end_date);
+  const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
+
   return (
     <>
       <Breadcrumb
@@ -180,7 +173,7 @@ const Analytics = () => {
       <Table
         className="mt-4"
         columns={columns}
-        dataSource={dummyData}
+        dataSource={tableData}
         pagination={{
           defaultPageSize: 10,
           showQuickJumper: true,
@@ -189,15 +182,23 @@ const Analytics = () => {
       />
       <div className="space-y-8">
         <div>
-          <h4 className="text-xl font-medium">Data Analysis</h4>
+          <h3 className="text-xl font-medium">Data Analysis</h3>
+          <Tabs
+            items={topZones.map((item) => ({
+              label: item.zone_name,
+              key: item.zone_id,
+            }))}
+            value={selectedZone}
+            onChange={(key) => setSelectedZone(key)}
+          />
         </div>
         <div>
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
-          <LineChart />
+          <LineChart searchId={id} zoneId={selectedZone} date={selectedDate} />
         </div>
         <div>
           <h4 className="mb-4 font-medium">Demographic by Location</h4>
-          <ColumnChart />
+          <ColumnChart zoneId={selectedZone} />
         </div>
       </div>
     </>

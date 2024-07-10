@@ -10,7 +10,6 @@ export default function useSearches() {
   const [searches, setSearches] = useRecoilState(state);
   const fetchSearches = async () => {
     try {
-      axiosInstance.get("/api/zones/");
       const res = await axiosInstance.get("/api/search/");
       setSearches(res.data);
     } catch (error) {
