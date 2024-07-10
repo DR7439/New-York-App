@@ -214,18 +214,23 @@ class SearchScoresView(APIView):
         data = []
 
         for zone in zones:
-            demographic = Demographic.objects.get(search=search, zone=zone)
-            busyness_scores = Busyness.objects.filter(zone=zone, datetime__range=[search.start_date, search.end_date])
+            try:
+                demographic = Demographic.objects.get(search=search, zone=zone)
+                busyness_scores = Busyness.objects.filter(zone=zone, datetime__range=[search.start_date, search.end_date])
 
-            zone_data = {
-                'zone_id': zone.id,
-                'demographic_score': demographic.score,
-                'busyness_scores': BusynessSerializer(busyness_scores, many=True).data
-            }
-            data.append(zone_data)
+                zone_data = {
+                    'zone_id': zone.id,
+                    'zone_name': zone.name,
+                    'demographic_score': demographic.score,
+                    'busyness_scores': BusynessSerializer(busyness_scores, many=True).data
+                }
+                data.append(zone_data)
+            except Demographic.DoesNotExist:
+                continue
 
         return Response({"zones": data}, status=status.HTTP_200_OK)
-    
+
+
 class ZoneDetailView(APIView):
     """
     API view to retrieve detailed information about a zone, including age demographics.
@@ -270,6 +275,7 @@ class TopNScoresView(APIView):
         data = [
             {
                 "zone_id": score.zone.id,
+                "zone_name": score.zone.name,
                 "datetime": score.datetime,
                 "demographic_score": score.demographic_score,
                 "busyness_score": score.busyness_score,
@@ -279,6 +285,7 @@ class TopNScoresView(APIView):
         ]
 
         return Response({"top_scores": data}, status=status.HTTP_200_OK)
+
 
 class TopZonesView(APIView):
     """
@@ -319,6 +326,7 @@ class TopZonesView(APIView):
             total_score = max_busyness + demographic_score
             zone_scores.append({
                 'zone_id': zone_id,
+                'zone_name': Zone.objects.get(id=zone_id).name,
                 'total_score': total_score,
                 'demographic_score': demographic_score
             })
@@ -337,6 +345,7 @@ class TopZonesView(APIView):
             )
             data.append({
                 "zone_id": zone_id,
+                "zone_name": zone['zone_name'],
                 "demographic_score": zone['demographic_score'],
                 "busyness_scores": list(busyness_scores)
             })
