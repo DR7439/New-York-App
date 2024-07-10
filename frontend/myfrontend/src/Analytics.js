@@ -1,6 +1,6 @@
 // src/Dashboard.js
 import React, { useEffect } from "react";
-import { Breadcrumb, Select, Spin, Table, Tabs, Tag } from "antd";
+import { Breadcrumb, Button, Select, Spin, Table, Tabs, Tag } from "antd";
 import { SearchModalTrigger } from "./components/SearchModal";
 import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useState } from "react";
@@ -18,58 +18,6 @@ const timeFilters = [...Array(24).keys()].map((i) => ({
   text: `${pad0(i)}:00`,
   value: `${pad0(i)}:00`,
 }));
-
-const columns = [
-  {
-    title: "Ranking",
-    dataIndex: "key",
-    sorter: (a, b) => a.key - b.key,
-  },
-  {
-    title: "Location",
-    dataIndex: "zone_name",
-    sorter: (a, b) => a.zone_name.localeCompare(b.zone_name),
-  },
-  {
-    title: "Time",
-    dataIndex: "datetime",
-    filters: timeFilters,
-    render(text, record) {
-      // show the time in the table
-      let timeToShow = text.split("T")[1].split(":")[0];
-      return <span>{`${timeToShow}:00`}</span>;
-    },
-
-    onFilter: (value, record) => {
-      let time = `${record.datetime.split("T")[1].split(":")[0]}:00`;
-      return time === value;
-    },
-  },
-  {
-    title: "Demographic Score",
-    dataIndex: "demographic_score",
-    sorter: (a, b) => a.demographic_score - b.demographic_score,
-    render: (text, record) => (
-      <div className="flex items-center justify-center">
-        <Tag icon={<CheckCircleOutlined />} color="success">
-          {Number(text).toFixed(2)}/100
-        </Tag>
-      </div>
-    ),
-  },
-  {
-    title: "Busyness Score",
-    dataIndex: "busyness_score",
-    sorter: (a, b) => a.busyness_score - b.busyness_score,
-    render: (text, record) => (
-      <div className="flex items-center justify-center">
-        <Tag icon={<CheckCircleOutlined />} color="success">
-          {Number(text).toFixed(2)}/100
-        </Tag>
-      </div>
-    ),
-  },
-];
 
 function getDateArray(startDate, endDate) {
   let dates = [];
@@ -89,8 +37,84 @@ const Analytics = () => {
   let [search, setSearch] = useState(null);
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
+
+  let handleLocationClick = (record) => {
+    setSelectedZone(record.zone_id);
+    document.getElementById("zone-tabs").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  let handleTimeClick = (record) => {
+    // setSelectedDate(record.datetime);
+    document.getElementById("zone-tabs").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const columns = [
+    {
+      title: "Ranking",
+      dataIndex: "key",
+      sorter: (a, b) => a.key - b.key,
+    },
+    {
+      title: "Location",
+      dataIndex: "zone_name",
+      sorter: (a, b) => a.zone_name.localeCompare(b.zone_name),
+      render: (text, record) => (
+        <Button type="link" onClick={() => handleLocationClick(record)}>
+          {text}
+        </Button>
+      ),
+    },
+    {
+      title: "Time",
+      dataIndex: "datetime",
+      filters: timeFilters,
+      render(text, record) {
+        // show the time in the table
+        let timeToShow = text.split("T")[1].split(":")[0];
+        return (
+          <Button type="link" onClick={() => handleTimeClick(record)}>
+            {`${timeToShow}:00`}
+          </Button>
+        );
+      },
+
+      onFilter: (value, record) => {
+        let time = `${record.datetime.split("T")[1].split(":")[0]}:00`;
+        return time === value;
+      },
+    },
+    {
+      title: "Demographic Score",
+      dataIndex: "demographic_score",
+      sorter: (a, b) => a.demographic_score - b.demographic_score,
+      render: (text, record) => (
+        <div className="flex items-center justify-center">
+          <Tag icon={<CheckCircleOutlined />} color="success">
+            {Number(text).toFixed(2)}/100
+          </Tag>
+        </div>
+      ),
+    },
+    {
+      title: "Busyness Score",
+      dataIndex: "busyness_score",
+      sorter: (a, b) => a.busyness_score - b.busyness_score,
+      render: (text, record) => (
+        <div className="flex items-center justify-center">
+          <Tag icon={<CheckCircleOutlined />} color="success">
+            {Number(text).toFixed(2)}/100
+          </Tag>
+        </div>
+      ),
+    },
+  ];
   async function loadTableDataByDate(date) {
-    
     axiosInstance
       .get(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
@@ -162,14 +186,8 @@ const Analytics = () => {
         <Maps />
       </div>
       <div>
-        <div className="flex items-center justify-between mt-7">
-          <h4 className="text-xl font-medium">Recommendations</h4>
-          <div className="flex gap-4 items-center">
-            <SearchModalTrigger />
-          </div>
-        </div>
-        <div className="flex gap-2 items-center mt-4">
-          <span>Select Target Date</span>
+        <div className="flex gap-2 items-center mb-10">
+          <h4 className="text-xl font-medium">Select Target Date</h4>
           <Select
             className="w-60"
             value={selectedDate}
@@ -177,19 +195,26 @@ const Analytics = () => {
             options={dateOptions}
           />
         </div>
+        <div className="flex items-center justify-between mt-7">
+          <h4 className="text-xl font-medium">Recommendations</h4>
+          <div className="flex gap-4 items-center">
+            <SearchModalTrigger />
+          </div>
+        </div>
+        <Table
+          className="mt-4"
+          columns={columns}
+          dataSource={tableData}
+          pagination={{
+            defaultPageSize: 10,
+            showQuickJumper: true,
+            showSizeChanger: true,
+          }}
+        />
       </div>
-      <Table
-        className="mt-4"
-        columns={columns}
-        dataSource={tableData}
-        pagination={{
-          defaultPageSize: 10,
-          showQuickJumper: true,
-          showSizeChanger: true,
-        }}
-      />
+
       <div className="space-y-8">
-        <div>
+        <div id="zone-tabs">
           <h3 className="text-xl font-medium">Data Analysis</h3>
           <Tabs
             items={topZones.map((item) => ({

@@ -39,7 +39,7 @@ const PieChart = ({ zoneId }) => {
     data,
     angleField: "point",
     colorField: "type",
-    paddingRight: 80,
+    paddingRight: 200,
     innerRadius: 0.6,
     label: {
       text: "percent",
@@ -56,32 +56,7 @@ const PieChart = ({ zoneId }) => {
         position: "right",
         rowPadding: 5,
       },
-    },
-    annotations: [
-      {
-        type: "text",
-        style: {
-          text: "Total",
-          x: "50%",
-          y: "46%",
-          textAlign: "center",
-          fontSize: 20,
-          fontStyle: 300,
-          textColor: "#f0f"
-        },
-      },
-      {
-        type: "text",
-        style: {
-          text: "100%",
-          x: "50%",
-          y: "54%",
-          textAlign: "center",
-          fontSize: 32,
-          fontStyle: 500,
-        },
-      },
-    ],
+    }
   };
   return <Pie {...config} />;
 };
