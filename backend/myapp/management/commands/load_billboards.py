@@ -6,8 +6,11 @@ from myapp.models import Zone, Billboard
 class Command(BaseCommand):
     help = 'Load billboards from CSV file'
 
+    def add_arguments(self, parser):
+        parser.add_argument('csv_file', type=str, help='The path to the CSV file to load data from')
+
     def handle(self, *args, **kwargs):
-        file_path = '/mnt/data/no_text_signs_df.csv'
+        file_path = kwargs['csv_file']
         data = pd.read_csv(file_path)
 
         for _, row in data.iterrows():
@@ -17,8 +20,8 @@ class Command(BaseCommand):
                     street_name=row['street_name'],
                     sign_illumination=row['sign_illumination'],
                     sign_sq_footage=row['sign_sq_footage'],
-                    latitude=row['latitude'],
-                    longitude=row['longitude'],
+                    latitude=row['Latitude'],
+                    longitude=row['Longitude'],
                     zone=zone
                 )
                 billboard.save()
