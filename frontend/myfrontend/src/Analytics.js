@@ -12,9 +12,11 @@ import Maps from "./components/Maps";
 import axiosInstance from "./axiosInstance";
 import PieChart from "./components/PieChart";
 
+const pad0 = (num) => num.toString().padStart(2, "0");
+
 const timeFilters = [...Array(24).keys()].map((i) => ({
-  text: `${i}:00`,
-  value: `${i}:00`,
+  text: `${pad0(i)}:00`,
+  value: `${pad0(i)}:00`,
 }));
 console.log("🚀 ~ timeFilters ~ timeFilters:", timeFilters);
 
@@ -27,7 +29,7 @@ const columns = [
   {
     title: "Location",
     dataIndex: "zone_name",
-    sorter: (a, b) => a.location.localeCompare(b.location),
+    sorter: (a, b) => a.zone_name.localeCompare(b.zone_name),
   },
   {
     title: "Time",
@@ -39,12 +41,15 @@ const columns = [
       return <span>{`${timeToShow}:00`}</span>;
     },
 
-    // onFilter: (value, record) => record.address.indexOf(value) === 0,
+    onFilter: (value, record) => {
+      let time = `${record.datetime.split("T")[1].split(":")[0]}:00`;
+      return time === value;
+    },
   },
   {
     title: "Demographic Score",
     dataIndex: "demographic_score",
-    sorter: (a, b) => a.avgDemographicScore - b.avgDemographicScore,
+    sorter: (a, b) => a.demographic_score - b.demographic_score,
     render: (text, record) => (
       <div className="flex items-center justify-center">
         <Tag icon={<CheckCircleOutlined />} color="success">
@@ -56,7 +61,7 @@ const columns = [
   {
     title: "Busyness Score",
     dataIndex: "busyness_score",
-    sorter: (a, b) => a.avgBusynessScore - b.avgBusynessScore,
+    sorter: (a, b) => a.busyness_score - b.busyness_score,
     render: (text, record) => (
       <div className="flex items-center justify-center">
         <Tag icon={<CheckCircleOutlined />} color="success">
