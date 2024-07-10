@@ -12,6 +12,7 @@ services:
              python manage.py import_zones /mnt/data/taxi_zones_manhattan.geojson &&
              python manage.py import_population_data /mnt/data/census_final.csv &&
              python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv &&
+             python manage.py load_billboards /mnt/data/no_text_signs_df.csv &&
              python manage.py runserver 0.0.0.0:8000"
 
     volumes:
@@ -97,18 +98,18 @@ services:
       - mynetwork
 
   nginx:
-     image: nginx:latest
-     container_name: nginx
-     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  
-      - ./frontend/myfrontend/build:/usr/share/nginx/html:ro 
-     ports:
-       - "80:80"
-     depends_on:
-       - backend
-       - frontend
-     networks:
-       - mynetwork
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend/myfrontend/build:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - mynetwork
 
 volumes:
   postgres_data:

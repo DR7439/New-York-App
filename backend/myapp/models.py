@@ -174,3 +174,17 @@ class Demographic(models.Model):
 
     class Meta:
         unique_together = ('zone', 'search')
+
+class Billboard(models.Model):
+    """
+    Represents a billboard with its details and associated zone.
+    """
+    street_name = models.CharField(max_length=255)
+    sign_illumination = models.CharField(max_length=255)
+    sign_sq_footage = models.FloatField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.street_name} ({self.latitude}, {self.longitude})'

@@ -2,7 +2,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
@@ -14,8 +14,11 @@ urlpatterns = [
     path('search/<int:id>/', SingleSearchAPIView.as_view(), name='single_search_api'),
     path('interests/', InterestAPIView.as_view(), name='interests'),
     path('zones/', ZoneListView.as_view(), name='zone-list'),
+    path('zones/<int:zone_id>/interests', InterestZoneCountByZoneView.as_view(), name='interest-zone-counts-by-zone'),
     path('zones/<int:zone_id>/details/', ZoneDetailView.as_view(), name='zone-details'),
     path('searches/<int:search_id>/scores/', SearchScoresView.as_view(), name='search-scores'),
     path('password-reset/', PasswordResetRequestView.as_view(), name='password_reset_request'),
     path('reset-password/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('billboards/zone/<int:zone_id>/', BillboardsByZoneView.as_view(), name='billboards-by-zone'),
+    path('top-scores-in-zone/', TopNScoresInZoneView.as_view(), name='top-scores-in-zone'),   
 ]

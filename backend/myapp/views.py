@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer
 from .tasks import background_task
 from django.contrib.auth import login
 from django.contrib.auth.tokens import default_token_generator
@@ -17,6 +17,7 @@ from django.db.models import F, FloatField, ExpressionWrapper, Value, Max, Subqu
 from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from datetime import datetime 
 
 
 class UserCreate(generics.CreateAPIView):
@@ -285,6 +286,62 @@ class TopNScoresView(APIView):
         ]
 
         return Response({"top_scores": data}, status=status.HTTP_200_OK)
+    
+
+
+class TopNScoresInZoneView(APIView):
+    """
+    API view to retrieve top N combined demographic and busyness scores for a certain zone on a certain date.
+    """
+    def get(self, request, *args, **kwargs):
+        # Extract query parameters
+        search_id = request.query_params.get('search_id')
+        zone_id = request.query_params.get('zone_id')
+        date_str = request.query_params.get('date')
+        top_n = int(request.query_params.get('top_n', 10))  # Default to top 10 if not specified
+
+        # Validate and parse the date
+        try:
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            return Response({"error": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve the search object
+        search = get_object_or_404(Search, id=search_id)
+        top_n = min(top_n, 100)  # Limit to a maximum of 100
+
+        # Create a subquery to retrieve the demographic score for the zone in the search
+        demographic_subquery = Demographic.objects.filter(
+            zone=OuterRef('zone_id'), search=search
+        ).values('score')[:1]
+
+        # Filter and annotate the Busyness queryset
+        top_scores = (
+            Busyness.objects
+            .filter(datetime__date=date, zone_id=zone_id)
+            .annotate(
+                demographic_score=Coalesce(Subquery(demographic_subquery), Value(0.0)),
+                combined_score=ExpressionWrapper(
+                    F('busyness_score') + Coalesce(Subquery(demographic_subquery), Value(0.0)),
+                    output_field=FloatField()
+                )
+            )
+            .order_by('-combined_score')[:top_n]
+        )
+
+        data = [
+            {
+                "zone_id": score.zone.id,
+                "zone_name": score.zone.name,
+                "datetime": score.datetime,
+                "demographic_score": score.demographic_score,
+                "busyness_score": score.busyness_score,
+                "combined_score": score.combined_score
+            }
+            for score in top_scores
+        ]
+
+        return Response({"top_scores": data}, status=status.HTTP_200_OK)
 
 
 class TopZonesView(APIView):
@@ -352,6 +409,28 @@ class TopZonesView(APIView):
 
         return Response(data, status=status.HTTP_200_OK)
 
+
+class BillboardsByZoneView(APIView):
+    """
+    API view to retrieve all billboards in a specific zone.
+    """
+    def get(self, request, zone_id, *args, **kwargs):
+        billboards = Billboard.objects.filter(zone_id=zone_id)
+        serializer = BillboardSerializer(billboards, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+
+class InterestZoneCountByZoneView(APIView):
+    """
+    API view to retrieve all interest zone counts in a specific zone.
+    """
+    def get(self, request, zone_id, *args, **kwargs):
+        interest_zone_counts = InterestZoneCount.objects.filter(zone_id=zone_id).select_related('interest')
+        
+        data = {item.interest.name: item.count for item in interest_zone_counts}
+        
+        return Response(data, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
