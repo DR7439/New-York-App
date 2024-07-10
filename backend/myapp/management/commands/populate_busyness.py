@@ -15,7 +15,7 @@ class Command(BaseCommand):
         current_time = timezone.now()
         
         # Generate timestamps for every hour from now to 7 days ahead
-        timestamps = pd.date_range(start=current_time, periods=7*24, freq='H')
+        timestamps = pd.date_range(start=current_time, periods=14*24, freq='H')
 
         for timestamp in timestamps:
             # Make predictions using the busyness prediction model for each timestamp

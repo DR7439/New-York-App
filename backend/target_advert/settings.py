@@ -139,6 +139,13 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
+CELERY_BEAT_SCHEDULE = {
+    'check-and-populate-busyness-every-day': {
+        'task': 'myapp.tasks.check_and_populate_busyness',
+        'schedule': timedelta(days=1), 
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
