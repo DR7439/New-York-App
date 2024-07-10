@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer
 from .tasks import background_task
 from django.contrib.auth import login
@@ -361,6 +361,19 @@ class BillboardsByZoneView(APIView):
         billboards = Billboard.objects.filter(zone_id=zone_id)
         serializer = BillboardSerializer(billboards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+
+class InterestZoneCountByZoneView(APIView):
+    """
+    API view to retrieve all interest zone counts in a specific zone.
+    """
+    def get(self, request, zone_id, *args, **kwargs):
+        interest_zone_counts = InterestZoneCount.objects.filter(zone_id=zone_id).select_related('interest')
+        
+        data = {item.interest.name: item.count for item in interest_zone_counts}
+        
+        return Response(data, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
