@@ -24,4 +24,5 @@ CMD ["bash", "-c", "/wait-for-it.sh db:5432 -- /wait-for-it.sh redis:6379 -- pyt
                    python manage.py loaddata myapp/fixtures/interests.json && \
                    python manage.py import_zones /mnt/data/taxi_zones_manhattan.geojson && \
                    python manage.py import_population_data /mnt/data/census_final.csv && \
+                   python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv && \
                    python manage.py runserver 0.0.0.0:8000"]

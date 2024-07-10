@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
@@ -11,11 +11,12 @@ services:
              python manage.py loaddata myapp/fixtures/interests.json &&
              python manage.py import_zones /mnt/data/taxi_zones_manhattan.geojson &&
              python manage.py import_population_data /mnt/data/census_final.csv &&
+             python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv &&
              python manage.py runserver 0.0.0.0:8000"
 
     volumes:
       - ./backend:/app
-      - ./backend/mnt/data:/mnt/data  # Mount the GeoJSON and CSV file to the container
+      - ./backend/mnt/data:/mnt/data # Mount the GeoJSON and CSV file to the container
     ports:
       - "8000:8000"
     environment:
@@ -94,6 +95,20 @@ services:
       - "5432:5432"
     networks:
       - mynetwork
+
+  nginx:
+     image: nginx:latest
+     container_name: nginx
+     volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  
+      - ./frontend/myfrontend/build:/usr/share/nginx/html:ro 
+     ports:
+       - "80:80"
+     depends_on:
+       - backend
+       - frontend
+     networks:
+       - mynetwork
 
 volumes:
   postgres_data:
