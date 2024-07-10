@@ -408,7 +408,107 @@ class TopZonesView(APIView):
             })
 
         return Response(data, status=status.HTTP_200_OK)
+    
 
+class ZoneScoresByDatetimeView(APIView):
+    """
+    API view to retrieve the zone scores for a given datetime and search.
+    """
+    def get(self, request, *args, **kwargs):
+        # Extract query parameters
+        search_id = request.query_params.get('search_id')
+        datetime_str = request.query_params.get('datetime')
+
+        # Validate and parse the datetime
+        try:
+            datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%dT%H:%M:%SZ')
+        except (ValueError, TypeError):
+            return Response({"error": "Invalid datetime format. Use YYYY-MM-DDTHH:MM:SSZ."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve the search object
+        search = get_object_or_404(Search, id=search_id)
+
+        # Create a subquery to retrieve the demographic score for each zone in the search
+        demographic_subquery = Demographic.objects.filter(
+            zone=OuterRef('zone_id'), search=search
+        ).values('score')[:1]
+
+        # Filter the Busyness queryset by the given datetime and search
+        zone_scores = (
+            Busyness.objects
+            .filter(datetime=datetime_obj)
+            .annotate(
+                demographic_score=Coalesce(Subquery(demographic_subquery), Value(0.0))
+            )
+        )
+
+        data = [
+            {
+                "zone_id": score.zone.id,
+                "zone_name": score.zone.name,
+                "demographic_score": score.demographic_score,
+                "busyness_score": score.busyness_score
+            }
+            for score in zone_scores
+        ]
+
+        return Response({"zone_scores": data}, status=status.HTTP_200_OK)
+
+
+class ZoneDetailsBySearchDateZoneView(APIView):
+    """
+    API view to retrieve zone details for a given search ID, date, and zone ID.
+    """
+    def get(self, request, *args, **kwargs):
+        # Extract query parameters
+        search_id = request.query_params.get('search_id')
+        date_str = request.query_params.get('date')
+        zone_id = request.query_params.get('zone_id')
+
+        # Validate and parse the date
+        try:
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            return Response({"error": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve the search object
+        search = get_object_or_404(Search, id=search_id)
+        zone_id = int(zone_id)
+
+        # Create a subquery to retrieve the demographic score for the zone in the search
+        demographic_subquery = Demographic.objects.filter(
+            zone=OuterRef('zone_id'), search=search
+        ).values('score')[:1]
+
+        # Filter and annotate the Busyness queryset
+        busyness_scores = (
+            Busyness.objects
+            .filter(datetime__date=date, zone_id=zone_id)
+            .annotate(
+                demographic_score=Coalesce(Subquery(demographic_subquery), Value(0.0))
+            )
+        )
+
+        if not busyness_scores.exists():
+            return Response({"error": "No busyness scores found for the specified parameters."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Assuming all busyness_scores have the same zone and demographic score, we get the first one for these details
+        first_score = busyness_scores.first()
+
+        data = {
+            "zone_id": first_score.zone.id,
+            "zone_name": first_score.zone.name,
+            "demographic_score": first_score.demographic_score,
+            "busyness_scores": [
+                {
+                    "time": score.datetime,
+                    "busyness_score": score.busyness_score
+                }
+                for score in busyness_scores
+            ]
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
 
 class BillboardsByZoneView(APIView):
     """
