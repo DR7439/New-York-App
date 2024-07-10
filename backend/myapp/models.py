@@ -81,6 +81,25 @@ class Interest(models.Model):
     def __str__(self):
         return self.name
 
+class InterestZoneCount(models.Model):
+    """
+    Represents the count of a particular interest within a zone.
+
+    Attributes:
+        zone (ForeignKey): Reference to the Zone model.
+        interest (ForeignKey): Reference to the Interest model.
+        count (int): The count of the interest within the zone.
+    """
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    interest = models.ForeignKey(Interest, on_delete=models.CASCADE)
+    count = models.IntegerField()
+
+    class Meta:
+        unique_together = ('zone', 'interest')
+
+    def __str__(self):
+        return f"{self.zone.name} - {self.interest.name}: {self.count}"
+
 
 class PopulationData(models.Model):
     """
@@ -155,3 +174,17 @@ class Demographic(models.Model):
 
     class Meta:
         unique_together = ('zone', 'search')
+
+class Billboard(models.Model):
+    """
+    Represents a billboard with its details and associated zone.
+    """
+    street_name = models.CharField(max_length=255)
+    sign_illumination = models.CharField(max_length=255)
+    sign_sq_footage = models.FloatField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.street_name} ({self.latitude}, {self.longitude})'

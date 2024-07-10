@@ -15,7 +15,7 @@ Classes:
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData
+from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData, Billboard
 
 CustomUser = get_user_model()
 
@@ -176,6 +176,12 @@ class ZoneDetailSerializer(serializers.ModelSerializer):
     def get_age_demographics(self, obj):
         demographics = PopulationData.objects.filter(zone=obj)
         return {data.age_category.age_range: data.population for data in demographics}
+    
+
+class BillboardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Billboard
+        fields = ['street_name', 'sign_illumination', 'sign_sq_footage', 'latitude', 'longitude', 'zone_id']
     
 class PredictionRequestSerializer(serializers.Serializer):
     prediction_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S')
