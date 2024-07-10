@@ -16,6 +16,13 @@ const ColumnChart = ({ zoneId }) => {
     xField: "age",
     yField: "score",
   };
+
+  function sortFn(a, b) {
+    let aNum = parseInt(a.split("-",)[0]);
+    let bNum = parseInt(b.split("-",)[0]);
+    return aNum - bNum;
+  }
+
   function fetchData() {
     axiosInstance.get(`/api/zones/${zoneId}/details`).then((res) => {
       // let data = res.data.map((item) => ({
@@ -23,7 +30,7 @@ const ColumnChart = ({ zoneId }) => {
       //   value: item.busyness_score,
       // }));
       let age_demographics = res.data.age_demographics;
-      let data = Object.keys(age_demographics).map((key) => ({
+      let data = Object.keys(age_demographics).sort(sortFn).map((key) => ({
         age: key.replaceAll("to", "-").replaceAll("years", ""),
         score: age_demographics[key],
       }));

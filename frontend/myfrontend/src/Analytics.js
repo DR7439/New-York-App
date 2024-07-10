@@ -10,6 +10,7 @@ import { Link, useParams } from "react-router-dom";
 import useSearches from "./hooks/useSearches";
 import Maps from "./components/Maps";
 import axiosInstance from "./axiosInstance";
+import PieChart from "./components/PieChart";
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
   text: `${i}:00`,
@@ -93,7 +94,9 @@ const Analytics = () => {
       });
 
     axiosInstance
-      .get(`/api/searches/${id}/top-scores/${id}/?date=${date}`)
+      .get(
+        `/api/top-scores-in-zone?search_id=${id}&date=${date}&zone_id=16&top_n=20`
+      )
       .then((res) => {
         let data =
           res.data?.top_scores.map((item, ind) => ({
@@ -199,6 +202,10 @@ const Analytics = () => {
         <div>
           <h4 className="mb-4 font-medium">Demographic by Location</h4>
           <ColumnChart zoneId={selectedZone} />
+        </div>
+        <div>
+          <h4 className="mb-4 font-medium">Point-of-interest by Location</h4>
+          <PieChart zoneId={selectedZone} />
         </div>
       </div>
     </>
