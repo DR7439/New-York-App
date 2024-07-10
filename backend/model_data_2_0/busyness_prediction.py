@@ -41,7 +41,7 @@ def load_pickle(file_path = 'xgboost_busyness_model.pkl'):
         return loaded_data
 
 
-def make_prediction(pred_time,path_to_pickle='busyness_model.pkl'):
+def make_prediction(pred_time, path_to_pickle='model_data_2_0/busyness_model.pkl'):
     '''
     This function returns a pandas dataframe with the predictions for the specified time for all taxi zones.
     samepl pred_time = '2024-07-09 08:00:00'

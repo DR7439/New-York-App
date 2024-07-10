@@ -5,13 +5,12 @@ import numpy as np
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from myapp.models import Busyness, Zone
-from ....model_data_2_0 import busyness_prediction
+from model_data_2_0 import busyness_prediction
 
 class Command(BaseCommand):
     help = 'Populates the Busyness table with log-normalized busyness scores for every hour from the current date to 7 days ahead.'
 
     def handle(self, *args, **kwargs):
-        self.stdout.write('---------Check--------.')
         # Get the current date and time
         current_time = timezone.now()
         
@@ -20,7 +19,8 @@ class Command(BaseCommand):
 
         for timestamp in timestamps:
             # Make predictions using the busyness prediction model for each timestamp
-            predictions = busyness_prediction.make_prediction(timestamp.strftime('%Y-%m-%d %H:%M:%S'), 'busyness_model.pkl')
+            predictions = busyness_prediction.make_prediction(timestamp.strftime('%Y-%m-%d %H:%M:%S'), 'model_data_2_0/busyness_model.pkl')
+
 
             # Apply logarithmic scaling to the 'predicted_busyness_score'
             predictions['log_normalized_score'] = np.log1p(predictions['predicted_busyness_score'])
