@@ -2,7 +2,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, PredictBusynessAPIView, TestMethodAPIView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
@@ -20,7 +20,9 @@ urlpatterns = [
     path('password-reset/', PasswordResetRequestView.as_view(), name='password_reset_request'),
     path('reset-password/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('billboards/zone/<int:zone_id>/', BillboardsByZoneView.as_view(), name='billboards-by-zone'),
-    path('top-scores-in-zone/', TopNScoresInZoneView.as_view(), name='top-scores-in-zone'),   
+    path('top-scores-in-zone/', TopNScoresInZoneView.as_view(), name='top-scores-in-zone'),
+    path('zone-scores-by-datetime/', ZoneScoresByDatetimeView.as_view(), name='zone-scores-by-datetime'),
+    path('zone-details-by-search-date-zone/', ZoneDetailsBySearchDateZoneView.as_view(), name='zone-details-by-search-date-zone'),   
     path('predict_busyness/', PredictBusynessAPIView.as_view(), name='predict_busyness'),
     path('test_method/', TestMethodAPIView.as_view(), name='test_method'),
 
