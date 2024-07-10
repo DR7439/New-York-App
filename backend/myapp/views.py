@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer
 from .tasks import background_task
 from django.contrib.auth import login
 from django.contrib.auth.tokens import default_token_generator
@@ -343,6 +343,15 @@ class TopZonesView(APIView):
 
         return Response(data, status=status.HTTP_200_OK)
 
+
+class BillboardsByZoneView(APIView):
+    """
+    API view to retrieve all billboards in a specific zone.
+    """
+    def get(self, request, zone_id, *args, **kwargs):
+        billboards = Billboard.objects.filter(zone_id=zone_id)
+        serializer = BillboardSerializer(billboards, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)  # Add this line
