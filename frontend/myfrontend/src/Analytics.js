@@ -18,7 +18,6 @@ const timeFilters = [...Array(24).keys()].map((i) => ({
   text: `${pad0(i)}:00`,
   value: `${pad0(i)}:00`,
 }));
-console.log("🚀 ~ timeFilters ~ timeFilters:", timeFilters);
 
 const columns = [
   {
@@ -91,6 +90,7 @@ const Analytics = () => {
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
   async function loadTableDataByDate(date) {
+    
     axiosInstance
       .get(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
