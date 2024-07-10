@@ -34,7 +34,6 @@ const ColumnChart = ({ zoneId }) => {
         age: key.replaceAll("to", "-").replaceAll("years", ""),
         score: age_demographics[key],
       }));
-      console.log("🚀 ~ data ~ data:", data)
       setData(data);
     });
   }

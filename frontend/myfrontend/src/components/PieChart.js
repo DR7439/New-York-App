@@ -1,41 +1,31 @@
 import { Pie } from "@ant-design/plots";
 import React, { useEffect } from "react";
+import axiosInstance from "../axiosInstance";
 const PieChart = ({ zoneId }) => {
   let [data, setData] = React.useState([]);
+  function fetchData() {
+    axiosInstance.get(`/api/zones/${zoneId}/interests`).then((res) => {
+      if (res.data) {
+        let data = Object.keys(res.data).map((key) => ({
+          type: key.replaceAll("to", "-").replaceAll("years", ""),
+          point: res.data[key],
+        }));
+        setData(data);
+      }
+    });
+  }
   useEffect(() => {
     if (zoneId) {
       fetchData();
     }
   }, [zoneId]);
-  if (!zoneId) {
+  if (!zoneId || data.length === 0) {
     return null;
   }
 
-  function fetchData() {
-    // axiosInstance.get(`/api/zones/${zoneId}/details`).then((res) => {
-    //   // let data = res.data.map((item) => ({
-    //   //   time: item.datetime.split("T")[1].split(":")[0],
-    //   //   value: item.busyness_score,
-    //   // }));
-    //   let age_demographics = res.data.age_demographics;
-    //   let data = Object.keys(age_demographics).sort(sortFn).map((key) => ({
-    //     age: key.replaceAll("to", "-").replaceAll("years", ""),
-    //     score: age_demographics[key],
-    //   }));
-    //   console.log("🚀 ~ data ~ data:", data)
-    //   setData(data);
-    // });
-  }
   const config = {
-    data: [
-      { type: "avc", value: 27 },
-      { type: "xzc", value: 25 },
-      { type: "dfe", value: 18 },
-      { type: "asdfff", value: 15 },
-      { type: "asf", value: 10 },
-      { type: "asddf", value: 5 },
-    ],
-    angleField: "value",
+    data,
+    angleField: "point",
     colorField: "type",
     paddingRight: 80,
     innerRadius: 0.6,
@@ -44,7 +34,7 @@ const PieChart = ({ zoneId }) => {
       style: {
         fontWeight: "bold",
       },
-      position: 'spider',
+      position: "spider",
     },
     legend: {
       color: {

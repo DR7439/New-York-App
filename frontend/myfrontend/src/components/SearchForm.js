@@ -36,7 +36,6 @@ export default function SearchForm({
       const res = await axiosInstance.post("/api/search/", data);
       onSuccess && onSuccess();
       fetchSearches();
-      console.log("9779 res", res);
     } catch (error) {
       console.error(error);
     }

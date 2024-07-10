@@ -21,7 +21,6 @@ const LineChart = ({ searchId,zoneId, date }) => {
       //   value: item.busyness_score,
       // }));
       // setData(data);
-      console.log('9779 res.data', res.data);
     });
   }
   useEffect(() => {
