@@ -36,7 +36,7 @@ class WebsiteTasks(TaskSet):
     @task
     def search(self):
         response = self.client.post("/api/search/", json={
-            "id": 9,
+            "id": 19,
             "name": "123",
             "user": 1,
             "start_date": "2024-03-12",
@@ -105,6 +105,17 @@ class WebsiteTasks(TaskSet):
         response = self.client.post(f"/api/reset-password/{uidb64}/{token}/", json={"password": "newpword"})
         if response.status_code != 200:
             print("Password reset confirm failed", response.status_code, response.text)
+
+    @task
+    def top_zones(self):
+        params = {
+            "search_id": 1,
+            "date": "2024-07-12",
+            "top_n": 10
+        }
+        response = self.client.get("/api/top-zones/", params=params)
+        if response.status_code != 200:
+            print("Failed to get top zones", response.status_code, response.text)
 
 class WebsiteUser(HttpUser):
     tasks = [WebsiteTasks]
