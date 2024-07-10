@@ -25,7 +25,6 @@ import os
 import json
 import joblib
 
-from predictions_function import make_predictions
 
 class UserCreate(generics.CreateAPIView):
     """
@@ -498,17 +497,17 @@ class PredictBusynessAPIView(APIView):
         path_to_pickle_file = '../model_data/xgboost_busyness_model.pkl'
 
         # Make predictions
-        predictions = make_predictions(
-            prediction_time,
-            path_to_pickle_file,
-            path_to_zones_csv,
-            path_to_latest_historical_data_csv
-        )
+        #predictions = make_predictions(
+            #prediction_time,
+            #path_to_pickle_file,
+            #path_to_zones_csv,
+            #path_to_latest_historical_data_csv
+        #)
 
         # Serialize the predictions DataFrame to JSON
-        predictions_serializer = PredictionSerializer(predictions, many=True)
+        #predictions_serializer = PredictionSerializer(predictions, many=True)
 
-        return Response(predictions_serializer.data)
+        #return Response(predictions_serializer.data)
     
 class TestMethodAPIView(APIView):
     permission_classes = [permissions.AllowAny]

@@ -20,20 +20,26 @@ def background_task(search_id):
             defaults={'score': demographic_score}
         )
 
-    # Generate random busyness scores for each hour of each day between start_date and end_date
+    # Generate busyness scores for each hour of each day between start_date and end_date
     current_date = search.start_date
     end_date = search.end_date
 
     while current_date <= end_date:
         for hour in range(24):
+            naive_datetime = datetime.datetime.combine(current_date, datetime.time(hour=hour))
+            aware_datetime = timezone.make_aware(naive_datetime)
+
             for zone in zones:
-                naive_datetime = datetime.datetime.combine(current_date, datetime.time(hour=hour))
-                aware_datetime = timezone.make_aware(naive_datetime)
-                Busyness.objects.update_or_create(
-                    datetime=aware_datetime,
-                    zone=zone,
-                    defaults={'busyness_score': random.uniform(0, 100)}
-                )
+                busyness_entry = Busyness.objects.filter(datetime=aware_datetime, zone=zone).first()
+                if busyness_entry:
+                    busyness_score = busyness_entry.busyness_score
+                    Busyness.objects.update_or_create(
+                        datetime=aware_datetime,
+                        zone=zone,
+                        defaults={'busyness_score': busyness_score}
+                    )
+                else:
+                    print(f"No busyness entry found for zone {zone.id} at {aware_datetime}")
         current_date += datetime.timedelta(days=1)
 
     print(f'Background task completed for search_id: {search_id}')
