@@ -44,7 +44,7 @@ services:
     build:
       context: ./backend
     container_name: populate_busyness
-    command: bash -c "/wait-for-it.sh db:5432 -- /wait-for-it.sh redis:6379 -- /wait-for-it.sh backend:8000 -- python manage.py populate_busyness"
+    command: bash /app/populate_busyness.sh
     volumes:
       - ./backend:/app
       - ./backend/mnt/data:/mnt/data

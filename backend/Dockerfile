@@ -4,6 +4,9 @@ FROM python:3.10-slim
 # Set the working directory to /app
 WORKDIR /app
 
+# Install curl and other dependencies
+RUN apt-get update && apt-get install -y curl
+
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
