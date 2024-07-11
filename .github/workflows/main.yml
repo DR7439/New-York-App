@@ -43,4 +43,4 @@ jobs:
         IMAGE_TAG: ${{ steps.vars.outputs.timestamp }}
       run: |
         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker load < <(docker save NY_app:$IMAGE_TAG)"
-        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker-compose -f /path/to/deploy/docker-compose.yml up -d"
+        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker-compose -f ~/Summer_Project/New-York-App/docker-compose.yml up -d"
