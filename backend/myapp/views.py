@@ -250,7 +250,18 @@ class TopNScoresView(APIView):
     """
     API view to retrieve top N combined demographic and busyness scores for a search.
     """
-    def get(self, request, search_id, top_n, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        search_id = request.query_params.get('search_id')
+        top_n = int(request.query_params.get('top_n', 10))  # Default to top 10 if not specified
+        date_str = request.query_params.get('date')
+
+        # Validate and parse the date
+        try:
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            return Response({"error": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve the search object
         search = get_object_or_404(Search, id=search_id)
         top_n = min(top_n, 100)  # Limit to a maximum of 100
 
@@ -262,7 +273,7 @@ class TopNScoresView(APIView):
         # Annotate the Busyness queryset with the demographic score and combined score
         top_scores = (
             Busyness.objects
-            .filter(datetime__range=[search.start_date, search.end_date])
+            .filter(datetime__date=date)
             .annotate(
                 demographic_score=Coalesce(Subquery(demographic_subquery), Value(0.0)),
                 combined_score=ExpressionWrapper(
