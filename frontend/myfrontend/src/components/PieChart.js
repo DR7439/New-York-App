@@ -39,7 +39,6 @@ const PieChart = ({ zoneId }) => {
     data,
     angleField: "point",
     colorField: "type",
-    paddingRight: 200,
     innerRadius: 0.6,
     label: {
       text: "percent",
@@ -52,7 +51,7 @@ const PieChart = ({ zoneId }) => {
     },
     legend: {
       color: {
-        title: false,
+        title: true,
         position: "right",
         rowPadding: 5,
       },
