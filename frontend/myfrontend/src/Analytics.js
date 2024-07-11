@@ -19,6 +19,28 @@ const timeFilters = [...Array(24).keys()].map((i) => ({
   value: `${pad0(i)}:00`,
 }));
 
+function parseScoresFromTopZones(topZones) {
+  let scores = [];
+  topZones.forEach((zone) => {
+    let { busyness_scores, ...rest } = zone;
+    busyness_scores.forEach((score) => {
+      scores.push({
+        ...rest,
+        datetime: score[0],
+        busyness_score: score[1],
+        combined_score: score[1] + rest.demographic_score,
+      });
+    });
+  });
+  scores = scores
+    .sort((a, b) => b.combined_score - a.combined_score)
+    .map((item, ind) => ({
+      key: ind + 1,
+      ...item,
+    }));
+  return scores;
+}
+
 function getDateArray(startDate, endDate) {
   let dates = [];
   let currentDate = new Date(startDate);
@@ -114,42 +136,26 @@ const Analytics = () => {
       ),
     },
   ];
-  async function loadTableDataByDate(date) {
+  async function loadDataByDate(date) {
     axiosInstance
       .get(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
-        setTopZones(res.data);
-        setSelectedZone(res.data[0].zone_id);
-      });
-
-    axiosInstance
-      .get(
-        `/api/top-scores-in-zone?search_id=${id}&date=${date}&zone_id=16&top_n=20`
-      )
-      .then((res) => {
-        let data =
-          res.data?.top_scores.map((item, ind) => ({
-            key: ind + 1,
-            ...item,
-          })) || [];
-        setTableData(data);
+        let topZones = res.data;
+        setTopZones(topZones);
+        setSelectedZone(topZones[0].zone_id);
+        let scores = parseScoresFromTopZones(topZones);
+        setTableData(scores);
       });
   }
   useEffect(() => {
-    // /top-zones/?n=5&search_id=1&date=2024-07-10
     getSearchById(id).then((search) => {
       setSearch(search);
       setSelectedDate(search.start_date);
     });
-    // axiosInstance.get(`/api/searches/${id}/top-scores/5/`);
-    // axiosInstance.get(`/api/zones`)
   }, []);
   useEffect(() => {
     if (search) {
-      loadTableDataByDate(selectedDate);
-      // axiosInstance.get(`/api/searches/${id}/top-scores/5/`).then(data => {
-      //   setTableData(data.data);
-      // });
+      loadDataByDate(selectedDate);
     }
   }, [search, selectedDate]);
   let searchName = search ? search.name : "";
@@ -221,7 +227,7 @@ const Analytics = () => {
               label: item.zone_name,
               key: item.zone_id,
             }))}
-            value={selectedZone}
+            activeKey={selectedZone}
             onChange={(key) => setSelectedZone(key)}
           />
         </div>

@@ -69,19 +69,19 @@ services:
     networks:
       - mynetwork
 
-  frontend:
-    build:
-      context: ./frontend/myfrontend
-    container_name: react_frontend
-    volumes:
-      - ./frontend:/myfrontend
-      - /myfrontend/node_modules
-    ports:
-      - "3000:3000"
-    environment:
-      - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING}
-    networks:
-      - mynetwork
+  # frontend:
+  #   build:
+  #     context: ./frontend/myfrontend
+  #   container_name: react_frontend
+  #   volumes:
+  #     - ./frontend:/myfrontend
+  #     - /myfrontend/node_modules
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING}
+  #   networks:
+  #     - mynetwork
 
   db:
     image: postgres:16
@@ -107,7 +107,7 @@ services:
       - "80:80"
     depends_on:
       - backend
-      - frontend
+      # - frontend
     networks:
       - mynetwork
 
