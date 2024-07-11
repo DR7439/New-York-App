@@ -8,7 +8,7 @@ from myapp.models import Busyness, Zone
 from model_data_2_0 import busyness_prediction
 
 class Command(BaseCommand):
-    help = 'Populates the Busyness table with log-normalized busyness scores for every hour from the current date to 7 days ahead.'
+    help = 'Populates the Busyness table with log-normalized busyness scores for every hour from the current date to 14 days ahead.'
 
     def handle(self, *args, **kwargs):
         # Get the current date and time
@@ -16,6 +16,9 @@ class Command(BaseCommand):
         
         # Generate timestamps for every hour from now to 7 days ahead
         timestamps = pd.date_range(start=current_time, periods=14*24, freq='H')
+
+        # Round timestamps to the nearest whole hour
+        timestamps = timestamps.round('H')
 
         for timestamp in timestamps:
             # Make predictions using the busyness prediction model for each timestamp

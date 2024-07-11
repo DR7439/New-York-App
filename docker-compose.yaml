@@ -14,7 +14,6 @@ services:
              python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv &&
              python manage.py load_billboards /mnt/data/no_text_signs_df.csv &&
              python manage.py model_down && 
-             python manage.py populate_busyness && 
              python manage.py runserver 0.0.0.0:8000"
 
     volumes:
@@ -38,6 +37,27 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - mynetwork
+
+  populate_busyness:
+    build:
+      context: ./backend
+    container_name: populate_busyness
+    command: bash -c "/wait-for-it.sh db:5432 -- /wait-for-it.sh redis:6379 -- /wait-for-it.sh backend:8000 -- python manage.py populate_busyness"
+    volumes:
+      - ./backend:/app
+      - ./backend/mnt/data:/mnt/data
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - backend
     networks:
       - mynetwork
 
