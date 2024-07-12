@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-xzkxr@8pu1*uv5@7nek!8o$7k)kpjy*)9a!$-om6b)@3m%rh7*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', '137.43.49.21']
 
 
 # Application definition
@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'corsheaders',
-    "myapp", 
+    "myapp",
+    'drf_spectacular',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 REST_FRAMEWORK = {
@@ -54,6 +56,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'API documentation for your project',
+    'VERSION': '1.0.0',
+    # other settings
 }
 
 from datetime import timedelta
@@ -79,11 +89,16 @@ JWT_AUTH = {
 # Add CORS settings if needed
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    'http://127.0.0.1:3000',
+    'http://localhost',
+
+    'http://localhost',
 ]
 
 AUTH_USER_MODEL = 'myapp.CustomUser'
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -91,8 +106,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    'myapp.middleware.JWTSessionMiddleware',  
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "target_advert.urls"
 
@@ -121,6 +138,13 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+CELERY_BEAT_SCHEDULE = {
+    'check-and-populate-busyness-every-day': {
+        'task': 'myapp.tasks.check_and_populate_busyness',
+        'schedule': timedelta(days=1), 
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
