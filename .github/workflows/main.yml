@@ -41,6 +41,13 @@ jobs:
         VM_HOST: ${{ secrets.VM_HOST }}
         VM_USER: ${{ secrets.VM_USER }}
         IMAGE_TAG: ${{ steps.vars.outputs.timestamp }}
+        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
       run: |
         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker load < <(docker save NY_app:$IMAGE_TAG)"
+        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "
+        if [ -d '~/Summer_Project/New-York-App' ]; then
+          cd ~/Summer_Project/New-York-App && git pull origin main;
+        else
+          git clone https://$GITHUB_PAT@github.com/DR7439/New-York-App.git ~/Summer_Project/New-York-App;
+        fi"
         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker-compose -f ~/Summer_Project/New-York-App/docker-compose.yaml up -d"
