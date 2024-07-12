@@ -27,10 +27,10 @@ jobs:
       run: echo "::set-output name=timestamp::$(date +%Y%m%d%H%M%S)"
 
     - name: Build Docker image
-      run: docker build -t NY_app:${{ steps.vars.outputs.timestamp }} .
+      run: docker build -t ny_app:${{ steps.vars.outputs.timestamp }} .
 
     - name: Run tests
-      run: docker run NY_app:${{ steps.vars.outputs.timestamp }} test-command
+      run: docker run ny_app:${{ steps.vars.outputs.timestamp }} test-command
 
     - name: Install sshpass
       run: sudo apt-get update && sudo apt-get install -y sshpass
@@ -43,7 +43,7 @@ jobs:
         IMAGE_TAG: ${{ steps.vars.outputs.timestamp }}
         PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       run: |
-        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker load < <(docker save NY_app:$IMAGE_TAG)"
+        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "docker load < <(docker save ny_app:$IMAGE_TAG)"
         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST "
         if [ -d '~/Summer_Project/New-York-App' ]; then
           cd ~/Summer_Project/New-York-App && git pull origin main;
