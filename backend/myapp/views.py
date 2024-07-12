@@ -465,7 +465,8 @@ class ZoneScoresByDatetimeView(APIView):
                 "zone_id": score.zone.id,
                 "zone_name": score.zone.name,
                 "demographic_score": score.demographic_score,
-                "busyness_score": score.busyness_score
+                "busyness_score": score.busyness_score,
+                "total_score": score.busyness_score + score.demographic_score
             }
             for score in zone_scores
         ]
