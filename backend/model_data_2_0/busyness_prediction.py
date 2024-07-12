@@ -1,47 +1,58 @@
-import pandas as pd
 from dateutil.relativedelta import relativedelta
 from datetime import timedelta
+import pandas as pd
 import numpy as np
 import pickle
 
-
 def get_last_12_months_rows(df, timestamp, zone_id):
     current_time = pd.to_datetime(timestamp)
-    
+    min_timestamp = df['transit_timestamp'].min()
     max_timestamp = df['transit_timestamp'].max()
-    
     result_rows = []
-    
-    # Loop over the past 12 months
-    for i in range(1, 13):
+
+    # Loop over the past months until the earliest timestamp
+    i = 1
+    while current_time - relativedelta(months=i) >= min_timestamp:
         # Calculate the datetime for the same day and time in the previous months
         prev_time = current_time - relativedelta(months=i)
-        
+
         # Adjust day if the month doesn't have the exact day (e.g., February 30 -> February 28/29)
         if prev_time.month != (current_time - relativedelta(months=i)).month:
             prev_time = prev_time.replace(day=1) - timedelta(days=1)
             prev_time = prev_time.replace(hour=current_time.hour, minute=current_time.minute, second=current_time.second)
-        
+
         # Find the closest previous timestamp within the available range if the exact timestamp does not exist
         while prev_time > max_timestamp:
             prev_time = prev_time - relativedelta(years=1)
-        
+
         # Get rows corresponding to the previous timestamp and zone_id
         rows = df[(df['transit_timestamp'] == prev_time) & (df['zone_id'] == zone_id)]
         result_rows.append(rows)
-    
+
+        i += 1
+
     # Concatenate all results into a single dataframe
     result_df = pd.concat(result_rows, ignore_index=True)
-    
+
+    # If the result_df is empty, create a DataFrame with all zeros
+    if result_df.empty:
+        # Assuming you want the same columns as the original DataFrame
+        num_months = (current_time.year - min_timestamp.year) * 12 + current_time.month - min_timestamp.month
+        result_df = pd.DataFrame(0, index=range(num_months), columns=df.columns)
+        result_df['zone_id'] = zone_id
+        result_df['transit_timestamp'] = [current_time - relativedelta(months=i) for i in range(1, num_months + 1)]
+
     return result_df
 
-def load_pickle(file_path = 'xgboost_busyness_model.pkl'):
+
+
+def load_pickle(file_path = './busyness_model.pkl'):
     with open(file_path, 'rb') as f:
         loaded_data = pickle.load(f)
         return loaded_data
 
 
-def make_prediction(pred_time, path_to_pickle='model_data_2_0/busyness_model.pkl'):
+def make_prediction(pred_time,path_to_pickle='./busyness_model.pkl'):
     '''
     This function returns a pandas dataframe with the predictions for the specified time for all taxi zones.
     samepl pred_time = '2024-07-09 08:00:00'
@@ -91,14 +102,12 @@ def make_prediction(pred_time, path_to_pickle='model_data_2_0/busyness_model.pkl
     features = [
         'hour_sin', 'hour_cos', 'day_sin', 'day_cos', 'weekday_sin', 'weekday_cos', 'month_sin', 'month_cos', 'week_sin', 'week_cos', 'year_sin', 'year_cos',
         'is_weekend', 'is_rush_hour', 'zone_area_km2', 'subway_station_present',
-        'log_rolling_mean_24h', 'log_rolling_std_24h', 'log_rolling_mean_7d', 'log_rolling_std_7d',
-        'log_lag_1h', 'log_lag_24h', 'log_lag_7d'
+        'rolling_mean_24h', 'rolling_std_24h', 'rolling_mean_7d', 'rolling_std_7d',
+        'lag_1h', 'lag_24h', 'lag_7d'
     ]
 
     rolling_and_lag_features = ['rolling_mean_24h', 'rolling_std_24h', 'rolling_mean_7d',
-    'rolling_std_7d', 'lag_1h', 'lag_24h', 'lag_7d', 'log_rolling_mean_24h',
-    'log_rolling_std_24h', 'log_rolling_mean_7d', 'log_rolling_std_7d',
-    'log_lag_1h', 'log_lag_24h', 'log_lag_7d']
+    'rolling_std_7d', 'lag_1h', 'lag_24h', 'lag_7d']
 
     results = []
 
@@ -133,8 +142,7 @@ def make_prediction(pred_time, path_to_pickle='model_data_2_0/busyness_model.pkl
         res = {
             'timestamp': pred_time,
             'zone_id': zone,
-            'predicted_log_busyness_score': y_pred[0],
-            'predicted_busyness_score': np.expm1(y_pred[0])
+            'predicted_busyness_score': y_pred[0],
         }
         results.append(res)
 
