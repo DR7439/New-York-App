@@ -26,28 +26,22 @@ const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 dayjs.extend(isSameOrAfter);
 
 const items = [
-  { key: "1", 
-    label: "Today", 
-    date: dayjs().subtract(1, "day")
-  },
-  { key: "2", 
-    label: "This Week",
-    date: dayjs().subtract(1, "week")
-  },
+  { key: "1", label: "Today", date: dayjs().subtract(1, "day") },
+  { key: "2", label: "This Week", date: dayjs().subtract(1, "week") },
   {
     key: "3",
     label: "This Month",
-    date: dayjs().subtract(1, "month")
+    date: dayjs().subtract(1, "month"),
   },
   {
     key: "4",
     label: "Last 6 Months",
-    date: dayjs().subtract(6, "month")
+    date: dayjs().subtract(6, "month"),
   },
   {
     key: "5",
     label: "Last Year",
-    date: dayjs().subtract(1, "year")
+    date: dayjs().subtract(1, "year"),
   },
 ];
 
@@ -56,20 +50,20 @@ function SearchTable() {
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
   let { searches, fetchSearches } = useSearches();
-  let {  setIsModalOpen, setInitialForm } = useSearchModal();
+  let { setIsModalOpen, setInitialForm } = useSearchModal();
   let dropDownMenu = {
     items,
     onClick: ({ item, key }) => {
       setDropDownKey(key);
-    }
+    },
   };
   const selectedItem = items.find((item) => item.key === dropdownKey);
   const dropdownLabel = selectedItem.label;
-  let data = [...searches].filter(search => {
+  let data = [...searches].filter((search) => {
     let createdDate = dayjs(search.date_search_made_on);
-    return createdDate.isSameOrAfter(selectedItem.date)
-  })
-    
+    return createdDate.isSameOrAfter(selectedItem.date);
+  });
+
   data = [...data].reverse().map((search, index) => {
     return {
       key: search.id,
@@ -141,7 +135,9 @@ function SearchTable() {
           <Button type="link" onClick={() => handleDuplicate(record)}>
             Duplicate
           </Button>
-          <Button type="link">View</Button>
+          <Link to={`/analytics/${record.id}`} className="text-blue-600">
+            View
+          </Link>
         </div>
       ),
     },
@@ -239,7 +235,11 @@ function SearchTable() {
         }}
         columns={columns}
         dataSource={filteredData}
-        pagination={{ defaultPageSize: 10, showQuickJumper: true, showSizeChanger: true }}
+        pagination={{
+          defaultPageSize: 10,
+          showQuickJumper: true,
+          showSizeChanger: true,
+        }}
       />
     </div>
   );

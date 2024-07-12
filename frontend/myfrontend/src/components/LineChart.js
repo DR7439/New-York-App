@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "@ant-design/charts";
-const LineChart = () => {
-  const data = [
-    { time: "1", value: 3 },
-    { time: "2", value: 4 },
-    { time: "3", value: 3.5 },
-    { time: "4", value: 5 },
-    { time: "5", value: 4.9 },
-    { time: "6", value: 6 },
-    { time: "7", value: 7 },
-    { time: "8", value: 9 },
-    { time: "9", value: 13 },
-  ];
+import axiosInstance from "../axiosInstance";
+const LineChart = ({ searchId, zoneId, date }) => {
+  let [data, setData] = useState([]);
+  function fetchScore() {
+    axiosInstance
+      .get(
+        `/api/zone-details-by-search-date-zone/?search_id=${searchId}&date=${date}&zone_id=${zoneId}`
+      )
+      .then((res) => {
+        if (res.data) {
+          let data = res.data.busyness_scores.map((item) => ({
+            time: item.time.split("T")[1].split(":")[0],
+            value: Math.round(item.busyness_score),
+          }));
+          setData(data);
+        }
+      });
+  }
+  useEffect(() => {
+    if (searchId && zoneId && date) {
+      fetchScore();
+    }
+  }, [searchId, zoneId, date]);
 
   const props = {
     data,
