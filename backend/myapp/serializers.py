@@ -141,9 +141,17 @@ class InterestSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 class ZoneSerializer(serializers.ModelSerializer):
+    boundary_coordinates = serializers.SerializerMethodField()
+
     class Meta:
         model = Zone
-        fields = ['id','name', 'boundary_coordinates']
+        fields = ['id', 'name', 'boundary_coordinates']
+
+    def get_boundary_coordinates(self, obj):
+        coordinates = obj.boundary_coordinates['coordinates']
+        if coordinates and isinstance(coordinates[0], list) and len(coordinates[0]) == 1:
+            return coordinates[0][0]
+        return coordinates
 
 class BusynessSerializer(serializers.ModelSerializer):
     time = serializers.DateTimeField(source='datetime')
