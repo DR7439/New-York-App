@@ -27,16 +27,16 @@ jobs:
         run: echo "::set-output name=timestamp::$(date +%Y%m%d%H%M%S)"
 
       - name: Build Backend Docker image
-        run: docker build -t ny_app_repo/ny_app_backend:${{ steps.vars.outputs.timestamp }} ./backend -f ./backend/Dockerfile
+        run: docker build -t ny_app_repo:${{ steps.vars.outputs.timestamp }} ./backend -f ./backend/Dockerfile
         
       - name: Build Frontend Docker image
-        run: docker build -t ny_app_repo/ny_app_frontend:${{ steps.vars.outputs.timestamp }} ./frontend/myfrontend -f ./frontend/myfrontend/Dockerfile
+        run: docker build -t ny_app_repo:${{ steps.vars.outputs.timestamp }} ./frontend/myfrontend -f ./frontend/myfrontend/Dockerfile
 
       - name: Push Backend Docker image to Docker Hub
-        run: docker push ny_app_repo/ny_app_backend:${{ steps.vars.outputs.timestamp }}
+        run: docker push ny_app_repo:${{ steps.vars.outputs.timestamp }}
 
       - name: Push Frontend Docker image to Docker Hub
-        run: docker push ny_app_repo/ny_app_frontend:${{ steps.vars.outputs.timestamp }}
+        run: docker push ny_app_repo:${{ steps.vars.outputs.timestamp }}
 
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
@@ -63,8 +63,8 @@ jobs:
           CHOKIDAR_USEPOLLING: ${{ secrets.CHOKIDAR_USEPOLLING }}
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST <<EOF
-          docker load < <(docker save ny_app_repo/ny_app_backend:$IMAGE_TAG)
-          docker load < <(docker save ny_app_repo/ny_app_frontend:$IMAGE_TAG)
+          docker load < <(docker save ny_app_repo:$IMAGE_TAG)
+          docker load < <(docker save ny_app_repo:$IMAGE_TAG)
           if [ -d '~/Summer_Project/New-York-App' ]; then
             cd ~/Summer_Project/New-York-App && git pull origin main;
           else
