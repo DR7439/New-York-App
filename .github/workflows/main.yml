@@ -28,11 +28,9 @@ jobs:
 
       - name: Build Backend Docker image
         run: docker build -t ny_app_backend:${{ steps.vars.outputs.timestamp }} ./backend -f ./backend/Dockerfile.backend
-        
 
       - name: Build Frontend Docker image
         run: docker build -t ny_app_frontend:${{ steps.vars.outputs.timestamp }} ./frontend/myfrontend -f ./frontend/myfrontend/Dockerfile.frontend
-        
 
       - name: Push Backend Docker image to Docker Hub
         run: docker push ny_app_backend:${{ steps.vars.outputs.timestamp }}
@@ -87,3 +85,4 @@ jobs:
           echo "EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD" >> ~/Summer_Project/New-York-App/.env
           docker-compose -f ~/Summer_Project/New-York-App/docker-compose.yaml up -d
           EOF
+
