@@ -19,7 +19,7 @@ import PublicRoute from "./PublicRoute";
 import { ConfigProvider } from "antd";
 import Credits from "./Credits";
 import Settings from "./Settings";
-import Onboard from "./Onboard";
+import Onboard from "./onboard";
 import Analytics from "./Analytics";
 import { RecoilRoot } from "recoil";
 const App = () => {
