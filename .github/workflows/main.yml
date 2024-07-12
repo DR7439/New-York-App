@@ -72,20 +72,18 @@ jobs:
           else
             git clone https://$PERSONAL_ACCESS_TOKEN@github.com/DR7439/New-York-App.git ~/Summer_Project/New-York-App;
           fi
-          cat > ~/Summer_Project/New-York-App/.env <<EOL
-          SECRET_KEY=$SECRET_KEY
-          DEBUG=$DEBUG
-          DB_NAME=$DB_NAME
-          DB_USER=$DB_USER
-          DB_PASSWORD=$DB_PASSWORD
-          DB_HOST=$DB_HOST
-          DB_PORT=$DB_PORT
-          CHOKIDAR_USEPOLLING=$CHOKIDAR_USEPOLLING
-          DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME
-          DJANGO_SUPERUSER_EMAIL=$DJANGO_SUPERUSER_EMAIL
-          DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD
-          EMAIL_HOST_USER=$EMAIL_HOST_USER
-          EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
-          EOL
+          echo "SECRET_KEY=$SECRET_KEY" > ~/Summer_Project/New-York-App/.env
+          echo "DEBUG=$DEBUG" >> ~/Summer_Project/New-York-App/.env
+          echo "DB_NAME=$DB_NAME" >> ~/Summer_Project/New-York-App/.env
+          echo "DB_USER=$DB_USER" >> ~/Summer_Project/New-York-App/.env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> ~/Summer_Project/New-York-App/.env
+          echo "DB_HOST=$DB_HOST" >> ~/Summer_Project/New-York-App/.env
+          echo "DB_PORT=$DB_PORT" >> ~/Summer_Project/New-York-App/.env
+          echo "CHOKIDAR_USEPOLLING=$CHOKIDAR_USEPOLLING" >> ~/Summer_Project/New-York-App/.env
+          echo "DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME" >> ~/Summer_Project/New-York-App/.env
+          echo "DJANGO_SUPERUSER_EMAIL=$DJANGO_SUPERUSER_EMAIL" >> ~/Summer_Project/New-York-App/.env
+          echo "DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD" >> ~/Summer_Project/New-York-App/.env
+          echo "EMAIL_HOST_USER=$EMAIL_HOST_USER" >> ~/Summer_Project/New-York-App/.env
+          echo "EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD" >> ~/Summer_Project/New-York-App/.env
           docker-compose -f ~/Summer_Project/New-York-App/docker-compose.yaml up -d
           EOF
