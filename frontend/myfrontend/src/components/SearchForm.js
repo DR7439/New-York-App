@@ -1,25 +1,29 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axiosInstance from "../axiosInstance"; 
+import axiosInstance from "../axiosInstance";
 import React from "react";
 import { AGES_RANGES } from "../constant";
 import useInterests from "../hooks/useInterests";
+import useSearches from "../hooks/useSearches";
 
 const { Option } = Select;
 
-export default function SearchForm({ showSubmitButton = true }) {
+export default function SearchForm({
+  formInstance,
+  onSuccess,
+  showSubmitButton = true,
+  formRef,
+}) {
   const interests = useInterests();
-  const [form] = useForm();
+  const { fetchSearches } = useSearches();
+  const [form] = useForm(formInstance);
   let onFinish = async (values) => {
+    console.log("🚀 ~ onFinish ~ values:", values)
     let data = new FormData();
-    data.append(
-      "csrfmiddlewaretoken",
-      "sL32YvjLvsKN3f7zka6TV8XMjiNHuEZ7UGzMavnP6Fw0hrOJr556hDc9qERf579z"
-    );
     data.append("name", values.name);
-    data.append("start_date", values.dateRange[0].toISOString());
-    data.append("end_date", values.dateRange[1].toISOString());
-    data.append("date_search_made_on", new Date().toISOString());
+    data.append("start_date", values.dateRange[0].toISOString().split("T")[0]);
+    data.append("end_date", values.dateRange[1].toISOString().split("T")[0]);
+    data.append("date_search_made_on", new Date().toISOString().split("T")[0]);
     values.targetMarkets.forEach((market) => {
       data.append("target_market_interests", market);
     });
@@ -30,6 +34,8 @@ export default function SearchForm({ showSubmitButton = true }) {
     // cors allow origin
     try {
       const res = await axiosInstance.post("/api/search/", data);
+      onSuccess && onSuccess();
+      fetchSearches();
       console.log("9779 res", res);
     } catch (error) {
       console.error(error);
@@ -38,6 +44,7 @@ export default function SearchForm({ showSubmitButton = true }) {
 
   return (
     <Form
+      ref={formRef}
       name="basic"
       form={form}
       layout="vertical"

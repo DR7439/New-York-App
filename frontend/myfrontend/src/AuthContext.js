@@ -1,7 +1,6 @@
 // src/AuthContext.js
 
 import React, { createContext, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance';
 
@@ -62,4 +61,4 @@ const AuthProvider = ({ children }) => {
     );
 };
 
-export { AuthProvider, AuthContext };
+export { AuthContext, AuthProvider };

@@ -1,12 +1,15 @@
 // src/Dashboard.js
-import React from "react";
-import { Select, Table, Tag } from "antd";
-import SearchModalTrigger from "./components/SearchModal";
+import React, { useEffect } from "react";
+import { Breadcrumb, Select, Table, Tag } from "antd";
+import { SearchModalTrigger } from "./components/SearchModal";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import LineChart from "./components/LineChart";
 import ColumnChart from "./components/ColumnChart";
-import { render } from "react-dom";
+import { Link, useParams } from "react-router-dom";
+import useSearches from "./hooks/useSearches";
+import Maps from "./components/Maps";
+import axiosInstance from "./axiosInstance";
 
 const columns = [
   {
@@ -124,33 +127,38 @@ const targetDates = [
 ];
 const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
 
-const data = [
-  { time: "1", value: 3 },
-  { time: "2", value: 4 },
-  { time: "3", value: 3.5 },
-  { time: "4", value: 5 },
-  { time: "5", value: 4.9 },
-  { time: "6", value: 6 },
-  { time: "7", value: 7 },
-  { time: "8", value: 9 },
-  { time: "9", value: 13 },
-];
-
-const props = {
-  data,
-  xField: "time",
-  yField: "value",
-};
-
 const Analytics = () => {
+  let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(targetDates[0]);
+  let { getSearchById } = useSearches();
+  let [search, setSearch] = useState(null);
+  useEffect(() => {
+    getSearchById(id).then(setSearch);
+    // axiosInstance.get(`/api/searches/${id}/scores`)
+    // axiosInstance.get(`/api/zones`)
+  }, []);
+  let searchName = search ? search.name : "";
   return (
     <>
-      <div>
+      <Breadcrumb
+        items={[
+          {
+            title: <Link to="/">Dashboard</Link>,
+          },
+          {
+            title: "Search History",
+          },
+          {
+            title: searchName,
+          },
+        ]}
+      />
+      <div className="mt-12">
         <h1 className="text-4xl font-medium">Analytics</h1>
         <p className="mt-2 text-neutral-500">
           View detailed search results with data analysis and recommendations.
         </p>
+        <Maps />
       </div>
       <div>
         <div className="flex items-center justify-between mt-7">
@@ -169,7 +177,16 @@ const Analytics = () => {
           />
         </div>
       </div>
-      <Table className="mt-4" columns={columns} dataSource={dummyData} />
+      <Table
+        className="mt-4"
+        columns={columns}
+        dataSource={dummyData}
+        pagination={{
+          defaultPageSize: 10,
+          showQuickJumper: true,
+          showSizeChanger: true,
+        }}
+      />
       <div className="space-y-8">
         <div>
           <h4 className="text-xl font-medium">Data Analysis</h4>
