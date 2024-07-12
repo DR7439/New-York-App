@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Download model file from Google Drive'
 
     def handle(self, *args, **options):
-        file_id = '1SalbwzCM1I-mexwCiSB-lKpwiuILinbj'  
+        file_id = '13rCYf886l9CAwCnxMYkZfe0UO9lXbYtM'
         output_path = os.path.join('model_data_2_0', 'busyness_model.pkl')
         
         print(f'Downloading busyness_model.pkl to: {output_path}')
