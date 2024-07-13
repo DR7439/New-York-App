@@ -20,12 +20,6 @@ jobs:
         id: vars
         run: echo "::set-output name=timestamp::$(date +%Y%m%d%H%M%S)"
 
-      - name: Build Backend Docker image
-        run: docker build -t ny_app_repo:${{ steps.vars.outputs.timestamp }} ./backend -f ./backend/Dockerfile
-
-      - name: Build Frontend Docker image
-        run: docker build -t ny_app_repo:${{ steps.vars.outputs.timestamp }} ./frontend/myfrontend -f ./frontend/myfrontend/Dockerfile
-
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
@@ -51,25 +45,24 @@ jobs:
           CHOKIDAR_USEPOLLING: ${{ secrets.CHOKIDAR_USEPOLLING }}
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_HOST <<EOF
-          docker build -t ny_app_repo:$IMAGE_TAG ./backend -f ./backend/Dockerfile
-          docker build -t ny_app_repo:$IMAGE_TAG ./frontend/myfrontend -f ./frontend/myfrontend/Dockerfile
           if [ -d '~/Summer_Project/New-York-App' ]; then
             cd ~/Summer_Project/New-York-App && git pull origin main;
           else
             git clone https://$PERSONAL_ACCESS_TOKEN@github.com/DR7439/New-York-App.git ~/Summer_Project/New-York-App;
           fi
-          echo "SECRET_KEY=$SECRET_KEY" > ~/Summer_Project/New-York-App/.env
-          echo "DEBUG=$DEBUG" >> ~/Summer_Project/New-York-App/.env
-          echo "DB_NAME=$DB_NAME" >> ~/Summer_Project/New-York-App/.env
-          echo "DB_USER=$DB_USER" >> ~/Summer_Project/New-York-App/.env
-          echo "DB_PASSWORD=$DB_PASSWORD" >> ~/Summer_Project/New-York-App/.env
-          echo "DB_HOST=$DB_HOST" >> ~/Summer_Project/New-York-App/.env
-          echo "DB_PORT=$DB_PORT" >> ~/Summer_Project/New-York-App/.env
-          echo "CHOKIDAR_USEPOLLING=$CHOKIDAR_USEPOLLING" >> ~/Summer_Project/New-York-App/.env
-          echo "DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME" >> ~/Summer_Project/New-York-App/.env
-          echo "DJANGO_SUPERUSER_EMAIL=$DJANGO_SUPERUSER_EMAIL" >> ~/Summer_Project/New-York-App/.env
-          echo "DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD" >> ~/Summer_Project/New-York-App/.env
-          echo "EMAIL_HOST_USER=$EMAIL_HOST_USER" >> ~/Summer_Project/New-York-App/.env
-          echo "EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD" >> ~/Summer_Project/New-York-App/.env
-          docker-compose -f ~/Summer_Project/New-York-App/docker-compose.yaml up -d
+          cd ~/Summer_Project/New-York-App
+          echo "SECRET_KEY=$SECRET_KEY" > .env
+          echo "DEBUG=$DEBUG" >> .env
+          echo "DB_NAME=$DB_NAME" >> .env
+          echo "DB_USER=$DB_USER" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "DB_HOST=$DB_HOST" >> .env
+          echo "DB_PORT=$DB_PORT" >> .env
+          echo "CHOKIDAR_USEPOLLING=$CHOKIDAR_USEPOLLING" >> .env
+          echo "DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME" >> .env
+          echo "DJANGO_SUPERUSER_EMAIL=$DJANGO_SUPERUSER_EMAIL" >> .env
+          echo "DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD" >> .env
+          echo "EMAIL_HOST_USER=$EMAIL_HOST_USER" >> .env
+          echo "EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD" >> .env
+          docker-compose -f ~/Summer_Project/New-York-App/docker-compose.yaml up -d --build
           EOF
