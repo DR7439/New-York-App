@@ -1,5 +1,6 @@
 from locust import HttpUser, TaskSet, task, between
 import random
+import urllib.parse
 
 class WebsiteTasks(TaskSet):
     def on_start(self):
@@ -36,13 +37,12 @@ class WebsiteTasks(TaskSet):
     @task
     def search(self):
         response = self.client.post("/api/search/", json={
-            "id": 19,
+            "id": 5,
             "name": "123",
-            "user": 1,
             "start_date": "2024-03-12",
             "end_date": "2024-04-12",
             "date_search_made_on": "0121-04-24",
-            "target_market_interests": ["Music", "Technology"],
+            "target_market_interests": ["Food, beverages", "Electronics"],
             "target_age": [8, 3, 6],
             "gender": "M"
         })
@@ -55,29 +55,29 @@ class WebsiteTasks(TaskSet):
         if response.status_code != 200:
             print("Failed to get searches", response.status_code, response.text)
 
-    @task
-    def single_search(self):
-        response = self.client.get("/api/search/5/")
-        if response.status_code != 200:
-            print("Failed to get single search", response.status_code, response.text)
+    # @task
+    # def single_search(self):
+    #     response = self.client.get("/api/search/5/")
+    #     if response.status_code != 200:
+    #         print("Failed to get single search", response.status_code, response.text)
 
-    @task
-    def delete_search(self):
-        response = self.client.delete("/api/search/5/")
-        if response.status_code != 204:
-            print("Failed to delete search", response.status_code, response.text)
+    # @task
+    # def delete_search(self):
+    #     response = self.client.delete("/api/search/5/")
+    #     if response.status_code != 204:
+    #         print("Failed to delete search", response.status_code, response.text)
 
-    @task
-    def search_scores(self):
-        response = self.client.get("/api/searches/2/scores/")
-        if response.status_code != 200:
-            print("Failed to get search scores", response.status_code, response.text)
+    # @task
+    # def search_scores(self):
+    #     response = self.client.get("/api/searches/2/scores/")
+    #     if response.status_code != 200:
+    #         print("Failed to get search scores", response.status_code, response.text)
 
-    @task
-    def top_scores(self):
-        response = self.client.get("/api/searches/2/top-scores/10/")
-        if response.status_code != 200:
-            print("Failed to get top scores", response.status_code, response.text)
+    # @task
+    # def top_scores(self):
+    #     response = self.client.get("/api/searches/2/top-scores/10/")
+    #     if response.status_code != 200:
+    #         print("Failed to get top scores", response.status_code, response.text)
 
     @task
     def zone_details(self):
@@ -91,31 +91,54 @@ class WebsiteTasks(TaskSet):
         if response.status_code != 200:
             print("Failed to get zones", response.status_code, response.text)
 
-    @task
-    def password_reset(self):
-        response = self.client.post("/api/password-reset/", json={"email": "blah@blahmail.com"})
-        if response.status_code != 200:
-            print("Password reset failed", response.status_code, response.text)
+    # @task
+    # def password_reset(self):
+    #     response = self.client.post("/api/password-reset/", json={"email": "blah@blahmail.com"})
+    #     if response.status_code != 200:
+    #         print("Password reset failed", response.status_code, response.text)
 
-    @task
-    def password_reset_confirm(self):
-        # Mocking token and uid for the example
-        uidb64 = "dummy_uid"
-        token = "dummy_token"
-        response = self.client.post(f"/api/reset-password/{uidb64}/{token}/", json={"password": "newpword"})
-        if response.status_code != 200:
-            print("Password reset confirm failed", response.status_code, response.text)
+    # @task
+    # def password_reset_confirm(self):
+    #     # Mocking token and uid for the example
+    #     uidb64 = "dummy_uid"
+    #     token = "dummy_token"
+    #     response = self.client.post(f"/api/reset-password/{uidb64}/{token}/", json={"password": "newpword"})
+    #     if response.status_code != 200:
+    #         print("Password reset confirm failed", response.status_code, response.text)
 
     @task
     def top_zones(self):
         params = {
             "search_id": 1,
-            "date": "2024-07-12",
+            "date": "2024-07-13",
             "top_n": 10
         }
         response = self.client.get("/api/top-zones/", params=params)
         if response.status_code != 200:
             print("Failed to get top zones", response.status_code, response.text)
+
+    @task
+    def zone_scores_by_datetime(self):
+        params = {
+            "search_id": 1,
+            "datetime": "2024-07-13T10:00:00Z"
+        }
+        query_string = urllib.parse.urlencode(params)
+        response = self.client.get(f"/api/zone-scores-by-datetime/?{query_string}")
+        if response.status_code != 200:
+            print("Failed to get zone scores by datetime", response.status_code, response.text)
+
+    @task
+    def zone_details_by_search_date_zone(self):
+        params = {
+            "search_id": 1,
+            "date": "2024-07-13",
+            "zone_id": 4
+        }
+        query_string = urllib.parse.urlencode(params)
+        response = self.client.get(f"/api/zone-details-by-search-date-zone/?{query_string}")
+        if response.status_code != 200:
+            print("Failed to get zone details by search, date, and zone", response.status_code, response.text)
 
 class WebsiteUser(HttpUser):
     tasks = [WebsiteTasks]

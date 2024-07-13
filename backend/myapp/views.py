@@ -11,6 +11,7 @@ from .tasks import background_task
 from django.contrib.auth import login
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.core.cache import cache
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.dateparse import parse_datetime
@@ -130,12 +131,22 @@ class SearchAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = SearchSerializer
 
+    def get_cache_key(self, user_id):
+        return f"user_searches_{user_id}"
+
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests and returns a list of searches for the authenticated user.
         """
+        cache_key = self.get_cache_key(request.user.id)
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return Response(cached_data)
+
         searches = Search.objects.filter(user=request.user)
         serializer = self.serializer_class(searches, many=True)
+        cache.set(cache_key, serializer.data, timeout=60 * 15)  # Cache for 15 minutes
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
@@ -148,6 +159,11 @@ class SearchAPIView(APIView):
             search_id = serializer.instance.id
             print("search_id: ", search_id)
             background_task.delay(search_id)
+
+            # Invalidate cache for the user
+            cache_key = self.get_cache_key(request.user.id)
+            cache.delete(cache_key)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -203,10 +219,20 @@ class ZoneListView(APIView):
     API view to retrieve zone coordinates.
     """
     permission_classes = [permissions.AllowAny]
+
     def get(self, request, *args, **kwargs):
+        cache_key = 'zones_data'
+        cached_data = cache.get(cache_key)
+
+        if cached_data is not None:
+            return Response(cached_data, status=status.HTTP_200_OK)
+
         zones = Zone.objects.all()
         serializer = ZoneSerializer(zones, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = serializer.data
+        cache.set(cache_key, data, timeout=60 * 60)  # Cache for 1 hour
+
+        return Response(data, status=status.HTTP_200_OK)
     
 class SearchScoresView(APIView):
     """
@@ -380,6 +406,12 @@ class TopZonesView(APIView):
         if not (search.start_date <= date.date() <= search.end_date):
             return Response({"error": "Date is out of range for the specified search."}, status=status.HTTP_400_BAD_REQUEST)
 
+        cache_key = f"top_zones_{search_id}_{date_str}_{top_n}"
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return Response(cached_data, status=status.HTTP_200_OK)
+
         # Step 3: Get busyness data for each zone for that day
         busyness_data = Busyness.objects.filter(datetime__date=date.date())
 
@@ -425,13 +457,16 @@ class TopZonesView(APIView):
                 "busyness_scores": list(busyness_scores)
             })
 
+        cache.set(cache_key, data, timeout=60 * 60)  # Cache for 1 hour
         return Response(data, status=status.HTTP_200_OK)
-    
 
 class ZoneScoresByDatetimeView(APIView):
     """
     API view to retrieve the zone scores for a given datetime and search.
     """
+    def get_cache_key(self, search_id, datetime_str):
+        return f"zone_scores_{search_id}_{datetime_str}"
+
     def get(self, request, *args, **kwargs):
         # Extract query parameters
         search_id = request.query_params.get('search_id')
@@ -445,6 +480,13 @@ class ZoneScoresByDatetimeView(APIView):
 
         # Retrieve the search object
         search = get_object_or_404(Search, id=search_id)
+
+        # Generate cache key
+        cache_key = self.get_cache_key(search_id, datetime_str)
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return Response({"zone_scores": cached_data}, status=status.HTTP_200_OK)
 
         # Create a subquery to retrieve the demographic score for each zone in the search
         demographic_subquery = Demographic.objects.filter(
@@ -471,6 +513,8 @@ class ZoneScoresByDatetimeView(APIView):
             for score in zone_scores
         ]
 
+        # Cache the data for future requests
+        cache.set(cache_key, data, timeout=60 * 15)  # Cache for 15 minutes
         return Response({"zone_scores": data}, status=status.HTTP_200_OK)
 
 
