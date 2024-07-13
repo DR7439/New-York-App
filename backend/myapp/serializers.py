@@ -61,6 +61,23 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data['email']
         )
         return user
+    
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username', 'email', 'first_name', 'last_name', 'date_of_birth', 'nationality',
+            'industry', 'business_size', 'budget', 'business_description'
+        ]
+
+    def validate_email(self, value):
+        """
+        Check if the email is already in use by another user.
+        """
+        user = self.context['request'].user
+        if CustomUser.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError("This email address is already in use.")
+        return value
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """

@@ -2,7 +2,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('zone-details-by-search-date-zone/', ZoneDetailsBySearchDateZoneView.as_view(), name='zone-details-by-search-date-zone'),   
     path('predict_busyness/', PredictBusynessAPIView.as_view(), name='predict_busyness'),
     path('test_method/', TestMethodAPIView.as_view(), name='test_method'),
+    path('user/profile/', UpdateUserProfileView.as_view(), name='update-user-profile'),
+    path('dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),
 
 ]
