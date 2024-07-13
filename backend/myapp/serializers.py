@@ -61,6 +61,14 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data['email']
         )
         return user
+    
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username', 'email', 'first_name', 'last_name', 'date_of_birth', 'nationality',
+            'industry', 'business_size', 'budget', 'business_description'
+        ]
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """

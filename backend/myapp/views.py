@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer
 
 from .tasks import background_task
 from django.contrib.auth import login
@@ -76,6 +76,33 @@ class UserCreate(generics.CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return super().create(request, *args, **kwargs)
+    
+
+class UpdateUserProfileView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UpdateUserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UpdateUserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class DropdownOptionsView(APIView):
+    def get(self, request, *args, **kwargs):
+        dropdown_options = {
+            "nationalities": ["American", "British", "Canadian", "Irish", "French"],
+            "industries": ["Technology", "Finance", "Healthcare", "Education", "Retail"],
+            "business_sizes": ["Small", "Medium", "Large"],
+            "budgets": ["< $50", "$50 - $100", "$100 - $500", "> $500"]
+        }
+        return Response(dropdown_options)
 
 class MyTokenObtainPairView(TokenObtainPairView):
     """
