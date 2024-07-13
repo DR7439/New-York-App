@@ -61,6 +61,23 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data['email']
         )
         return user
+    
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username', 'email', 'first_name', 'last_name', 'date_of_birth', 'nationality',
+            'industry', 'business_size', 'budget', 'business_description'
+        ]
+
+    def validate_email(self, value):
+        """
+        Check if the email is already in use by another user.
+        """
+        user = self.context['request'].user
+        if CustomUser.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError("This email address is already in use.")
+        return value
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
@@ -141,9 +158,17 @@ class InterestSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 class ZoneSerializer(serializers.ModelSerializer):
+    boundary_coordinates = serializers.SerializerMethodField()
+
     class Meta:
         model = Zone
-        fields = ['id','name', 'boundary_coordinates']
+        fields = ['id', 'name', 'boundary_coordinates']
+
+    def get_boundary_coordinates(self, obj):
+        coordinates = obj.boundary_coordinates['coordinates']
+        if coordinates and isinstance(coordinates[0], list) and len(coordinates[0]) == 1:
+            return coordinates[0][0]
+        return coordinates
 
 class BusynessSerializer(serializers.ModelSerializer):
     time = serializers.DateTimeField(source='datetime')
@@ -182,3 +207,12 @@ class BillboardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Billboard
         fields = ['street_name', 'sign_illumination', 'sign_sq_footage', 'latitude', 'longitude', 'zone_id']
+    
+class PredictionRequestSerializer(serializers.Serializer):
+    prediction_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S')
+
+class PredictionSerializer(serializers.Serializer):
+    timestamp = serializers.DateTimeField()
+    zone_id = serializers.IntegerField()
+    predicted_log_busyness_score = serializers.FloatField()
+    predicted_busyness_score = serializers.FloatField()

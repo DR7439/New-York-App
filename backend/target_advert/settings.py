@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-xzkxr@8pu1*uv5@7nek!8o$7k)kpjy*)9a!$-om6b)@3m%rh7*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', '137.43.49.21']
 
 
 # Application definition
@@ -91,6 +91,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://127.0.0.1:3000',
     'http://localhost',
+
+    'http://localhost',
 ]
 
 AUTH_USER_MODEL = 'myapp.CustomUser'
@@ -136,6 +138,13 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+CELERY_BEAT_SCHEDULE = {
+    'check-and-populate-busyness-every-day': {
+        'task': 'myapp.tasks.check_and_populate_busyness',
+        'schedule': timedelta(days=1), 
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

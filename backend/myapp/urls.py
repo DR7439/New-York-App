@@ -2,13 +2,13 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('searches/<int:search_id>/top-scores/<int:top_n>/', TopNScoresView.as_view(), name='top-scores'),
+    path('searches/top-scores/', TopNScoresView.as_view(), name='top-scores'),
     path('top-zones/', TopZonesView.as_view(), name='top-zones'),
     path('search/', SearchAPIView.as_view(), name='search_api'),
     path('search/<int:id>/', SingleSearchAPIView.as_view(), name='single_search_api'),
@@ -23,4 +23,9 @@ urlpatterns = [
     path('top-scores-in-zone/', TopNScoresInZoneView.as_view(), name='top-scores-in-zone'),
     path('zone-scores-by-datetime/', ZoneScoresByDatetimeView.as_view(), name='zone-scores-by-datetime'),
     path('zone-details-by-search-date-zone/', ZoneDetailsBySearchDateZoneView.as_view(), name='zone-details-by-search-date-zone'),   
+    path('predict_busyness/', PredictBusynessAPIView.as_view(), name='predict_busyness'),
+    path('test_method/', TestMethodAPIView.as_view(), name='test_method'),
+    path('user/profile/', UpdateUserProfileView.as_view(), name='update-user-profile'),
+    path('dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),
+
 ]

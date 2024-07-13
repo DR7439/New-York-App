@@ -18,30 +18,18 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class CustomUser(AbstractUser):
-    """
-    A custom user model that extends Django's AbstractUser.
-
-    This model adds additional fields to the default user model provided by Django, including
-    a name field and a credits field.
-
-    Attributes:
-        name (str): The user's name, an optional field with a maximum length of 100 characters.
-        credits (int): The user's credits, an integer field with a default value of 0.
-
-    Methods:
-        __str__():
-            Returns the string representation of the user, which is the username.
-    """
     name = models.CharField(max_length=100, blank=True)
     credits = models.IntegerField(default=0)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    nationality = models.CharField(max_length=50, blank=True)
+    industry = models.CharField(max_length=50, blank=True)
+    business_size = models.CharField(max_length=50, blank=True)
+    budget = models.CharField(max_length=50, blank=True)
+    business_description = models.TextField(blank=True)
 
     def __str__(self):
-        """
-        Returns the string representation of the user.
-
-        Returns:
-            str: The username of the user.
-        """
         return str(self.username)
     
 class Zone(models.Model):

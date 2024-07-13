@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer
+
 from .tasks import background_task
 from django.contrib.auth import login
 from django.contrib.auth.tokens import default_token_generator
@@ -18,6 +19,11 @@ from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from datetime import datetime 
+from django.http import JsonResponse
+import json
+import os
+import json
+import joblib
 
 
 class UserCreate(generics.CreateAPIView):
@@ -70,6 +76,33 @@ class UserCreate(generics.CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return super().create(request, *args, **kwargs)
+    
+
+class UpdateUserProfileView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UpdateUserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UpdateUserSerializer(user, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class DropdownOptionsView(APIView):
+    def get(self, request, *args, **kwargs):
+        dropdown_options = {
+            "nationalities": ["American", "British", "Canadian", "Irish", "French"],
+            "industries": ["Technology", "Finance", "Healthcare", "Education", "Retail"],
+            "business_sizes": ["Small", "Medium", "Large"],
+            "budgets": ["< $50", "$50 - $100", "$100 - $500", "> $500"]
+        }
+        return Response(dropdown_options)
 
 class MyTokenObtainPairView(TokenObtainPairView):
     """
@@ -196,6 +229,7 @@ class ZoneListView(APIView):
     """
     API view to retrieve zone coordinates.
     """
+    permission_classes = [permissions.AllowAny]
     def get(self, request, *args, **kwargs):
         zones = Zone.objects.all()
         serializer = ZoneSerializer(zones, many=True)
@@ -250,7 +284,18 @@ class TopNScoresView(APIView):
     """
     API view to retrieve top N combined demographic and busyness scores for a search.
     """
-    def get(self, request, search_id, top_n, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        search_id = request.query_params.get('search_id')
+        top_n = int(request.query_params.get('top_n', 10))  # Default to top 10 if not specified
+        date_str = request.query_params.get('date')
+
+        # Validate and parse the date
+        try:
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            return Response({"error": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve the search object
         search = get_object_or_404(Search, id=search_id)
         top_n = min(top_n, 100)  # Limit to a maximum of 100
 
@@ -262,7 +307,7 @@ class TopNScoresView(APIView):
         # Annotate the Busyness queryset with the demographic score and combined score
         top_scores = (
             Busyness.objects
-            .filter(datetime__range=[search.start_date, search.end_date])
+            .filter(datetime__date=date)
             .annotate(
                 demographic_score=Coalesce(Subquery(demographic_subquery), Value(0.0)),
                 combined_score=ExpressionWrapper(
@@ -447,7 +492,8 @@ class ZoneScoresByDatetimeView(APIView):
                 "zone_id": score.zone.id,
                 "zone_name": score.zone.name,
                 "demographic_score": score.demographic_score,
-                "busyness_score": score.busyness_score
+                "busyness_score": score.busyness_score,
+                "total_score": score.busyness_score + score.demographic_score
             }
             for score in zone_scores
         ]
@@ -533,7 +579,7 @@ class InterestZoneCountByZoneView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
-    permission_classes = (AllowAny,)  # Add this line
+    permission_classes = (AllowAny,)
 
     def post(self, request):
         email = request.data.get('email')
@@ -553,7 +599,7 @@ class PasswordResetRequestView(APIView):
             return Response({'error': 'User with this email does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
 class PasswordResetConfirmView(APIView):
-    permission_classes = (AllowAny,)  # Add this line
+    permission_classes = (AllowAny,)  
 
     def post(self, request, uidb64, token):
         try:
@@ -569,3 +615,44 @@ class PasswordResetConfirmView(APIView):
         except CustomUser.DoesNotExist:
             return Response({'error': 'Invalid user'}, status=status.HTTP_400_BAD_REQUEST)
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+class PredictBusynessAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        # Validate the request using the serializer
+        serializer = PredictionRequestSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        prediction_time = serializer.validated_data['prediction_time']
+
+        # Define the paths to the necessary files
+        path_to_zones_csv = '../model_data/zones_df.csv'
+        path_to_latest_historical_data_csv = '../model_data/latest_historical_data.csv'
+        path_to_pickle_file = '../model_data/xgboost_busyness_model.pkl'
+
+        # Make predictions
+        #predictions = make_predictions(
+            #prediction_time,
+            #path_to_pickle_file,
+            #path_to_zones_csv,
+            #path_to_latest_historical_data_csv
+        #)
+
+        # Serialize the predictions DataFrame to JSON
+        #predictions_serializer = PredictionSerializer(predictions, many=True)
+
+        #return Response(predictions_serializer.data)
+    
+class TestMethodAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        return JsonResponse({'message': 'POST request received.'}, status=status.HTTP_200_OK)
+
+    def get(self, request):
+        return JsonResponse({'error': 'Invalid HTTP method. Only POST requests are allowed.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

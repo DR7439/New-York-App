@@ -4,9 +4,15 @@ FROM python:3.10-slim
 # Set the working directory to /app
 WORKDIR /app
 
+# Install curl and other dependencies
+RUN apt-get update && apt-get install -y curl
+
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install gdown to download files from Google Drive
+RUN pip install gdown
 
 # Copy the current directory contents into the container at /app
 COPY . .
@@ -26,4 +32,5 @@ CMD ["bash", "-c", "/wait-for-it.sh db:5432 -- /wait-for-it.sh redis:6379 -- pyt
                    python manage.py import_population_data /mnt/data/census_final.csv && \
                    python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv && \
                    python manage.py load_billboards /mnt/data/no_text_signs_df.csv && \
+                   python manage.py model_down && \
                    python manage.py runserver 0.0.0.0:8000"]
