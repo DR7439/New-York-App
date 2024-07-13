@@ -89,10 +89,9 @@ JWT_AUTH = {
 # Add CORS settings if needed
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    'http://127.0.0.1:3000',
-    'http://localhost',
-
-    'http://localhost',
+    "http://127.0.0.1:3000",
+    "http://localhost",
+    "http://137.43.49.21",  
 ]
 
 AUTH_USER_MODEL = 'myapp.CustomUser'
