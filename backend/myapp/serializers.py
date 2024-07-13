@@ -70,6 +70,15 @@ class UpdateUserSerializer(serializers.ModelSerializer):
             'industry', 'business_size', 'budget', 'business_description'
         ]
 
+    def validate_email(self, value):
+        """
+        Check if the email is already in use by another user.
+        """
+        user = self.context['request'].user
+        if CustomUser.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError("This email address is already in use.")
+        return value
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
     Serializer for obtaining JWT tokens with custom claims.
