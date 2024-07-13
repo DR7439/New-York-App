@@ -142,7 +142,7 @@ const Analytics = () => {
       .then((res) => {
         let topZones = res.data;
         setTopZones(topZones);
-        setSelectedZone(topZones[0].zone_id);
+        setSelectedZone(topZones[0]?.zone_id);
         let scores = parseScoresFromTopZones(topZones);
         setTableData(scores);
       });

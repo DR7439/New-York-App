@@ -17,12 +17,15 @@ export default function SearchForm({
   const interests = useInterests();
   const { fetchSearches } = useSearches();
   const [form] = useForm(formInstance);
+  // watch field dateRange
+  let dateRange   = Form.useWatch("dateRange", form);
+  console.log("🚀 ~ dateRange:", dateRange, dateRange?.[0].format('YYYY-MM-DD'));
+  
   let onFinish = async (values) => {
-    console.log("🚀 ~ onFinish ~ values:", values)
     let data = new FormData();
     data.append("name", values.name);
-    data.append("start_date", values.dateRange[0].toISOString().split("T")[0]);
-    data.append("end_date", values.dateRange[1].toISOString().split("T")[0]);
+    data.append("start_date", values.dateRange[0].format('YYYY-MM-DD'));
+    data.append("end_date", values.dateRange[1].format('YYYY-MM-DD'));
     data.append("date_search_made_on", new Date().toISOString().split("T")[0]);
     values.targetMarkets.forEach((market) => {
       data.append("target_market_interests", market);
