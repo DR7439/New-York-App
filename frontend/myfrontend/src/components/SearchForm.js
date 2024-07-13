@@ -17,9 +17,6 @@ export default function SearchForm({
   const interests = useInterests();
   const { fetchSearches } = useSearches();
   const [form] = useForm(formInstance);
-  // watch field dateRange
-  let dateRange   = Form.useWatch("dateRange", form);
-  console.log("🚀 ~ dateRange:", dateRange, dateRange?.[0].format('YYYY-MM-DD'));
   
   let onFinish = async (values) => {
     let data = new FormData();
