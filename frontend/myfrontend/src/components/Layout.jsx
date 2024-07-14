@@ -13,7 +13,7 @@ let Layout = () => {
         <div className="flex gap-4">
           <Navbar />
           <div className="h-screen-no-nav overflow-auto w-full">
-            <div className="space-y-12 max-w-6xl mx-auto py-10 ">
+            <div className="space-y-12 max-w-7xl mx-auto py-10 ">
               <Outlet />
             </div>
           </div>
