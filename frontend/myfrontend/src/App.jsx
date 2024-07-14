@@ -30,6 +30,11 @@ const App = () => {
           <ConfigProvider
             theme={{
               hashed: false,
+              components: {
+                Table: {
+                  rowHoverBg: "#e6f4ff",
+                },
+              },
               token: {
                 fontFamily: "Roboto",
               },
