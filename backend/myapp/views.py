@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, CreditUsage
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer, CreditUsageSerializer
 
 from .tasks import background_task
 from django.contrib.auth import login
@@ -149,30 +149,30 @@ class MyTokenObtainPairView(TokenObtainPairView):
     
 
 class SearchAPIView(APIView):
-    """
-    API view for handling searches related to the authenticated user.
-
-    This view handles GET, POST, and DELETE requests for searches associated with the current user.
-    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = SearchSerializer
 
     def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and returns a list of searches for the authenticated user.
-        """
         searches = Search.objects.filter(user=request.user)
         serializer = self.serializer_class(searches, many=True)
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests and creates a new search for the authenticated user.
-        """
+        user = request.user
+        if user.credits < 10:
+            return Response({"error": "Insufficient credits"}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save(user=user)
             search_id = serializer.instance.id
+
+            # Deduct credits and record usage
+            user.credits -= 10
+            user.save()
+
+            CreditUsage.objects.create(user=user, credits_used=10)
+
             print("search_id: ", search_id)
             background_task.delay(search_id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -577,6 +577,14 @@ class InterestZoneCountByZoneView(APIView):
         data = {item.interest.name: item.count for item in interest_zone_counts}
         
         return Response(data, status=status.HTTP_200_OK)
+    
+class CreditUsageAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        credit_usages = CreditUsage.objects.filter(user=request.user).order_by('-date_used')
+        serializer = CreditUsageSerializer(credit_usages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)
