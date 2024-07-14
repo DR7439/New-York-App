@@ -20,10 +20,11 @@ import axiosInstance from "../axiosInstance";
 import { AGES_RANGES, GENDERS } from "../constant";
 import useSearches from "../hooks/useSearches";
 import { SearchModalTrigger, useSearchModal } from "./SearchModal";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import useInterests from "../hooks/useInterests";
 const { Search } = Input;
 const { confirm } = Modal;
-const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
+// const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 dayjs.extend(isSameOrAfter);
 
 const items = [
