@@ -86,6 +86,11 @@ const Analytics = () => {
       title: "Location",
       dataIndex: "zone_name",
       sorter: (a, b) => a.zone_name.localeCompare(b.zone_name),
+      filters: topZones.map((zone) => ({
+        text: zone.zone_name,
+        value: zone.zone_id,
+      })),
+      onFilter: (value, record) => record.zone_id === value,
       render: (text, record) => (
         <Button type="link" onClick={() => handleLocationClick(record)}>
           {text}

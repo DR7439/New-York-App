@@ -115,6 +115,7 @@ function PersonalInfo() {
         onCancel={() => setOpen(false)}
         onOk={handleEdit}
         title="Edit Your Personal Info"
+        okText="Edit"
         loading={submitting}
       >
         <Form

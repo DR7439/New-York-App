@@ -29,6 +29,9 @@ const LineChart = ({ searchId, zoneId, date }) => {
     xField: "time",
     yField: "value",
   };
+  if (data.length === 0) {
+    return null;
+  }
 
   return <Line {...props} />;
 };

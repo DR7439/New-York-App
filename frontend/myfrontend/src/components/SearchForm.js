@@ -110,7 +110,7 @@ export default function SearchForm({
       >
         <Select mode="tags" placeholder="Select age group">
           {AGES_RANGES.map((age_range, index) => (
-            <Option key={index} value={index}>
+            <Option key={index} value={index+1}>
               {age_range}
             </Option>
           ))}

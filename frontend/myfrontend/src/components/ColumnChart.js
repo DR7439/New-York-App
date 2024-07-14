@@ -25,10 +25,6 @@ const ColumnChart = ({ zoneId }) => {
 
   function fetchData() {
     axiosInstance.get(`/api/zones/${zoneId}/details`).then((res) => {
-      // let data = res.data.map((item) => ({
-      //   time: item.datetime.split("T")[1].split(":")[0],
-      //   value: item.busyness_score,
-      // }));
       let age_demographics = res.data.age_demographics;
       let data = Object.keys(age_demographics).sort(sortFn).map((key) => ({
         age: key.replaceAll("to", "-").replaceAll("years", ""),

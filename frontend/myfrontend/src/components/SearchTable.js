@@ -20,6 +20,7 @@ import axiosInstance from "../axiosInstance";
 import { AGES_RANGES, GENDERS } from "../constant";
 import useSearches from "../hooks/useSearches";
 import { SearchModalTrigger, useSearchModal } from "./SearchModal";
+import useInterests from "../hooks/useInterests";
 const { Search } = Input;
 const { confirm } = Modal;
 const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
@@ -46,6 +47,7 @@ const items = [
 ];
 
 function SearchTable() {
+  let interests = useInterests();
   let [dropdownKey, setDropDownKey] = useState("2");
   let [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let [searchKey, setSearchKey] = useState("");
@@ -82,39 +84,48 @@ function SearchTable() {
       ),
     },
     {
-      title: "Target market interest",
+      title: "Target market interests",
       dataIndex: "target_market_interests",
-      sorter: (a, b) => a.type.localeCompare(b.type),
       render: (text, record) => text.join(", "),
+      filters: interests.map((interest) => ({
+        text: interest.name,
+        value: interest.name,
+      })),
+      onFilter: (value, record) => record.target_market_interests.includes(value),
     },
     {
       title: "Target Gender",
       dataIndex: "gender",
-      sorter: (a, b) => a.gender.localeCompare(b.gender),
       render: (text, record) => GENDERS[text],
+      filters: [
+        {
+          text: "Male",
+          value: "M",
+        },
+        {
+          text: "Female",
+          value: "F",
+        },
+        {
+          text: "Both",
+          value: "B",
+        },
+      ],
+      onFilter: (value, record) => record.gender === value,
     },
     {
       title: "Target Age",
       dataIndex: "target_age",
-      filters: [
-        {
-          text: "18-25",
-          value: "18-25",
-        },
-        {
-          text: "25-40",
-          value: "25-40",
-        },
-        {
-          text: "40-60",
-          value: "40-60",
-        },
-      ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      width: 200,
+      filters: AGES_RANGES.map((age, idx) => ({
+        text: age,
+        value: idx + 1,
+      })),
+      onFilter: (value, record) => record.target_age.includes(value),
       render: (value) => (
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap gap-y-2">
           {value.map((ageIndex, idx) => (
-            <Tag key={idx}>{AGES_RANGES[ageIndex]}</Tag>
+            <Tag key={idx}>{AGES_RANGES[ageIndex-1]}</Tag>
           ))}
         </div>
       ),
@@ -130,9 +141,10 @@ function SearchTable() {
     },
     {
       title: "Action",
+      width: 150,
       render: (record) => (
         <div className="space-y-2">
-          <Button type="link" onClick={() => handleDuplicate(record)}>
+          <Button style={{paddingLeft: 0}} type="link" onClick={() => handleDuplicate(record)}>
             Duplicate
           </Button>
           <Link to={`/analytics/${record.id}`} className="text-blue-600">
