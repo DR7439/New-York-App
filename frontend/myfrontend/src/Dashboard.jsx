@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <>
       <div>
-        <h1 className="text-4xl font-medium">Dashboardx</h1>
+        <h1 className="text-4xl font-medium">Dashboard</h1>
         <p className="mt-2 text-neutral-500">
           Track your credit usage and search history.{" "}
         </p>
