@@ -95,6 +95,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://3.249.137.230:3000",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://3.249.137.230:3000',
+]
+
+
 AUTH_USER_MODEL = 'myapp.CustomUser'
 
 MIDDLEWARE = [
