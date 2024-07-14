@@ -20,10 +20,11 @@ import axiosInstance from "../axiosInstance";
 import { AGES_RANGES, GENDERS } from "../constant";
 import useSearches from "../hooks/useSearches";
 import { SearchModalTrigger, useSearchModal } from "./SearchModal";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import useInterests from "../hooks/useInterests";
 const { Search } = Input;
 const { confirm } = Modal;
-const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
+// const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 dayjs.extend(isSameOrAfter);
 
 const items = [
@@ -91,7 +92,8 @@ function SearchTable() {
         text: interest.name,
         value: interest.name,
       })),
-      onFilter: (value, record) => record.target_market_interests.includes(value),
+      onFilter: (value, record) =>
+        record.target_market_interests.includes(value),
     },
     {
       title: "Target Gender",
@@ -125,7 +127,7 @@ function SearchTable() {
       render: (value) => (
         <div className="flex items-center flex-wrap gap-y-2">
           {value.map((ageIndex, idx) => (
-            <Tag key={idx}>{AGES_RANGES[ageIndex-1]}</Tag>
+            <Tag key={idx}>{AGES_RANGES[ageIndex - 1]}</Tag>
           ))}
         </div>
       ),
@@ -133,7 +135,7 @@ function SearchTable() {
     {
       title: "Target Date",
       render: (text, record) => (
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap gap-y-2">
           <Tag>{record.start_date}</Tag>
           <Tag>{record.end_date}</Tag>
         </div>
@@ -144,7 +146,11 @@ function SearchTable() {
       width: 150,
       render: (record) => (
         <div className="space-y-2">
-          <Button style={{paddingLeft: 0}} type="link" onClick={() => handleDuplicate(record)}>
+          <Button
+            style={{ paddingLeft: 0 }}
+            type="link"
+            onClick={() => handleDuplicate(record)}
+          >
             Duplicate
           </Button>
           <Link to={`/analytics/${record.id}`} className="text-blue-600">
@@ -156,7 +162,6 @@ function SearchTable() {
   ];
 
   function handleDuplicate(record) {
-    console.log("handleDuplicate", record);
     setInitialForm(record);
     setIsModalOpen(true);
   }

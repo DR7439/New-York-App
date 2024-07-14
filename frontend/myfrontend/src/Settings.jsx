@@ -59,7 +59,7 @@ function PersonalInfo() {
         email: data.email || "",
         first_name: data.first_name || "",
         last_name: data.last_name || "",
-        date_of_birth: dayjs(data.date_of_birth || ""),
+        date_of_birth: data.date_of_birth ? dayjs(data.date_of_birth) : "",
         nationality: data.nationality || "",
         industry: data.industry || "",
         business_size: data.business_size || "",

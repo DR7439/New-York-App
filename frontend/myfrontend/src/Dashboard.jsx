@@ -1,7 +1,7 @@
 // src/Dashboard.js
 
-import SearchTable from "./components/SearchTable";
-import Credit from "./Credits.js";
+import SearchTable from "./components/SearchTable.jsx";
+import Credit from "./Credits.jsx";
 const Dashboard = () => {
   return (
     <>
