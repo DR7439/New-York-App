@@ -1,8 +1,19 @@
-import { Button, DatePicker, Form, Input, message, Modal, Tabs } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+  Tabs,
+} from "antd";
 import { useEffect, useState } from "react";
 import ResetPasswordForm from "./components/ResetPasswordForm";
 import axiosInstance from "./axiosInstance";
 import dayjs from "dayjs";
+import { BUDGETS, BUSINESS_SIZES, INDUSTRIES, NATIONALITIES } from "./constant";
+const { Option } = Select;
 
 function PersonalInfo() {
   let [open, setOpen] = useState(false);
@@ -54,7 +65,7 @@ function PersonalInfo() {
         business_size: data.business_size || "",
         business_description: data.business_description || "",
         budget: data.budget || "",
-      })
+      });
     } else {
       form.resetFields();
     }
@@ -155,13 +166,40 @@ function PersonalInfo() {
               />
             </Form.Item>
             <Form.Item name="nationality" label="Nationality">
-              <Input placeholder="Enter your nationality" />
+              <Select
+                placeholder="Select Nationality"
+                options={NATIONALITIES.map((nationality) => ({
+                  value: nationality,
+                  label: nationality,
+                }))}
+              />
             </Form.Item>
             <Form.Item name="industry" label="Industry">
-              <Input placeholder="Enter your industry" />
+              <Select
+                placeholder="Select Industry"
+                options={INDUSTRIES.map((industry) => ({
+                  value: industry,
+                  label: industry,
+                }))}
+              />
             </Form.Item>
             <Form.Item name="business_size" label="Business Size">
-              <Input placeholder="Enter your business size" />
+              <Select
+                placeholder="Select Business Size"
+                options={BUSINESS_SIZES.map((size) => ({
+                  value: size,
+                  label: size,
+                }))}
+              />
+            </Form.Item>
+            <Form.Item name="budget" label="Budget">
+              <Select
+                placeholder="Select Budget"
+                options={BUDGETS.map((budget) => ({
+                  value: budget,
+                  label: budget,
+                }))}
+              />
             </Form.Item>
             <Form.Item
               name="business_description"
