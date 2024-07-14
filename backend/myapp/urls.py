@@ -2,7 +2,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView, UserCreditsAPIView
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
@@ -28,4 +28,5 @@ urlpatterns = [
     path('user/profile/', UpdateUserProfileView.as_view(), name='update-user-profile'),
     path('dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),
     path('credits/usage/', CreditUsageAPIView.as_view(), name='credit-usage'),
+    path('credits/', UserCreditsAPIView.as_view(), name='user-credits'),
 ]

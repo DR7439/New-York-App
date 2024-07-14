@@ -14,11 +14,12 @@ from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.dateparse import parse_datetime
+from django.db import models 
 from django.db.models import F, FloatField, ExpressionWrapper, Value, Max, Subquery, OuterRef
 from django.db.models.functions import Coalesce, Cast
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-from datetime import datetime 
+from datetime import datetime, timedelta
 from django.http import JsonResponse
 import json
 import os
@@ -578,13 +579,37 @@ class InterestZoneCountByZoneView(APIView):
         
         return Response(data, status=status.HTTP_200_OK)
     
+
+class UserCreditsAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        return Response({'credits': user.credits}, status=status.HTTP_200_OK)
+    
 class CreditUsageAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        credit_usages = CreditUsage.objects.filter(user=request.user).order_by('-date_used')
+        user = request.user
+        today = datetime.now().date()
+        last_30_days = today - timedelta(days=30)
+
+        # Calculate credits used today
+        credits_used_today = CreditUsage.objects.filter(user=user, date_used__date=today).aggregate(total=models.Sum('credits_used'))['total'] or 0
+
+        # Calculate credits used in the last 30 days
+        credits_used_last_30_days = CreditUsage.objects.filter(user=user, date_used__date__gte=last_30_days).aggregate(total=models.Sum('credits_used'))['total'] or 0
+
+        # Get all credit usage records for the user
+        credit_usages = CreditUsage.objects.filter(user=user).order_by('-date_used')
         serializer = CreditUsageSerializer(credit_usages, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response({
+            'credits_used_today': credits_used_today,
+            'credits_used_last_30_days': credits_used_last_30_days,
+            'credit_usage_history': serializer.data
+        }, status=status.HTTP_200_OK)
 
 class PasswordResetRequestView(APIView):
     permission_classes = (AllowAny,)
