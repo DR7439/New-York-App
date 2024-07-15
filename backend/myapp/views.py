@@ -23,8 +23,15 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse
 import json
 import os
+import stripe
 import json
 import joblib
+
+from django.conf import settings
+from django.views import View
+from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
 class UserCreate(generics.CreateAPIView):
@@ -680,6 +687,53 @@ class PredictBusynessAPIView(APIView):
         #predictions_serializer = PredictionSerializer(predictions, many=True)
 
         #return Response(predictions_serializer.data)
+
+
+class CreatePaymentIntentView(APIView):
+    def post(self, request, *args, **kwargs):
+        amount = request.data.get('amount')
+        if not amount:
+            return Response({"error": "Amount is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=int(amount) * 100,  # Stripe works with cents
+                currency='usd',
+                metadata={'user_id': request.user.id}
+            )
+            return Response({"client_secret": intent['client_secret']})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@method_decorator(csrf_exempt, name='dispatch')
+class StripeWebhookView(View):
+    def post(self, request, *args, **kwargs):
+        
+        payload = request.body
+        print(payload)
+        sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+        endpoint_secret = 'your_endpoint_secret'
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, endpoint_secret
+            )
+        except ValueError as e:
+            return HttpResponse(status=400)
+        except stripe.error.SignatureVerificationError as e:
+            return HttpResponse(status=400)
+
+        if event['type'] == 'payment_intent.succeeded':
+            payment_intent = event['data']['object']
+            user_id = payment_intent['metadata']['user_id']
+            user = CustomUser.objects.get(id=user_id)
+            user.credits += int(payment_intent['amount']) // 100  # Convert cents to dollars
+            user.save()
+
+        return HttpResponse(status=200)
     
 class TestMethodAPIView(APIView):
     permission_classes = [permissions.AllowAny]
