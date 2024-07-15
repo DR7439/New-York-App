@@ -109,6 +109,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'myapp.middleware.JWTSessionMiddleware',  
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
