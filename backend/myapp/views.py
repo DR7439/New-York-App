@@ -167,19 +167,46 @@ class SearchAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        if user.credits < 10:
+        data = request.data
+
+        # Error checking for dates
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+
+        if not start_date or not end_date:
+            return Response({"error": "Start date and end date are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+        end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+
+        if start_date >= end_date:
+            return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
+
+        search_duration = (end_date - start_date).days + 1  # Including both start and end date
+        if search_duration > 14:
+            return Response({"error": "Search duration cannot be more than 14 days."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Calculate required credits
+        required_credits = 10 * search_duration
+
+        # Check if the user has used their free search and has enough credits
+        if not user.free_search and user.credits < required_credits:
             return Response({"error": "Insufficient credits"}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             serializer.save(user=user)
             search_id = serializer.instance.id
 
-            # Deduct credits and record usage
-            user.credits -= 10
+            # Deduct credits and record usage if the user has used their free search
+            if user.free_search:
+                # Mark that the user has used their free search
+                user.free_search = False
+            else:
+                user.credits -= required_credits
+                CreditUsage.objects.create(user=user, credits_used=required_credits)
+            
             user.save()
-
-            CreditUsage.objects.create(user=user, credits_used=10)
 
             print("search_id: ", search_id)
             background_task.delay(search_id)
