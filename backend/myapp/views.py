@@ -11,6 +11,7 @@ from .tasks import background_task
 from django.contrib.auth import login
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.core.cache import cache
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.dateparse import parse_datetime
@@ -23,8 +24,15 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse
 import json
 import os
+import stripe
 import json
 import joblib
+
+from django.conf import settings
+from django.views import View
+from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
 class UserCreate(generics.CreateAPIView):
@@ -153,29 +161,71 @@ class SearchAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = SearchSerializer
 
+    def get_cache_key(self, user_id):
+        return f"user_searches_{user_id}"
+
     def get(self, request, *args, **kwargs):
+        cache_key = self.get_cache_key(request.user.id)
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return Response(cached_data)
+
         searches = Search.objects.filter(user=request.user)
         serializer = self.serializer_class(searches, many=True)
+        cache.set(cache_key, serializer.data, timeout=60 * 15)  # Cache for 15 minutes
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        if user.credits < 10:
+        data = request.data
+
+        # Error checking for dates
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+
+        if not start_date or not end_date:
+            return Response({"error": "Start date and end date are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+        end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+
+        if start_date >= end_date:
+            return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
+
+        search_duration = (end_date - start_date).days + 1  # Including both start and end date
+        if search_duration > 14:
+            return Response({"error": "Search duration cannot be more than 14 days."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Calculate required credits
+        required_credits = 10 * search_duration
+
+        # Check if the user has used their free search and has enough credits
+        if not user.free_search and user.credits < required_credits:
             return Response({"error": "Insufficient credits"}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             serializer.save(user=user)
             search_id = serializer.instance.id
 
-            # Deduct credits and record usage
-            user.credits -= 10
+            # Deduct credits and record usage if the user has used their free search
+            if user.free_search:
+                # Mark that the user has used their free search
+                user.free_search = False
+            else:
+                user.credits -= required_credits
+                CreditUsage.objects.create(user=user, credits_used=required_credits)
+            
             user.save()
-
-            CreditUsage.objects.create(user=user, credits_used=10)
 
             print("search_id: ", search_id)
             background_task.delay(search_id)
+
+            # Invalidate cache for the user
+            cache_key = self.get_cache_key(request.user.id)
+            cache.delete(cache_key)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -231,10 +281,20 @@ class ZoneListView(APIView):
     API view to retrieve zone coordinates.
     """
     permission_classes = [permissions.AllowAny]
+
     def get(self, request, *args, **kwargs):
+        cache_key = 'zones_data'
+        cached_data = cache.get(cache_key)
+
+        if cached_data is not None:
+            return Response(cached_data, status=status.HTTP_200_OK)
+
         zones = Zone.objects.all()
         serializer = ZoneSerializer(zones, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = serializer.data
+        cache.set(cache_key, data, timeout=60 * 60)  # Cache for 1 hour
+
+        return Response(data, status=status.HTTP_200_OK)
     
 class SearchScoresView(APIView):
     """
@@ -408,6 +468,12 @@ class TopZonesView(APIView):
         if not (search.start_date <= date.date() <= search.end_date):
             return Response({"error": "Date is out of range for the specified search."}, status=status.HTTP_400_BAD_REQUEST)
 
+        cache_key = f"top_zones_{search_id}_{date_str}_{top_n}"
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return Response(cached_data, status=status.HTTP_200_OK)
+
         # Step 3: Get busyness data for each zone for that day
         busyness_data = Busyness.objects.filter(datetime__date=date.date())
 
@@ -453,13 +519,16 @@ class TopZonesView(APIView):
                 "busyness_scores": list(busyness_scores)
             })
 
+        cache.set(cache_key, data, timeout=60 * 60)  # Cache for 1 hour
         return Response(data, status=status.HTTP_200_OK)
-    
 
 class ZoneScoresByDatetimeView(APIView):
     """
     API view to retrieve the zone scores for a given datetime and search.
     """
+    def get_cache_key(self, search_id, datetime_str):
+        return f"zone_scores_{search_id}_{datetime_str}"
+
     def get(self, request, *args, **kwargs):
         # Extract query parameters
         search_id = request.query_params.get('search_id')
@@ -473,6 +542,13 @@ class ZoneScoresByDatetimeView(APIView):
 
         # Retrieve the search object
         search = get_object_or_404(Search, id=search_id)
+
+        # Generate cache key
+        cache_key = self.get_cache_key(search_id, datetime_str)
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return Response({"zone_scores": cached_data}, status=status.HTTP_200_OK)
 
         # Create a subquery to retrieve the demographic score for each zone in the search
         demographic_subquery = Demographic.objects.filter(
@@ -499,6 +575,8 @@ class ZoneScoresByDatetimeView(APIView):
             for score in zone_scores
         ]
 
+        # Cache the data for future requests
+        cache.set(cache_key, data, timeout=60 * 15)  # Cache for 15 minutes
         return Response({"zone_scores": data}, status=status.HTTP_200_OK)
 
 
@@ -680,6 +758,53 @@ class PredictBusynessAPIView(APIView):
         #predictions_serializer = PredictionSerializer(predictions, many=True)
 
         #return Response(predictions_serializer.data)
+
+
+class CreatePaymentIntentView(APIView):
+    def post(self, request, *args, **kwargs):
+        amount = request.data.get('amount')
+        if not amount:
+            return Response({"error": "Amount is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=int(amount) * 100,  # Stripe works with cents
+                currency='usd',
+                metadata={'user_id': request.user.id}
+            )
+            return Response({"client_secret": intent['client_secret']})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@method_decorator(csrf_exempt, name='dispatch')
+class StripeWebhookView(View):
+    def post(self, request, *args, **kwargs):
+        
+        payload = request.body
+        print(payload)
+        sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+        endpoint_secret = 'your_endpoint_secret'
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, endpoint_secret
+            )
+        except ValueError as e:
+            return HttpResponse(status=400)
+        except stripe.error.SignatureVerificationError as e:
+            return HttpResponse(status=400)
+
+        if event['type'] == 'payment_intent.succeeded':
+            payment_intent = event['data']['object']
+            user_id = payment_intent['metadata']['user_id']
+            user = CustomUser.objects.get(id=user_id)
+            user.credits += int(payment_intent['amount']) // 100  # Convert cents to dollars
+            user.save()
+
+        return HttpResponse(status=200)
     
 class TestMethodAPIView(APIView):
     permission_classes = [permissions.AllowAny]

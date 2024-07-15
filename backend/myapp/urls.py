@@ -2,7 +2,9 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView, UserCreditsAPIView
+
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView, UserCreditsAPIView, CreatePaymentIntentView, StripeWebhookView
+
 
 urlpatterns = [
     path('register/', UserCreate.as_view(), name='register'),
@@ -27,6 +29,12 @@ urlpatterns = [
     path('test_method/', TestMethodAPIView.as_view(), name='test_method'),
     path('user/profile/', UpdateUserProfileView.as_view(), name='update-user-profile'),
     path('dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),
+
+    path('create-payment-intent/', CreatePaymentIntentView.as_view(), name='create-payment-intent'),
+    path('stripe-webhook/', StripeWebhookView.as_view(), name='stripe-webhook'),
+
+
     path('credits/usage/', CreditUsageAPIView.as_view(), name='credit-usage'),
     path('credits/', UserCreditsAPIView.as_view(), name='user-credits'),
+
 ]
