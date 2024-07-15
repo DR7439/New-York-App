@@ -24,3 +24,29 @@ export const GENDERS = {
   "F": "Female",
   "B": "Both Genders",
 };
+
+export const NATIONALITIES = [
+  "American",
+  "British",
+  "Canadian",
+  "Irish",
+  "French",
+];
+export const INDUSTRIES = [
+  "Technology",
+  "Finance",
+  "Healthcare",
+  "Education",
+  "Retail",
+];
+export const BUSINESS_SIZES = [
+  "Small",
+  "Medium",
+  "Large",
+];
+export const BUDGETS = [
+  "< $50",
+  "$50 - $100",
+  "$100 - $500",
+  "> $500", 
+];
