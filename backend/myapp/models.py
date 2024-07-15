@@ -29,7 +29,7 @@ class CustomUser(AbstractUser):
     business_size = models.CharField(max_length=50, blank=True)
     budget = models.CharField(max_length=50, blank=True)
     business_description = models.TextField(blank=True)
-    free_search = models.BooleanField(default=False)
+    free_search = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.username)
