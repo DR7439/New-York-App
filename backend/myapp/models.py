@@ -16,6 +16,7 @@ Classes:
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 class CustomUser(AbstractUser):
     name = models.CharField(max_length=100, blank=True)
@@ -28,6 +29,7 @@ class CustomUser(AbstractUser):
     business_size = models.CharField(max_length=50, blank=True)
     budget = models.CharField(max_length=50, blank=True)
     business_description = models.TextField(blank=True)
+    free_search = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.username)
@@ -176,3 +178,11 @@ class Billboard(models.Model):
 
     def __str__(self):
         return f'{self.street_name} ({self.latitude}, {self.longitude})'
+    
+class CreditUsage(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_used = models.DateTimeField(auto_now_add=True)
+    credits_used = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.user.username} used {self.credits_used} credits on {self.date_used}"
