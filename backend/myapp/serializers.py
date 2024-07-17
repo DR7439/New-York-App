@@ -15,7 +15,7 @@ Classes:
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData, Billboard
+from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData, Billboard, CreditUsage
 
 CustomUser = get_user_model()
 
@@ -216,3 +216,8 @@ class PredictionSerializer(serializers.Serializer):
     zone_id = serializers.IntegerField()
     predicted_log_busyness_score = serializers.FloatField()
     predicted_busyness_score = serializers.FloatField()
+
+class CreditUsageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CreditUsage
+        fields = ['date_used', 'credits_used']
