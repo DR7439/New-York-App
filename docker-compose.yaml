@@ -15,10 +15,9 @@ services:
              python manage.py load_billboards /mnt/data/no_text_signs_df.csv &&
              python manage.py model_down && 
              python manage.py runserver 0.0.0.0:8000"
-
     volumes:
       - ./backend:/app
-      - ./backend/mnt/data:/mnt/data # Mount the GeoJSON and CSV file to the container
+      - ./backend/mnt/data:/mnt/data
     ports:
       - "8000:8000"
     environment:
@@ -127,8 +126,10 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./frontend/myfrontend/build:/usr/share/nginx/html:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - backend
       - frontend
