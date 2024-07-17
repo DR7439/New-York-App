@@ -1,24 +1,24 @@
 import { Pie } from "@ant-design/plots";
 import React, { useEffect } from "react";
-import axiosInstance from "../axiosInstance";
+import fetchWithCache from "../utils/fetchWithCache";
 const PieChart = ({ zoneId }) => {
   let [data, setData] = React.useState([]);
   function fetchData() {
-    axiosInstance.get(`/api/zones/${zoneId}/interests`).then((res) => {
-      if (res.data) {
+    fetchWithCache(`/api/zones/${zoneId}/interests`).then((_data) => {
+      if (_data) {
         let total = 0;
-        let data = Object.keys(res.data).map((key) => {
-          total += res.data[key];
+        let data = Object.keys(_data).map((key) => {
+          total += _data[key];
           return {
             type: key.replaceAll("to", "-").replaceAll("years", ""),
-            point: res.data[key],
+            point: _data[key],
           };
         });
-        data =data.map((item) => {
+        data = data.map((item) => {
           let percent = Number(((item.point / total) * 100).toFixed(2));
           let percentStr = "";
           if (percent > 0) {
-            percentStr =  `${percent}%`;
+            percentStr = `${percent}%`;
           }
           return { ...item, percent: percentStr };
         });
@@ -55,7 +55,7 @@ const PieChart = ({ zoneId }) => {
         position: "right",
         rowPadding: 5,
       },
-    }
+    },
   };
   return <Pie {...config} />;
 };

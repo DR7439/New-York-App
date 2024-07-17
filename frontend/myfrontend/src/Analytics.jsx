@@ -11,6 +11,7 @@ import useSearches from "./hooks/useSearches";
 import Maps from "./components/Maps";
 import axiosInstance from "./axiosInstance";
 import PieChart from "./components/PieChart";
+import fetchWithCache from "./utils/fetchWithCache";
 
 const pad0 = (num) => num.toString().padStart(2, "0");
 
@@ -142,15 +143,17 @@ const Analytics = () => {
     },
   ];
   async function loadDataByDate(date) {
-    axiosInstance
-      .get(`/api/top-zones/?search_id=${id}&date=${date}`)
-      .then((res) => {
-        let topZones = res.data;
-        setTopZones(topZones);
-        setSelectedZone(topZones[0]?.zone_id);
-        let scores = parseScoresFromTopZones(topZones);
-        setTableData(scores);
-      });
+    fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`).then(
+      (res) => {
+        if (res) {
+          let topZones = res;
+          setTopZones(topZones);
+          setSelectedZone(topZones[0]?.zone_id);
+          let scores = parseScoresFromTopZones(topZones);
+          setTableData(scores);
+        }
+      }
+    );
   }
   useEffect(() => {
     getSearchById(id).then((search) => {
