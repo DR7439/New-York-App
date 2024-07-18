@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { message, notification } from "antd";
 import { useState } from "react";
 const notifications = [
   {
@@ -34,6 +34,8 @@ export function useNoti() {
       });
       localStorage.setItem("isNotificationOpen", true);
       setNotiNumber(0);
+    } else {
+      message.info("No new notification")
     }
   };
   return {

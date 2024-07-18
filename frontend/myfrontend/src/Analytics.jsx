@@ -1,18 +1,16 @@
 // src/Dashboard.js
-import React, { useEffect } from "react";
-import { Breadcrumb, Button, Select, Spin, Table, Tabs, Tag } from "antd";
-import { SearchModalTrigger } from "./components/SearchModal";
 import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import LineChart from "./components/LineChart";
-import ColumnChart from "./components/ColumnChart";
+import { Breadcrumb, Button, Select, Spin, Table, Tabs, Tag } from "antd";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useSearches from "./hooks/useSearches";
+import ColumnChart from "./components/ColumnChart";
+import LineChart from "./components/LineChart";
 import Maps from "./components/Maps";
-import axiosInstance from "./axiosInstance";
 import PieChart from "./components/PieChart";
+import { SearchModalTrigger } from "./components/SearchModal";
+import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-
+import { Skeleton } from "antd";
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -60,6 +58,7 @@ const Analytics = () => {
   let [search, setSearch] = useState(null);
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
+  let [loading, setLoading] = useState(true);
 
   let handleLocationClick = (record) => {
     setSelectedZone(record.zone_id);
@@ -143,8 +142,11 @@ const Analytics = () => {
     },
   ];
   async function loadDataByDate(date) {
-    fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`).then(
-      (res) => {
+    setLoading(true);
+    // for testing skeleton
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`)
+      .then((res) => {
         if (res) {
           let topZones = res;
           setTopZones(topZones);
@@ -152,8 +154,10 @@ const Analytics = () => {
           let scores = parseScoresFromTopZones(topZones);
           setTableData(scores);
         }
-      }
-    );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
   useEffect(() => {
     getSearchById(id).then((search) => {
@@ -177,28 +181,18 @@ const Analytics = () => {
   const targetDates = getDateArray(search.start_date, search.end_date);
   const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
 
-  return (
+  const loadingContent = (
+    <div className="space-y-12">
+      <Skeleton active paragraph={{ rows: 8 }} />
+      <Skeleton active paragraph={{ rows: 8 }} />
+      <Skeleton active paragraph={{ rows: 8 }} />
+      <Skeleton active paragraph={{ rows: 8 }} />
+    </div>
+  );
+
+  let renderContent = (
     <>
-      <Breadcrumb
-        items={[
-          {
-            title: <Link to="/">Dashboard</Link>,
-          },
-          {
-            title: "Search History",
-          },
-          {
-            title: searchName,
-          },
-        ]}
-      />
-      <div className="mt-12">
-        <h1 className="text-4xl font-medium">Analytics</h1>
-        <p className="mt-2 text-neutral-500">
-          View detailed search results with data analysis and recommendations.
-        </p>
-        <Maps />
-      </div>
+      <Maps />
       <div>
         <div className="flex gap-2 items-center mb-10">
           <h4 className="text-xl font-medium">Select Target Date</h4>
@@ -252,6 +246,31 @@ const Analytics = () => {
           <PieChart zoneId={selectedZone} />
         </div>
       </div>
+    </>
+  );
+
+  return (
+    <>
+      <Breadcrumb
+        items={[
+          {
+            title: <Link to="/">Dashboard</Link>,
+          },
+          {
+            title: "Search History",
+          },
+          {
+            title: searchName,
+          },
+        ]}
+      />
+      <div className="mt-12">
+        <h1 className="text-4xl font-medium">Analytics</h1>
+        <p className="mt-2 text-neutral-500">
+          View detailed search results with data analysis and recommendations.
+        </p>
+      </div>
+      {loading ? loadingContent : renderContent}
     </>
   );
 };
