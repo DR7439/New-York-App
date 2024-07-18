@@ -5,6 +5,7 @@ import React from "react";
 import { AGES_RANGES } from "../constant";
 import useInterests from "../hooks/useInterests";
 import useSearches from "../hooks/useSearches";
+import useCredits from "../hooks/useCredits";
 
 const { Option } = Select;
 
@@ -16,13 +17,14 @@ export default function SearchForm({
 }) {
   const interests = useInterests();
   const { fetchSearches } = useSearches();
+  const { fetchCreditData } = useCredits();
   const [form] = useForm(formInstance);
-  
+
   let onFinish = async (values) => {
     let data = new FormData();
     data.append("name", values.name);
-    data.append("start_date", values.dateRange[0].format('YYYY-MM-DD'));
-    data.append("end_date", values.dateRange[1].format('YYYY-MM-DD'));
+    data.append("start_date", values.dateRange[0].format("YYYY-MM-DD"));
+    data.append("end_date", values.dateRange[1].format("YYYY-MM-DD"));
     data.append("date_search_made_on", new Date().toISOString().split("T")[0]);
     values.targetMarkets.forEach((market) => {
       data.append("target_market_interests", market);
@@ -36,6 +38,7 @@ export default function SearchForm({
       const res = await axiosInstance.post("/api/search/", data);
       onSuccess && onSuccess();
       fetchSearches();
+      fetchCreditData();
     } catch (error) {
       console.error(error);
     }
@@ -110,7 +113,7 @@ export default function SearchForm({
       >
         <Select mode="tags" placeholder="Select age group">
           {AGES_RANGES.map((age_range, index) => (
-            <Option key={index} value={index+1}>
+            <Option key={index} value={index + 1}>
               {age_range}
             </Option>
           ))}
