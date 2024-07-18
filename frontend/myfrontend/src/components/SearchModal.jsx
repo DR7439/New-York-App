@@ -4,7 +4,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import SearchForm from "./SearchForm";
 import { useForm } from "antd/es/form/Form";
 import { atom, useRecoilState } from "recoil";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
+import useCredits from "../hooks/useCredits";
 
 const state = atom({
   key: "modalOpen",
@@ -24,11 +25,18 @@ export function useSearchModal() {
 
 export const SearchModalTrigger = () => {
   const [, setIsModalOpen] = useRecoilState(state);
+  const { credits } = useCredits();
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   return (
-    <Button onClick={showModal} icon={<PlusOutlined />} type="primary">
+    <Button
+      onClick={showModal}
+      icon={<PlusOutlined />}
+      type="primary"
+      disabled={credits.active === 0}
+    >
       Add New Search
     </Button>
   );
@@ -58,10 +66,7 @@ function SearchModal() {
         targetMarkets: initialForm.target_market_interests,
         targetGender: initialForm.gender,
         targetAges: initialForm.target_age,
-        dateRange: [
-          dayjs(initialForm.start_date),
-          dayjs(initialForm.end_date),
-        ],
+        dateRange: [dayjs(initialForm.start_date), dayjs(initialForm.end_date)],
       });
     } else {
       form.resetFields();
