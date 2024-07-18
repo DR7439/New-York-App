@@ -6,6 +6,7 @@ import { AGES_RANGES } from "../constant";
 import useInterests from "../hooks/useInterests";
 import useSearches from "../hooks/useSearches";
 import useCredits from "../hooks/useCredits";
+import dayjs from "dayjs";
 
 const { Option } = Select;
 
@@ -42,6 +43,16 @@ export default function SearchForm({
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const disabledDate = (current, info) => {
+    let isDisabled = current && current < dayjs().endOf("day");
+    if (!isDisabled && info && info.from) {
+      let next = dayjs(info.from).add(14, "day");
+      let before = dayjs(info.from).subtract(14, "day");
+      isDisabled = current > next || current < before;
+    }
+    return isDisabled;
   };
 
   return (
@@ -129,7 +140,10 @@ export default function SearchForm({
           },
         ]}
       >
-        <DatePicker.RangePicker className="w-full" />
+        <DatePicker.RangePicker
+          className="w-full"
+          disabledDate={disabledDate}
+        />
       </Form.Item>
       {showSubmitButton && (
         <Form.Item>
