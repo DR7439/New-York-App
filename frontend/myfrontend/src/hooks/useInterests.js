@@ -1,6 +1,7 @@
 import axiosInstance from "../axiosInstance";
 import { useEffect, useState } from "react";
 import { atom, useRecoilState } from "recoil";
+import fetchWithCache from "../utils/fetchWithCache";
 const state = atom({
   key: "interests",
   default: [],
@@ -9,8 +10,9 @@ const state = atom({
 export default function useInterests() {
   let [interests, setInterests] = useRecoilState(state);
   let fetchInterests = async () => {
-    let res = await axiosInstance.get("/api/interests/");
-    setInterests(res.data);
+    let data = await fetchWithCache("/api/interests/");
+    // let res = await axiosInstance.get("/api/interests/");
+    setInterests(data);
   };
   useEffect(() => {
     if (interests.length === 0) {

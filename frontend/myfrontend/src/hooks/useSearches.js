@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 import axiosInstance from "../axiosInstance";
+import fetchWithCache from "../utils/fetchWithCache";
 const state = atom({
   key: "searches",
   default: [],
@@ -18,8 +19,9 @@ export default function useSearches() {
   };
   const fetchSearchById = async (searchId) => {
     try {
-      const res = await axiosInstance.get(`/api/search/${searchId}`);
-      return res.data;
+      const data = await fetchWithCache(`/api/search/${searchId}`);
+      // const res = await axiosInstance.get(`/api/search/${searchId}`);
+      return data;
     } catch (error) {
       console.log(error);
     }

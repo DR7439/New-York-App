@@ -11,7 +11,7 @@ const Dashboard = () => {
           Track your credit usage and search history.{" "}
         </p>
       </div>
-      <Credit />
+      <Credit isDashboard />
       <SearchTable />
     </>
   );
