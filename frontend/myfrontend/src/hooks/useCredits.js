@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 import axiosInstance from "../axiosInstance";
+import { useNoti } from "./useNoti";
 const activeCreditsState = atom({
   key: "activeCredits",
   default: 0,
@@ -13,9 +14,15 @@ const usedCreditsState = atom({
 export default function useCredits() {
   let [activeCredits, setActiveCredits] = useRecoilState(activeCreditsState);
   let [usedCredits, setUsedCredits] = useRecoilState(usedCreditsState);
+  let { checkNoti } = useNoti();
   let fetchCreditData = async () => {
     axiosInstance.get("/api/credits").then((res) => {
-      setActiveCredits(res.data.credits);
+      let activeNum = res.data.credits;
+      setActiveCredits(activeNum);
+      if (activeNum === 0) {
+        localStorage.removeItem("credits");
+        checkNoti();
+      }
     });
     axiosInstance.get("/api/credits/usage/").then((res) => {
       setUsedCredits({
