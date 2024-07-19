@@ -768,7 +768,7 @@ class CreatePaymentIntentView(APIView):
 
         try:
             intent = stripe.PaymentIntent.create(
-                amount=int(amount) * 100,  # Stripe works with cents
+                amount=int(amount) * 10,  # Stripe works with cents
                 currency='usd',
                 metadata={'user_id': request.user.id}
             )
@@ -785,10 +785,8 @@ class StripeWebhookView(View):
         payload = request.body.decode('utf-8')
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
         endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
-
-        # Logging the payload and signature for debugging
-        print(f"Payload: {payload}")
-        print(f"Signature Header: {sig_header}")
+        print('endpoint: ', endpoint_secret)
+        
 
         try:
             event = stripe.Webhook.construct_event(
@@ -814,7 +812,7 @@ class StripeWebhookView(View):
 
             try:
                 user = CustomUser.objects.get(id=user_id)
-                user.credits += int(amount_received) // 100  # Convert cents to dollars
+                user.credits += int(amount_received) // 10  
                 user.save()
                 print(f"User {user.username} credits updated to {user.credits}")
             except CustomUser.DoesNotExist:

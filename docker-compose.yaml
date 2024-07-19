@@ -15,10 +15,9 @@ services:
              python manage.py load_billboards /mnt/data/no_text_signs_df.csv &&
              python manage.py model_down && 
              python manage.py runserver 0.0.0.0:8000"
-
     volumes:
       - ./backend:/app
-      - ./backend/mnt/data:/mnt/data # Mount the GeoJSON and CSV file to the container
+      - ./backend/mnt/data:/mnt/data
     ports:
       - "8000:8000"
     environment:
@@ -36,6 +35,7 @@ services:
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
     depends_on:
       - db
       - redis
