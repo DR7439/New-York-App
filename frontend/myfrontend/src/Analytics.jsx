@@ -25,7 +25,7 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-import { TABLE_TOOLTIP_TEXT } from "./constant";
+import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -76,38 +76,11 @@ const Analytics = () => {
   let [loading, setLoading] = useState(true);
   let [open, setOpen] = useState(false); // open the tour
   let visitedTour = localStorage.getItem("visited-analytics-tour");
-  const steps = [
-    {
-      title: "Select Target Date",
-      description: "Select Target Date description",
-      placement: "top",
-      target: () => document.getElementById("select-date"),
-    },
-    {
-      title: "Recommendations table ",
-      description: "Recommendations table description",
-      placement: "top",
-      target: () => document.getElementById("recommendations-table"),
-    },
-    {
-      title: "Busyness Activity by Location",
-      description: "Busyness Activity by Location description",
-      placement: "top",
-      target: () => document.getElementById("tour-line-chart"),
-    },
-    {
-      title: "Demographic by Location",
-      description: "Demographic by Location description",
-      placement: "top",
-      target: () => document.getElementById("tour-column-chart"),
-    },
-    {
-      title: "Point-of-interest by Location",
-      description: "Point-of-interest by Location description",
-      placement: "top",
-      target: () => document.getElementById("tour-pie-chart"),
-    },
-  ];
+  const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
+    ...step,
+    cover: step.imgSrc && <img alt="tour.png" src={step.imgSrc} />,
+    target: () => document.getElementById(step.id),
+  }));
   useEffect(() => {
     if (!loading && !visitedTour) {
       setOpen(true);
@@ -136,7 +109,7 @@ const Analytics = () => {
           Ranking
           <Popover
             content={
-              <div className="text-sm max-w-80 text-white">
+              <div className="text-sm max-w-80">
                 {TABLE_TOOLTIP_TEXT.ranking}
               </div>
             }
@@ -188,7 +161,7 @@ const Analytics = () => {
           Demographic Score{" "}
           <Popover
             content={
-              <div className="text-sm max-w-80 text-white">
+              <div className="text-sm max-w-80">
                 {TABLE_TOOLTIP_TEXT.demographic}
               </div>
             }
@@ -213,7 +186,7 @@ const Analytics = () => {
           Busyness Score
           <Popover
             content={
-              <div className="text-sm max-w-80 text-white">
+              <div className="text-sm max-w-80">
                 {TABLE_TOOLTIP_TEXT.busyness}
               </div>
             }

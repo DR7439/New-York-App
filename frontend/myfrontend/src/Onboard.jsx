@@ -3,64 +3,20 @@ import React, { useEffect, useState } from "react";
 import { Tour } from "antd";
 import { useNavigate } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
+import { ONBOARD_TOUR_STEPS } from "./constant";
 
 export default function Onboard() {
   let navigate = useNavigate();
   let [open, setOpen] = useState(false); // open the tour
   let visitedTour = localStorage.getItem("visited-onboard-tour");
   // tour across search form
-  let tourSteps = [
-    {
-      title: "Welcome to Ad Optima",
-      description: "Welcome to Ad Optima description",
-      cover: (
-        <img
-          alt="tour.png"
-          src="https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png"
-        />
-      ),
-    },
-    {
-      title: "Search Name",
-      description: "Search Name description",
-      placement: "top",
-      target: () => document.getElementById("field-name"),
-    },
-    {
-      title: "Target Market Interest",
-      description: "Target Market Interest description",
-      placement: "top",
-      target: () => document.getElementById("field-target-markets"),
-    },
-    {
-      title: "Target Gender",
-      description: "Target Gender description",
-      placement: "top",
-      target: () => document.getElementById("field-target-gender"),
-    },
-    {
-      title: "Target Age",
-      description: "Target Age description",
-      placement: "top",
-      target: () => document.getElementById("field-target-ages"),
-    },
-    {
-      title: "Target Date",
-      description: "Target Date description",
-      placement: "top",
-      target: () => document.getElementById("field-date-range"),
-    },
-    {
-      title: "Start my free search",
-      description: "Start my free search description",
-      placement: "top",
-      target: () => document.getElementById("submit-button"),
-    },
-
-    // {
-    //   title: "Other Actions",
-    //   description: "Click to see other actions.",
-  ];
+  let tourSteps = ONBOARD_TOUR_STEPS.map((step) => ({
+    ...step,
+    cover: step.imgSrc && (
+      <img alt="tour.png" src={step.imgSrc} />
+    ),
+    target: () => document.getElementById(step.id),
+  }));
   let handleCloseTour = () => {
     setOpen(false);
     localStorage.setItem("visited-onboard-tour", "true");

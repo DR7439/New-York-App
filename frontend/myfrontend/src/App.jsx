@@ -37,7 +37,6 @@ const App = () => {
               },
               token: {
                 fontFamily: "Roboto",
-                colorBgElevated: "black",
               },
             }}
           >
