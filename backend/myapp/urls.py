@@ -31,7 +31,7 @@ urlpatterns = [
     path('dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),
 
     path('create-payment-intent/', CreatePaymentIntentView.as_view(), name='create-payment-intent'),
-    path('stripe-webhook/', StripeWebhookView.as_view(), name='stripe-webhook'),
+    path('stripe-webhook', StripeWebhookView.as_view(), name='stripe-webhook'),
 
 
     path('credits/usage/', CreditUsageAPIView.as_view(), name='credit-usage'),
