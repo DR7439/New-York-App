@@ -1,6 +1,21 @@
 // src/Dashboard.js
-import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Breadcrumb, Button, Select, Spin, Table, Tabs, Tag } from "antd";
+import {
+  CheckCircleOutlined,
+  LoadingOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+import {
+  Breadcrumb,
+  Button,
+  Popover,
+  Select,
+  Skeleton,
+  Spin,
+  Table,
+  Tabs,
+  Tag,
+  Tour,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ColumnChart from "./components/ColumnChart";
@@ -10,7 +25,7 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-import { Skeleton } from "antd";
+import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -59,7 +74,18 @@ const Analytics = () => {
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
   let [loading, setLoading] = useState(true);
-
+  let [open, setOpen] = useState(false); // open the tour
+  let visitedTour = localStorage.getItem("visited-analytics-tour");
+  const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
+    ...step,
+    cover: step.imgSrc && <img alt="tour.png" src={step.imgSrc} />,
+    target: () => document.getElementById(step.id),
+  }));
+  useEffect(() => {
+    if (!loading && !visitedTour) {
+      setOpen(true);
+    }
+  }, [loading]);
   let handleLocationClick = (record) => {
     setSelectedZone(record.zone_id);
     document.getElementById("zone-tabs").scrollIntoView({
@@ -78,7 +104,20 @@ const Analytics = () => {
 
   const columns = [
     {
-      title: "Ranking",
+      title: (
+        <div>
+          Ranking
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.ranking}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "key",
       sorter: (a, b) => a.key - b.key,
     },
@@ -117,7 +156,20 @@ const Analytics = () => {
       },
     },
     {
-      title: "Demographic Score",
+      title: (
+        <div>
+          Demographic Score{" "}
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.demographic}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "demographic_score",
       sorter: (a, b) => a.demographic_score - b.demographic_score,
       render: (text, record) => (
@@ -129,7 +181,20 @@ const Analytics = () => {
       ),
     },
     {
-      title: "Busyness Score",
+      title: (
+        <div>
+          Busyness Score
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.busyness}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "busyness_score",
       sorter: (a, b) => a.busyness_score - b.busyness_score,
       render: (text, record) => (
@@ -144,7 +209,7 @@ const Analytics = () => {
   async function loadDataByDate(date) {
     setLoading(true);
     // for testing skeleton
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
         if (res) {
@@ -194,31 +259,34 @@ const Analytics = () => {
     <>
       <Maps />
       <div>
-        <div className="flex gap-2 items-center mb-10">
+        <div id="select-date" className="flex gap-2 items-center mb-10">
           <h4 className="text-xl font-medium">Select Target Date</h4>
           <Select
+            id="tour1"
             className="w-60"
             value={selectedDate}
             onChange={(value) => setSelectedDate(value)}
             options={dateOptions}
           />
         </div>
-        <div className="flex items-center justify-between mt-7">
-          <h4 className="text-xl font-medium">Recommendations</h4>
-          <div className="flex gap-4 items-center">
-            <SearchModalTrigger />
+        <div id="recommendations-table" className="space-y-4">
+          <div className="flex items-center justify-between mt-7">
+            <h4 className="text-xl font-medium">Recommendations</h4>
+            <div className="flex gap-4 items-center">
+              <SearchModalTrigger />
+            </div>
           </div>
+          <Table
+            className="mt-4"
+            columns={columns}
+            dataSource={tableData}
+            pagination={{
+              defaultPageSize: 10,
+              showQuickJumper: true,
+              showSizeChanger: true,
+            }}
+          />
         </div>
-        <Table
-          className="mt-4"
-          columns={columns}
-          dataSource={tableData}
-          pagination={{
-            defaultPageSize: 10,
-            showQuickJumper: true,
-            showSizeChanger: true,
-          }}
-        />
       </div>
 
       <div className="space-y-8">
@@ -233,15 +301,15 @@ const Analytics = () => {
             onChange={(key) => setSelectedZone(key)}
           />
         </div>
-        <div>
+        <div id="tour-line-chart">
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
           <LineChart searchId={id} zoneId={selectedZone} date={selectedDate} />
         </div>
-        <div>
+        <div id="tour-column-chart">
           <h4 className="mb-4 font-medium">Demographic by Location</h4>
           <ColumnChart zoneId={selectedZone} />
         </div>
-        <div>
+        <div id="tour-pie-chart">
           <h4 className="mb-4 font-medium">Point-of-interest by Location</h4>
           <PieChart zoneId={selectedZone} />
         </div>
@@ -249,8 +317,14 @@ const Analytics = () => {
     </>
   );
 
+  const handleCloseTour = () => {
+    setOpen(false);
+    localStorage.setItem("visited-analytics-tour", "true");
+  };
+
   return (
     <>
+      <Tour open={open} onClose={handleCloseTour} steps={steps} />
       <Breadcrumb
         items={[
           {

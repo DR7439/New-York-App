@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 import axiosInstance from "../axiosInstance";
 import { useNoti } from "./useNoti";
+import { message } from "antd";
 const activeCreditsState = atom({
   key: "activeCredits",
   default: 0,
@@ -31,6 +32,9 @@ export default function useCredits() {
       });
     });
   };
+  let isInsufficientCredits = (newCredits) => {
+    return newCredits > activeCredits;
+  };
   useEffect(() => {
     if (!usedCredits) {
       fetchCreditData();
@@ -43,5 +47,6 @@ export default function useCredits() {
       usedThisMonth: usedCredits?.thisMonth || 0,
     },
     fetchCreditData,
+    isInsufficientCredits
   };
 }
