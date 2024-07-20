@@ -16,15 +16,19 @@ class Command(BaseCommand):
         for _, row in data.iterrows():
             try:
                 zone = Zone.objects.get(id=row['zone_id'])
-                billboard = Billboard(
-                    street_name=row['street_name'],
-                    sign_illumination=row['sign_illumination'],
-                    sign_sq_footage=row['sign_sq_footage'],
-                    latitude=row['Latitude'],
-                    longitude=row['Longitude'],
-                    zone=zone
-                )
-                billboard.save()
-                self.stdout.write(self.style.SUCCESS(f'Successfully added billboard at {row["street_name"]}'))
+                # Check if the billboard already exists
+                if Billboard.objects.filter(latitude=row['Latitude'], longitude=row['Longitude'], sign_sq_footage=row['sign_sq_footage']).exists():
+                    self.stdout.write(self.style.WARNING(f'Billboard at {row["Latitude"]}, {row["Longitude"]} with {row["sign_sq_footage"]} sq footage already exists'))
+                else:
+                    billboard = Billboard(
+                        street_name=row['street_name'],
+                        sign_illumination=row['sign_illumination'],
+                        sign_sq_footage=row['sign_sq_footage'],
+                        latitude=row['Latitude'],
+                        longitude=row['Longitude'],
+                        zone=zone
+                    )
+                    billboard.save()
+                    self.stdout.write(self.style.SUCCESS(f'Successfully added billboard at {row["street_name"]}'))
             except Zone.DoesNotExist:
                 self.stdout.write(self.style.ERROR(f'Zone with id {row["zone_id"]} does not exist'))

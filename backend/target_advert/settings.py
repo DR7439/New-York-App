@@ -29,8 +29,11 @@ SECRET_KEY = "django-insecure-xzkxr@8pu1*uv5@7nek!8o$7k)kpjy*)9a!$-om6b)@3m%rh7*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', '137.43.49.21']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', '137.43.49.21', '34.254.196.242', '34.252.245.42', "adoptima.online"]
 
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 
 # Application definition
 
@@ -91,8 +94,21 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost",
-    "http://137.43.49.21:3000",  
+    "http://137.43.49.21:3000",
+    "http://34.254.196.242:3000",
+    "http://34.252.245.42:3000",
+    "http://34.252.245.42",
+    "http://adoptima.online",
+    "https://adoptima.online"
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://34.252.245.42:3000',
+    "http://34.252.245.42",
+    "http://adoptima.online",
+    "https://adoptima.online"
+]
+
 
 AUTH_USER_MODEL = 'myapp.CustomUser'
 
@@ -106,6 +122,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'myapp.middleware.JWTSessionMiddleware',  
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
