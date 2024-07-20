@@ -1,14 +1,16 @@
-import { Button, DatePicker, Form, Input, Select } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Alert, Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axiosInstance from "../axiosInstance";
+import dayjs from "dayjs";
 import React from "react";
+import axiosInstance from "../axiosInstance";
 import { AGES_RANGES } from "../constant";
+import useCredits from "../hooks/useCredits";
 import useInterests from "../hooks/useInterests";
 import useSearches from "../hooks/useSearches";
-import useCredits from "../hooks/useCredits";
-import dayjs from "dayjs";
 
 const { Option } = Select;
+const { confirm } = Modal;
 
 export default function SearchForm({
   formInstance,
@@ -34,6 +36,7 @@ export default function SearchForm({
       data.append("target_age", age);
     });
     data.append("gender", values.targetGender);
+
     // cors allow origin
     try {
       const res = await axiosInstance.post("/api/search/", data);
@@ -45,6 +48,24 @@ export default function SearchForm({
     }
   };
 
+  let handleConfirm = (values) => {
+    let startDate = values.dateRange[0];
+    let endDate = values.dateRange[1];
+    let selectedDateNumber = Math.abs(startDate.diff(endDate, "day")) + 1;
+    let creditCost = selectedDateNumber * 10;
+    confirm({
+      title: `Are you sure that you want to use ${creditCost} credits for this search?`,
+      icon: <ExclamationCircleOutlined />,
+      content: `You will be charged ${creditCost} credits per day for the selected date range.`,
+      okText: "Yes",
+      cancelText: "No",
+      centered: true,
+      onOk() {
+        // cors allow origin
+        onFinish(values);
+      },
+    });
+  };
   const disabledDate = (current, info) => {
     let isDisabled = current && current < dayjs().endOf("day");
     if (!isDisabled && info && info.from) {
@@ -64,7 +85,7 @@ export default function SearchForm({
       style={{
         maxWidth: 600,
       }}
-      onFinish={onFinish}
+      onFinish={handleConfirm}
       initialValues={{
         remember: true,
       }}
@@ -145,8 +166,13 @@ export default function SearchForm({
           disabledDate={disabledDate}
         />
       </Form.Item>
+      <Alert
+        message="A rate of 10 credits per day applies for your selected target date."
+        type="info"
+        showIcon
+      />
       {showSubmitButton && (
-        <Form.Item>
+        <Form.Item className="mt-4">
           <Button type="primary" htmlType="submit">
             Start my free search
           </Button>
