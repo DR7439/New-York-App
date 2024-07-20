@@ -1,5 +1,14 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Alert, Button, DatePicker, Form, Input, message, Modal, Select } from "antd";
+import {
+  Alert,
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+} from "antd";
 import { useForm } from "antd/es/form/Form";
 import dayjs from "dayjs";
 import React from "react";
@@ -95,81 +104,90 @@ export default function SearchForm({
       }}
       autoComplete="off"
     >
-      <Form.Item
-        label="Search Name"
-        name="name"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Search Name" />
-      </Form.Item>
-      <Form.Item
-        name="targetMarkets"
-        label="Target Market Interest"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Select mode="tags" placeholder="Select Target Market Interest">
-          {interests.map((interest, index) => (
-            <Option key={index} value={interest.name}>
-              {interest.name}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        name="targetGender"
-        label="Target Gender"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Select placeholder="Select Gender">
-          <Option value="M">Male</Option>
-          <Option value="F">Female</Option>
-          <Option value="B">Both Genders</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        name="targetAges"
-        label="Target Age"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Select mode="tags" placeholder="Select age group">
-          {AGES_RANGES.map((age_range, index) => (
-            <Option key={index} value={index + 1}>
-              {age_range}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        name="dateRange"
-        label="Target Date"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <DatePicker.RangePicker
-          className="w-full"
-          disabledDate={disabledDate}
-        />
-      </Form.Item>
+      <div id="field-name">
+        <Form.Item
+          label="Search Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input placeholder="Search Name" />
+        </Form.Item>
+      </div>
+      <div id="field-target-markets">
+        <Form.Item
+          name="targetMarkets"
+          label="Target Market Interest"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select mode="tags" placeholder="Select Target Market Interest">
+            {interests.map((interest, index) => (
+              <Option key={index} value={interest.name}>
+                {interest.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </div>
+      <div id="field-target-gender">
+        <Form.Item
+          name="targetGender"
+          label="Target Gender"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select placeholder="Select Gender">
+            <Option value="M">Male</Option>
+            <Option value="F">Female</Option>
+            <Option value="B">Both Genders</Option>
+          </Select>
+        </Form.Item>
+      </div>
+      <div id="field-target-ages">
+        <Form.Item
+          name="targetAges"
+          label="Target Age"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select mode="tags" placeholder="Select age group">
+            {AGES_RANGES.map((age_range, index) => (
+              <Option key={index} value={index + 1}>
+                {age_range}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </div>
+      <div id="field-date-range">
+        <Form.Item
+          name="dateRange"
+          label="Target Date"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <DatePicker.RangePicker
+            className="w-full"
+            disabledDate={disabledDate}
+          />
+        </Form.Item>
+      </div>
       <Alert
         message="A rate of 10 credits per day applies for your selected target date."
         type="info"
@@ -177,7 +195,7 @@ export default function SearchForm({
       />
       {showSubmitButton && (
         <Form.Item className="mt-4">
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" id="submit-button">
             Start my free search
           </Button>
         </Form.Item>

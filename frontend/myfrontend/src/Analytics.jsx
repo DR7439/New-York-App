@@ -1,6 +1,16 @@
 // src/Dashboard.js
 import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Breadcrumb, Button, Select, Spin, Table, Tabs, Tag } from "antd";
+import {
+  Breadcrumb,
+  Button,
+  Select,
+  Skeleton,
+  Spin,
+  Table,
+  Tabs,
+  Tag,
+  Tour,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ColumnChart from "./components/ColumnChart";
@@ -10,7 +20,6 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-import { Skeleton } from "antd";
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -59,7 +68,45 @@ const Analytics = () => {
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
   let [loading, setLoading] = useState(true);
-
+  let [open, setOpen] = useState(false); // open the tour
+  let visitedTour = localStorage.getItem("visited-analytics-tour");
+  const steps = [
+    {
+      title: "Select Target Date",
+      description: "Select Target Date description",
+      placement: "top",
+      target: () => document.getElementById("select-date"),
+    },
+    {
+      title: "Recommendations table ",
+      description: "Recommendations table description",
+      placement: "top",
+      target: () => document.getElementById("recommendations-table"),
+    },
+    {
+      title: "Busyness Activity by Location",
+      description: "Busyness Activity by Location description",
+      placement: "top",
+      target: () => document.getElementById("tour-line-chart"),
+    },
+    {
+      title: "Demographic by Location",
+      description: "Demographic by Location description",
+      placement: "top",
+      target: () => document.getElementById("tour-column-chart"),
+    },
+    {
+      title: "Point-of-interest by Location",
+      description: "Point-of-interest by Location description",
+      placement: "top",
+      target: () => document.getElementById("tour-pie-chart"),
+    },
+  ];
+  useEffect(() => {
+    if (!loading && !visitedTour) {
+      setOpen(true);
+    }
+  }, [loading]);
   let handleLocationClick = (record) => {
     setSelectedZone(record.zone_id);
     document.getElementById("zone-tabs").scrollIntoView({
@@ -194,31 +241,34 @@ const Analytics = () => {
     <>
       <Maps />
       <div>
-        <div className="flex gap-2 items-center mb-10">
+        <div id="select-date" className="flex gap-2 items-center mb-10">
           <h4 className="text-xl font-medium">Select Target Date</h4>
           <Select
+            id="tour1"
             className="w-60"
             value={selectedDate}
             onChange={(value) => setSelectedDate(value)}
             options={dateOptions}
           />
         </div>
-        <div className="flex items-center justify-between mt-7">
-          <h4 className="text-xl font-medium">Recommendations</h4>
-          <div className="flex gap-4 items-center">
-            <SearchModalTrigger />
+        <div id="recommendations-table" className="space-y-4">
+          <div className="flex items-center justify-between mt-7">
+            <h4 className="text-xl font-medium">Recommendations</h4>
+            <div className="flex gap-4 items-center">
+              <SearchModalTrigger />
+            </div>
           </div>
+          <Table
+            className="mt-4"
+            columns={columns}
+            dataSource={tableData}
+            pagination={{
+              defaultPageSize: 10,
+              showQuickJumper: true,
+              showSizeChanger: true,
+            }}
+          />
         </div>
-        <Table
-          className="mt-4"
-          columns={columns}
-          dataSource={tableData}
-          pagination={{
-            defaultPageSize: 10,
-            showQuickJumper: true,
-            showSizeChanger: true,
-          }}
-        />
       </div>
 
       <div className="space-y-8">
@@ -233,15 +283,15 @@ const Analytics = () => {
             onChange={(key) => setSelectedZone(key)}
           />
         </div>
-        <div>
+        <div id="tour-line-chart">
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
           <LineChart searchId={id} zoneId={selectedZone} date={selectedDate} />
         </div>
-        <div>
+        <div id="tour-column-chart">
           <h4 className="mb-4 font-medium">Demographic by Location</h4>
           <ColumnChart zoneId={selectedZone} />
         </div>
-        <div>
+        <div id="tour-pie-chart">
           <h4 className="mb-4 font-medium">Point-of-interest by Location</h4>
           <PieChart zoneId={selectedZone} />
         </div>
@@ -249,8 +299,14 @@ const Analytics = () => {
     </>
   );
 
+  const handleCloseTour = () => {
+    setOpen(false);
+    localStorage.setItem("visited-analytics-tour", "true");
+  };
+
   return (
     <>
+      <Tour open={open} onClose={handleCloseTour} steps={steps} />
       <Breadcrumb
         items={[
           {
