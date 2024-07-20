@@ -1,8 +1,13 @@
 // src/Dashboard.js
-import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  LoadingOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 import {
   Breadcrumb,
   Button,
+  Popover,
   Select,
   Skeleton,
   Spin,
@@ -20,6 +25,7 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
+import { TABLE_TOOLTIP_TEXT } from "./constant";
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -125,7 +131,20 @@ const Analytics = () => {
 
   const columns = [
     {
-      title: "Ranking",
+      title: (
+        <div>
+          Ranking
+          <Popover
+            content={
+              <div className="text-sm max-w-80 text-white">
+                {TABLE_TOOLTIP_TEXT.ranking}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "key",
       sorter: (a, b) => a.key - b.key,
     },
@@ -164,7 +183,20 @@ const Analytics = () => {
       },
     },
     {
-      title: "Demographic Score",
+      title: (
+        <div>
+          Demographic Score{" "}
+          <Popover
+            content={
+              <div className="text-sm max-w-80 text-white">
+                {TABLE_TOOLTIP_TEXT.demographic}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "demographic_score",
       sorter: (a, b) => a.demographic_score - b.demographic_score,
       render: (text, record) => (
@@ -176,7 +208,20 @@ const Analytics = () => {
       ),
     },
     {
-      title: "Busyness Score",
+      title: (
+        <div>
+          Busyness Score
+          <Popover
+            content={
+              <div className="text-sm max-w-80 text-white">
+                {TABLE_TOOLTIP_TEXT.busyness}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "busyness_score",
       sorter: (a, b) => a.busyness_score - b.busyness_score,
       render: (text, record) => (
@@ -191,7 +236,7 @@ const Analytics = () => {
   async function loadDataByDate(date) {
     setLoading(true);
     // for testing skeleton
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
         if (res) {

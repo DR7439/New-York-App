@@ -50,3 +50,9 @@ export const BUDGETS = [
   "$100 - $500",
   "> $500", 
 ];
+
+export const TABLE_TOOLTIP_TEXT = {
+  ranking: "The ranking is based on the combined score of demographic score and busyness score.",
+  demographic: "A location’s demographic score, lowest being 0 and highest being 100, is calculated to match target gender, target age and target market interest.",
+  busyness: "A location’s busyness score, lowest being 0 and highest being 100, is calculated to show the optimal busyness level at different time slots within the target date range.",
+};
