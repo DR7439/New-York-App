@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axiosInstance from "../axiosInstance";
 import ReactMapGL, { Layer, Marker, Source, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Card, AutoComplete } from "antd";
+import { Card, AutoComplete, Select } from "antd";
 import Icon from '@ant-design/icons/lib/components/Icon';
 // import BillboardImage from './public/billboard.png';
 import BillboardImage from '/Billboard.jpg';
@@ -17,6 +17,9 @@ export default function Map() {
     const [zoneNames, setZoneNames]=useState([]);
     const [inputValue, setInputValue] = useState('');
     const [filteredOptions, setFilteredOptions] = useState([]);
+    const [busynessScores, setBusynessScores] = useState([]);
+    const [globalSelectedHour, setGlobalSelectedHour] = useState(null);
+
     const [syncedZoneInfo, setSyncedZoneInfo] = useState(null);
     const [viewport, setViewport] = useState({
         latitude: 40.7831,
@@ -96,9 +99,46 @@ export default function Map() {
                 };
                 console.log("Setting new selected zone:", newSelectedZone);
                 setSelectedZone(newSelectedZone);
+                setInputValue(newSelectedZone.name);
+                if (newSelectedZone.score !== "N/A") {
+                    getZoneDetails(matchedZone.name);
+                }
             }
         }
     };
+    // const handleClick = (event) => {
+    //     console.log("Click event:", event);
+    //     if (!event.features || event.features.length === 0) {
+    //         console.log("No features found in click event");
+    //         return;
+    //     }
+    //     const feature = event.features[0];
+    //     console.log("Clicked feature:", feature);
+    //     if (feature) {
+    //         setBillboards([]);
+    //         const matchedZone = completeZoneInfo.find(zone => zone.id === feature.properties.id);
+    //         console.log("This is the complete zone info Arslan", completeZoneInfo);
+    //         console.log("Matched zone Arslan!:", matchedZone);
+    //         if (matchedZone) {
+    //             const newSelectedZone = {
+    //                 id: matchedZone.id,
+    //                 name: matchedZone.name,
+    //                 score: matchedZone.total_score,
+    //                 demographic_score: matchedZone.demographic_score,
+    //                 busyness_score: matchedZone.busyness_score,
+    //                 clickLngLat: event.lngLat,
+    //                 selectedHour: globalSelectedHour
+    //             };
+    //             console.log("Setting new selected zone:", newSelectedZone);
+    //             setSelectedZone(newSelectedZone);
+    //             setInputValue(newSelectedZone.name);
+    //             if (newSelectedZone.score !== "N/A") {
+    //                 getZoneDetails(matchedZone.name, globalSelectedHour);
+    //             }
+    //         }
+    //     }
+    // };
+    
 
     useEffect(() => {
         if (completeZoneInfo) {
@@ -106,72 +146,12 @@ export default function Map() {
         }
       }, [completeZoneInfo]);
 
-    // const handleClick = (event) => {
-    //     if (!event.features || event.features.length === 0) return;
-        
-    //     const feature = event.features[0];
-    //     if (feature) {
-    //         setBillboards([]);
-    //         const matchedZone = syncedZoneInfo.find(zone => zone.id === feature.properties.id);
-            
-    //         if (matchedZone) {
-    //             const newSelectedZone = {
-    //                 id: matchedZone.id,
-    //                 name: matchedZone.name,
-    //                 score: matchedZone.total_score,
-    //                 demographic_score: matchedZone.demographic_score,
-    //                 busyness_score: matchedZone.busyness_score,
-    //                 clickLngLat: event.lngLat
-    //             };
-    //             updateSelectedZone(newSelectedZone);
-    //         }
-    //     }
-    // };
-
-    // const handleClick = (event) => {
-    //     if (!event.features || event.features.length === 0) return;
-        
-    //     const feature = event.features[0];
-    //     if (feature) {
-    //         setBillboards([]);
-    //         const matchedZone = completeZoneInfo.find(zone => zone.id === feature.properties.id);
-            
-    //         if (matchedZone) {
-    //             const newSelectedZone = {
-    //                 id: matchedZone.id,
-    //                 name: matchedZone.name,
-    //                 score: matchedZone.total_score,
-    //                 demographic_score: matchedZone.demographic_score,
-    //                 busyness_score: matchedZone.busyness_score,
-    //                 clickLngLat: event.lngLat
-    //             };
-    //             setSelectedZone(newSelectedZone);
-    //         }
-    //     }
-    // };
-
-    
     
     useEffect(() => {
         console.log("Selected zone updated:", selectedZone);
     }, [selectedZone]);
     
-    
 
-    // const combineZoneDataAndInfo = () => {
-    //     if (zoneData && zoneInfo && zoneInfo[0] && zoneInfo[0].zone_scores) {
-    //         return zoneData.map(zone => {
-    //             const scoreInfo = zoneInfo[0].zone_scores.find(score => score.zone_id === zone.id);
-    //             return {
-    //                 ...zone,
-    //                 demographic_score: scoreInfo ? scoreInfo.demographic_score : "N/A",
-    //                 busyness_score: scoreInfo ? scoreInfo.busyness_score : "N/A",
-    //                 total_score: scoreInfo ? scoreInfo.total_score : "N/A"
-    //             };
-    //         });
-    //     }
-    //     return [];
-    // }
 
     const combineZoneDataAndInfo = () => {
         if (zoneData && zoneInfo && zoneInfo[0] && zoneInfo[0].zone_scores) {
@@ -231,13 +211,7 @@ export default function Map() {
         return () => clearInterval(intervalID);
     }, []);
 
-    // useEffect(() => {
-    //     if (zoneData) {
-    //         console.log(zoneData);
-    //         setGeoJson(generateGeoJSON(zoneData));
-    //     }
-    // }, [zoneData]);
-
+    
     useEffect(() => {
         let isMounted = true;
         if (zoneData && isMounted) {
@@ -257,18 +231,87 @@ export default function Map() {
         }
     }, [zoneData]);
     
+    const getCurrentDate = () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    };
+    //My getZoneDetails function
+    const getZoneDetails = (zoneName) => {
+        const zoneIds = completeZoneInfo
+            .filter(zone => zone.name === zoneName)
+            .map(zone => zone.id);
+    
+        const fetchZoneData = (index = 0) => {
+            if (index >= zoneIds.length) {
+                console.log("No data found for any zone ID");
+                return;
+            }
+    
+            const currentDate = getCurrentDate();
+            const zoneId = zoneIds[index];
+    
+            axiosInstance.get(`/api/zone-details-by-search-date-zone/?search_id=1&date=${currentDate}&zone_id=${zoneId}`)
+                .then(res => {
+                    if (res.data && res.data.busyness_scores) {
+                        setBusynessScores(res.data.busyness_scores);
+                        setSelectedZone(prevZone => ({
+                            ...prevZone,
+                            demographic_score: res.data.demographic_score,
+                            busyness_score: res.data.busyness_scores[0].busyness_score
+                        }));
+                    } else {
+                        fetchZoneData(index + 1);
+                    }
+                })
+                .catch(() => {
+                    fetchZoneData(index + 1);
+                });
+        };
+    
+        fetchZoneData();
+    };
 
-    // const getBillboards = () => {
-    //     if (selectedZone && selectedZone.id) {
-    //         console.log("Getting billboards for zone:", selectedZone.id);
-    //         axiosInstance.get(`/api/billboards/zone/${selectedZone.id}/`)
+    // const getZoneDetails = (zoneName, selectedHour) => {
+    //     const zoneIds = completeZoneInfo
+    //         .filter(zone => zone.name === zoneName)
+    //         .map(zone => zone.id);
+    
+    //     const fetchZoneData = (index = 0) => {
+    //         if (index >= zoneIds.length) {
+    //             console.log("No data found for any zone ID");
+    //             return;
+    //         }
+    
+    //         const currentDate = getCurrentDate();
+    //         const zoneId = zoneIds[index];
+    
+    //         axiosInstance.get(`/api/zone-details-by-search-date-zone/?search_id=1&date=${currentDate}&zone_id=${zoneId}&hour=${selectedHour}`)
     //             .then(res => {
-    //                 setBillboards(res.data);
-    //             }).catch(err => {
-    //                 console.log(err);
+    //                 if (res.data && res.data.busyness_scores) {
+    //                     setBusynessScores(res.data.busyness_scores);
+    //                     setSelectedZone(prevZone => ({
+    //                         ...prevZone,
+    //                         demographic_score: res.data.demographic_score,
+    //                         busyness_score: res.data.busyness_scores.find(score => score.time === selectedHour)?.busyness_score || "N/A"
+    //                     }));
+    //                 } else {
+    //                     fetchZoneData(index + 1);
+    //                 }
+    //             })
+    //             .catch(() => {
+    //                 fetchZoneData(index + 1);
     //             });
-    //     }
-    // }
+    //     };
+    
+    //     fetchZoneData();
+    // };
+    
+
+    const handleGlobalHourChange = (value) => {
+    setGlobalSelectedHour(value);
+};
+    
+    
 
     const getBillboards = () => {
         if (selectedZone && selectedZone.id) {
@@ -286,6 +329,8 @@ export default function Map() {
         }
     }
 
+    
+
     useEffect(() => {
         if (selectedZone && selectedZone.id) {
             getBillboards(selectedZone.id);
@@ -293,11 +338,7 @@ export default function Map() {
     }, [selectedZone]);
     
 
-    // useEffect(() => {
-    //     if (selectedZone && selectedZone.id) {
-    //         getBillboards();
-    //     }
-    // }, [selectedZone]);
+    
 
     useEffect(() => {
         let isMounted = true;
@@ -310,41 +351,7 @@ export default function Map() {
     }, [selectedZone]);
     
 
-    // const generateGeoJSON = (zoneData) => {
-    //     let geoJson = {
-    //         type: "FeatureCollection",
-    //         features: []
-    //     };
-    //     zoneData.forEach(zone => {
-    //         const { id, name, boundary_coordinates,  } = zone;
-    //         let geometry;
-
-    //         if (Array.isArray(boundary_coordinates)) {
-    //             geometry = {
-    //                 type: "Polygon",
-    //                 coordinates: [boundary_coordinates]
-    //             };
-    //         } else {
-    //             geometry = {
-    //                 type: "MultiPolygon",
-    //                 coordinates: [boundary_coordinates]
-    //             };
-    //         }
-
-    //         const feature = {
-    //             type: "Feature",
-    //             properties: {
-    //                 id: id,
-    //                 name: name
-    //             },
-    //             geometry: geometry
-    //         };
-
-    //         geoJson.features.push(feature);
-    //     });
-    //     return geoJson;
-    // };
-
+   
     const generateGeoJSON = (zoneData) => {
         let geoJson = {
             type: "FeatureCollection",
@@ -368,15 +375,6 @@ export default function Map() {
                     };
                 }
     
-                // const feature = {
-                //     type: "Feature",
-                //     properties: {
-                //         id: id,
-                //         name: name,
-                //         total_score: zoneScore ? zoneScore.total_score : "N/A"
-                //     },
-                //     geometry: geometry
-                // };
 
                 const feature = {
                     type: "Feature",
@@ -421,180 +419,6 @@ export default function Map() {
         );
       };
 
-    //   const updateSelectedZone = useCallback((zoneData) => {
-    //     setSelectedZone(zoneData);
-    //   }, []);
-      
-    
-    // const selectHandler = (selectedZoneName) => {
-    //     const matchedZone = completeZoneInfo.find(zone => zone.name === selectedZoneName);
-    //     console.log("Matched zone:", matchedZone);
-      
-    //     if (matchedZone) {
-    //       const totalScore = matchedZone.total_score !== undefined ? matchedZone.total_score : 'N/A';
-    //       const demographicScore = matchedZone.demographic_score !== undefined ? matchedZone.demographic_score : 'N/A';
-    //       const busynessScore = matchedZone.busyness_score !== undefined ? matchedZone.busyness_score : 'N/A';
-      
-    //       const newSelectedZone = {
-    //         id: matchedZone.id,
-    //         name: matchedZone.name,
-    //         score: totalScore,
-    //         demographic_score: demographicScore,
-    //         busyness_score: busynessScore,
-    //         clickLngLat: {
-    //           lng: matchedZone.boundary_coordinates[0][0],
-    //           lat: matchedZone.boundary_coordinates[0][1]
-    //         }
-    //       };
-    //       console.log("New selected zone:", newSelectedZone);
-    //       setSelectedZone(newSelectedZone);
-    //       setViewport({
-    //         ...viewport,
-    //         longitude: newSelectedZone.clickLngLat.lng,
-    //         latitude: newSelectedZone.clickLngLat.lat,
-    //         zoom: 14
-    //       });
-    //       setBillboards([]);
-    //     }
-    //   };
-
-    //   const selectHandler = (selectedZoneName) => {
-    //     const matchedZone = syncedZoneInfo.find(zone => zone.name === selectedZoneName);
-        
-    //     if (matchedZone) {
-    //         const newSelectedZone = {
-    //             id: matchedZone.id,
-    //             name: matchedZone.name,
-    //             score: matchedZone.total_score,
-    //             demographic_score: matchedZone.demographic_score,
-    //             busyness_score: matchedZone.busyness_score,
-    //             clickLngLat: {
-    //                 lng: matchedZone.boundary_coordinates[0][0],
-    //                 lat: matchedZone.boundary_coordinates[0][1]
-    //             }
-    //         };
-    //         updateSelectedZone(newSelectedZone);
-    //         setViewport({
-    //             ...viewport,
-    //             longitude: newSelectedZone.clickLngLat.lng,
-    //             latitude: newSelectedZone.clickLngLat.lat,
-    //             zoom: 14
-    //         });
-    //         setBillboards([]);
-    //     }
-    // };
-      
-    // const selectHandler = (selectedZoneName) => {
-    //     const matchedZone = syncedZoneInfo.find(zone => zone.name === selectedZoneName);
-        
-    //     if (matchedZone) {
-    //         const newSelectedZone = {
-    //             id: matchedZone.id,
-    //             name: matchedZone.name,
-    //             score: matchedZone.total_score,
-    //             demographic_score: matchedZone.demographic_score,
-    //             busyness_score: matchedZone.busyness_score,
-    //             clickLngLat: {
-    //                 lng: matchedZone.boundary_coordinates[0][0],
-    //                 lat: matchedZone.boundary_coordinates[0][1]
-    //             }
-    //         };
-    //         updateSelectedZone(newSelectedZone);
-    //         setViewport({
-    //             ...viewport,
-    //             longitude: newSelectedZone.clickLngLat.lng,
-    //             latitude: newSelectedZone.clickLngLat.lat,
-    //             zoom: 14
-    //         });
-    //         setBillboards([]);
-    //     }
-    // };
-
-    // const selectHandler = (selectedZoneName) => {
-    //     const matchedZone = syncedZoneInfo.find(zone => zone.name === selectedZoneName);
-    //     if (matchedZone) {
-    //         // setBillboards([]);
-    //         const newSelectedZone = {
-    //             id: matchedZone.id,
-    //             name: matchedZone.name,
-    //             score: matchedZone.total_score,
-    //             demographic_score: matchedZone.demographic_score,
-    //             busyness_score: matchedZone.busyness_score,
-    //             clickLngLat: {
-    //                 lng: matchedZone.boundary_coordinates[0][0],
-    //                 lat: matchedZone.boundary_coordinates[0][1]
-    //             }
-    //         };
-    //         setSelectedZone(newSelectedZone);
-    //         setViewport({
-    //             ...viewport,
-    //             longitude: newSelectedZone.clickLngLat.lng,
-    //             latitude: newSelectedZone.clickLngLat.lat,
-    //             zoom: 14
-    //         });
-    //         // setBillboards([]);
-            
-    //     }
-    // };
-
-    // const selectHandler = (selectedZoneName) => {
-    //     const matchedZone = syncedZoneInfo.find(zone => zone.name === selectedZoneName);
-    //     if (matchedZone) {
-    //         const newSelectedZone = {
-    //             id: matchedZone.id,
-    //             name: matchedZone.name,
-    //             score: matchedZone.total_score,
-    //             demographic_score: matchedZone.demographic_score,
-    //             busyness_score: matchedZone.busyness_score,
-    //             clickLngLat: {
-    //                 lng: matchedZone.boundary_coordinates[0][0],
-    //                 lat: matchedZone.boundary_coordinates[0][1]
-    //             }
-               
-    //         }
-    //         setSelectedZone(newSelectedZone);
-    //         setViewport({
-    //             ...viewport,
-    //             longitude: newSelectedZone.clickLngLat.lng,
-    //             latitude: newSelectedZone.clickLngLat.lat,
-    //             zoom: 14
-    //         });
-    
-    //         // Immediately call getBillboards after setting selected zone
-    //         getBillboards();
-    //     }
-    // };
-    // const selectHandler = (selectedZoneName) => {
-    //     const matchedZone = syncedZoneInfo.find(zone => zone.name === selectedZoneName);
-    //     if (matchedZone) {
-    //         const newSelectedZone = {
-    //             id: matchedZone.id,
-    //             name: matchedZone.name,
-    //             score: matchedZone.total_score,
-    //             demographic_score: matchedZone.demographic_score,
-    //             busyness_score: matchedZone.busyness_score,
-    //             clickLngLat: {
-    //                 lng: matchedZone.boundary_coordinates[0][0],
-    //                 lat: matchedZone.boundary_coordinates[0][1]
-    //             }
-    //         };
-    //         setSelectedZone(newSelectedZone);
-    //         setViewport({
-    //             ...viewport,
-    //             longitude: newSelectedZone.clickLngLat.lng,
-    //             latitude: newSelectedZone.clickLngLat.lat,
-    //             zoom: 14
-    //         });
-    //         setBillboards([]);
-    //         axiosInstance.get(`/api/billboards/zone/${newSelectedZone.id}/`)
-    //             .then(res => {
-    //                 setBillboards(res.data);
-    //             }).catch(err => {
-    //                 console.error('Error fetching billboards:', err);
-    //             });
-    //     }
-    // };
-
     const BillboardMarker = ({ longitude, latitude })=>{
         return(
             <Marker longitude={longitude} latitude={latitude} anchor="bottom">
@@ -612,48 +436,62 @@ export default function Map() {
             </Marker>
         )
     }
-
     
-
-    
-    
-    
-    
-    
-    
-    // const resetComponent = () => {
-    //     setFilteredOptions([]);
-    //   };
+    const resetComponent = () => {
+        setFilteredOptions([]);
+      };
       
-    //   useEffect(() => {
-    //     if (inputValue === '') {
-    //       resetComponent();
-    //     }
-    //   }, [inputValue]);
-      
-    //   const handleSearch = (value) => {
-    //     setInputValue(value);
-    //     setFilteredOptions([]); // Reset filtered options immediately
-      
-    //     if (value.trim()) {
-    //       // Use setTimeout to ensure the reset has occurred before filtering
-    //       setTimeout(() => {
-    //         const filtered = zoneNames.filter(name =>
-    //           name.toLowerCase().startsWith(value.toLowerCase())
-    //         );
-    //         setFilteredOptions(filtered.map(name => ({ value: name })));
-    //       }, 0);
-    //     }
-    //   };
+      useEffect(() => {
+        if (inputValue === '') {
+          resetComponent();
+        }
+      }, [inputValue]);
 
-    //   const handleSearch = (value) => {
-    //     setInputValue(value);
-    //     const filtered = syncedZoneInfo.filter(zone =>
-    //         zone.name.toLowerCase().includes(value.toLowerCase())
-    //     );
-    //     setFilteredOptions(filtered.map(zone => ({ value: zone.name, key: `${zone.id}-${zone.name}` })));
-    // };
+    const selectHandler = (selectedZoneName) => {
+        console.log("selectHandler called with:", selectedZoneName);
+        
+        const matchedZone = syncedZoneInfo.find(zone => zone.name === selectedZoneName);
+        console.log("Matched zone:", matchedZone);
+        
+        if (matchedZone) {
+            const newSelectedZone = {
+                id: matchedZone.id,
+                name: matchedZone.name,
+                score: matchedZone.total_score,
+                demographic_score: matchedZone.demographic_score,
+                busyness_score: matchedZone.busyness_score,
+                clickLngLat: {
+                    lng: matchedZone.boundary_coordinates[0][0],
+                    lat: matchedZone.boundary_coordinates[0][1]
+                }
+            };
+            console.log("New selected zone:", newSelectedZone);
+            
+            setSelectedZone(newSelectedZone);
+            console.log("Selected zone state updated");
+            
+            setViewport({
+                ...viewport,
+                longitude: newSelectedZone.clickLngLat.lng,
+                latitude: newSelectedZone.clickLngLat.lat,
+                zoom: 14
+            });
+            
+            console.log("Calling getBillboards with ID:", newSelectedZone.id);
+            getBillboards(newSelectedZone.id);
+        }
+    };
     
+    
+
+    const handleSearch = (value) => {
+    setInputValue(value);
+    const filtered = syncedZoneInfo.filter(zone =>
+        zone.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredOptions(filtered.map(zone => ({ value: zone.name, key: `${zone.id}-${zone.name}` })));
+    };
+
       
 
 
@@ -699,22 +537,15 @@ export default function Map() {
     };
 
     return (
-        <div className="flex flex-col items-center w-full">
-        {/* <div className="w-[200px] p-4">
-        <AutoComplete
-            value={inputValue}
-            options={filteredOptions}
-            onSelect={(value) => {
-                selectHandler(value);
-                setInputValue('');
-                setFilteredOptions([]);
-            }}
-            onSearch={handleSearch}
-            placeholder="Search for a zone"
-            className="w-full"
+    <div className="flex flex-col items-center w-full">
+        <div className="w-[200px] p-4">
+            <AutoComplete
+                value={inputValue}
+                placeholder="Click on a zone"
+                className="w-full"
+                disabled={true}
             />
-
-        </div> */}
+        </div>
         <div className="flex w-full h-[418px]">
             <ReactMapGL
                 {...viewport}
@@ -727,32 +558,61 @@ export default function Map() {
             >
                 {geoJson && (
                     <Source id="polygonData" type="geojson" data={geoJson}>
-                        <Layer {...layerStyle}
-                        
-                        ></Layer>
-                        <Layer {...layerOutlineStyle}
-                        
-                        ></Layer>
+                        <Layer {...layerStyle}></Layer>
+                        <Layer {...layerOutlineStyle}></Layer>
                         {selectedZone && (
-                                <Popup
+                            <Popup
                                 longitude={selectedZone.clickLngLat.lng}
                                 latitude={selectedZone.clickLngLat.lat}
                                 closeButton={true}
                                 closeOnClick={false}
                                 onClose={() => setSelectedZone(null)}
-                                anchor="bottom"
                             >
-                                <div>
-                                    <h3>{selectedZone.name}</h3>
-                                    <p>Score: {selectedZone.score}</p>
-                                    <p>Demographic: {selectedZone.demographic_score}</p>
-                                    <p>Busyness: {selectedZone.busyness_score}</p>
+                                <div className="p-2">
+                                    <h3 className="font-bold">{selectedZone.name}</h3>
+                                    <p>Total Score: {selectedZone.score !== "N/A" ? selectedZone.score.toFixed(2) : "N/A"}</p>
+                                    <p>Demographic Score: {selectedZone.demographic_score !== "N/A" ? selectedZone.demographic_score.toFixed(2) : "N/A"}</p>
+                                    <p>Busyness Score: {selectedZone.busyness_score !== "N/A" ? selectedZone.busyness_score.toFixed(2) : "N/A"}</p>
+                                    {selectedZone.selectedHour && (
+                                        <p>Hour: {new Date(selectedZone.selectedHour).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                                    )}
+                                    {selectedZone.score !== "N/A" && (
+                                        <Select
+                                            style={{ width: '100%', marginTop: '10px' }}
+                                            placeholder="Select hour"
+                                            onChange={(value) => {
+                                                const formatTime = (timeString) => {
+                                                    const date = new Date(timeString);
+                                                    date.setHours(date.getHours() + 1);
+                                                    return date.toISOString().split('.')[0] + 'Z';
+                                                };
+                                                const formattedValue = formatTime(value);
+                                                const selectedScore = busynessScores.find(score => score.time === formattedValue);
+                                                if (selectedScore) {
+                                                    setSelectedZone(prevZone => ({
+                                                        ...prevZone,
+                                                        busyness_score: selectedScore.busyness_score,
+                                                        selectedHour: value
+                                                    }));
+                                                } else {
+                                                    console.log('No score found for selected time');
+                                                }
+                                            }}
+                                        >
+                                            {busynessScores
+                                            .sort((a, b) => new Date(a.time) - new Date(b.time))
+                                            .map(score => (
+                                                <Select.Option key={score.time} value={score.time}>
+                                                    {new Date(score.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                    )}
                                 </div>
                             </Popup>
-                            )}
+                        )}
                     </Source>
                 )}
-                {/* <Marker longitude={-73.98} latitude={40.74}></Marker> */}
                 {selectedZone && billboards.map((billboard, index) => (
                     billboard.longitude && billboard.latitude && !isNaN(billboard.longitude) && !isNaN(billboard.latitude) ? (
                         <BillboardMarker
@@ -762,11 +622,8 @@ export default function Map() {
                         />
                     ) : null
                 ))}
-
-                            
                 <ColorBar/>
             </ReactMapGL>
-
             <Card billboards={billboards} className="w-2/5 h-full overflow-auto">
                 <div>
                     <h2 className="text-lg font-bold p-4">Available Billboards by Location</h2>
@@ -784,9 +641,10 @@ export default function Map() {
         </div>
     </div>
     
+  
+    
+    
+
                 );
-    
-    
-        
-    
+
 }
