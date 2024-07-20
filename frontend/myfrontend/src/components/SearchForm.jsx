@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Alert, Button, DatePicker, Form, Input, Modal, Select } from "antd";
+import { Alert, Button, DatePicker, Form, Input, message, Modal, Select } from "antd";
 import { useForm } from "antd/es/form/Form";
 import dayjs from "dayjs";
 import React from "react";
@@ -20,7 +20,7 @@ export default function SearchForm({
 }) {
   const interests = useInterests();
   const { fetchSearches } = useSearches();
-  const { fetchCreditData } = useCredits();
+  const { fetchCreditData, isInsufficientCredits } = useCredits();
   const [form] = useForm(formInstance);
 
   let onFinish = async (values) => {
@@ -52,7 +52,11 @@ export default function SearchForm({
     let startDate = values.dateRange[0];
     let endDate = values.dateRange[1];
     let selectedDateNumber = Math.abs(startDate.diff(endDate, "day")) + 1;
-    let creditCost = selectedDateNumber * 10;
+    let creditCost = selectedDateNumber * 100;
+    if (isInsufficientCredits(creditCost)) {
+      message.error("You don't have enough credits to make this search.");
+      return;
+    }
     confirm({
       title: `Are you sure that you want to use ${creditCost} credits for this search?`,
       icon: <ExclamationCircleOutlined />,
