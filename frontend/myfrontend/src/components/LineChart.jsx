@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
 import { Line } from "@ant-design/charts";
-import axiosInstance from "../axiosInstance";
+import React, { useEffect, useState } from "react";
 import fetchWithCache from "../utils/fetchWithCache";
+
+function sortByTime(a, b) {
+  let aTime = new Date(a.time);
+  let bTime = new Date(b.time);
+  return aTime - bTime;
+}
+
 const LineChart = ({ searchId, zoneId, date }) => {
   let [data, setData] = useState([]);
   function fetchScore() {
@@ -9,7 +15,7 @@ const LineChart = ({ searchId, zoneId, date }) => {
       `/api/zone-details-by-search-date-zone/?search_id=${searchId}&date=${date}&zone_id=${zoneId}`
     ).then((_data) => {
       if (_data) {
-        let data = _data.busyness_scores.map((item) => ({
+        let data = _data.busyness_scores.sort(sortByTime).map((item) => ({
           time: item.time.split("T")[1].split(":")[0],
           value: Math.round(item.busyness_score),
         }));
