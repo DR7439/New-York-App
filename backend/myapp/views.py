@@ -698,7 +698,7 @@ class PasswordResetRequestView(APIView):
             user = CustomUser.objects.get(email=email)
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            reset_url = f'http://34.252.245.42:3000/reset-password/{uid}/{token}/'
+            reset_url = f'http://adoptima.online:3000/reset-password/{uid}/{token}/'
             send_mail(
                 'Password Reset Request',
                 f'Click the link to reset your password: {reset_url}',
