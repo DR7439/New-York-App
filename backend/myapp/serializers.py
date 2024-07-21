@@ -221,3 +221,9 @@ class CreditUsageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CreditUsage
         fields = ['date_used', 'credits_used']
+
+
+class UserFreeSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['free_search']
