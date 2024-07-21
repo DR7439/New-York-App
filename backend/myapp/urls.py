@@ -3,7 +3,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView, UserCreditsAPIView, CreatePaymentIntentView, StripeWebhookView
+from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView, UserCreditsAPIView, CreatePaymentIntentView, StripeWebhookView, UserFreeSearchAPIView
 
 
 urlpatterns = [
@@ -36,5 +36,6 @@ urlpatterns = [
 
     path('credits/usage/', CreditUsageAPIView.as_view(), name='credit-usage'),
     path('credits/', UserCreditsAPIView.as_view(), name='user-credits'),
+    path('user/free-search/', UserFreeSearchAPIView.as_view(), name='user-free-search'),
 
 ]

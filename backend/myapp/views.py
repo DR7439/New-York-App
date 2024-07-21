@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, CreditUsage
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer, CreditUsageSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer, CreditUsageSerializer, UserFreeSearchSerializer
 
 from .tasks import background_task
 from django.contrib.auth import login
@@ -758,6 +758,15 @@ class PredictBusynessAPIView(APIView):
         #predictions_serializer = PredictionSerializer(predictions, many=True)
 
         #return Response(predictions_serializer.data)
+
+
+class UserFreeSearchAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserFreeSearchSerializer(user)
+        return Response(serializer.data)
 
 
 class CreatePaymentIntentView(APIView):
