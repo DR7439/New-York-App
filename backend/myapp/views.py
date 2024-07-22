@@ -165,15 +165,10 @@ class SearchAPIView(APIView):
         return f"user_searches_{user_id}"
 
     def get(self, request, *args, **kwargs):
-        cache_key = self.get_cache_key(request.user.id)
-        cached_data = cache.get(cache_key)
-
-        if cached_data:
-            return Response(cached_data)
+        
 
         searches = Search.objects.filter(user=request.user)
         serializer = self.serializer_class(searches, many=True)
-        cache.set(cache_key, serializer.data, timeout=60 * 15)  # Cache for 15 minutes
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
