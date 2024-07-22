@@ -13,6 +13,7 @@ services:
              python manage.py import_population_data /mnt/data/census_final.csv &&
              python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv &&
              python manage.py load_billboards /mnt/data/no_text_signs_df.csv &&
+             python manage.py load_advertising_locations /mnt/data/advertising_locations.csv &&
              python manage.py model_down && 
              python manage.py runserver 0.0.0.0:8000"
     volumes:
