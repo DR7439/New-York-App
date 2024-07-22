@@ -1,18 +1,44 @@
-import axiosInstance from "../axiosInstance"; 
-import { useEffect, useState } from "react";
- 
+import { useEffect } from "react";
+import { atom, useRecoilState } from "recoil";
+import axiosInstance from "../axiosInstance";
+import fetchWithCache from "../utils/fetchWithCache";
+const state = atom({
+  key: "searches",
+  default: [],
+});
+
 export default function useSearches() {
-  const [searches, setSearches] = useState([]);
+  const [searches, setSearches] = useRecoilState(state);
   const fetchSearches = async () => {
     try {
-      const res = await axiosInstance.get("/api/search/");  
+      const res = await axiosInstance.get("/api/search/");
       setSearches(res.data);
     } catch (error) {
       console.log(error);
     }
   };
+  const fetchSearchById = async (searchId) => {
+    try {
+      const data = await fetchWithCache(`/api/search/${searchId}`);
+      // const res = await axiosInstance.get(`/api/search/${searchId}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getSearchById = async (searchId) => {
+    let search = searches.find((search) => {
+      return search.id === searchId
+    })
+    if (!search) {
+      search = await fetchSearchById(searchId);
+    }
+    return search;
+  };
   useEffect(() => {
-    fetchSearches();
+    if (searches.length === 0) {
+      fetchSearches();
+    }
   }, []);
-  return searches;
+  return { searches, fetchSearches, getSearchById };
 }
