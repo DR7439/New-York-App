@@ -1,0 +1,672 @@
+zone_id,business_type,score,rank
+4,"Food, beverages",4.332129963898917,8.19672131147541
+13,"Food, beverages",7.942238267148015,16.39344262295082
+24,"Food, beverages",8.84476534296029,19.672131147540984
+41,"Food, beverages",36.101083032490976,62.295081967213115
+42,"Food, beverages",8.483754512635379,18.0327868852459
+45,"Food, beverages",14.8014440433213,29.508196721311474
+48,"Food, beverages",90.25270758122744,98.36065573770492
+50,"Food, beverages",17.68953068592058,36.0655737704918
+68,"Food, beverages",29.422382671480147,54.09836065573771
+74,"Food, beverages",24.909747292418775,47.540983606557376
+75,"Food, beverages",12.093862815884478,22.950819672131146
+79,"Food, beverages",90.07220216606498,96.72131147540983
+87,"Food, beverages",54.69314079422383,78.68852459016394
+88,"Food, beverages",13.357400722021662,26.229508196721312
+90,"Food, beverages",51.80505415162455,74.59016393442623
+100,"Food, beverages",81.58844765342961,93.44262295081968
+107,"Food, beverages",48.37545126353791,70.49180327868852
+113,"Food, beverages",62.99638989169676,85.24590163934425
+114,"Food, beverages",37.364620938628164,65.57377049180327
+116,"Food, beverages",17.148014440433215,32.78688524590164
+125,"Food, beverages",5.054151624548737,11.475409836065573
+127,"Food, beverages",17.509025270758123,34.42622950819672
+137,"Food, beverages",21.299638989169676,42.62295081967213
+140,"Food, beverages",16.60649819494585,31.147540983606557
+141,"Food, beverages",61.010830324909755,81.9672131147541
+142,"Food, beverages",30.505415162454877,57.377049180327866
+143,"Food, beverages",17.870036101083034,37.704918032786885
+144,"Food, beverages",76.17328519855596,90.1639344262295
+148,"Food, beverages",27.256317689530686,50.81967213114754
+151,"Food, beverages",22.56317689530686,44.26229508196721
+152,"Food, beverages",4.873646209386282,9.836065573770492
+153,"Food, beverages",0.0,2.459016393442623
+158,"Food, beverages",14.079422382671481,27.86885245901639
+161,"Food, beverages",100.0,100.0
+162,"Food, beverages",28.339350180505416,52.459016393442624
+163,"Food, beverages",39.711191335740075,67.21311475409836
+164,"Food, beverages",63.53790613718412,86.88524590163934
+166,"Food, beverages",33.754512635379065,60.65573770491803
+170,"Food, beverages",60.8303249097473,80.32786885245902
+186,"Food, beverages",50.541516245487365,72.1311475409836
+202,"Food, beverages",0.0,2.459016393442623
+209,"Food, beverages",21.119133574007222,40.98360655737705
+211,"Food, beverages",24.36823104693141,45.90163934426229
+224,"Food, beverages",5.234657039711192,13.114754098360656
+229,"Food, beverages",37.00361010830325,63.934426229508205
+230,"Food, beverages",84.47653429602889,95.08196721311475
+231,"Food, beverages",51.80505415162455,74.59016393442623
+232,"Food, beverages",5.956678700361011,14.754098360655737
+233,"Food, beverages",11.010830324909747,21.311475409836063
+234,"Food, beverages",74.0072202166065,88.52459016393442
+236,"Food, beverages",31.588447653429604,59.01639344262295
+237,"Food, beverages",25.09025270758123,49.18032786885246
+238,"Food, beverages",29.6028880866426,55.73770491803278
+239,"Food, beverages",62.45487364620939,83.60655737704919
+243,"Food, beverages",12.635379061371841,24.59016393442623
+244,"Food, beverages",48.194945848375454,68.85245901639344
+246,"Food, beverages",19.675090252707584,39.34426229508197
+249,"Food, beverages",79.96389891696751,91.80327868852459
+261,"Food, beverages",3.2490974729241877,6.557377049180328
+262,"Food, beverages",2.3465703971119134,4.918032786885246
+263,"Food, beverages",54.51263537906137,77.04918032786885
+4,"General store, department store, mall",12.635078969243558,36.0655737704918
+13,"General store, department store, mall",9.226932668329177,26.229508196721312
+24,"General store, department store, mall",8.229426433915211,19.672131147540984
+41,"General store, department store, mall",33.08395677472984,81.9672131147541
+42,"General store, department store, mall",44.55527847049045,90.1639344262295
+45,"General store, department store, mall",14.54696591853699,40.98360655737705
+48,"General store, department store, mall",45.968412302576894,91.80327868852459
+50,"General store, department store, mall",10.723192019950126,31.147540983606557
+68,"General store, department store, mall",31.005818786367417,78.68852459016394
+74,"General store, department store, mall",54.530340814630094,96.72131147540983
+75,"General store, department store, mall",37.57273482959269,85.24590163934425
+79,"General store, department store, mall",49.29343308395677,95.08196721311475
+87,"General store, department store, mall",31.172069825436413,80.32786885245902
+88,"General store, department store, mall",12.05320033250208,34.42622950819672
+90,"General store, department store, mall",19.45137157107232,52.459016393442624
+100,"General store, department store, mall",47.04904405652536,93.44262295081968
+107,"General store, department store, mall",23.025768911055696,59.01639344262295
+113,"General store, department store, mall",22.693266832917708,55.73770491803278
+114,"General store, department store, mall",11.803823773898587,32.78688524590164
+116,"General store, department store, mall",30.756442227763923,77.04918032786885
+125,"General store, department store, mall",5.652535328345802,11.475409836065573
+127,"General store, department store, mall",29.509559434746468,75.40983606557377
+137,"General store, department store, mall",7.730673316708231,16.39344262295082
+140,"General store, department store, mall",9.891936824605153,27.86885245901639
+141,"General store, department store, mall",23.19201995012469,62.295081967213115
+142,"General store, department store, mall",10.141313383208646,29.508196721311474
+143,"General store, department store, mall",5.15378221113882,9.836065573770492
+144,"General store, department store, mall",21.695760598503743,54.09836065573771
+148,"General store, department store, mall",28.179551122194514,73.77049180327869
+151,"General store, department store, mall",16.04322527015794,44.26229508196721
+152,"General store, department store, mall",12.884455527847049,37.704918032786885
+153,"General store, department store, mall",2.493765586034913,4.918032786885246
+158,"General store, department store, mall",3.408146300914381,6.557377049180328
+161,"General store, department store, mall",100.00000000000001,100.0
+162,"General store, department store, mall",24.438902743142148,65.57377049180327
+163,"General store, department store, mall",18.121363258520365,47.540983606557376
+164,"General store, department store, mall",27.514546965918537,70.49180327868852
+166,"General store, department store, mall",8.645054031587698,22.131147540983605
+170,"General store, department store, mall",22.942643391521198,57.377049180327866
+186,"General store, department store, mall",35.16209476309227,83.60655737704919
+202,"General store, department store, mall",0.0,1.639344262295082
+209,"General store, department store, mall",3.574397339983375,8.19672131147541
+211,"General store, department store, mall",7.896924355777223,18.0327868852459
+224,"General store, department store, mall",0.41562759767248547,3.278688524590164
+229,"General store, department store, mall",23.690773067331673,63.934426229508205
+230,"General store, department store, mall",25.602660016625105,67.21311475409836
+231,"General store, department store, mall",27.76392352452203,72.1311475409836
+232,"General store, department store, mall",18.78636741479634,50.81967213114754
+233,"General store, department store, mall",8.977556109725686,24.59016393442623
+234,"General store, department store, mall",42.47714048212802,88.52459016393442
+236,"General store, department store, mall",18.703241895261847,49.18032786885246
+237,"General store, department store, mall",14.131338320864506,39.34426229508197
+238,"General store, department store, mall",17.040731504571905,45.90163934426229
+239,"General store, department store, mall",15.295095594347465,42.62295081967213
+243,"General store, department store, mall",38.73649210307565,86.88524590163934
+244,"General store, department store, mall",58.68661679135495,98.36065573770492
+246,"General store, department store, mall",7.647547797173733,13.934426229508196
+249,"General store, department store, mall",26.101413133832086,68.85245901639344
+261,"General store, department store, mall",7.647547797173733,13.934426229508196
+262,"General store, department store, mall",8.645054031587698,22.131147540983605
+263,"General store, department store, mall",23.108894430590194,60.65573770491803
+4,"Clothing, shoes, accessories",0.0,30.327868852459016
+13,"Clothing, shoes, accessories",3.125,63.934426229508205
+24,"Clothing, shoes, accessories",0.0,30.327868852459016
+41,"Clothing, shoes, accessories",75.0,95.90163934426229
+42,"Clothing, shoes, accessories",0.0,30.327868852459016
+45,"Clothing, shoes, accessories",0.0,30.327868852459016
+48,"Clothing, shoes, accessories",0.0,30.327868852459016
+50,"Clothing, shoes, accessories",0.0,30.327868852459016
+68,"Clothing, shoes, accessories",0.0,30.327868852459016
+74,"Clothing, shoes, accessories",9.375,75.40983606557377
+75,"Clothing, shoes, accessories",3.125,63.934426229508205
+79,"Clothing, shoes, accessories",0.0,30.327868852459016
+87,"Clothing, shoes, accessories",18.75,84.42622950819673
+88,"Clothing, shoes, accessories",0.0,30.327868852459016
+90,"Clothing, shoes, accessories",12.5,79.50819672131148
+100,"Clothing, shoes, accessories",25.0,89.34426229508196
+107,"Clothing, shoes, accessories",0.0,30.327868852459016
+113,"Clothing, shoes, accessories",18.75,84.42622950819673
+114,"Clothing, shoes, accessories",3.125,63.934426229508205
+116,"Clothing, shoes, accessories",0.0,30.327868852459016
+125,"Clothing, shoes, accessories",0.0,30.327868852459016
+127,"Clothing, shoes, accessories",0.0,30.327868852459016
+137,"Clothing, shoes, accessories",0.0,30.327868852459016
+140,"Clothing, shoes, accessories",6.25,70.49180327868852
+141,"Clothing, shoes, accessories",25.0,89.34426229508196
+142,"Clothing, shoes, accessories",0.0,30.327868852459016
+143,"Clothing, shoes, accessories",0.0,30.327868852459016
+144,"Clothing, shoes, accessories",3.125,63.934426229508205
+148,"Clothing, shoes, accessories",0.0,30.327868852459016
+151,"Clothing, shoes, accessories",0.0,30.327868852459016
+152,"Clothing, shoes, accessories",0.0,30.327868852459016
+153,"Clothing, shoes, accessories",0.0,30.327868852459016
+158,"Clothing, shoes, accessories",0.0,30.327868852459016
+161,"Clothing, shoes, accessories",100.0,100.0
+162,"Clothing, shoes, accessories",9.375,75.40983606557377
+163,"Clothing, shoes, accessories",43.75,91.80327868852459
+164,"Clothing, shoes, accessories",9.375,75.40983606557377
+166,"Clothing, shoes, accessories",0.0,30.327868852459016
+170,"Clothing, shoes, accessories",6.25,70.49180327868852
+186,"Clothing, shoes, accessories",75.0,95.90163934426229
+202,"Clothing, shoes, accessories",0.0,30.327868852459016
+209,"Clothing, shoes, accessories",15.625,81.9672131147541
+211,"Clothing, shoes, accessories",12.5,79.50819672131148
+224,"Clothing, shoes, accessories",0.0,30.327868852459016
+229,"Clothing, shoes, accessories",0.0,30.327868852459016
+230,"Clothing, shoes, accessories",87.5,98.36065573770492
+231,"Clothing, shoes, accessories",6.25,70.49180327868852
+232,"Clothing, shoes, accessories",0.0,30.327868852459016
+233,"Clothing, shoes, accessories",0.0,30.327868852459016
+234,"Clothing, shoes, accessories",21.875,86.88524590163934
+236,"Clothing, shoes, accessories",0.0,30.327868852459016
+237,"Clothing, shoes, accessories",0.0,30.327868852459016
+238,"Clothing, shoes, accessories",0.0,30.327868852459016
+239,"Clothing, shoes, accessories",46.875,93.44262295081968
+243,"Clothing, shoes, accessories",0.0,30.327868852459016
+244,"Clothing, shoes, accessories",3.125,63.934426229508205
+246,"Clothing, shoes, accessories",0.0,30.327868852459016
+249,"Clothing, shoes, accessories",0.0,30.327868852459016
+261,"Clothing, shoes, accessories",0.0,30.327868852459016
+262,"Clothing, shoes, accessories",0.0,30.327868852459016
+263,"Clothing, shoes, accessories",0.0,30.327868852459016
+4,"Discount store, charity Health and beauty",0.0,50.81967213114754
+13,"Discount store, charity Health and beauty",0.0,50.81967213114754
+24,"Discount store, charity Health and beauty",0.0,50.81967213114754
+41,"Discount store, charity Health and beauty",0.0,50.81967213114754
+42,"Discount store, charity Health and beauty",0.0,50.81967213114754
+45,"Discount store, charity Health and beauty",0.0,50.81967213114754
+48,"Discount store, charity Health and beauty",0.0,50.81967213114754
+50,"Discount store, charity Health and beauty",0.0,50.81967213114754
+68,"Discount store, charity Health and beauty",0.0,50.81967213114754
+74,"Discount store, charity Health and beauty",0.0,50.81967213114754
+75,"Discount store, charity Health and beauty",0.0,50.81967213114754
+79,"Discount store, charity Health and beauty",0.0,50.81967213114754
+87,"Discount store, charity Health and beauty",0.0,50.81967213114754
+88,"Discount store, charity Health and beauty",0.0,50.81967213114754
+90,"Discount store, charity Health and beauty",0.0,50.81967213114754
+100,"Discount store, charity Health and beauty",0.0,50.81967213114754
+107,"Discount store, charity Health and beauty",0.0,50.81967213114754
+113,"Discount store, charity Health and beauty",0.0,50.81967213114754
+114,"Discount store, charity Health and beauty",0.0,50.81967213114754
+116,"Discount store, charity Health and beauty",0.0,50.81967213114754
+125,"Discount store, charity Health and beauty",0.0,50.81967213114754
+127,"Discount store, charity Health and beauty",0.0,50.81967213114754
+137,"Discount store, charity Health and beauty",0.0,50.81967213114754
+140,"Discount store, charity Health and beauty",0.0,50.81967213114754
+141,"Discount store, charity Health and beauty",0.0,50.81967213114754
+142,"Discount store, charity Health and beauty",0.0,50.81967213114754
+143,"Discount store, charity Health and beauty",0.0,50.81967213114754
+144,"Discount store, charity Health and beauty",0.0,50.81967213114754
+148,"Discount store, charity Health and beauty",0.0,50.81967213114754
+151,"Discount store, charity Health and beauty",0.0,50.81967213114754
+152,"Discount store, charity Health and beauty",0.0,50.81967213114754
+153,"Discount store, charity Health and beauty",0.0,50.81967213114754
+158,"Discount store, charity Health and beauty",0.0,50.81967213114754
+161,"Discount store, charity Health and beauty",0.0,50.81967213114754
+162,"Discount store, charity Health and beauty",0.0,50.81967213114754
+163,"Discount store, charity Health and beauty",0.0,50.81967213114754
+164,"Discount store, charity Health and beauty",0.0,50.81967213114754
+166,"Discount store, charity Health and beauty",0.0,50.81967213114754
+170,"Discount store, charity Health and beauty",0.0,50.81967213114754
+186,"Discount store, charity Health and beauty",0.0,50.81967213114754
+202,"Discount store, charity Health and beauty",0.0,50.81967213114754
+209,"Discount store, charity Health and beauty",0.0,50.81967213114754
+211,"Discount store, charity Health and beauty",0.0,50.81967213114754
+224,"Discount store, charity Health and beauty",0.0,50.81967213114754
+229,"Discount store, charity Health and beauty",0.0,50.81967213114754
+230,"Discount store, charity Health and beauty",0.0,50.81967213114754
+231,"Discount store, charity Health and beauty",0.0,50.81967213114754
+232,"Discount store, charity Health and beauty",0.0,50.81967213114754
+233,"Discount store, charity Health and beauty",0.0,50.81967213114754
+234,"Discount store, charity Health and beauty",0.0,50.81967213114754
+236,"Discount store, charity Health and beauty",0.0,50.81967213114754
+237,"Discount store, charity Health and beauty",0.0,50.81967213114754
+238,"Discount store, charity Health and beauty",0.0,50.81967213114754
+239,"Discount store, charity Health and beauty",0.0,50.81967213114754
+243,"Discount store, charity Health and beauty",0.0,50.81967213114754
+244,"Discount store, charity Health and beauty",0.0,50.81967213114754
+246,"Discount store, charity Health and beauty",0.0,50.81967213114754
+249,"Discount store, charity Health and beauty",0.0,50.81967213114754
+261,"Discount store, charity Health and beauty",0.0,50.81967213114754
+262,"Discount store, charity Health and beauty",0.0,50.81967213114754
+263,"Discount store, charity Health and beauty",0.0,50.81967213114754
+4,"Do-it-yourself, household, building materials, gardening",9.764309764309765,33.60655737704918
+13,"Do-it-yourself, household, building materials, gardening",1.3468013468013469,6.557377049180328
+24,"Do-it-yourself, household, building materials, gardening",8.08080808080808,25.40983606557377
+41,"Do-it-yourself, household, building materials, gardening",35.35353535353536,93.44262295081968
+42,"Do-it-yourself, household, building materials, gardening",26.599326599326602,77.8688524590164
+45,"Do-it-yourself, household, building materials, gardening",13.804713804713806,44.26229508196721
+48,"Do-it-yourself, household, building materials, gardening",26.599326599326602,77.8688524590164
+50,"Do-it-yourself, household, building materials, gardening",5.723905723905724,13.114754098360656
+68,"Do-it-yourself, household, building materials, gardening",23.905723905723907,72.95081967213115
+74,"Do-it-yourself, household, building materials, gardening",30.303030303030308,81.9672131147541
+75,"Do-it-yourself, household, building materials, gardening",23.232323232323235,68.0327868852459
+79,"Do-it-yourself, household, building materials, gardening",34.68013468013468,90.98360655737704
+87,"Do-it-yourself, household, building materials, gardening",18.181818181818183,54.09836065573771
+88,"Do-it-yourself, household, building materials, gardening",9.764309764309765,33.60655737704918
+90,"Do-it-yourself, household, building materials, gardening",30.97643097643098,84.42622950819673
+100,"Do-it-yourself, household, building materials, gardening",23.905723905723907,72.95081967213115
+107,"Do-it-yourself, household, building materials, gardening",9.427609427609429,30.327868852459016
+113,"Do-it-yourself, household, building materials, gardening",11.784511784511785,37.704918032786885
+114,"Do-it-yourself, household, building materials, gardening",7.407407407407407,18.852459016393443
+116,"Do-it-yourself, household, building materials, gardening",21.885521885521886,63.934426229508205
+125,"Do-it-yourself, household, building materials, gardening",5.050505050505051,11.475409836065573
+127,"Do-it-yourself, household, building materials, gardening",18.855218855218858,59.01639344262295
+137,"Do-it-yourself, household, building materials, gardening",15.824915824915827,50.81967213114754
+140,"Do-it-yourself, household, building materials, gardening",14.141414141414142,46.72131147540984
+141,"Do-it-yourself, household, building materials, gardening",23.56902356902357,70.49180327868852
+142,"Do-it-yourself, household, building materials, gardening",13.131313131313131,42.62295081967213
+143,"Do-it-yourself, household, building materials, gardening",12.45791245791246,40.98360655737705
+144,"Do-it-yourself, household, building materials, gardening",23.232323232323235,68.0327868852459
+148,"Do-it-yourself, household, building materials, gardening",100.00000000000001,100.0
+151,"Do-it-yourself, household, building materials, gardening",18.181818181818183,54.09836065573771
+152,"Do-it-yourself, household, building materials, gardening",12.121212121212121,39.34426229508197
+153,"Do-it-yourself, household, building materials, gardening",0.0,1.639344262295082
+158,"Do-it-yourself, household, building materials, gardening",7.744107744107745,22.950819672131146
+161,"Do-it-yourself, household, building materials, gardening",14.141414141414142,46.72131147540984
+162,"Do-it-yourself, household, building materials, gardening",21.212121212121215,60.65573770491803
+163,"Do-it-yourself, household, building materials, gardening",3.0303030303030303,8.19672131147541
+164,"Do-it-yourself, household, building materials, gardening",50.168350168350166,96.72131147540983
+166,"Do-it-yourself, household, building materials, gardening",7.070707070707072,14.754098360655737
+170,"Do-it-yourself, household, building materials, gardening",34.68013468013468,90.98360655737704
+186,"Do-it-yourself, household, building materials, gardening",27.946127946127948,80.32786885245902
+202,"Do-it-yourself, household, building materials, gardening",0.673400673400673,3.278688524590164
+209,"Do-it-yourself, household, building materials, gardening",7.407407407407407,18.852459016393443
+211,"Do-it-yourself, household, building materials, gardening",7.407407407407407,18.852459016393443
+224,"Do-it-yourself, household, building materials, gardening",1.01010101010101,4.918032786885246
+229,"Do-it-yourself, household, building materials, gardening",15.151515151515152,49.18032786885246
+230,"Do-it-yourself, household, building materials, gardening",8.08080808080808,25.40983606557377
+231,"Do-it-yourself, household, building materials, gardening",52.861952861952865,98.36065573770492
+232,"Do-it-yourself, household, building materials, gardening",18.181818181818183,54.09836065573771
+233,"Do-it-yourself, household, building materials, gardening",10.43771043771044,36.0655737704918
+234,"Do-it-yourself, household, building materials, gardening",49.831649831649834,95.08196721311475
+236,"Do-it-yourself, household, building materials, gardening",22.222222222222225,65.57377049180327
+237,"Do-it-yourself, household, building materials, gardening",7.407407407407407,18.852459016393443
+238,"Do-it-yourself, household, building materials, gardening",34.00673400673401,87.70491803278688
+239,"Do-it-yourself, household, building materials, gardening",25.925925925925927,75.40983606557377
+243,"Do-it-yourself, household, building materials, gardening",21.54882154882155,62.295081967213115
+244,"Do-it-yourself, household, building materials, gardening",30.97643097643098,84.42622950819673
+246,"Do-it-yourself, household, building materials, gardening",9.09090909090909,27.86885245901639
+249,"Do-it-yourself, household, building materials, gardening",18.51851851851852,57.377049180327866
+261,"Do-it-yourself, household, building materials, gardening",4.040404040404041,9.836065573770492
+262,"Do-it-yourself, household, building materials, gardening",9.427609427609429,30.327868852459016
+263,"Do-it-yourself, household, building materials, gardening",34.00673400673401,87.70491803278688
+4,Furniture and interior,0.0,30.327868852459016
+13,Furniture and interior,0.0,30.327868852459016
+24,Furniture and interior,12.5,66.39344262295081
+41,Furniture and interior,75.0,96.72131147540983
+42,Furniture and interior,0.0,30.327868852459016
+45,Furniture and interior,0.0,30.327868852459016
+48,Furniture and interior,25.0,82.78688524590164
+50,Furniture and interior,0.0,30.327868852459016
+68,Furniture and interior,0.0,30.327868852459016
+74,Furniture and interior,25.0,82.78688524590164
+75,Furniture and interior,0.0,30.327868852459016
+79,Furniture and interior,25.0,82.78688524590164
+87,Furniture and interior,12.5,66.39344262295081
+88,Furniture and interior,0.0,30.327868852459016
+90,Furniture and interior,0.0,30.327868852459016
+100,Furniture and interior,0.0,30.327868852459016
+107,Furniture and interior,100.0,100.0
+113,Furniture and interior,25.0,82.78688524590164
+114,Furniture and interior,50.0,94.26229508196722
+116,Furniture and interior,0.0,30.327868852459016
+125,Furniture and interior,0.0,30.327868852459016
+127,Furniture and interior,25.0,82.78688524590164
+137,Furniture and interior,12.5,66.39344262295081
+140,Furniture and interior,0.0,30.327868852459016
+141,Furniture and interior,25.0,82.78688524590164
+142,Furniture and interior,0.0,30.327868852459016
+143,Furniture and interior,0.0,30.327868852459016
+144,Furniture and interior,0.0,30.327868852459016
+148,Furniture and interior,0.0,30.327868852459016
+151,Furniture and interior,0.0,30.327868852459016
+152,Furniture and interior,0.0,30.327868852459016
+153,Furniture and interior,12.5,66.39344262295081
+158,Furniture and interior,0.0,30.327868852459016
+161,Furniture and interior,0.0,30.327868852459016
+162,Furniture and interior,25.0,82.78688524590164
+163,Furniture and interior,25.0,82.78688524590164
+164,Furniture and interior,25.0,82.78688524590164
+166,Furniture and interior,0.0,30.327868852459016
+170,Furniture and interior,87.5,98.36065573770492
+186,Furniture and interior,0.0,30.327868852459016
+202,Furniture and interior,0.0,30.327868852459016
+209,Furniture and interior,0.0,30.327868852459016
+211,Furniture and interior,0.0,30.327868852459016
+224,Furniture and interior,0.0,30.327868852459016
+229,Furniture and interior,12.5,66.39344262295081
+230,Furniture and interior,0.0,30.327868852459016
+231,Furniture and interior,25.0,82.78688524590164
+232,Furniture and interior,0.0,30.327868852459016
+233,Furniture and interior,0.0,30.327868852459016
+234,Furniture and interior,25.0,82.78688524590164
+236,Furniture and interior,50.0,94.26229508196722
+237,Furniture and interior,0.0,30.327868852459016
+238,Furniture and interior,12.5,66.39344262295081
+239,Furniture and interior,12.5,66.39344262295081
+243,Furniture and interior,12.5,66.39344262295081
+244,Furniture and interior,0.0,30.327868852459016
+246,Furniture and interior,0.0,30.327868852459016
+249,Furniture and interior,0.0,30.327868852459016
+261,Furniture and interior,0.0,30.327868852459016
+262,Furniture and interior,0.0,30.327868852459016
+263,Furniture and interior,25.0,82.78688524590164
+4,Electronics,4.120879120879121,12.295081967213115
+13,Electronics,0.5494505494505495,3.278688524590164
+24,Electronics,12.08791208791209,36.0655737704918
+41,Electronics,59.06593406593407,85.24590163934425
+42,Electronics,22.252747252747255,47.540983606557376
+45,Electronics,61.26373626373627,88.52459016393442
+48,Electronics,36.26373626373627,69.67213114754098
+50,Electronics,2.197802197802198,8.19672131147541
+68,Electronics,26.923076923076927,54.09836065573771
+74,Electronics,75.27472527472528,95.08196721311475
+75,Electronics,35.98901098901099,67.21311475409836
+79,Electronics,25.824175824175825,52.459016393442624
+87,Electronics,33.791208791208796,63.934426229508205
+88,Electronics,14.560439560439562,37.704918032786885
+90,Electronics,42.85714285714286,77.04918032786885
+100,Electronics,46.42857142857143,78.68852459016394
+107,Electronics,29.94505494505495,59.01639344262295
+113,Electronics,36.26373626373627,69.67213114754098
+114,Electronics,7.967032967032968,22.950819672131146
+116,Electronics,36.81318681318682,72.1311475409836
+125,Electronics,0.8241758241758242,4.918032786885246
+127,Electronics,56.04395604395605,83.60655737704919
+137,Electronics,7.967032967032968,22.950819672131146
+140,Electronics,10.43956043956044,32.78688524590164
+141,Electronics,22.802197802197803,49.18032786885246
+142,Electronics,21.153846153846157,44.26229508196721
+143,Electronics,2.7472527472527473,9.836065573770492
+144,Electronics,39.28571428571429,75.40983606557377
+148,Electronics,71.70329670329672,91.80327868852459
+151,Electronics,10.989010989010989,34.42622950819672
+152,Electronics,10.164835164835166,30.327868852459016
+153,Electronics,8.791208791208792,27.86885245901639
+158,Electronics,15.384615384615387,39.34426229508197
+161,Electronics,59.61538461538462,86.88524590163934
+162,Electronics,31.593406593406595,60.65573770491803
+163,Electronics,52.74725274725275,80.32786885245902
+164,Electronics,73.35164835164836,93.44262295081968
+166,Electronics,4.120879120879121,12.295081967213115
+170,Electronics,27.747252747252748,55.73770491803278
+186,Electronics,53.57142857142858,81.9672131147541
+202,Electronics,0.0,1.639344262295082
+209,Electronics,5.4945054945054945,16.39344262295082
+211,Electronics,10.164835164835166,30.327868852459016
+224,Electronics,7.967032967032968,22.950819672131146
+229,Electronics,7.967032967032968,22.950819672131146
+230,Electronics,63.736263736263744,90.1639344262295
+231,Electronics,34.34065934065934,65.57377049180327
+232,Electronics,25.274725274725277,50.81967213114754
+233,Electronics,7.967032967032968,22.950819672131146
+234,Electronics,78.57142857142858,96.72131147540983
+236,Electronics,21.42857142857143,45.90163934426229
+237,Electronics,18.40659340659341,42.62295081967213
+238,Electronics,38.18681318681319,73.77049180327869
+239,Electronics,29.395604395604398,57.377049180327866
+243,Electronics,100.00000000000001,100.0
+244,Electronics,81.04395604395604,98.36065573770492
+246,Electronics,1.9230769230769234,6.557377049180328
+249,Electronics,17.857142857142858,40.98360655737705
+261,Electronics,4.670329670329671,14.754098360655737
+262,Electronics,6.318681318681319,18.0327868852459
+263,Electronics,32.69230769230769,62.295081967213115
+4,"Outdoors and sport, vehicles",0.0,1.639344262295082
+13,"Outdoors and sport, vehicles",17.171717171717173,41.80327868852459
+24,"Outdoors and sport, vehicles",1.6835016835016834,6.557377049180328
+41,"Outdoors and sport, vehicles",21.88552188552189,49.18032786885246
+42,"Outdoors and sport, vehicles",38.04713804713805,86.88524590163934
+45,"Outdoors and sport, vehicles",7.070707070707072,21.311475409836063
+48,"Outdoors and sport, vehicles",43.77104377104377,92.62295081967213
+50,"Outdoors and sport, vehicles",100.00000000000001,100.0
+68,"Outdoors and sport, vehicles",34.343434343434346,80.32786885245902
+74,"Outdoors and sport, vehicles",30.639730639730644,67.21311475409836
+75,"Outdoors and sport, vehicles",19.52861952861953,45.90163934426229
+79,"Outdoors and sport, vehicles",22.55892255892256,50.81967213114754
+87,"Outdoors and sport, vehicles",15.824915824915827,38.52459016393443
+88,"Outdoors and sport, vehicles",31.98653198653199,72.1311475409836
+90,"Outdoors and sport, vehicles",23.56902356902357,54.09836065573771
+100,"Outdoors and sport, vehicles",5.050505050505051,11.475409836065573
+107,"Outdoors and sport, vehicles",30.97643097643098,68.85245901639344
+113,"Outdoors and sport, vehicles",32.323232323232325,73.77049180327869
+114,"Outdoors and sport, vehicles",5.3872053872053876,13.934426229508196
+116,"Outdoors and sport, vehicles",8.754208754208754,29.508196721311474
+125,"Outdoors and sport, vehicles",8.417508417508419,27.86885245901639
+127,"Outdoors and sport, vehicles",33.67003367003367,78.68852459016394
+137,"Outdoors and sport, vehicles",21.212121212121215,47.540983606557376
+140,"Outdoors and sport, vehicles",45.11784511784512,95.08196721311475
+141,"Outdoors and sport, vehicles",57.57575757575758,98.36065573770492
+142,"Outdoors and sport, vehicles",37.37373737373737,85.24590163934425
+143,"Outdoors and sport, vehicles",41.07744107744108,90.1639344262295
+144,"Outdoors and sport, vehicles",10.774410774410775,31.147540983606557
+148,"Outdoors and sport, vehicles",3.3670033670033677,8.19672131147541
+151,"Outdoors and sport, vehicles",4.713804713804714,9.836065573770492
+152,"Outdoors and sport, vehicles",7.744107744107745,24.59016393442623
+153,"Outdoors and sport, vehicles",0.6734006734006734,4.098360655737705
+158,"Outdoors and sport, vehicles",13.804713804713806,34.42622950819672
+161,"Outdoors and sport, vehicles",22.895622895622896,52.459016393442624
+162,"Outdoors and sport, vehicles",18.181818181818183,44.26229508196721
+163,"Outdoors and sport, vehicles",39.39393939393939,88.52459016393442
+164,"Outdoors and sport, vehicles",14.478114478114477,36.0655737704918
+166,"Outdoors and sport, vehicles",6.397306397306398,19.672131147540984
+170,"Outdoors and sport, vehicles",35.69023569023569,83.60655737704919
+186,"Outdoors and sport, vehicles",17.171717171717173,41.80327868852459
+202,"Outdoors and sport, vehicles",0.6734006734006734,4.098360655737705
+209,"Outdoors and sport, vehicles",8.080808080808083,26.229508196721312
+211,"Outdoors and sport, vehicles",5.723905723905724,16.39344262295082
+224,"Outdoors and sport, vehicles",7.407407407407407,22.950819672131146
+229,"Outdoors and sport, vehicles",43.77104377104377,92.62295081967213
+230,"Outdoors and sport, vehicles",34.68013468013468,81.9672131147541
+231,"Outdoors and sport, vehicles",32.996632996633,77.04918032786885
+232,"Outdoors and sport, vehicles",5.3872053872053876,13.934426229508196
+233,"Outdoors and sport, vehicles",27.609427609427613,63.934426229508205
+234,"Outdoors and sport, vehicles",23.905723905723907,56.557377049180324
+236,"Outdoors and sport, vehicles",27.272727272727277,62.295081967213115
+237,"Outdoors and sport, vehicles",23.905723905723907,56.557377049180324
+238,"Outdoors and sport, vehicles",25.925925925925927,59.83606557377049
+239,"Outdoors and sport, vehicles",15.824915824915827,38.52459016393443
+243,"Outdoors and sport, vehicles",32.65993265993266,75.40983606557377
+244,"Outdoors and sport, vehicles",25.925925925925927,59.83606557377049
+246,"Outdoors and sport, vehicles",49.494949494949495,96.72131147540983
+249,"Outdoors and sport, vehicles",11.784511784511785,32.78688524590164
+261,"Outdoors and sport, vehicles",6.060606060606061,18.0327868852459
+262,"Outdoors and sport, vehicles",31.64983164983165,70.49180327868852
+263,"Outdoors and sport, vehicles",29.96632996632997,65.57377049180327
+4,"Art, music, hobbies",0.0,22.131147540983605
+13,"Art, music, hobbies",0.0,22.131147540983605
+24,"Art, music, hobbies",0.0,22.131147540983605
+41,"Art, music, hobbies",83.33333333333334,98.36065573770492
+42,"Art, music, hobbies",0.0,22.131147540983605
+45,"Art, music, hobbies",0.0,22.131147540983605
+48,"Art, music, hobbies",25.0,77.04918032786885
+50,"Art, music, hobbies",8.333333333333334,48.36065573770492
+68,"Art, music, hobbies",0.0,22.131147540983605
+74,"Art, music, hobbies",0.0,22.131147540983605
+75,"Art, music, hobbies",0.0,22.131147540983605
+79,"Art, music, hobbies",41.66666666666667,87.70491803278688
+87,"Art, music, hobbies",0.0,22.131147540983605
+88,"Art, music, hobbies",50.0,94.26229508196722
+90,"Art, music, hobbies",16.666666666666668,63.114754098360656
+100,"Art, music, hobbies",8.333333333333334,48.36065573770492
+107,"Art, music, hobbies",0.0,22.131147540983605
+113,"Art, music, hobbies",50.0,94.26229508196722
+114,"Art, music, hobbies",0.0,22.131147540983605
+116,"Art, music, hobbies",0.0,22.131147540983605
+125,"Art, music, hobbies",25.0,77.04918032786885
+127,"Art, music, hobbies",0.0,22.131147540983605
+137,"Art, music, hobbies",16.666666666666668,63.114754098360656
+140,"Art, music, hobbies",0.0,22.131147540983605
+141,"Art, music, hobbies",0.0,22.131147540983605
+142,"Art, music, hobbies",16.666666666666668,63.114754098360656
+143,"Art, music, hobbies",0.0,22.131147540983605
+144,"Art, music, hobbies",0.0,22.131147540983605
+148,"Art, music, hobbies",16.666666666666668,63.114754098360656
+151,"Art, music, hobbies",8.333333333333334,48.36065573770492
+152,"Art, music, hobbies",16.666666666666668,63.114754098360656
+153,"Art, music, hobbies",0.0,22.131147540983605
+158,"Art, music, hobbies",0.0,22.131147540983605
+161,"Art, music, hobbies",25.0,77.04918032786885
+162,"Art, music, hobbies",33.333333333333336,82.78688524590164
+163,"Art, music, hobbies",41.66666666666667,87.70491803278688
+164,"Art, music, hobbies",50.0,94.26229508196722
+166,"Art, music, hobbies",33.333333333333336,82.78688524590164
+170,"Art, music, hobbies",16.666666666666668,63.114754098360656
+186,"Art, music, hobbies",50.0,94.26229508196722
+202,"Art, music, hobbies",0.0,22.131147540983605
+209,"Art, music, hobbies",41.66666666666667,87.70491803278688
+211,"Art, music, hobbies",25.0,77.04918032786885
+224,"Art, music, hobbies",0.0,22.131147540983605
+229,"Art, music, hobbies",0.0,22.131147540983605
+230,"Art, music, hobbies",8.333333333333334,48.36065573770492
+231,"Art, music, hobbies",16.666666666666668,63.114754098360656
+232,"Art, music, hobbies",16.666666666666668,63.114754098360656
+233,"Art, music, hobbies",8.333333333333334,48.36065573770492
+234,"Art, music, hobbies",100.0,100.0
+236,"Art, music, hobbies",0.0,22.131147540983605
+237,"Art, music, hobbies",16.666666666666668,63.114754098360656
+238,"Art, music, hobbies",16.666666666666668,63.114754098360656
+239,"Art, music, hobbies",41.66666666666667,87.70491803278688
+243,"Art, music, hobbies",16.666666666666668,63.114754098360656
+244,"Art, music, hobbies",0.0,22.131147540983605
+246,"Art, music, hobbies",0.0,22.131147540983605
+249,"Art, music, hobbies",8.333333333333334,48.36065573770492
+261,"Art, music, hobbies",25.0,77.04918032786885
+262,"Art, music, hobbies",0.0,22.131147540983605
+263,"Art, music, hobbies",16.666666666666668,63.114754098360656
+4,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+13,"Stationery, gifts, books, newspapers",0.8130081300813008,20.491803278688526
+24,"Stationery, gifts, books, newspapers",17.073170731707318,78.68852459016394
+41,"Stationery, gifts, books, newspapers",11.382113821138212,67.21311475409836
+42,"Stationery, gifts, books, newspapers",4.0650406504065035,39.34426229508197
+45,"Stationery, gifts, books, newspapers",4.878048780487805,45.90163934426229
+48,"Stationery, gifts, books, newspapers",8.94308943089431,60.65573770491803
+50,"Stationery, gifts, books, newspapers",0.8130081300813008,20.491803278688526
+68,"Stationery, gifts, books, newspapers",19.51219512195122,81.9672131147541
+74,"Stationery, gifts, books, newspapers",2.4390243902439024,32.78688524590164
+75,"Stationery, gifts, books, newspapers",0.8130081300813008,20.491803278688526
+79,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+87,"Stationery, gifts, books, newspapers",43.08943089430894,95.08196721311475
+88,"Stationery, gifts, books, newspapers",8.130081300813007,58.19672131147541
+90,"Stationery, gifts, books, newspapers",63.41463414634146,98.36065573770492
+100,"Stationery, gifts, books, newspapers",40.65040650406504,92.62295081967213
+107,"Stationery, gifts, books, newspapers",13.821138211382113,73.77049180327869
+113,"Stationery, gifts, books, newspapers",17.88617886178862,80.32786885245902
+114,"Stationery, gifts, books, newspapers",4.0650406504065035,39.34426229508197
+116,"Stationery, gifts, books, newspapers",4.878048780487805,45.90163934426229
+125,"Stationery, gifts, books, newspapers",1.6260162601626016,27.86885245901639
+127,"Stationery, gifts, books, newspapers",0.8130081300813008,20.491803278688526
+137,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+140,"Stationery, gifts, books, newspapers",4.878048780487805,45.90163934426229
+141,"Stationery, gifts, books, newspapers",10.56910569105691,64.75409836065575
+142,"Stationery, gifts, books, newspapers",13.008130081300813,70.49180327868852
+143,"Stationery, gifts, books, newspapers",6.504065040650406,54.91803278688525
+144,"Stationery, gifts, books, newspapers",9.75609756097561,62.295081967213115
+148,"Stationery, gifts, books, newspapers",4.0650406504065035,39.34426229508197
+151,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+152,"Stationery, gifts, books, newspapers",1.6260162601626016,27.86885245901639
+153,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+158,"Stationery, gifts, books, newspapers",33.333333333333336,90.1639344262295
+161,"Stationery, gifts, books, newspapers",14.634146341463413,75.40983606557377
+162,"Stationery, gifts, books, newspapers",16.260162601626014,77.04918032786885
+163,"Stationery, gifts, books, newspapers",21.95121951219512,85.24590163934425
+164,"Stationery, gifts, books, newspapers",56.91056910569105,96.72131147540983
+166,"Stationery, gifts, books, newspapers",5.691056910569106,50.81967213114754
+170,"Stationery, gifts, books, newspapers",10.56910569105691,64.75409836065575
+186,"Stationery, gifts, books, newspapers",13.008130081300813,70.49180327868852
+202,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+209,"Stationery, gifts, books, newspapers",0.8130081300813008,20.491803278688526
+211,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+224,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+229,"Stationery, gifts, books, newspapers",0.0,8.19672131147541
+230,"Stationery, gifts, books, newspapers",100.0,100.0
+231,"Stationery, gifts, books, newspapers",27.642276422764226,88.52459016393442
+232,"Stationery, gifts, books, newspapers",0.8130081300813008,20.491803278688526
+233,"Stationery, gifts, books, newspapers",4.0650406504065035,39.34426229508197
+234,"Stationery, gifts, books, newspapers",20.32520325203252,83.60655737704919
+236,"Stationery, gifts, books, newspapers",26.016260162601625,86.88524590163934
+237,"Stationery, gifts, books, newspapers",4.0650406504065035,39.34426229508197
+238,"Stationery, gifts, books, newspapers",13.008130081300813,70.49180327868852
+239,"Stationery, gifts, books, newspapers",40.65040650406504,92.62295081967213
+243,"Stationery, gifts, books, newspapers",2.4390243902439024,32.78688524590164
+244,"Stationery, gifts, books, newspapers",8.130081300813007,58.19672131147541
+246,"Stationery, gifts, books, newspapers",1.6260162601626016,27.86885245901639
+249,"Stationery, gifts, books, newspapers",5.691056910569106,50.81967213114754
+261,"Stationery, gifts, books, newspapers",6.504065040650406,54.91803278688525
+262,"Stationery, gifts, books, newspapers",2.4390243902439024,32.78688524590164
+263,"Stationery, gifts, books, newspapers",5.691056910569106,50.81967213114754
+4,Others,4.827175208581645,6.557377049180328
+13,Others,14.00476758045292,26.229508196721312
+24,Others,7.032181168057211,13.114754098360656
+41,Others,29.797377830750897,65.57377049180327
+42,Others,15.554231227651968,32.78688524590164
+45,Others,17.87842669845054,39.34426229508197
+48,Others,56.43623361144219,95.08196721311475
+50,Others,43.3253873659118,78.68852459016394
+68,Others,23.65911799761621,47.540983606557376
+74,Others,27.771156138259833,57.377049180327866
+75,Others,28.00953516090584,60.65573770491803
+79,Others,43.62336114421931,80.32786885245902
+87,Others,26.579261025029798,54.09836065573771
+88,Others,5.601907032181169,9.836065573770492
+90,Others,52.38379022646007,88.52459016393442
+100,Others,73.71871275327771,98.36065573770492
+107,Others,32.777115613825984,72.1311475409836
+113,Others,44.100119189511325,83.60655737704919
+114,Others,14.60071513706794,29.508196721311474
+116,Others,12.097735399284865,22.950819672131146
+125,Others,8.998808104886772,18.0327868852459
+127,Others,14.30274135876043,27.86885245901639
+137,Others,14.66030989272944,31.147540983606557
+140,Others,18.772348033373063,40.98360655737705
+141,Others,54.76758045292014,91.80327868852459
+142,Others,25.32777115613826,52.459016393442624
+143,Others,5.542312276519667,8.19672131147541
+144,Others,53.93325387365912,90.1639344262295
+148,Others,24.672228843861742,50.81967213114754
+151,Others,20.441001191895115,45.90163934426229
+152,Others,8.700834326579262,16.39344262295082
+153,Others,0.17878426698450534,3.278688524590164
+158,Others,15.792610250297976,36.0655737704918
+161,Others,54.94636471990465,93.44262295081968
+162,Others,19.427890345649583,44.26229508196721
+163,Others,27.115613825983317,55.73770491803278
+164,Others,50.715137067938024,86.88524590163934
+166,Others,7.628128724672229,14.754098360655737
+170,Others,41.06078665077473,77.04918032786885
+186,Others,23.778307508939214,49.18032786885246
+202,Others,0.0,1.639344262295082
+209,Others,10.60786650774732,21.311475409836063
+211,Others,44.517282479141834,85.24590163934425
+224,Others,2.562574493444577,4.918032786885246
+229,Others,27.94994040524434,59.01639344262295
+230,Others,100.0,100.0
+231,Others,35.578069129916564,73.77049180327869
+232,Others,13.170441001191897,24.59016393442623
+233,Others,15.733015494636472,34.42622950819672
+234,Others,61.97854588796186,96.72131147540983
+236,Others,38.61740166865316,75.40983606557377
+237,Others,43.68295589988081,81.9672131147541
+238,Others,29.380214541120385,63.934426229508205
+239,Others,32.18116805721096,68.85245901639344
+243,Others,19.01072705601907,42.62295081967213
+244,Others,30.63170441001192,67.21311475409836
+246,Others,9.59475566150179,19.672131147540984
+249,Others,29.26102502979738,62.295081967213115
+261,Others,6.3170441001191895,11.475409836065573
+262,Others,17.69964243146603,37.704918032786885
+263,Others,32.24076281287247,70.49180327868852
