@@ -665,9 +665,6 @@ class RecommendAdvertisingLocationsView(APIView):
         cache_key = f"recommend_advertising_locations_{search_id}_{date_str}_{top_n}"
         cached_data = cache.get(cache_key)
 
-       # if cached_data:
-        #    return Response(cached_data, status=status.HTTP_200_OK)
-        
         # Step 3: Get busyness data for each zone for that day
         busyness_data = Busyness.objects.filter(datetime__date=date.date())
 
@@ -699,12 +696,12 @@ class RecommendAdvertisingLocationsView(APIView):
         
         # Step 7: Get advertising locations for the zones
         advertising_locations = AdvertisingLocation.objects.filter(zone_id__in=[z['zone_id'] for z in zone_scores])
-        print(advertising_locations)
+
         # Step 8: Recommend top N advertising locations based on combined score and cost per day
         recommendations = []
         for location in advertising_locations:
-            print(location)
             zone_score = next(z for z in zone_scores if z['zone_id'] == location.zone_id)
+            total_score_with_cost = zone_score['total_score'] - (location.cost_per_day / 5) # Adjust the total score by subtracting the cost
             recommendations.append({
                 'location': location.location,
                 'format': location.format,
@@ -721,6 +718,7 @@ class RecommendAdvertisingLocationsView(APIView):
                 'zone_id': location.zone_id,
                 'zone_name': zone_score['zone_name'],
                 'total_score': zone_score['total_score'],
+                'total_score_with_cost': total_score_with_cost,
                 'demographic_score': zone_score['demographic_score'],
                 'max_busyness': zone_score['max_busyness'],
                 'max_busyness_time': zone_score['max_busyness_time'],
@@ -728,12 +726,11 @@ class RecommendAdvertisingLocationsView(APIView):
                 'photo_url': location.photo_url
             })
 
-        # Sort recommendations by total score and cost per day
-        recommendations = sorted(recommendations, key=lambda x: (-x['total_score'], x['cost_per_day']))[:top_n]
+        # Sort recommendations by total score with cost and limit to top N
+        recommendations = sorted(recommendations, key=lambda x: -x['total_score_with_cost'])[:top_n]
 
         cache.set(cache_key, recommendations, timeout=60 * 60)  # Cache for 1 hour
-        return Response(recommendations, status=status.HTTP_200_OK)   
-
+        return Response(recommendations, status=status.HTTP_200_OK)
 
 class InterestZoneCountByZoneView(APIView):
     """

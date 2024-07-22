@@ -1,31 +1,17 @@
-// src/Dashboard.js
-import {
-  CheckCircleOutlined,
-  LoadingOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
-import {
-  Breadcrumb,
-  Button,
-  Popover,
-  Select,
-  Skeleton,
-  Spin,
-  Table,
-  Tabs,
-  Tag,
-  Tour,
-} from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import ColumnChart from "./components/ColumnChart";
-import LineChart from "./components/LineChart";
-import Maps from "./components/Maps";
-import PieChart from "./components/PieChart";
-import { SearchModalTrigger } from "./components/SearchModal";
-import useSearches from "./hooks/useSearches";
-import fetchWithCache from "./utils/fetchWithCache";
-import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Breadcrumb, Button, Popover, Select, Skeleton, Spin, Table, Tabs, Tag, Tour } from 'antd';
+import { CheckCircleOutlined, LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import ColumnChart from './components/ColumnChart';
+import LineChart from './components/LineChart';
+import Maps from './components/Maps';
+import PieChart from './components/PieChart';
+import { SearchModalTrigger } from './components/SearchModal';
+import useSearches from './hooks/useSearches';
+import fetchWithCache from './utils/fetchWithCache';
+import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from './constant';
+import AdvertisingCarousel from './components/AdvertisingCarousel';
+
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -76,6 +62,7 @@ const Analytics = () => {
   let [loading, setLoading] = useState(true);
   let [open, setOpen] = useState(false); // open the tour
   let visitedTour = localStorage.getItem("visited-analytics-tour");
+  let [advertisingLocations, setAdvertisingLocations] = useState([]);
   const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
     ...step,
     cover: step.imgSrc && <img alt="tour.png" src={step.imgSrc} />,
@@ -223,7 +210,15 @@ const Analytics = () => {
       .finally(() => {
         setLoading(false);
       });
+
+    fetchWithCache(`/api/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`)
+      .then((res) => {
+        if (res) {
+          setAdvertisingLocations(res);
+        }
+      });
   }
+
   useEffect(() => {
     getSearchById(id).then((search) => {
       setSearch(search);
@@ -269,6 +264,10 @@ const Analytics = () => {
             options={dateOptions}
           />
         </div>
+        <div id="advertising-carousel" className="mt-10">
+          <h4 className="text-xl font-medium">Top 10 Advertising Locations</h4>
+          <AdvertisingCarousel advertisingLocations={advertisingLocations} />
+        </div>
         <div id="recommendations-table" className="space-y-4">
           <div className="flex items-center justify-between mt-7">
             <h4 className="text-xl font-medium">Recommendations</h4>
@@ -287,6 +286,7 @@ const Analytics = () => {
             }}
           />
         </div>
+        
       </div>
 
       <div className="space-y-8">
