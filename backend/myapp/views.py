@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, CreditUsage
+from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, CreditUsage, AdvertisingLocation
 from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer, CreditUsageSerializer, UserFreeSearchSerializer
 
 from .tasks import background_task
@@ -645,6 +645,92 @@ class BillboardsByZoneView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
+class RecommendAdvertisingLocationsView(APIView):
+    """
+    API view to recommend top N advertising locations based on combined demographic and busyness scores and cost per day.
+    """
+    def get(self, request, *args, **kwargs):
+        search_id = request.GET.get('search_id')
+        date_str = request.GET.get('date')
+        top_n = int(request.GET.get('top_n', 10))  # Default to 10 if 'top_n' is not provided
+        top_n = min(top_n, 60)  # Limit to a maximum of 60
+
+        search = get_object_or_404(Search, id=search_id)
+        date = parse_datetime(date_str)
+
+        # Ensure the provided date is within the range of the search
+        if not (search.start_date <= date.date() <= search.end_date):
+            return Response({"error": "Date is out of range for the specified search."}, status=status.HTTP_400_BAD_REQUEST)
+
+        cache_key = f"recommend_advertising_locations_{search_id}_{date_str}_{top_n}"
+        cached_data = cache.get(cache_key)
+
+        # Step 3: Get busyness data for each zone for that day
+        busyness_data = Busyness.objects.filter(datetime__date=date.date())
+
+        # Step 4: Find the max busyness for each zone and corresponding time
+        max_busyness_per_zone = busyness_data.values('zone_id').annotate(max_busyness=Max('busyness_score'))
+        max_busyness_times = {item['zone_id']: busyness_data.filter(zone_id=item['zone_id'], busyness_score=item['max_busyness']).first().datetime for item in max_busyness_per_zone}
+
+        # Step 5: Get the demographic score for the search and every zone
+        demographics = Demographic.objects.filter(search=search)
+
+        # Create a dictionary for easy lookup of demographic scores
+        demographic_scores = {d.zone_id: d.score for d in demographics}
+        
+        # Step 6: Calculate the total score (max busyness + demographic score) for each zone
+        zone_scores = []
+        for item in max_busyness_per_zone:
+            zone_id = item['zone_id']
+            max_busyness = item['max_busyness']
+            demographic_score = demographic_scores.get(zone_id, 0)
+            total_score = max_busyness + demographic_score
+            zone_scores.append({
+                'zone_id': zone_id,
+                'zone_name': Zone.objects.get(id=zone_id).name,
+                'total_score': total_score,
+                'demographic_score': demographic_score,
+                'max_busyness': max_busyness,
+                'max_busyness_time': max_busyness_times[zone_id]
+            })
+        
+        # Step 7: Get advertising locations for the zones
+        advertising_locations = AdvertisingLocation.objects.filter(zone_id__in=[z['zone_id'] for z in zone_scores])
+
+        # Step 8: Recommend top N advertising locations based on combined score and cost per day
+        recommendations = []
+        for location in advertising_locations:
+            zone_score = next(z for z in zone_scores if z['zone_id'] == location.zone_id)
+            total_score_with_cost = zone_score['total_score'] - (location.cost_per_day / 5) # Adjust the total score by subtracting the cost
+            recommendations.append({
+                'location': location.location,
+                'format': location.format,
+                'category_alias': location.category_alias,
+                'market': location.market,
+                'size': location.size,
+                'description': location.description,
+                'calculated_cpm': location.calculated_cpm,
+                'views': location.views,
+                'design_url': location.design_template_url,
+                'cost_per_day': location.cost_per_day,
+                'latitude': location.latitude,
+                'longitude': location.longitude,
+                'zone_id': location.zone_id,
+                'zone_name': zone_score['zone_name'],
+                'total_score': zone_score['total_score'],
+                'total_score_with_cost': total_score_with_cost,
+                'demographic_score': zone_score['demographic_score'],
+                'max_busyness': zone_score['max_busyness'],
+                'max_busyness_time': zone_score['max_busyness_time'],
+                'property': location.property_id,
+                'photo_url': location.photo_url
+            })
+
+        # Sort recommendations by total score with cost and limit to top N
+        recommendations = sorted(recommendations, key=lambda x: -x['total_score_with_cost'])[:top_n]
+
+        cache.set(cache_key, recommendations, timeout=60 * 60)  # Cache for 1 hour
+        return Response(recommendations, status=status.HTTP_200_OK)
 
 class InterestZoneCountByZoneView(APIView):
     """
