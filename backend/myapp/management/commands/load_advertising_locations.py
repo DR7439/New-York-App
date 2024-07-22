@@ -1,4 +1,3 @@
-# myapp/management/commands/load_advertising_locations.py
 from django.core.management.base import BaseCommand
 import pandas as pd
 from myapp.models import Zone, AdvertisingLocation
@@ -28,10 +27,12 @@ class Command(BaseCommand):
                         'size': row['properties.size'][:255],  # Truncate if necessary
                         'design_template_url': row['properties.designTemplateUrl'][:255],  # Truncate if necessary
                         'description': row['properties.description'][:255],  # Truncate if necessary
-                        'calculated_cpm': row['properties.display.calculatedCpm'][:255],  # Truncate if necessary
+                        'calculated_cpm': row['properties.display.calculatedCpm'],  # Assuming this is a float
                         'views': row['properties.display.views'],
                         'cost_per_day': row['cost-per-day'],
-                        'numbers_total': row['properties.numbers.total']
+                        'numbers_total': row['properties.numbers.total'],
+                        'property_id': row['property_id'],  # New field
+                        'photo_url': row['photo_url']  # New field
                     }
                 )
                 if created:

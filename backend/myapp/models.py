@@ -195,6 +195,8 @@ class AdvertisingLocation(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    property_id = models.CharField(max_length=255, null=True, blank=True)  
+    photo_url = models.URLField(null=True, blank=True)  
 
     def __str__(self):
         return f'{self.location} ({self.latitude}, {self.longitude})'
