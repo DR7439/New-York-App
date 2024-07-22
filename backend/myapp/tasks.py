@@ -16,9 +16,14 @@ def background_task(search_id):
     zones = Zone.objects.all()
 
 
-    # Extract target age groups and market interests from the search instance
-    selected_genders = ['Male', 'Female'] if search.gender == 'B' else [search.gender]
-    selected_age_groups = [age_category.name for age_category in search.target_age.all()]
+    
+    if search.gender == 'M':
+        selected_genders = ['Male']
+    elif search.gender == 'F':
+        selected_genders = ['Female']
+    else:
+        selected_genders = ['Male', 'Female']
+    selected_age_groups = [age_category.age_range for age_category in search.target_age.all()]
     selected_businesses = [interest.name for interest in search.target_market_interests.all()]
 
     # Define the selections and weights
@@ -26,12 +31,12 @@ def background_task(search_id):
     business_weight = 1 - demographic_weight
 
     # Load the demographic and business data
-    demographics_data = pd.read_csv('backend/mnt/data/demographic_scores_and_ranks.csv')
-    business_data = pd.read_csv('backend/mnt/data/business_score_ranks.csv')
+    demographics_data = pd.read_csv('mnt/data/demographic_scores_and_ranks.csv')
+    business_data = pd.read_csv('mnt/data/business_score_ranks.csv')
 
     # Calculate the combined scores and ranks
     combined_scores = calculate_combined_scores_and_ranks(demographics_data, business_data, selected_genders, selected_age_groups, selected_businesses, demographic_weight, business_weight)
-
+    print(combined_scores)
     # Create demographic scores for each zone for the search
     for _, row in combined_scores.iterrows():
         zone = Zone.objects.get(id=row['zone_id'])
@@ -150,6 +155,7 @@ def validate_selection(selection, valid_values, selection_name):
 
     invalid_values = [item for item in selection if item not in valid_values]
     if invalid_values:
+        print(valid_values)
         raise ValueError(f"Invalid {selection_name} values: {invalid_values}")
 
     return selection
