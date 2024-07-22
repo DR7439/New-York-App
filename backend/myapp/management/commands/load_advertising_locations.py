@@ -14,25 +14,25 @@ class Command(BaseCommand):
 
         for _, row in data.iterrows():
             try:
-                zone = Zone.objects.get(id=row['zone_id'])
+                zone = Zone.objects.get(id=int(row['zone_id']))
                 advertising_location, created = AdvertisingLocation.objects.get_or_create(
-                    latitude=row['properties.lat'],
-                    longitude=row['properties.lng'],
+                    latitude=float(row['properties.lat']),
+                    longitude=float(row['properties.lng']),
                     zone=zone,
                     defaults={
-                        'location': row['properties.location'][:255],  # Truncate if necessary
-                        'format': row['properties.format'][:255],  # Truncate if necessary
-                        'category_alias': row['properties.categoryAlias'][:255],  # Truncate if necessary
-                        'market': row['properties.market'][:255],  # Truncate if necessary
-                        'size': row['properties.size'][:255],  # Truncate if necessary
-                        'design_template_url': row['properties.designTemplateUrl'][:255],  # Truncate if necessary
-                        'description': row['properties.description'][:255],  # Truncate if necessary
-                        'calculated_cpm': row['properties.display.calculatedCpm'],  # Assuming this is a float
-                        'views': row['properties.display.views'],
-                        'cost_per_day': row['cost-per-day'],
-                        'numbers_total': row['properties.numbers.total'],
-                        'property_id': row['property_id'],  # New field
-                        'photo_url': row['photo_url']  # New field
+                        'location': str(row['properties.location'])[:255],  # Truncate if necessary
+                        'format': str(row['properties.format'])[:255],  # Truncate if necessary
+                        'category_alias': str(row['properties.categoryAlias'])[:255],  # Truncate if necessary
+                        'market': str(row['properties.market'])[:255],  # Truncate if necessary
+                        'size': str(row['properties.size'])[:255],  # Truncate if necessary
+                        'design_template_url': str(row['properties.designTemplateUrl'])[:255],  # Truncate if necessary
+                        'description': str(row['properties.description'])[:255],  # Truncate if necessary
+                        'calculated_cpm': float(row['properties.display.calculatedCpm']),
+                        'views': int(row['properties.display.views']),
+                        'cost_per_day': float(row['cost-per-day']),
+                        'numbers_total': int(row['properties.numbers.total']),
+                        'property_id': int(row['properties.sellingCompanyId']),
+                        'photo_url': str(row['photo_url'])
                     }
                 )
                 if created:

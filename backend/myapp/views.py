@@ -665,9 +665,9 @@ class RecommendAdvertisingLocationsView(APIView):
         cache_key = f"recommend_advertising_locations_{search_id}_{date_str}_{top_n}"
         cached_data = cache.get(cache_key)
 
-        if cached_data:
-            return Response(cached_data, status=status.HTTP_200_OK)
-
+       # if cached_data:
+        #    return Response(cached_data, status=status.HTTP_200_OK)
+        
         # Step 3: Get busyness data for each zone for that day
         busyness_data = Busyness.objects.filter(datetime__date=date.date())
 
@@ -680,7 +680,7 @@ class RecommendAdvertisingLocationsView(APIView):
 
         # Create a dictionary for easy lookup of demographic scores
         demographic_scores = {d.zone_id: d.score for d in demographics}
-
+        
         # Step 6: Calculate the total score (max busyness + demographic score) for each zone
         zone_scores = []
         for item in max_busyness_per_zone:
@@ -696,13 +696,14 @@ class RecommendAdvertisingLocationsView(APIView):
                 'max_busyness': max_busyness,
                 'max_busyness_time': max_busyness_times[zone_id]
             })
-
+        
         # Step 7: Get advertising locations for the zones
         advertising_locations = AdvertisingLocation.objects.filter(zone_id__in=[z['zone_id'] for z in zone_scores])
-
+        print(advertising_locations)
         # Step 8: Recommend top N advertising locations based on combined score and cost per day
         recommendations = []
         for location in advertising_locations:
+            print(location)
             zone_score = next(z for z in zone_scores if z['zone_id'] == location.zone_id)
             recommendations.append({
                 'location': location.location,
@@ -722,7 +723,9 @@ class RecommendAdvertisingLocationsView(APIView):
                 'total_score': zone_score['total_score'],
                 'demographic_score': zone_score['demographic_score'],
                 'max_busyness': zone_score['max_busyness'],
-                'max_busyness_time': zone_score['max_busyness_time']
+                'max_busyness_time': zone_score['max_busyness_time'],
+                'property': location.property_id,
+                'photo_url': location.photo_url
             })
 
         # Sort recommendations by total score and cost per day
