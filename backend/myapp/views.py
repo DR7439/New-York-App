@@ -190,7 +190,7 @@ class SearchAPIView(APIView):
         start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
 
-        if start_date >= end_date:
+        if start_date > end_date:
             return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
 
         search_duration = (end_date - start_date).days + 1  # Including both start and end date
