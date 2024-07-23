@@ -188,8 +188,8 @@ class SearchAPIView(APIView):
             return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
 
         search_duration = (end_date - start_date).days + 1  # Including both start and end date
-        if search_duration > 14:
-            return Response({"error": "Search duration cannot be more than 14 days."}, status=status.HTTP_400_BAD_REQUEST)
+        if search_duration > 15:
+            return Response({"error": "Search duration cannot be more than 15 days."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Calculate required credits
         required_credits = 10 * search_duration
@@ -212,8 +212,6 @@ class SearchAPIView(APIView):
                 CreditUsage.objects.create(user=user, credits_used=required_credits)
             
             user.save()
-
-            print("search_id: ", search_id)
             background_task.delay(search_id)
 
             # Invalidate cache for the user
@@ -700,6 +698,10 @@ class RecommendAdvertisingLocationsView(APIView):
             if location.calculated_cpm == 0:
                 total_score_with_cost -= 100
 
+            if location.category_alias == 'Restaurant / Bar' or location.category_alias == 'Movie Theater':
+                if 2 <= zone_score['max_busyness_time'].hour < 12:
+                    total_score_with_cost = 0
+
            
             recommendations.append({
                 'location': location.location,
@@ -879,7 +881,6 @@ class StripeWebhookView(View):
         payload = request.body.decode('utf-8')
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
         endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
-        print('endpoint: ', endpoint_secret)
         
 
         try:
@@ -887,30 +888,24 @@ class StripeWebhookView(View):
                 payload, sig_header, endpoint_secret
             )
         except ValueError as e:
-            print(f"ValueError: {e}")
             return HttpResponse(status=400)
         except stripe.error.SignatureVerificationError as e:
-            print(f"SignatureVerificationError: {e}")
             return HttpResponse(status=400)
 
-        print(f"Event type: {event['type']}")
+        
 
         if event['type'] == 'payment_intent.succeeded':
             payment_intent = event['data']['object']
             user_id = payment_intent['metadata'].get('user_id')
             amount_received = payment_intent['amount_received']  # amount_received is in cents
 
-            print(f"Payment Intent: {payment_intent}")
-            print(f"User ID: {user_id}")
-            print(f"Amount Received: {amount_received}")
+           
 
             try:
                 user = CustomUser.objects.get(id=user_id)
                 user.credits += int(amount_received) // 10  
                 user.save()
-                print(f"User {user.username} credits updated to {user.credits}")
             except CustomUser.DoesNotExist:
-                print(f"User with ID {user_id} does not exist")
                 return HttpResponse(status=404)
 
         return HttpResponse(status=200)
