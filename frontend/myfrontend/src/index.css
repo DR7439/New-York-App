@@ -38,3 +38,8 @@ code {
 .ant-carousel .slick-arrow.slick-prev {
   @apply left-4;
 }
+
+.gradient-cover {
+  @apply absolute inset-0 pointer-events-none opacity-90;
+  background: linear-gradient(90deg, transparent 0 90%, white 100% 100%);
+}

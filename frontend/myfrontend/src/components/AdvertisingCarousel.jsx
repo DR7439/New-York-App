@@ -17,7 +17,7 @@ const AdvertisingCarousel = ({ advertisingLocations }) => {
   return (
     <div className="relative">
       <Carousel
-      className="pb-8"
+        className="pb-8"
         dotPosition="bottom"
         ref={carouselRef}
         slidesToShow={2}
@@ -31,9 +31,11 @@ const AdvertisingCarousel = ({ advertisingLocations }) => {
         // infinite
       >
         {advertisingLocations.map((location, index) => (
-          <CardItem key={index} index={index} location={location}/>
+          <CardItem key={index} index={index} location={location} />
         ))}
       </Carousel>
+      <div className="gradient-cover"></div>
+
       <button
         className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutral-400 hover:bg-blue-600 w-10 h-10 text-white rounded-full flex items-center justify-center"
         onClick={prev}
@@ -52,7 +54,7 @@ const AdvertisingCarousel = ({ advertisingLocations }) => {
 
 function CardItem({ location, index }) {
   return (
-    <div className="mr-12">
+    <div className="mr-12 select-none">
       <div className="hover:shadow-xl hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer">
         <div className="text-base px-4">
           <b>Rank {index + 1}</b>
