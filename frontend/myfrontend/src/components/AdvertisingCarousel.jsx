@@ -3,7 +3,7 @@ import { Carousel } from "antd";
 import PropTypes from "prop-types";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
-const AdvertisingCarousel = ({ advertisingLocations }) => {
+const AdvertisingCarousel = ({ advertisingLocations, onCardClick }) => {
   const carouselRef = React.useRef(null);
 
   const next = () => {
@@ -31,7 +31,12 @@ const AdvertisingCarousel = ({ advertisingLocations }) => {
         // infinite
       >
         {advertisingLocations.map((location, index) => (
-          <CardItem key={index} index={index} location={location} />
+          <CardItem
+            key={index}
+            index={index}
+            location={location}
+            onClick={() => onCardClick(location)}
+          />
         ))}
       </Carousel>
       <div className="gradient-cover"></div>
@@ -52,10 +57,13 @@ const AdvertisingCarousel = ({ advertisingLocations }) => {
   );
 };
 
-function CardItem({ location, index }) {
+function CardItem({ location, index, onClick }) {
   return (
     <div className="mr-12 select-none">
-      <div className="hover:shadow-xl hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer">
+      <div
+        className="hover:shadow-xl hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer"
+        onClick={onClick}
+      >
         <div className="text-base px-4">
           <b>Rank {index + 1}</b>
           <span className="ml-2 text-black/45">{location.location}</span>
@@ -79,7 +87,7 @@ function CardItem({ location, index }) {
               <b>Busyness Score:</b> {Math.round(location.max_busyness)}/100
             </span>
             <span>
-              <b className="mr-1">Recommend Tcore:</b>
+              <b className="mr-1">Recommend Time:</b>
               {new Date(location.max_busyness_time).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",

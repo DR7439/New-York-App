@@ -70,7 +70,8 @@ function getDateArray(startDate, endDate) {
 const Analytics = () => {
   let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(null);
-  let [selectedZone, setSelectedZone] = useState(null);
+  let [selectedZoneId, setSelectedZoneId] = useState(null);
+  let [selectedMapZone, setSelectedMapZone] = useState(null);
   let [showRecommendations, setShowRecommendations] = useState(true);
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
@@ -93,17 +94,22 @@ const Analytics = () => {
       setOpen(true);
     }
   }, [loading]);
-  let handleLocationClick = (record) => {
-    setSelectedZone(record.zone_id);
-    document.getElementById("zone-tabs").scrollIntoView({
+
+  let handleCardClick = (record) => {
+    console.log('9779 react-router-dom', record);
+    setSelectedZoneId(record.zone_id);
+    // setSelectedDate(record.datetime);
+    // setSelectedMapZone(record);
+    document.getElementById("map-container").scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-  };
-
-  let handleTimeClick = (record) => {
+  }
+  let handleRowItemClick = (record) => {
+    setSelectedZoneId(record.zone_id);
     // setSelectedDate(record.datetime);
-    document.getElementById("zone-tabs").scrollIntoView({
+    setSelectedMapZone(record);
+    document.getElementById("map-container").scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -138,7 +144,7 @@ const Analytics = () => {
       })),
       onFilter: (value, record) => record.zone_id === value,
       render: (text, record) => (
-        <Button type="link" onClick={() => handleLocationClick(record)}>
+        <Button type="link" onClick={() => handleRowItemClick(record)}>
           {text}
         </Button>
       ),
@@ -151,7 +157,7 @@ const Analytics = () => {
         // show the time in the table
         let timeToShow = text.split("T")[1].split(":")[0];
         return (
-          <Button type="link" onClick={() => handleTimeClick(record)}>
+          <Button type="link" onClick={() => handleRowItemClick(record)}>
             {`${timeToShow}:00`}
           </Button>
         );
@@ -222,7 +228,7 @@ const Analytics = () => {
         if (res) {
           let topZones = res;
           setTopZones(topZones);
-          setSelectedZone(topZones[0]?.zone_id);
+          setSelectedZoneId(topZones[0]?.zone_id);
           let scores = parseScoresFromTopZones(topZones);
           setTableData(scores);
         }
@@ -273,7 +279,6 @@ const Analytics = () => {
 
   let renderContent = (
     <>
-      <Maps />
       <div>
         <div className="flex gap-4 justify-between items-center mb-10">
           <div id="select-date" className="flex gap-2 items-center">
@@ -301,7 +306,7 @@ const Analytics = () => {
             </h4>
             <SearchModalTrigger />
           </div>
-          <AdvertisingCarousel advertisingLocations={advertisingLocations} />
+          <AdvertisingCarousel advertisingLocations={advertisingLocations} onCardClick={handleCardClick} />
         </div>
         {showRecommendations && (
           <div id="recommendations-table" className="space-y-4">
@@ -321,7 +326,7 @@ const Analytics = () => {
           </div>
         )}
       </div>
-
+      <Maps id={id} selectedMapZone={selectedMapZone} />
       <div className="space-y-8">
         <div id="zone-tabs">
           <h3 className="text-xl font-medium">Data Analysis</h3>
@@ -330,21 +335,21 @@ const Analytics = () => {
               label: item.zone_name,
               key: item.zone_id,
             }))}
-            activeKey={selectedZone}
-            onChange={(key) => setSelectedZone(key)}
+            activeKey={selectedZoneId}
+            onChange={(key) => setSelectedZoneId(key)}
           />
         </div>
         <div id="tour-line-chart">
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
-          <LineChart searchId={id} zoneId={selectedZone} date={selectedDate} />
+          <LineChart searchId={id} zoneId={selectedZoneId} date={selectedDate} />
         </div>
         <div id="tour-column-chart">
           <h4 className="mb-4 font-medium">Demographic by Location</h4>
-          <ColumnChart zoneId={selectedZone} />
+          <ColumnChart zoneId={selectedZoneId} />
         </div>
         <div id="tour-pie-chart">
           <h4 className="mb-4 font-medium">Point-of-interest by Location</h4>
-          <PieChart zoneId={selectedZone} />
+          <PieChart zoneId={selectedZoneId} />
         </div>
       </div>
     </>
