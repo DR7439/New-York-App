@@ -25,7 +25,11 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT, TOUR_STORAGE_KEY } from "./constant";
+import {
+  ANALYTICS_TOUR_STEPS,
+  TABLE_TOOLTIP_TEXT,
+  TOUR_STORAGE_KEY,
+} from "./constant";
 import AdvertisingCarousel from "./components/AdvertisingCarousel";
 
 const pad0 = (num) => num.toString().padStart(2, "0");
@@ -67,13 +71,15 @@ function getDateArray(startDate, endDate) {
   return dates;
 }
 
-
 const Analytics = () => {
   let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(null);
   let [selectedZoneId, setSelectedZoneId] = useState(null);
   let [selectedMapZoneId, setSelectedMapZoneId] = useState(null);
-  let [showRecommendations, setShowRecommendations] = useState(() => !Boolean(localStorage.getItem(TOUR_STORAGE_KEY.analytic)));
+  let [selectedMapTime, setSelectedMapTime] = useState(null);
+  let [showRecommendations, setShowRecommendations] = useState(
+    () => !Boolean(localStorage.getItem(TOUR_STORAGE_KEY.analytic))
+  );
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
   let [topZones, setTopZones] = useState([]);
@@ -102,6 +108,7 @@ const Analytics = () => {
   let handleRowItemClick = (record) => {
     setSelectedZoneId(record.zone_id);
     setSelectedMapZoneId(record.zone_id);
+    setSelectedMapTime(record.datetime);
     document.getElementById("map-container").scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -148,10 +155,13 @@ const Analytics = () => {
       filters: timeFilters,
       render(text, record) {
         // show the time in the table
-        let timeToShow = text.split("T")[1].split(":")[0];
+        let timeToShow = new Date(text).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
         return (
           <Button type="link" onClick={() => handleRowItemClick(record)}>
-            {`${timeToShow}:00`}
+            {timeToShow}
           </Button>
         );
       },
@@ -322,7 +332,12 @@ const Analytics = () => {
           </div>
         )}
       </div>
-      <Maps id={id} selectedMapZoneId={selectedMapZoneId} />
+      <Maps
+        id={id}
+        selectedDate={selectedDate}
+        selectedMapZoneId={selectedMapZoneId}
+        selectedTime={selectedMapTime}
+      />
       <div className="space-y-8">
         <div id="zone-tabs">
           <h3 className="text-xl font-medium">Data Analysis</h3>
@@ -357,6 +372,7 @@ const Analytics = () => {
 
   const handleCloseTour = () => {
     setOpen(false);
+    setShowRecommendations(false);
     localStorage.setItem(TOUR_STORAGE_KEY.analytic, true);
   };
 

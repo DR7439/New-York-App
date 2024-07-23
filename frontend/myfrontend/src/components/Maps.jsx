@@ -6,7 +6,7 @@ import axiosInstance from "../axiosInstance";
 // import { FlyToInterpolator } from 'mapbox-gl';
 
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
-export default function Map({ id, selectedMapZoneId }) {
+export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime }) {
   const [geoJson, setGeoJson] = useState(null);
   const [zoneData, setZoneData] = useState(null);
   const [zoneInfo, setZoneInfo] = useState(null);
@@ -219,10 +219,6 @@ export default function Map({ id, selectedMapZoneId }) {
     }
   }, [zoneData]);
 
-  const getCurrentDate = () => {
-    const today = new Date();
-    return today.toISOString().split("T")[0];
-  };
   //My getZoneDetails function
   const getZoneDetails = (zoneName) => {
     const zoneIds = completeZoneInfo
@@ -235,12 +231,11 @@ export default function Map({ id, selectedMapZoneId }) {
         return;
       }
 
-      const currentDate = getCurrentDate();
       const zoneId = zoneIds[index];
 
       axiosInstance
         .get(
-          `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${currentDate}&zone_id=${zoneId}`
+          `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
         )
         .then((res) => {
           if (res.data && res.data.busyness_scores) {
@@ -464,9 +459,7 @@ export default function Map({ id, selectedMapZoneId }) {
   // My orignal useEffect for synchronisation
   useEffect(() => {
     if (selectedMapZoneId && completeZoneInfo) {
-      const zone = completeZoneInfo.find(
-        (z) => z.id === selectedMapZoneId
-      );
+      const zone = completeZoneInfo.find((z) => z.id === selectedMapZoneId);
       if (zone) {
         const newSelectedZone = {
           id: zone.id,
@@ -491,6 +484,11 @@ export default function Map({ id, selectedMapZoneId }) {
     }
   }, [selectedMapZoneId, completeZoneInfo]);
 
+  useEffect(() => {
+    if (selectedTime) {
+      handleSelectHour(selectedTime);
+    }
+  }, [selectedTime]);
   const layerStyle = {
     id: "outline",
     type: "fill",
@@ -540,9 +538,31 @@ export default function Map({ id, selectedMapZoneId }) {
     },
   };
 
+  const handleSelectHour = (value) => {
+    setSelectedHour(value);
+    const formatTime = (timeString) => {
+      const date = new Date(timeString);
+      date.setHours(date.getHours() + 1);
+      return date.toISOString().split(".")[0] + "Z";
+    };
+    const formattedValue = formatTime(value);
+    const selectedScore = busynessScores.find(
+      (score) => score.time === formattedValue
+    );
+    if (selectedScore) {
+      setSelectedZone((prevZone) => ({
+        ...prevZone,
+        busyness_score: selectedScore.busyness_score,
+        selectedHour: value,
+      }));
+    } else {
+      console.log("No score found for selected time");
+    }
+  };
+
   return (
     <div id="map-container" className="flex flex-col  w-full">
-      <h1 className="text-xl font-medium text-left pb-12">Map Visualization</h1>
+      <h4 className="text-xl font-medium text-left mb-4">Map Visualization</h4>
       <div className="flex w-full h-[418px] space-x-6">
         <ReactMapGL
           {...viewport}
@@ -604,26 +624,8 @@ export default function Map({ id, selectedMapZoneId }) {
                       <Select
                         style={{ width: "100%", marginTop: "10px" }}
                         placeholder="Select hour"
-                        onChange={(value) => {
-                          const formatTime = (timeString) => {
-                            const date = new Date(timeString);
-                            date.setHours(date.getHours() + 1);
-                            return date.toISOString().split(".")[0] + "Z";
-                          };
-                          const formattedValue = formatTime(value);
-                          const selectedScore = busynessScores.find(
-                            (score) => score.time === formattedValue
-                          );
-                          if (selectedScore) {
-                            setSelectedZone((prevZone) => ({
-                              ...prevZone,
-                              busyness_score: selectedScore.busyness_score,
-                              selectedHour: value,
-                            }));
-                          } else {
-                            console.log("No score found for selected time");
-                          }
-                        }}
+                        value={selectedHour}
+                        onChange={handleSelectHour}
                       >
                         {busynessScores
                           .sort((a, b) => new Date(a.time) - new Date(b.time))

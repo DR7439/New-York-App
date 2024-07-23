@@ -35,7 +35,10 @@ const AdvertisingCarousel = ({ advertisingLocations, onCardClick }) => {
             key={index}
             index={index}
             location={location}
-            onClick={() => onCardClick(location)}
+            onClick={() => onCardClick({
+              zone_id: location.zone_id,
+              datetime: location.max_busyness_time
+            })}
           />
         ))}
       </Carousel>
