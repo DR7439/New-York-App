@@ -10,10 +10,10 @@ let Layout = () => {
       <SearchModal />
       <div className="flex flex-col h-screen">
         <Header />
-        <div className="flex gap-4">
+        <div className="flex">
           <Navbar />
           <div className="h-screen-no-nav overflow-auto w-full">
-            <div className="space-y-12 max-w-7xl mx-auto py-10 ">
+            <div className="space-y-12 max-w-7xl mx-auto py-10 px-4">
               <Outlet />
             </div>
           </div>

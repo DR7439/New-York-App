@@ -1,6 +1,7 @@
 import { Column } from "@ant-design/charts";
 import React, { useEffect } from "react";
 import axiosInstance from "../axiosInstance";
+import fetchWithCache from "../utils/fetchWithCache";
 
 const ColumnChart = ({ zoneId }) => {
   let [data, setData] = React.useState([]);
@@ -18,19 +19,23 @@ const ColumnChart = ({ zoneId }) => {
   };
 
   function sortFn(a, b) {
-    let aNum = parseInt(a.split("-",)[0]);
-    let bNum = parseInt(b.split("-",)[0]);
+    let aNum = parseInt(a.split("-")[0]);
+    let bNum = parseInt(b.split("-")[0]);
     return aNum - bNum;
   }
 
   function fetchData() {
-    axiosInstance.get(`/api/zones/${zoneId}/details`).then((res) => {
-      let age_demographics = res.data.age_demographics;
-      let data = Object.keys(age_demographics).sort(sortFn).map((key) => ({
-        age: key.replaceAll("to", "-").replaceAll("years", ""),
-        score: age_demographics[key],
-      }));
-      setData(data);
+    fetchWithCache(`/api/zones/${zoneId}/details`).then((_data) => {
+      if (_data) {
+        let age_demographics = _data.age_demographics;
+        let data = Object.keys(age_demographics)
+          .sort(sortFn)
+          .map((key) => ({
+            age: key.replaceAll("to", "-").replaceAll("years", ""),
+            score: age_demographics[key],
+          }));
+        setData(data);
+      }
     });
   }
 

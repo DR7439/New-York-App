@@ -1,17 +1,32 @@
 // src/Dashboard.js
-import React, { useEffect } from "react";
-import { Breadcrumb, Button, Select, Spin, Table, Tabs, Tag } from "antd";
-import { SearchModalTrigger } from "./components/SearchModal";
-import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import LineChart from "./components/LineChart";
-import ColumnChart from "./components/ColumnChart";
+import {
+  CheckCircleOutlined,
+  LoadingOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+import {
+  Breadcrumb,
+  Button,
+  Popover,
+  Select,
+  Skeleton,
+  Spin,
+  Table,
+  Tabs,
+  Tag,
+  Tour,
+} from "antd";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useSearches from "./hooks/useSearches";
-import Maps from "./components/Maps";
 import axiosInstance from "./axiosInstance";
+import ColumnChart from "./components/ColumnChart";
+import LineChart from "./components/LineChart";
+import Maps from "./components/Maps";
 import PieChart from "./components/PieChart";
-
+import { SearchModalTrigger } from "./components/SearchModal";
+import useSearches from "./hooks/useSearches";
+import fetchWithCache from "./utils/fetchWithCache";
+import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
 const pad0 = (num) => num.toString().padStart(2, "0");
 
 const timeFilters = [...Array(24).keys()].map((i) => ({
@@ -55,22 +70,60 @@ const Analytics = () => {
   let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(null);
   let [selectedZone, setSelectedZone] = useState(null);
+  const [selectedMapZone, setSelectedMapZone] = useState(null);
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
+  let [loading, setLoading] = useState(true);
+  let [open, setOpen] = useState(false); // open the tour
+  let visitedTour = localStorage.getItem("visited-analytics-tour");
+  const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
+    ...step,
+    cover: step.imgSrc && <img alt="tour.png" src={step.imgSrc} />,
+    target: () => document.getElementById(step.id),
+  }));
+  useEffect(() => {
+    if (!loading && !visitedTour) {
+      setOpen(true);
+    }
+  }, [loading]);
 
+  // ORIGINAL HANDLELOCATION
   let handleLocationClick = (record) => {
     setSelectedZone(record.zone_id);
-    document.getElementById("zone-tabs").scrollIntoView({
+    setSelectedMapZone(record);
+    document.getElementById("map-container").scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+
+    
   };
+
+  // let handleLocationClick = (record) => {
+  //   setSelectedZone(record.zone_id);
+  //   const selectedZoneData = topZones.find(zone => zone.zone_id === record.zone_id);
+  //   if (selectedZoneData && selectedZoneData.boundary_coordinates) {
+  //     setSelectedMapZone({
+  //       ...record,
+  //       clickLngLat: {
+  //         lng: selectedZoneData.boundary_coordinates[0][0],
+  //         lat: selectedZoneData.boundary_coordinates[0][1]
+  //       }
+  //     });
+  //   }
+  //   document.getElementById("map-container").scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   });
+  // };
+  
+
 
   let handleTimeClick = (record) => {
     // setSelectedDate(record.datetime);
-    document.getElementById("zone-tabs").scrollIntoView({
+    document.getElementById("map-container").scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -78,7 +131,20 @@ const Analytics = () => {
 
   const columns = [
     {
-      title: "Ranking",
+      title: (
+        <div>
+          Ranking
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.ranking}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "key",
       sorter: (a, b) => a.key - b.key,
     },
@@ -117,7 +183,20 @@ const Analytics = () => {
       },
     },
     {
-      title: "Demographic Score",
+      title: (
+        <div>
+          Demographic Score{" "}
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.demographic}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "demographic_score",
       sorter: (a, b) => a.demographic_score - b.demographic_score,
       render: (text, record) => (
@@ -129,7 +208,20 @@ const Analytics = () => {
       ),
     },
     {
-      title: "Busyness Score",
+      title: (
+        <div>
+          Busyness Score
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.busyness}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
       dataIndex: "busyness_score",
       sorter: (a, b) => a.busyness_score - b.busyness_score,
       render: (text, record) => (
@@ -142,14 +234,21 @@ const Analytics = () => {
     },
   ];
   async function loadDataByDate(date) {
-    axiosInstance
-      .get(`/api/top-zones/?search_id=${id}&date=${date}`)
+    setLoading(true);
+    // for testing skeleton
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
-        let topZones = res.data;
-        setTopZones(topZones);
-        setSelectedZone(topZones[0]?.zone_id);
-        let scores = parseScoresFromTopZones(topZones);
-        setTableData(scores);
+        if (res) {
+          let topZones = res;
+          setTopZones(topZones);
+          setSelectedZone(topZones[0]?.zone_id);
+          let scores = parseScoresFromTopZones(topZones);
+          setTableData(scores);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   useEffect(() => {
@@ -174,8 +273,87 @@ const Analytics = () => {
   const targetDates = getDateArray(search.start_date, search.end_date);
   const dateOptions = targetDates.map((date) => ({ value: date, label: date }));
 
+  const loadingContent = (
+    <div className="space-y-12">
+      <Skeleton active paragraph={{ rows: 8 }} />
+      <Skeleton active paragraph={{ rows: 8 }} />
+      <Skeleton active paragraph={{ rows: 8 }} />
+      <Skeleton active paragraph={{ rows: 8 }} />
+    </div>
+  );
+
+  let renderContent = (
+    <>
+     
+      <div>
+        <div id="select-date" className="flex gap-2 items-center mb-10">
+          <h4 className="text-xl font-medium">Select Target Date</h4>
+          <Select
+            id="tour1"
+            className="w-60"
+            value={selectedDate}
+            onChange={(value) => setSelectedDate(value)}
+            options={dateOptions}
+          />
+        </div>
+        <div id="recommendations-table" className="space-y-4">
+          <div className="flex items-center justify-between mt-7">
+            <h4 className="text-xl font-medium">Recommendations</h4>
+            <div className="flex gap-4 items-center">
+              <SearchModalTrigger />
+            </div>
+          </div>
+          <Table
+            className="mt-4"
+            columns={columns}
+            dataSource={tableData}
+            pagination={{
+              defaultPageSize: 10,
+              showQuickJumper: true,
+              showSizeChanger: true,
+            }}
+          />
+        </div>
+      </div>
+      <Maps  id={id} selectedMapZone={selectedMapZone}/>
+      {/* selectedMapZone={selectedMapZone} */}
+
+      <div className="space-y-8">
+        <div id="zone-tabs">
+          <h3 className="text-xl font-medium">Data Analysis</h3>
+          <Tabs
+            items={topZones.map((item) => ({
+              label: item.zone_name,
+              key: item.zone_id,
+            }))}
+            activeKey={selectedZone}
+            onChange={(key) => setSelectedZone(key)}
+          />
+        </div>
+        <div id="tour-line-chart">
+          <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
+          <LineChart searchId={id} zoneId={selectedZone} date={selectedDate} />
+        </div>
+        <div id="tour-column-chart">
+          <h4 className="mb-4 font-medium">Demographic by Location</h4>
+          <ColumnChart zoneId={selectedZone} />
+        </div>
+        <div id="tour-pie-chart">
+          <h4 className="mb-4 font-medium">Point-of-interest by Location</h4>
+          <PieChart zoneId={selectedZone} />
+        </div>
+      </div>
+    </>
+  );
+
+  const handleCloseTour = () => {
+    setOpen(false);
+    localStorage.setItem("visited-analytics-tour", "true");
+  };
+
   return (
     <>
+      <Tour open={open} onClose={handleCloseTour} steps={steps} />
       <Breadcrumb
         items={[
           {
@@ -194,61 +372,8 @@ const Analytics = () => {
         <p className="mt-2 text-neutral-500">
           View detailed search results with data analysis and recommendations.
         </p>
-        <Maps />
       </div>
-      <div>
-        <div className="flex gap-2 items-center mb-10">
-          <h4 className="text-xl font-medium">Select Target Date</h4>
-          <Select
-            className="w-60"
-            value={selectedDate}
-            onChange={(value) => setSelectedDate(value)}
-            options={dateOptions}
-          />
-        </div>
-        <div className="flex items-center justify-between mt-7">
-          <h4 className="text-xl font-medium">Recommendations</h4>
-          <div className="flex gap-4 items-center">
-            <SearchModalTrigger />
-          </div>
-        </div>
-        <Table
-          className="mt-4"
-          columns={columns}
-          dataSource={tableData}
-          pagination={{
-            defaultPageSize: 10,
-            showQuickJumper: true,
-            showSizeChanger: true,
-          }}
-        />
-      </div>
-
-      <div className="space-y-8">
-        <div id="zone-tabs">
-          <h3 className="text-xl font-medium">Data Analysis</h3>
-          <Tabs
-            items={topZones.map((item) => ({
-              label: item.zone_name,
-              key: item.zone_id,
-            }))}
-            activeKey={selectedZone}
-            onChange={(key) => setSelectedZone(key)}
-          />
-        </div>
-        <div>
-          <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
-          <LineChart searchId={id} zoneId={selectedZone} date={selectedDate} />
-        </div>
-        <div>
-          <h4 className="mb-4 font-medium">Demographic by Location</h4>
-          <ColumnChart zoneId={selectedZone} />
-        </div>
-        <div>
-          <h4 className="mb-4 font-medium">Point-of-interest by Location</h4>
-          <PieChart zoneId={selectedZone} />
-        </div>
-      </div>
+      {loading ? loadingContent : renderContent}
     </>
   );
 };
