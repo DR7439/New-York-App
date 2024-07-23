@@ -239,6 +239,7 @@ const Analytics = () => {
           setTopZones(topZones);
           setSelectedZoneId(topZones[0]?.zone_id);
           let scores = parseScoresFromTopZones(topZones);
+          console.log("🚀 ~ .then ~ scores:", scores);
           setTableData(scores);
         }
       })
@@ -250,6 +251,7 @@ const Analytics = () => {
       `/api/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`
     ).then((res) => {
       if (res) {
+        console.log("🚀 ~ ).then ~ res:", res);
         setAdvertisingLocations(res);
       }
     });

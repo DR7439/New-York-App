@@ -133,18 +133,24 @@ export const ANALYTICS_TOUR_STEPS = [
     placement: "top",
     id: "recommendations-table",
   },
-  {
-    title: "Location cell",
-    description: "Location cell description",
+    {
+    title: "Recommendations table row",
+    description: "Recommendations table row description",
     placement: "top",
-    selector: 'td.ant-table-cell:nth-child(2)'
+    selector: 'tbody>tr:first-child'
   },
-  {
-    title: "Time cell",
-    description: "Time cell description",
-    placement: "top",
-    selector: 'td.ant-table-cell:nth-child(3)'
-  },  
+  // {
+  //   title: "Location cell",
+  //   description: "Location cell description",
+  //   placement: "top",
+  //   selector: 'td.ant-table-cell:nth-child(2)'
+  // },
+  // {
+  //   title: "Time cell",
+  //   description: "Time cell description",
+  //   placement: "top",
+  //   selector: 'td.ant-table-cell:nth-child(3)'
+  // },  
   {
     title: "Map Visualization",
     description: "Map Visualization description",
