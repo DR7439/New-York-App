@@ -18,7 +18,7 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axiosInstance from "./axiosInstance";
+
 import ColumnChart from "./components/ColumnChart";
 import LineChart from "./components/LineChart";
 import Maps from "./components/Maps";
@@ -26,18 +26,7 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Breadcrumb, Button, Popover, Select, Skeleton, Spin, Table, Tabs, Tag, Tour } from 'antd';
-import { CheckCircleOutlined, LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import ColumnChart from './components/ColumnChart';
-import LineChart from './components/LineChart';
-import Maps from './components/Maps';
-import PieChart from './components/PieChart';
-import { SearchModalTrigger } from './components/SearchModal';
-import useSearches from './hooks/useSearches';
-import fetchWithCache from './utils/fetchWithCache';
+
 import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from './constant';
 import AdvertisingCarousel from './components/AdvertisingCarousel';
 
