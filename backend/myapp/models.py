@@ -179,6 +179,28 @@ class Billboard(models.Model):
     def __str__(self):
         return f'{self.street_name} ({self.latitude}, {self.longitude})'
     
+
+class AdvertisingLocation(models.Model):
+    location = models.CharField(max_length=255, null=True, blank=True)
+    format = models.CharField(max_length=255, null=True, blank=True)
+    category_alias = models.CharField(max_length=255, null=True, blank=True)
+    market = models.CharField(max_length=255, null=True, blank=True)
+    size = models.CharField(max_length=255, null=True, blank=True)
+    design_template_url = models.URLField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    calculated_cpm = models.FloatField(null=True, blank=True)
+    views = models.IntegerField(null=True, blank=True)
+    cost_per_day = models.FloatField(null=True, blank=True)
+    numbers_total = models.IntegerField(null=True, blank=True)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    property_id = models.CharField(max_length=255, null=True, blank=True)  
+    photo_url = models.URLField(null=True, blank=True)  
+
+    def __str__(self):
+        return f'{self.location} ({self.latitude}, {self.longitude})'
+    
 class CreditUsage(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_used = models.DateTimeField(auto_now_add=True)

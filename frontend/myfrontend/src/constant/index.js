@@ -122,6 +122,24 @@ export const ANALYTICS_TOUR_STEPS = [
     id: "recommendations-table",
   },
   {
+    title: "Location cell",
+    description: "Location cell description",
+    placement: "top",
+    selector: 'td.ant-table-cell:nth-child(2)'
+  },
+  {
+    title: "Time cell",
+    description: "Time cell description",
+    placement: "top",
+    selector: 'td.ant-table-cell:nth-child(3)'
+  },  
+  {
+    title: "Busyness chart’s Menu tabs",
+    description: "Busyness chart’s Menu tab description",
+    placement: "top",
+    id: 'zone-tabs'
+  },
+  {
     title: "Busyness Activity by Location",
     description: "Busyness Activity by Location description",
     placement: "top",

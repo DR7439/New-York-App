@@ -5,7 +5,7 @@ import { useNoti } from "./useNoti";
 import { message } from "antd";
 const activeCreditsState = atom({
   key: "activeCredits",
-  default: 0,
+  default: null,
 });
 const usedCreditsState = atom({
   key: "usedCredit",
