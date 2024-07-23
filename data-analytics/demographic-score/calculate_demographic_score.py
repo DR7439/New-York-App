@@ -70,7 +70,7 @@ def calculate_combined_scores_and_ranks(demographics_data, business_data, select
     combined_data['final_avg_score'] = (combined_data['score_demographic'] * demographic_weight + combined_data['score_business'] * business_weight)
 
     #apply min-max scaling to final average score
-    combined_data['final_avg_score'] = (combined_data['final_avg_score'] - combined_data['final_avg_score'].min()) / (combined_data['final_avg_score'].max() - combined_data['final_avg_score'].min())*100
+    # combined_data['final_avg_score'] = (combined_data['final_avg_score'] - combined_data['final_avg_score'].min()) / (combined_data['final_avg_score'].max() - combined_data['final_avg_score'].min())*100
 
     # Calculate percentile rank based on final average score
     combined_data['percentile_rank'] = combined_data['final_avg_score'].rank(pct=True) * 100

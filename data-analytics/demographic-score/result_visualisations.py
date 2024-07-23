@@ -73,7 +73,5 @@ def create_color_coded_map(results_df, path_to_geojson, metric, path_to_output_m
     # Add colormap to the map
     colormap.add_to(m)
 
-    # get current time without special characters
-    current_time = time.strftime("%Y%m%d-%H%M%S")
     # save map into an html file
     m.save(path_to_output_map_file)
