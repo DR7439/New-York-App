@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import axiosInstance from "../axiosInstance";
-import ReactMapGL, { Layer, Marker, Source, Popup } from "react-map-gl";
+import { Card, Select } from "antd";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Card, AutoComplete, Select } from "antd";
-import Icon from "@ant-design/icons/lib/components/Icon";
+import React, { useEffect, useState } from "react";
+import ReactMapGL, { Layer, Marker, Popup, Source } from "react-map-gl";
+import axiosInstance from "../axiosInstance";
 // import { FlyToInterpolator } from 'mapbox-gl';
 
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
@@ -77,112 +76,6 @@ export default function Map({ id, selectedMapZone }) {
       console.log("zoneInfo", zoneInfo);
     }
   }, [zoneInfo]);
-  /// My handleClick
-  // const handleClick = (event) => {
-  //     console.log("Click event:", event);
-  //     if (!event.features || event.features.length === 0) {
-  //         console.log("No features found in click event");
-  //         return;
-  //     }
-  //     const feature = event.features[0];
-  //     console.log("Clicked feature:", feature);
-  //     if (feature) {
-  //         setBillboards([]);
-  //         const matchedZone = completeZoneInfo.find(zone => zone.id === feature.properties.id);
-  //         console.log("This is the complete zone infor Arslan",completeZoneInfo)
-  //         console.log("Matched zone Arslan!:", matchedZone);
-  //         if (matchedZone) {
-  //             const newSelectedZone = {
-  //                 id: matchedZone.id,
-  //                 name: matchedZone.name,
-  //                 score: matchedZone.total_score,
-  //                 demographic_score: matchedZone.demographic_score,
-  //                 busyness_score: matchedZone.busyness_score,
-  //                 clickLngLat: event.lngLat // Use the click coordinates
-  //             };
-  //             console.log("Setting new selected zone:", newSelectedZone);
-  //             setSelectedZone(newSelectedZone);
-  //             setInputValue(newSelectedZone.name);
-  //             if (newSelectedZone.score !== "N/A") {
-  //                 getZoneDetails(matchedZone.name);
-  //             }
-  //         }
-  //     }
-  // };
-
-  // Second handleClick Also works
-
-  // const handleClick = (event) => {
-  //     console.log("Click event:", event);
-  //     if (!event.features || event.features.length === 0) {
-  //         console.log("No features found in click event");
-  //         return;
-  //     }
-  //     const feature = event.features[0];
-  //     console.log("Clicked feature:", feature);
-  //     if (feature) {
-  //         setBillboards([]);
-  //         const matchedZone = completeZoneInfo.find(zone => zone.id === feature.properties.id);
-  //         console.log("This is the complete zone info Arslan", completeZoneInfo);
-  //         console.log("Matched zone Arslan!:", matchedZone);
-  //         if (matchedZone) {
-  //             const newSelectedZone = {
-  //                 id: matchedZone.id,
-  //                 name: matchedZone.name,
-  //                 score: matchedZone.total_score,
-  //                 demographic_score: matchedZone.demographic_score,
-  //                 busyness_score: matchedZone.busyness_score,
-  //                 clickLngLat: event.lngLat // Use the click coordinates
-  //             };
-  //             console.log("Setting new selected zone:", newSelectedZone);
-  //             setSelectedZone(newSelectedZone);
-  //             setInputValue(newSelectedZone.name);
-  //             if (newSelectedZone.score !== "N/A") {
-  //                 getZoneDetails(matchedZone.name);
-  //             }
-
-  //         }
-  //     }
-  // };
-  // Does the job
-  // const handleClick = (event) => {
-  //     console.log("Click event:", event);
-  //     if (!event.features || event.features.length === 0) {
-  //         console.log("No features found in click event");
-  //         return;
-  //     }
-  //     const feature = event.features[0];
-  //     console.log("Clicked feature:", feature);
-  //     if (feature) {
-  //         const matchedZone = completeZoneInfo.find(zone => zone.id === feature.properties.id);
-  //         console.log("This is the complete zone info Arslan", completeZoneInfo);
-  //         console.log("Matched zone Arslan!:", matchedZone);
-  //         if (matchedZone) {
-  //             const newSelectedZone = {
-  //                 id: matchedZone.id,
-  //                 name: matchedZone.name,
-  //                 score: matchedZone.total_score,
-  //                 demographic_score: matchedZone.demographic_score,
-  //                 busyness_score: matchedZone.busyness_score,
-  //                 clickLngLat: event.lngLat
-  //             };
-  //             console.log("Setting new selected zone:", newSelectedZone);
-
-  //             // Check if the new zone is different from the current one
-  //             if (!selectedZone || selectedZone.id !== newSelectedZone.id) {
-  //                 setSelectedZone(newSelectedZone);
-  //                 setInputValue(newSelectedZone.name);
-  //                 setBillboards([]);
-  //                 if (newSelectedZone.score !== "N/A") {
-  //                     getZoneDetails(matchedZone.name);
-  //                 }
-  //             } else {
-  //                 // If it's the same zone, only update the click coordinates
-  //                 setSelectedZone(prevZone => ({...prevZone, clickLngLat: event.lngLat}));
-  //             }
-  //         }
-  //     }
-  // };
 
   const handleClick = (event) => {
     console.log("Click event:", event);
@@ -376,41 +269,6 @@ export default function Map({ id, selectedMapZone }) {
 
   // My billboards function
 
-  // const getBillboards = () => {
-  //     if (selectedZone && selectedZone.id) {
-  //         console.log(`Making API call for billboards, zone ID: ${selectedZone.id}`);
-  //         axiosInstance.get(`/api/billboards/zone/${selectedZone.id}/`)
-  //             .then(res => {
-  //                 console.log('Billboard data received:', res.data);
-  //                 console.log(`Number of billboards: ${res.data.length}`);
-  //                 setBillboards(res.data);
-  //             }).catch(err => {
-  //                 console.error('Error fetching billboards:', err);
-  //             });
-  //     } else {
-  //         console.log('No selected zone or zone ID available');
-  //     }
-  // }
-
-  // const getBillboards = () => {
-  //     if (selectedZone && selectedZone.id) {
-  //         setIsLoading(true);
-  //         console.log(`Making API call for billboards, zone ID: ${selectedZone.id}`);
-  //         axiosInstance.get(`/api/billboards/zone/${selectedZone.id}/`)
-  //             .then(res => {
-  //                 console.log('Billboard data received:', res.data);
-  //                 console.log(`Number of billboards: ${res.data.length}`);
-  //                 setBillboards(res.data);
-  //             }).catch(err => {
-  //                 console.error('Error fetching billboards:', err);
-  //             }).finally(() => {
-  //                 setIsLoading(false);
-  //             });
-  //     } else {
-  //         console.log('No selected zone or zone ID available');
-  //     }
-  // }
-
   const getBillboards = () => {
     if (selectedZone && selectedZone.id) {
       setIsLoadingBillboards(true);
@@ -487,26 +345,6 @@ export default function Map({ id, selectedMapZone }) {
     }
     return geoJson;
   };
-
-  // const ColorBar = () => {
-  //     return (
-  //       <div style={{
-  //         position: 'absolute',
-  //         top: '10px',
-  //         left: '10px',
-  //         width: '200px',
-  //         height: '20px',
-  //         background: 'linear-gradient(to right, #FFEBEE, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)',
-  //         borderRadius: '5px',
-  //         boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-  //       }}>
-  //         <div style={{display: 'flex', justifyContent: 'space-between', padding: '5px 0'}}>
-  //           <span style={{fontSize: '12px'}}>Low Score</span>
-  //           <span style={{fontSize: '12px'}}>High Score</span>
-  //         </div>
-  //       </div>
-  //     );
-  //   };
 
   const ColorBar = () => {
     return (
@@ -704,135 +542,6 @@ export default function Map({ id, selectedMapZone }) {
   };
 
   return (
-    // <div id="map-container" className="flex flex-col  w-full">
-    //    <h1 className="text-xl font-medium text-left pb-12">Map Visualization</h1>
-
-    //     <div className="flex w-full h-[418px] space-x-6">
-    //         <ReactMapGL
-    //             {...viewport}
-    //             className="w-[57%] h-full"
-    //             mapboxAccessToken="pk.eyJ1IjoiYXJzbGFuYWxpOTkiLCJhIjoiY2x5ZzBxcGxmMDVubzJqcjc4bG53YjBwaiJ9.TM09gjnLbkeeSTMJymN-HQ"
-    //             onMove={(evt) => setViewport(evt.viewState)}
-    //             onViewportChange={(newViewport) => setViewport(newViewport)}
-    //             mapStyle="mapbox://styles/mapbox/streets-v11"
-    //             onClick={handleClick}
-    //             interactiveLayerIds={['outline', 'outlines']}
-    //         >
-    //             {geoJson && (
-    //                 <Source id="polygonData" type="geojson" data={geoJson}>
-    //                     <Layer {...layerStyle}></Layer>
-    //                     <Layer {...layerOutlineStyle}></Layer>
-    //                     {selectedZone && (
-    //                         <Popup
-    //                             longitude={selectedZone.clickLngLat.lng}
-    //                             latitude={selectedZone.clickLngLat.lat}
-    //                             closeButton={true}
-    //                             closeOnClick={false}
-    //                             onClose={() => setSelectedZone(null)}
-    //                             closeButtonStyle={{
-    //                                 width: '30px',
-    //                                 height: '30px',
-    //                                 fontSize: '20px',
-    //                                 color: '#000',
-    //                                 backgroundColor: 'white',
-    //                                 borderRadius: '50%',
-    //                                 border: '2px solid #000',
-    //                                 display: 'flex',
-    //                                 alignItems: 'center',
-    //                                 justifyContent: 'center',
-    //                                 cursor: 'pointer'
-    //                               }}
-    //                         >
-    //                             <div className="p-2">
-    //                                 <h3 className="font-bold">{selectedZone.name}</h3>
-    //                                 {/* <p>Total Score: {selectedZone.score !== undefined && selectedZone.score !== "N/A" ? selectedZone.score.toFixed(2) : "N/A"}</p>
-    //                                 <p>Demographic Score: {selectedZone.demographic_score !== undefined && selectedZone.demographic_score !== "N/A" ? selectedZone.demographic_score.toFixed(2) : "N/A"}</p> */}
-    //                                 {/* <p>Busyness Score: {selectedZone.busyness_score !== undefined && selectedZone.busyness_score !== "N/A" ? selectedZone.busyness_score.toFixed(2) : "N/A"}</p> */}
-    //                                 <p>Busyness Score: {selectedZone.busyness_score !== undefined && selectedZone.busyness_score !== "N/A" ? Math.round(selectedZone.busyness_score) : "N/A"}</p>
-
-    //                                 {selectedZone.selectedHour && (
-    //                                     <p>Time: {new Date(selectedZone.selectedHour).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
-    //                                 )}
-    //                                 {selectedZone.score !== "N/A" && (
-    //                                     <Select
-    //                                         style={{ width: '100%', marginTop: '10px' }}
-    //                                         placeholder="Select hour"
-    //                                         onChange={(value) => {
-    //                                             const formatTime = (timeString) => {
-    //                                                 const date = new Date(timeString);
-    //                                                 date.setHours(date.getHours() + 1);
-    //                                                 return date.toISOString().split('.')[0] + 'Z';
-    //                                             };
-    //                                             const formattedValue = formatTime(value);
-    //                                             const selectedScore = busynessScores.find(score => score.time === formattedValue);
-    //                                             if (selectedScore) {
-    //                                                 setSelectedZone(prevZone => ({
-    //                                                     ...prevZone,
-    //                                                     busyness_score: selectedScore.busyness_score,
-    //                                                     selectedHour: value
-    //                                                 }));
-    //                                             } else {
-    //                                                 console.log('No score found for selected time');
-    //                                             }
-    //                                         }}
-    //                                     >
-    //                                         {busynessScores
-    //                                         .sort((a, b) => new Date(a.time) - new Date(b.time))
-    //                                         .map(score => (
-    //                                             <Select.Option key={score.time} value={score.time}>
-    //                                                 {new Date(score.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-    //                                             </Select.Option>
-    //                                         ))}
-    //                                     </Select>
-    //                                 )}
-    //                             </div>
-    //                         </Popup>
-    //                     )}
-    //                 </Source>
-    //             )}
-    //             {selectedZone && billboards.map((billboard, index) => (
-    //                 billboard.longitude && billboard.latitude && !isNaN(billboard.longitude) && !isNaN(billboard.latitude) ? (
-    //                     <BillboardMarker
-    //                         key={index}
-    //                         longitude={billboard.longitude}
-    //                         latitude={billboard.latitude}
-    //                     />
-    //                 ) : null
-    //             ))}
-    //             <ColorBar/>
-
-    //         </ReactMapGL>
-
-    //         <Card
-    //         className="w-[39%] h-full overflow-auto"
-    //         title={<div className="text-center">Available Billboards by Location</div>}
-    //         styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}
-    //         >
-    //         <div className="text-left">
-    //             {!selectedZone && (
-    //             <p className="text-center">Select an location from the Recommendations table  or click on a location from the hilighted area to display billboard information.</p>
-    //             )}
-    //             {selectedZone && isLoadingBillboards && (
-    //             <p className="text-center">Loading billboard information...</p>
-    //             )}
-    //             {selectedZone && !isLoadingBillboards && billboards.length === 0 && (
-    //             <p className="text-center">No billboards for this location</p>
-    //             )}
-    //             {selectedZone && !isLoadingBillboards && billboards.length > 0 && (
-    //             billboards.map((billboard, index) => (
-    //                 <div key={index} className="p-2 border-b border-gray-200">
-    //                 <h3>Street name: {billboard.street_name}</h3>
-    //                 <p>Illumination: {isNaN(billboard.sign_illumination) ? "N/A" : billboard.sign_illumination}</p>
-    //                 <p>Size: {billboard.sign_sq_footage} sq ft</p>
-    //                 </div>
-    //             ))
-    //             )}
-    //         </div>
-    //         </Card>
-
-    //     </div>
-    // </div>
-
     <div id="map-container" className="flex flex-col  w-full">
       <h1 className="text-xl font-medium text-left pb-12">Map Visualization</h1>
       <div className="flex w-full h-[418px] space-x-6">
