@@ -308,8 +308,8 @@ const Analytics = () => {
             options={dateOptions}
           />
         </div>
-        <div id="advertising-carousel" className="mt-10">
-          <h4 className="text-xl font-medium">Top 10 Advertising Locations</h4>
+        <div id="advertising-carousel" className="mb-10">
+          <h4 className="text-xl font-medium mb-4">Top Recommendation Highlights</h4>
           <AdvertisingCarousel advertisingLocations={advertisingLocations} />
         </div>
         <div id="recommendations-table" className="space-y-4">
