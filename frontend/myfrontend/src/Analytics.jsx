@@ -66,7 +66,7 @@ const Analytics = () => {
   const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
     ...step,
     cover: step.imgSrc && <img alt="tour.png" src={step.imgSrc} />,
-    target: () => document.getElementById(step.id),
+    target: () => step.selector ? document.querySelector(step.selector) : document.getElementById(step.id),
   }));
   useEffect(() => {
     if (!loading && !visitedTour) {
