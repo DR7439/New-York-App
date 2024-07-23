@@ -31,45 +31,8 @@ import {
   TOUR_STORAGE_KEY,
 } from "./constant";
 import AdvertisingCarousel from "./components/AdvertisingCarousel";
-
-const pad0 = (num) => num.toString().padStart(2, "0");
-
-const timeFilters = [...Array(24).keys()].map((i) => ({
-  text: `${pad0(i)}:00`,
-  value: `${pad0(i)}:00`,
-}));
-
-function parseScoresFromTopZones(topZones) {
-  let scores = [];
-  topZones.forEach((zone) => {
-    let { busyness_scores, ...rest } = zone;
-    busyness_scores.forEach((score) => {
-      scores.push({
-        ...rest,
-        datetime: score[0],
-        busyness_score: score[1],
-        combined_score: score[1] + rest.demographic_score,
-      });
-    });
-  });
-  scores = scores
-    .sort((a, b) => b.combined_score - a.combined_score)
-    .map((item, ind) => ({
-      key: ind + 1,
-      ...item,
-    }));
-  return scores;
-}
-
-function getDateArray(startDate, endDate) {
-  let dates = [];
-  let currentDate = new Date(startDate);
-  while (currentDate <= new Date(endDate)) {
-    dates.push(currentDate.toISOString().split("T")[0]);
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-  return dates;
-}
+import { getDateArray, parseScoresFromTopZones } from "./utils/analytics";
+import { AnalyticTable } from "./components/AnalyticTable";
 
 const Analytics = () => {
   let { id } = useParams();
@@ -114,114 +77,6 @@ const Analytics = () => {
       block: "start",
     });
   };
-
-  const columns = [
-    {
-      title: (
-        <div>
-          Ranking
-          <Popover
-            content={
-              <div className="text-sm max-w-80">
-                {TABLE_TOOLTIP_TEXT.ranking}
-              </div>
-            }
-          >
-            <QuestionCircleOutlined className="ml-1" />
-          </Popover>
-        </div>
-      ),
-      dataIndex: "key",
-      sorter: (a, b) => a.key - b.key,
-    },
-    {
-      title: "Location",
-      dataIndex: "zone_name",
-      sorter: (a, b) => a.zone_name.localeCompare(b.zone_name),
-      filters: topZones.map((zone) => ({
-        text: zone.zone_name,
-        value: zone.zone_id,
-      })),
-      onFilter: (value, record) => record.zone_id === value,
-      render: (text, record) => (
-        <Button type="link" onClick={() => handleRowItemClick(record)}>
-          {text}
-        </Button>
-      ),
-    },
-    {
-      title: "Time",
-      dataIndex: "datetime",
-      filters: timeFilters,
-      render(text, record) {
-        // show the time in the table
-        let timeToShow = new Date(text).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        return (
-          <Button type="link" onClick={() => handleRowItemClick(record)}>
-            {timeToShow}
-          </Button>
-        );
-      },
-
-      onFilter: (value, record) => {
-        let time = `${record.datetime.split("T")[1].split(":")[0]}:00`;
-        return time === value;
-      },
-    },
-    {
-      title: (
-        <div>
-          Demographic Score{" "}
-          <Popover
-            content={
-              <div className="text-sm max-w-80">
-                {TABLE_TOOLTIP_TEXT.demographic}
-              </div>
-            }
-          >
-            <QuestionCircleOutlined className="ml-1" />
-          </Popover>
-        </div>
-      ),
-      dataIndex: "demographic_score",
-      sorter: (a, b) => a.demographic_score - b.demographic_score,
-      render: (text, record) => (
-        <div className="flex items-center justify-center">
-          <Tag icon={<CheckCircleOutlined />} color="success">
-            {Number(text).toFixed(2)}/100
-          </Tag>
-        </div>
-      ),
-    },
-    {
-      title: (
-        <div>
-          Busyness Score
-          <Popover
-            content={
-              <div className="text-sm max-w-80">
-                {TABLE_TOOLTIP_TEXT.busyness}
-              </div>
-            }
-          >
-            <QuestionCircleOutlined className="ml-1" />
-          </Popover>
-        </div>
-      ),
-      dataIndex: "busyness_score",
-      sorter: (a, b) => a.busyness_score - b.busyness_score,
-      render: (text, record) => (
-        <div className="flex items-center justify-center">
-          <Tag icon={<CheckCircleOutlined />} color="success">
-            {Number(text).toFixed(2)}/100
-          </Tag>
-        </div>
-      ),
-    },
-  ];
   async function loadDataByDate(date) {
     setLoading(true);
     // for testing skeleton
@@ -244,6 +99,7 @@ const Analytics = () => {
       `/api/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`
     ).then((res) => {
       if (res) {
+        console.log("🚀 ~ ).then ~ res:", res);
         setAdvertisingLocations(res);
       }
     });
@@ -319,16 +175,7 @@ const Analytics = () => {
             <div className="flex items-center justify-between mt-7">
               <h4 className="text-xl font-medium">All Recommendations</h4>
             </div>
-            <Table
-              className="mt-4"
-              columns={columns}
-              dataSource={tableData}
-              pagination={{
-                defaultPageSize: 10,
-                showQuickJumper: true,
-                showSizeChanger: true,
-              }}
-            />
+            <AnalyticTable tableData={tableData} onRowClick={handleRowItemClick} topZones={topZones} />
           </div>
         )}
       </div>

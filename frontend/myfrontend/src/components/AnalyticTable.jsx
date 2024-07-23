@@ -1,0 +1,143 @@
+import { CheckCircleOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { Button, Popover, Table, Tag } from "antd";
+import React from "react";
+import { TABLE_TOOLTIP_TEXT } from "../constant";
+
+const pad0 = (num) => num.toString().padStart(2, "0");
+
+const timeFilters = [...Array(24).keys()].map((i) => ({
+  text: `${pad0(i)}:00`,
+  value: `${pad0(i)}:00`,
+}));
+
+export function AnalyticTable({ tableData, onRowClick, topZones }) {
+  const columns = [
+    {
+      title: (
+        <div>
+          Ranking
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.ranking}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
+      dataIndex: "key",
+      sorter: (a, b) => a.key - b.key,
+    },
+    {
+      title: "Location",
+      dataIndex: "zone_name",
+      sorter: (a, b) => a.zone_name.localeCompare(b.zone_name),
+      filters: topZones.map((zone) => ({
+        text: zone.zone_name,
+        value: zone.zone_id,
+      })),
+      onFilter: (value, record) => record.zone_id === value,
+      render: (text, record) => (
+        <Button
+          type="link"
+          // onClick={() => handleRowItemClick(record)}
+        >
+          {text}
+        </Button>
+      ),
+    },
+    {
+      title: "Time",
+      dataIndex: "datetime",
+      filters: timeFilters,
+      render(text, record) {
+        // show the time in the table
+        let timeToShow = new Date(text).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        return (
+          <Button
+            type="link"
+            // onClick={() => handleRowItemClick(record)}
+          >
+            {timeToShow}
+          </Button>
+        );
+      },
+
+      onFilter: (value, record) => {
+        let time = `${record.datetime.split("T")[1].split(":")[0]}:00`;
+        return time === value;
+      },
+    },
+    {
+      title: (
+        <div>
+          Demographic Score{" "}
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.demographic}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
+      dataIndex: "demographic_score",
+      sorter: (a, b) => a.demographic_score - b.demographic_score,
+      render: (text, record) => (
+        <div className="flex items-center justify-center">
+          <Tag icon={<CheckCircleOutlined />} color="success">
+            {Number(text).toFixed(2)}/100
+          </Tag>
+        </div>
+      ),
+    },
+    {
+      title: (
+        <div>
+          Busyness Score
+          <Popover
+            content={
+              <div className="text-sm max-w-80">
+                {TABLE_TOOLTIP_TEXT.busyness}
+              </div>
+            }
+          >
+            <QuestionCircleOutlined className="ml-1" />
+          </Popover>
+        </div>
+      ),
+      dataIndex: "busyness_score",
+      sorter: (a, b) => a.busyness_score - b.busyness_score,
+      render: (text, record) => (
+        <div className="flex items-center justify-center">
+          <Tag icon={<CheckCircleOutlined />} color="success">
+            {Number(text).toFixed(2)}/100
+          </Tag>
+        </div>
+      ),
+    },
+  ];
+  return (
+    <Table
+      className="mt-4"
+      columns={columns}
+      dataSource={tableData}
+      rowClassName="cursor-pointer"
+      onRow={(record) => ({
+        onClick: () => onRowClick(record),
+      })}
+      pagination={{
+        defaultPageSize: 10,
+        showQuickJumper: true,
+        showSizeChanger: true,
+      }}
+    />
+  );
+}

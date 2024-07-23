@@ -3,27 +3,24 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
 import ReactMapGL, { Layer, Marker, Popup, Source } from "react-map-gl";
 import axiosInstance from "../axiosInstance";
-// import { FlyToInterpolator } from 'mapbox-gl';
-
+import useZones from "../hooks/useZones";
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
-export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime }) {
+export default function Map({
+  id,
+  selectedDate,
+  selectedMapZoneId,
+  selectedTime,
+}) {
+  const { zones: zoneData } = useZones();
   const [geoJson, setGeoJson] = useState(null);
-  const [zoneData, setZoneData] = useState(null);
-  const [zoneInfo, setZoneInfo] = useState(null);
+  const [zoneInfo, setZoneInfo] = useState([]);
   const [selectedHour, setSelectedHour] = useState(null);
   // const [isLoading, setIsLoading] = useState(false);
   const [isLoadingBillboards, setIsLoadingBillboards] = useState(false);
-
   const [completeZoneInfo, setCompleteZoneInfo] = useState(null);
   const [selectedZone, setSelectedZone] = useState(null);
   const [billboards, setBillboards] = useState([]);
-  const [zoneNames, setZoneNames] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [filteredOptions, setFilteredOptions] = useState([]);
   const [busynessScores, setBusynessScores] = useState([]);
-  const [globalSelectedHour, setGlobalSelectedHour] = useState(null);
-
-  const [syncedZoneInfo, setSyncedZoneInfo] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 40.7831,
     longitude: -73.9712,
@@ -33,18 +30,20 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
   });
 
   const getZoneInfo = () => {
-    const date = new Date();
+    const date = new Date(selectedDate);
     const roundedDate = new Date(
       Math.round(date.getTime() / 3600000) * 3600000
     );
     const formattedDate = roundedDate.toISOString().split(".")[0] + "Z";
-
     axiosInstance
       .get(
         `/api/zone-scores-by-datetime/?search_id=${id}&datetime=${formattedDate}`
       )
       .then((res) => {
-        setZoneInfo([res.data]);
+        let zone_scores = res?.data?.zone_scores;
+        if (zone_scores) {
+          setZoneInfo(zone_scores);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -53,36 +52,13 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
 
   useEffect(() => {
     getZoneInfo();
-    getZonesData();
-    const intervalId = setInterval(() => {
-      getZoneInfo();
-      getZonesData();
-    }, 3600000);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    getZoneInfo(); // Initial call
-    const intervalId = setInterval(getZoneInfo, 3600000); // 3600000 ms = 1 hour
-
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    if (zoneInfo) {
-      console.log("zoneInfo", zoneInfo);
-    }
-  }, [zoneInfo]);
+  }, [selectedDate, id]);
 
   const handleClick = (event) => {
-    console.log("Click event:", event);
     if (!event.features || event.features.length === 0) {
-      console.log("No features found in click event");
       return;
     }
     const feature = event.features[0];
-    console.log("Clicked feature:", feature);
     if (feature) {
       const matchedZone = completeZoneInfo.find(
         (zone) => zone.id === feature.properties.id
@@ -103,7 +79,7 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
 
         if (!selectedZone || selectedZone.id !== newSelectedZone.id) {
           setSelectedZone(newSelectedZone);
-          setInputValue(newSelectedZone.name);
+          // setInputValue(newSelectedZone.name);
           setBillboards([]);
           setSelectedHour(null);
           if (newSelectedZone.score !== "N/A") {
@@ -130,19 +106,13 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
   };
 
   useEffect(() => {
-    if (completeZoneInfo) {
-      setSyncedZoneInfo(completeZoneInfo);
-    }
-  }, [completeZoneInfo]);
-
-  useEffect(() => {
     console.log("Selected zone updated:", selectedZone);
   }, [selectedZone]);
 
   const combineZoneDataAndInfo = () => {
-    if (zoneData && zoneInfo && zoneInfo[0] && zoneInfo[0].zone_scores) {
+    if (zoneData && zoneInfo.length) {
       return zoneData.map((zone) => {
-        const scoreInfo = zoneInfo[0].zone_scores.find(
+        const scoreInfo = zoneInfo.find(
           (score) => score.zone_name === zone.name
         );
         return {
@@ -181,25 +151,6 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
     return () => clearInterval(intervalId);
   }, []);
 
-  const getZonesData = () => {
-    axiosInstance
-      .get("/api/zones")
-      .then((res) => {
-        setZoneData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getZonesData();
-    const zoneNames = zoneData ? zoneData.map((zone) => zone.name) : [];
-    setZoneNames(zoneNames);
-    const intervalID = setInterval(getZonesData, 3600000);
-    return () => clearInterval(intervalID);
-  }, []);
-
   useEffect(() => {
     let isMounted = true;
     if (zoneData && isMounted) {
@@ -209,13 +160,6 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
     return () => {
       isMounted = false;
     };
-  }, [zoneData]);
-
-  useEffect(() => {
-    if (zoneData) {
-      const names = zoneData.map((zone) => zone.name);
-      setZoneNames(names);
-    }
   }, [zoneData]);
 
   //My getZoneDetails function
@@ -254,10 +198,6 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
     };
 
     fetchZoneData();
-  };
-
-  const handleGlobalHourChange = (value) => {
-    setGlobalSelectedHour(value);
   };
 
   // My billboards function
@@ -301,12 +241,10 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
       type: "FeatureCollection",
       features: [],
     };
-    if (zoneData && zoneInfo && zoneInfo[0] && zoneInfo[0].zone_scores) {
+    if (zoneData && zoneInfo.length) {
       zoneData.forEach((zone) => {
         const { id, name, boundary_coordinates } = zone;
-        const zoneScore = zoneInfo[0].zone_scores.find(
-          (score) => score.zone_id === id
-        );
+        const zoneScore = zoneInfo.find((score) => score.zone_id === id);
         let geometry;
 
         if (Array.isArray(boundary_coordinates)) {
@@ -396,68 +334,9 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
     );
   };
 
-  const resetComponent = () => {
-    setFilteredOptions([]);
-  };
-
-  useEffect(() => {
-    if (inputValue === "") {
-      resetComponent();
-    }
-  }, [inputValue]);
-
-  const selectHandler = (selectedZoneName) => {
-    console.log("selectHandler called with:", selectedZoneName);
-
-    const matchedZone = syncedZoneInfo.find(
-      (zone) => zone.name === selectedZoneName
-    );
-    console.log("Matched zone:", matchedZone);
-
-    if (matchedZone) {
-      const newSelectedZone = {
-        id: matchedZone.id,
-        name: matchedZone.name,
-        score: matchedZone.total_score,
-        demographic_score: matchedZone.demographic_score,
-        busyness_score: matchedZone.busyness_score,
-        clickLngLat: {
-          lng: matchedZone.boundary_coordinates[0][0],
-          lat: matchedZone.boundary_coordinates[0][1],
-        },
-      };
-      console.log("New selected zone:", newSelectedZone);
-
-      setSelectedZone(newSelectedZone);
-      console.log("Selected zone state updated");
-
-      setViewport({
-        ...viewport,
-        longitude: newSelectedZone.clickLngLat.lng,
-        latitude: newSelectedZone.clickLngLat.lat,
-        zoom: 14,
-      });
-
-      console.log("Calling getBillboards with ID:", newSelectedZone.id);
-      getBillboards(newSelectedZone.id);
-    }
-  };
-
-  const handleSearch = (value) => {
-    setInputValue(value);
-    const filtered = syncedZoneInfo.filter((zone) =>
-      zone.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredOptions(
-      filtered.map((zone) => ({
-        value: zone.name,
-        key: `${zone.id}-${zone.name}`,
-      }))
-    );
-  };
   // My orignal useEffect for synchronisation
   useEffect(() => {
-    if (selectedMapZoneId && completeZoneInfo) {
+    if (selectedMapZoneId && completeZoneInfo && selectedTime) {
       const zone = completeZoneInfo.find((z) => z.id === selectedMapZoneId);
       if (zone) {
         const newSelectedZone = {
@@ -480,14 +359,15 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
         });
         getZoneDetails(zone.name);
       }
-    }
-  }, [selectedMapZoneId, completeZoneInfo]);
-
-  useEffect(() => {
-    if (selectedTime) {
       handleSelectHour(selectedTime);
     }
-  }, [selectedTime]);
+  }, [selectedMapZoneId, completeZoneInfo, selectedTime]);
+
+  // useEffect(() => {
+  //   if (selectedTime) {
+  //     handleSelectHour(selectedTime);
+  //   }
+  // }, [selectedTime]);
   const layerStyle = {
     id: "outline",
     type: "fill",
@@ -559,6 +439,9 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
     }
   };
 
+  let selectedBusynessScore = busynessScores.find(score => score.time === selectedTime)
+  let busynessActivity = selectedBusynessScore?.busyness_score || 0;
+
   return (
     <div id="map-container" className="flex flex-col  w-full">
       <h4 className="text-xl font-medium text-left mb-4">Map Visualization</h4>
@@ -584,19 +467,7 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
                   closeButton={true}
                   closeOnClick={false}
                   onClose={() => setSelectedZone(null)}
-                  closeButtonStyle={{
-                    width: "30px",
-                    height: "30px",
-                    fontSize: "20px",
-                    color: "#000",
-                    backgroundColor: "white",
-                    borderRadius: "50%",
-                    border: "2px solid #000",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                  }}
+                  className="p-2"
                 >
                   <div className="p-2">
                     <h3 className="font-bold">{selectedZone.name}</h3>
@@ -604,7 +475,7 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
                       <>
                         <p>
                           Busyness Activity:{" "}
-                          {Math.round(selectedZone.busyness_score)}
+                          {busynessActivity.toFixed(2)}
                         </p>
                         <p>
                           Time:{" "}
