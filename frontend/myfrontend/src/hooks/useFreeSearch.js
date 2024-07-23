@@ -21,10 +21,8 @@ export function useFreeSearch() {
   const isOnboarding = pathname.includes("onboarding");
   function onFirstSearchCreated() {
     setFreeSearch(false);
-    console.log('9779 update');
   }
   function checkOnbardingRoute(isFreeSearch) {
-    console.log('9779 check', freeSearch, isOnboarding);
     if (isFreeSearch || freeSearch) {
 
       if (!isOnboarding) {

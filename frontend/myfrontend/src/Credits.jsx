@@ -1,4 +1,4 @@
-import { EyeOutlined } from "@ant-design/icons";
+import { TransactionOutlined } from "@ant-design/icons";
 import { Alert, Button, Col, Row, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import CreditAmountModal from "./components/CreditAmountModal";
@@ -28,7 +28,7 @@ export default function Credits({ isDashboard }) {
         <h2 className="text-3xl font-medium">Credit Usage</h2>
         {isDashboard ? (
           <Link to="/credits">
-            <Button type="primary" icon={<EyeOutlined />}>
+            <Button type="primary" icon={<TransactionOutlined />}>
               Manage Credits
             </Button>
           </Link>
