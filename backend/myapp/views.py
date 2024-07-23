@@ -188,8 +188,8 @@ class SearchAPIView(APIView):
             return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
 
         search_duration = (end_date - start_date).days + 1  # Including both start and end date
-        if search_duration > 14:
-            return Response({"error": "Search duration cannot be more than 14 days."}, status=status.HTTP_400_BAD_REQUEST)
+        if search_duration > 15:
+            return Response({"error": "Search duration cannot be more than 15 days."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Calculate required credits
         required_credits = 10 * search_duration
@@ -699,6 +699,10 @@ class RecommendAdvertisingLocationsView(APIView):
             total_score_with_cost = zone_score['total_score'] - (location.calculated_cpm / 10) + (location.views / 250000)
             if location.calculated_cpm == 0:
                 total_score_with_cost -= 100
+
+            if location.category_alias == 'Restaurant / Bar' or location.category_alias == 'Movie Theater':
+                if 2 <= zone_score['max_busyness_time'].hour < 12:
+                    total_score_with_cost = 0
 
            
             recommendations.append({
