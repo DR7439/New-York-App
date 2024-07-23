@@ -1,10 +1,20 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { useFreeSearch } from "../hooks/useFreeSearch";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import SearchModal from "./SearchModal";
 
 let Layout = () => {
+  let { pathname } = useLocation();
+  const isOnboarding = pathname.includes("onboarding");
+  let { loaded } = useFreeSearch();
+  if (!loaded) {
+    return <></>;
+  }
+  if (isOnboarding) {
+    return <Outlet />;
+  }
   return (
     <>
       <SearchModal />

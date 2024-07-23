@@ -3,7 +3,6 @@
 import React, { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance';
-
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -13,6 +12,7 @@ const AuthProvider = ({ children }) => {
     });
 
     const navigate = useNavigate();
+
 
     const loginUser = async (username, password) => {
         try {
@@ -51,7 +51,8 @@ const AuthProvider = ({ children }) => {
         setAuthState({ token: '', user: null });
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        navigate('/login');
+        window.location.href = '/login';
+        // navigate('/login');
     };
 
     return (
