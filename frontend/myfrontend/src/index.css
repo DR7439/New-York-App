@@ -27,18 +27,6 @@ code {
   @apply bg-blue-600 opacity-100;
 }
 
-.ant-carousel .slick-arrow {
-  @apply bg-neutral-400 hover:bg-blue-600 p-4 rounded-full;
-}
-
-.ant-carousel .slick-arrow::after {
-  @apply top-2;
-}
-
-.ant-carousel .slick-arrow.slick-prev {
-  @apply left-4;
-}
-
 .gradient-cover {
   @apply absolute inset-0 pointer-events-none opacity-90;
   background: linear-gradient(90deg, transparent 0 90%, white 100% 100%);

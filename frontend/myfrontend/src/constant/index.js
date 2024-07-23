@@ -115,6 +115,18 @@ export const ANALYTICS_TOUR_STEPS = [
     placement: "top",
     id: "select-date",
   },
+  { 
+    title: "Show All Recommendations",
+    description: "Show All Recommendations description",
+    placement: "top",
+    id: "show-recommendations",
+  },
+  {
+    title: "Top Recommendation Highlights",
+    description: "Top Recommendation Highlights description",
+    placement: "top",
+    id: "advertising-carousel",
+  },
   {
     title: "Recommendations table ",
     description: "Recommendations table description",
