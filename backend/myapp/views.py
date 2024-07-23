@@ -165,15 +165,9 @@ class SearchAPIView(APIView):
         return f"user_searches_{user_id}"
 
     def get(self, request, *args, **kwargs):
-        cache_key = self.get_cache_key(request.user.id)
-        cached_data = cache.get(cache_key)
-
-        if cached_data:
-            return Response(cached_data)
 
         searches = Search.objects.filter(user=request.user)
         serializer = self.serializer_class(searches, many=True)
-        cache.set(cache_key, serializer.data, timeout=60 * 15)  # Cache for 15 minutes
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
@@ -190,7 +184,7 @@ class SearchAPIView(APIView):
         start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
 
-        if start_date >= end_date:
+        if start_date > end_date:
             return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
 
         search_duration = (end_date - start_date).days + 1  # Including both start and end date
@@ -701,7 +695,12 @@ class RecommendAdvertisingLocationsView(APIView):
         recommendations = []
         for location in advertising_locations:
             zone_score = next(z for z in zone_scores if z['zone_id'] == location.zone_id)
-            total_score_with_cost = zone_score['total_score'] - (location.cost_per_day / 5) # Adjust the total score by subtracting the cost
+
+            total_score_with_cost = zone_score['total_score'] - (location.calculated_cpm / 10) + (location.views / 250000)
+            if location.calculated_cpm == 0:
+                total_score_with_cost -= 100
+
+           
             recommendations.append({
                 'location': location.location,
                 'format': location.format,
@@ -726,7 +725,7 @@ class RecommendAdvertisingLocationsView(APIView):
                 'photo_url': location.photo_url
             })
 
-        # Sort recommendations by total score with cost and limit to top N
+
         recommendations = sorted(recommendations, key=lambda x: -x['total_score_with_cost'])[:top_n]
 
         cache.set(cache_key, recommendations, timeout=60 * 60)  # Cache for 1 hour
