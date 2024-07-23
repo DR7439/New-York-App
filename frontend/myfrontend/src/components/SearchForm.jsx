@@ -69,7 +69,7 @@ export default function SearchForm({
     let startDate = values.dateRange[0];
     let endDate = values.dateRange[1];
     let selectedDateNumber = Math.abs(startDate.diff(endDate, "day")) + 1;
-    let creditCost = selectedDateNumber * 100;
+    let creditCost = selectedDateNumber * 10;
     if (isInsufficientCredits(creditCost)) {
       message.error("You don't have enough credits to make this search.");
       return;
