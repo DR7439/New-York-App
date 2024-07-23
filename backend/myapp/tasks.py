@@ -10,8 +10,6 @@ import numpy as np
 
 @shared_task
 def background_task(search_id):
-    print(f'Background task started for search_id: {search_id}')
-    print("OK")
     search = Search.objects.get(id=search_id)
     zones = Zone.objects.all()
 
@@ -46,7 +44,7 @@ def background_task(search_id):
                     print(f"No busyness entry found for zone {zone.id} at {aware_datetime}")
         current_date += datetime.timedelta(days=1)
 
-    print(f'Background task completed for search_id: {search_id}')
+    
     
 @shared_task
 def check_and_populate_busyness():
@@ -109,7 +107,6 @@ def calculate_demographic_score(zone, search):
     # Combine scores
     demographic_score = age_score + interest_score
     
-    # Print scores in a single line
-    print(f'{zone.name} - Age Score: {age_score}, Interest Count: {total_interest_count}, Interest Score: {interest_score}')
+    
 
     return demographic_score

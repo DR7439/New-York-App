@@ -165,15 +165,9 @@ class SearchAPIView(APIView):
         return f"user_searches_{user_id}"
 
     def get(self, request, *args, **kwargs):
-        cache_key = self.get_cache_key(request.user.id)
-        cached_data = cache.get(cache_key)
-
-        if cached_data:
-            return Response(cached_data)
 
         searches = Search.objects.filter(user=request.user)
         serializer = self.serializer_class(searches, many=True)
-        cache.set(cache_key, serializer.data, timeout=60 * 15)  # Cache for 15 minutes
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
@@ -190,12 +184,12 @@ class SearchAPIView(APIView):
         start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
 
-        if start_date >= end_date:
+        if start_date > end_date:
             return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
 
         search_duration = (end_date - start_date).days + 1  # Including both start and end date
-        if search_duration > 14:
-            return Response({"error": "Search duration cannot be more than 14 days."}, status=status.HTTP_400_BAD_REQUEST)
+        if search_duration > 15:
+            return Response({"error": "Search duration cannot be more than 15 days."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Calculate required credits
         required_credits = 10 * search_duration
@@ -218,8 +212,6 @@ class SearchAPIView(APIView):
                 CreditUsage.objects.create(user=user, credits_used=required_credits)
             
             user.save()
-
-            print("search_id: ", search_id)
             background_task.delay(search_id)
 
             # Invalidate cache for the user
@@ -701,7 +693,16 @@ class RecommendAdvertisingLocationsView(APIView):
         recommendations = []
         for location in advertising_locations:
             zone_score = next(z for z in zone_scores if z['zone_id'] == location.zone_id)
-            total_score_with_cost = zone_score['total_score'] - (location.cost_per_day / 5) # Adjust the total score by subtracting the cost
+
+            total_score_with_cost = zone_score['total_score'] - (location.calculated_cpm / 10) + (location.views / 250000)
+            if location.calculated_cpm == 0:
+                total_score_with_cost -= 100
+
+            if location.category_alias == 'Restaurant / Bar' or location.category_alias == 'Movie Theater':
+                if 2 <= zone_score['max_busyness_time'].hour < 12:
+                    total_score_with_cost = 0
+
+           
             recommendations.append({
                 'location': location.location,
                 'format': location.format,
@@ -726,7 +727,7 @@ class RecommendAdvertisingLocationsView(APIView):
                 'photo_url': location.photo_url
             })
 
-        # Sort recommendations by total score with cost and limit to top N
+
         recommendations = sorted(recommendations, key=lambda x: -x['total_score_with_cost'])[:top_n]
 
         cache.set(cache_key, recommendations, timeout=60 * 60)  # Cache for 1 hour
@@ -880,7 +881,6 @@ class StripeWebhookView(View):
         payload = request.body.decode('utf-8')
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
         endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
-        print('endpoint: ', endpoint_secret)
         
 
         try:
@@ -888,30 +888,24 @@ class StripeWebhookView(View):
                 payload, sig_header, endpoint_secret
             )
         except ValueError as e:
-            print(f"ValueError: {e}")
             return HttpResponse(status=400)
         except stripe.error.SignatureVerificationError as e:
-            print(f"SignatureVerificationError: {e}")
             return HttpResponse(status=400)
 
-        print(f"Event type: {event['type']}")
+        
 
         if event['type'] == 'payment_intent.succeeded':
             payment_intent = event['data']['object']
             user_id = payment_intent['metadata'].get('user_id')
             amount_received = payment_intent['amount_received']  # amount_received is in cents
 
-            print(f"Payment Intent: {payment_intent}")
-            print(f"User ID: {user_id}")
-            print(f"Amount Received: {amount_received}")
+           
 
             try:
                 user = CustomUser.objects.get(id=user_id)
                 user.credits += int(amount_received) // 10  
                 user.save()
-                print(f"User {user.username} credits updated to {user.credits}")
             except CustomUser.DoesNotExist:
-                print(f"User with ID {user_id} does not exist")
                 return HttpResponse(status=404)
 
         return HttpResponse(status=200)

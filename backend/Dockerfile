@@ -32,5 +32,6 @@ CMD ["bash", "-c", "/wait-for-it.sh db:5432 -- /wait-for-it.sh redis:6379 -- pyt
                    python manage.py import_population_data /mnt/data/census_final.csv && \
                    python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv && \
                    python manage.py load_advertising_locations /mnt/data/advertising_locations.csv && \
+                   python manage.py load_billboards /mnt/data/no_text_signs_df.csv && \
                    python manage.py model_down && \
                    gunicorn --workers 4 --bind 0.0.0.0:8000 target_advert.wsgi:application"]
