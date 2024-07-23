@@ -25,7 +25,7 @@ import PieChart from "./components/PieChart";
 import { SearchModalTrigger } from "./components/SearchModal";
 import useSearches from "./hooks/useSearches";
 import fetchWithCache from "./utils/fetchWithCache";
-import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
+import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT, TOUR_STORAGE_KEY } from "./constant";
 import AdvertisingCarousel from "./components/AdvertisingCarousel";
 
 const pad0 = (num) => num.toString().padStart(2, "0");
@@ -67,19 +67,20 @@ function getDateArray(startDate, endDate) {
   return dates;
 }
 
+
 const Analytics = () => {
   let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(null);
   let [selectedZoneId, setSelectedZoneId] = useState(null);
   let [selectedMapZoneId, setSelectedMapZoneId] = useState(null);
-  let [showRecommendations, setShowRecommendations] = useState(true);
+  let [showRecommendations, setShowRecommendations] = useState(() => !Boolean(localStorage.getItem(TOUR_STORAGE_KEY.analytic)));
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
   let [topZones, setTopZones] = useState([]);
   let [tableData, setTableData] = useState([]);
   let [loading, setLoading] = useState(true);
   let [open, setOpen] = useState(false); // open the tour
-  let visitedTour = localStorage.getItem("visited-analytics-tour");
+  let visitedTour = localStorage.getItem(TOUR_STORAGE_KEY.analytic);
   let [advertisingLocations, setAdvertisingLocations] = useState([]);
   const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
     ...step,
@@ -356,7 +357,7 @@ const Analytics = () => {
 
   const handleCloseTour = () => {
     setOpen(false);
-    localStorage.setItem("visited-analytics-tour", "true");
+    localStorage.setItem(TOUR_STORAGE_KEY.analytic, true);
   };
 
   return (

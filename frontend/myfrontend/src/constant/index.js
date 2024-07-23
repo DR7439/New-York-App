@@ -146,6 +146,12 @@ export const ANALYTICS_TOUR_STEPS = [
     selector: 'td.ant-table-cell:nth-child(3)'
   },  
   {
+    title: "Map Visualization",
+    description: "Map Visualization description",
+    placement: "top",
+    id: "map-container",  
+  },
+  {
     title: "Busyness chart’s Menu tabs",
     description: "Busyness chart’s Menu tab description",
     placement: "top",
@@ -170,3 +176,8 @@ export const ANALYTICS_TOUR_STEPS = [
     id: "tour-pie-chart",
   },
 ];
+
+export const TOUR_STORAGE_KEY = {
+  onboard: "visited-onboard-tour",
+  analytic: "visited-analytic-tour"
+}

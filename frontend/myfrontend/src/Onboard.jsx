@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Tour } from "antd";
 import { useNavigate } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
-import { ONBOARD_TOUR_STEPS } from "./constant";
+import { ONBOARD_TOUR_STEPS, TOUR_STORAGE_KEY } from "./constant";
 import { Logo } from "./components/Logo";
 import { useFreeSearch } from "./hooks/useFreeSearch";
 export default function Onboard() {
   let navigate = useNavigate();
   let { onFirstSearchCreated } = useFreeSearch()
   let [open, setOpen] = useState(false); // open the tour
-  let visitedTour = localStorage.getItem("visited-onboard-tour");
+  let visitedTour = localStorage.getItem(TOUR_STORAGE_KEY.onboard);
   // tour across search form
   let tourSteps = ONBOARD_TOUR_STEPS.map((step) => ({
     ...step,
@@ -19,7 +19,7 @@ export default function Onboard() {
   }));
   let handleCloseTour = () => {
     setOpen(false);
-    localStorage.setItem("visited-onboard-tour", "true");
+    localStorage.setItem(TOUR_STORAGE_KEY.onboard, true);
   };
   useEffect(() => {
     if (!visitedTour) {
