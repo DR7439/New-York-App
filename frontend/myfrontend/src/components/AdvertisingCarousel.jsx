@@ -25,11 +25,13 @@ const AdvertisingCarousel = ({ advertisingLocations }) => {
         centerMode
         centerPadding="40px"
         adaptiveHeight
+        swipeToSlide
+        draggable
         easing
         // infinite
       >
         {advertisingLocations.map((location, index) => (
-          <CardItem key={index} index={index} location={location} />
+          <CardItem key={index} index={index} location={location}/>
         ))}
       </Carousel>
       <button
