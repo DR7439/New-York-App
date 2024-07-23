@@ -144,7 +144,10 @@ const Analytics = () => {
       })),
       onFilter: (value, record) => record.zone_id === value,
       render: (text, record) => (
-        <Button type="link" onClick={() => handleRowItemClick(record)}>
+        <Button
+          type="link"
+          // onClick={() => handleRowItemClick(record)}
+        >
           {text}
         </Button>
       ),
@@ -160,7 +163,10 @@ const Analytics = () => {
           minute: "2-digit",
         });
         return (
-          <Button type="link" onClick={() => handleRowItemClick(record)}>
+          <Button
+            type="link"
+            // onClick={() => handleRowItemClick(record)}
+          >
             {timeToShow}
           </Button>
         );
@@ -323,6 +329,10 @@ const Analytics = () => {
               className="mt-4"
               columns={columns}
               dataSource={tableData}
+              rowClassName="cursor-pointer"
+              onRow={(record) => ({
+                onClick: () => handleRowItemClick(record),
+              })}
               pagination={{
                 defaultPageSize: 10,
                 showQuickJumper: true,
