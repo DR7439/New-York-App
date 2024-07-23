@@ -1,16 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Breadcrumb, Button, Popover, Select, Skeleton, Spin, Table, Tabs, Tag, Tour } from 'antd';
-import { CheckCircleOutlined, LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import ColumnChart from './components/ColumnChart';
-import LineChart from './components/LineChart';
-import Maps from './components/Maps';
-import PieChart from './components/PieChart';
-import { SearchModalTrigger } from './components/SearchModal';
-import useSearches from './hooks/useSearches';
-import fetchWithCache from './utils/fetchWithCache';
-import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from './constant';
-import AdvertisingCarousel from './components/AdvertisingCarousel';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import {
+  Breadcrumb,
+  Button,
+  Popover,
+  Select,
+  Skeleton,
+  Spin,
+  Switch,
+  Table,
+  Tabs,
+  Tag,
+  Tour,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  LoadingOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+import ColumnChart from "./components/ColumnChart";
+import LineChart from "./components/LineChart";
+import Maps from "./components/Maps";
+import PieChart from "./components/PieChart";
+import { SearchModalTrigger } from "./components/SearchModal";
+import useSearches from "./hooks/useSearches";
+import fetchWithCache from "./utils/fetchWithCache";
+import { ANALYTICS_TOUR_STEPS, TABLE_TOOLTIP_TEXT } from "./constant";
+import AdvertisingCarousel from "./components/AdvertisingCarousel";
 
 const pad0 = (num) => num.toString().padStart(2, "0");
 
@@ -55,6 +71,7 @@ const Analytics = () => {
   let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(null);
   let [selectedZone, setSelectedZone] = useState(null);
+  let [showRecommendations, setShowRecommendations] = useState(true);
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
   let [topZones, setTopZones] = useState([]);
@@ -66,7 +83,10 @@ const Analytics = () => {
   const steps = ANALYTICS_TOUR_STEPS.map((step) => ({
     ...step,
     cover: step.imgSrc && <img alt="tour.png" src={step.imgSrc} />,
-    target: () => step.selector ? document.querySelector(step.selector) : document.getElementById(step.id),
+    target: () =>
+      step.selector
+        ? document.querySelector(step.selector)
+        : document.getElementById(step.id),
   }));
   useEffect(() => {
     if (!loading && !visitedTour) {
@@ -211,12 +231,13 @@ const Analytics = () => {
         setLoading(false);
       });
 
-    fetchWithCache(`/api/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`)
-      .then((res) => {
-        if (res) {
-          setAdvertisingLocations(res);
-        }
-      });
+    fetchWithCache(
+      `/api/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`
+    ).then((res) => {
+      if (res) {
+        setAdvertisingLocations(res);
+      }
+    });
   }
 
   useEffect(() => {
@@ -254,39 +275,51 @@ const Analytics = () => {
     <>
       <Maps />
       <div>
-        <div id="select-date" className="flex gap-2 items-center mb-10">
-          <h4 className="text-xl font-medium">Select Target Date</h4>
-          <Select
-            id="tour1"
-            className="w-60"
-            value={selectedDate}
-            onChange={(value) => setSelectedDate(value)}
-            options={dateOptions}
-          />
+        <div className="flex gap-4 justify-between items-center mb-10">
+          <div id="select-date" className="flex gap-2 items-center">
+            <h4 className="text-xl font-medium">Select Target Date</h4>
+            <Select
+              className="w-60"
+              value={selectedDate}
+              onChange={(value) => setSelectedDate(value)}
+              options={dateOptions}
+            />
+          </div>
+          <div id="show-recommendations" className="flex gap-2 items-center">
+            <h4 className="text-xl font-medium">Show All Recommendations</h4>
+            <Switch
+              checked={showRecommendations}
+              onChange={setShowRecommendations}
+            />
+          </div>
         </div>
+
         <div id="advertising-carousel" className="mb-10">
-          <h4 className="text-xl font-medium mb-4">Top Recommendation Highlights</h4>
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="text-xl font-medium">
+              Top Recommendation Highlights
+            </h4>
+            <SearchModalTrigger />
+          </div>
           <AdvertisingCarousel advertisingLocations={advertisingLocations} />
         </div>
-        <div id="recommendations-table" className="space-y-4">
-          <div className="flex items-center justify-between mt-7">
-            <h4 className="text-xl font-medium">Recommendations</h4>
-            <div className="flex gap-4 items-center">
-              <SearchModalTrigger />
+        {showRecommendations && (
+          <div id="recommendations-table" className="space-y-4">
+            <div className="flex items-center justify-between mt-7">
+              <h4 className="text-xl font-medium">All Recommendations</h4>
             </div>
+            <Table
+              className="mt-4"
+              columns={columns}
+              dataSource={tableData}
+              pagination={{
+                defaultPageSize: 10,
+                showQuickJumper: true,
+                showSizeChanger: true,
+              }}
+            />
           </div>
-          <Table
-            className="mt-4"
-            columns={columns}
-            dataSource={tableData}
-            pagination={{
-              defaultPageSize: 10,
-              showQuickJumper: true,
-              showSizeChanger: true,
-            }}
-          />
-        </div>
-        
+        )}
       </div>
 
       <div className="space-y-8">
