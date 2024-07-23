@@ -467,19 +467,7 @@ export default function Map({
                   closeButton={true}
                   closeOnClick={false}
                   onClose={() => setSelectedZone(null)}
-                  closeButtonStyle={{
-                    width: "30px",
-                    height: "30px",
-                    fontSize: "20px",
-                    color: "#000",
-                    backgroundColor: "white",
-                    borderRadius: "50%",
-                    border: "2px solid #000",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                  }}
+                  className="p-2"
                 >
                   <div className="p-2">
                     <h3 className="font-bold">{selectedZone.name}</h3>

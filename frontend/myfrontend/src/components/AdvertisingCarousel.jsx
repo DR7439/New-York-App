@@ -87,7 +87,7 @@ function CardItem({ location, index, onClick }) {
           </li>
           <li className="space-x-2">
             <span>
-              <b>Busyness Score:</b> {Math.round(location.max_busyness)}/100
+              <b>Busyness Score:</b> {location.max_busyness.toFixed(2)}/100
             </span>
             <span>
               <b className="mr-1">Recommend Time:</b>
@@ -99,7 +99,7 @@ function CardItem({ location, index, onClick }) {
           </li>
           <li className="space-x-2">
             <span>
-              <b>Demographic Score:</b> {Math.round(location.demographic_score)}
+              <b>Demographic Score:</b> {location.demographic_score.toFixed(2)}
               /100
             </span>
             <span>
