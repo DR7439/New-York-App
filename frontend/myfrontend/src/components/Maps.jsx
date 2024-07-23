@@ -6,12 +6,11 @@ import axiosInstance from "../axiosInstance";
 // import { FlyToInterpolator } from 'mapbox-gl';
 
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
-export default function Map({ id, selectedMapZone }) {
+export default function Map({ id, selectedMapZoneId }) {
   const [geoJson, setGeoJson] = useState(null);
   const [zoneData, setZoneData] = useState(null);
   const [zoneInfo, setZoneInfo] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
-
   // const [isLoading, setIsLoading] = useState(false);
   const [isLoadingBillboards, setIsLoadingBillboards] = useState(false);
 
@@ -464,9 +463,9 @@ export default function Map({ id, selectedMapZone }) {
   };
   // My orignal useEffect for synchronisation
   useEffect(() => {
-    if (selectedMapZone) {
+    if (selectedMapZoneId && completeZoneInfo) {
       const zone = completeZoneInfo.find(
-        (z) => z.id === selectedMapZone.zone_id
+        (z) => z.id === selectedMapZoneId
       );
       if (zone) {
         const newSelectedZone = {
@@ -490,7 +489,7 @@ export default function Map({ id, selectedMapZone }) {
         getZoneDetails(zone.name);
       }
     }
-  }, [selectedMapZone]);
+  }, [selectedMapZoneId, completeZoneInfo]);
 
   const layerStyle = {
     id: "outline",

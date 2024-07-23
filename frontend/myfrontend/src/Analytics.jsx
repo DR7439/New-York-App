@@ -71,7 +71,7 @@ const Analytics = () => {
   let { id } = useParams();
   let [selectedDate, setSelectedDate] = useState(null);
   let [selectedZoneId, setSelectedZoneId] = useState(null);
-  let [selectedMapZone, setSelectedMapZone] = useState(null);
+  let [selectedMapZoneId, setSelectedMapZoneId] = useState(null);
   let [showRecommendations, setShowRecommendations] = useState(true);
   let { getSearchById } = useSearches();
   let [search, setSearch] = useState(null);
@@ -96,19 +96,11 @@ const Analytics = () => {
   }, [loading]);
 
   let handleCardClick = (record) => {
-    console.log('9779 react-router-dom', record);
-    setSelectedZoneId(record.zone_id);
-    // setSelectedDate(record.datetime);
-    // setSelectedMapZone(record);
-    document.getElementById("map-container").scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
+    handleRowItemClick(record);
+  };
   let handleRowItemClick = (record) => {
     setSelectedZoneId(record.zone_id);
-    // setSelectedDate(record.datetime);
-    setSelectedMapZone(record);
+    setSelectedMapZoneId(record.zone_id);
     document.getElementById("map-container").scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -306,7 +298,10 @@ const Analytics = () => {
             </h4>
             <SearchModalTrigger />
           </div>
-          <AdvertisingCarousel advertisingLocations={advertisingLocations} onCardClick={handleCardClick} />
+          <AdvertisingCarousel
+            advertisingLocations={advertisingLocations}
+            onCardClick={handleCardClick}
+          />
         </div>
         {showRecommendations && (
           <div id="recommendations-table" className="space-y-4">
@@ -326,7 +321,7 @@ const Analytics = () => {
           </div>
         )}
       </div>
-      <Maps id={id} selectedMapZone={selectedMapZone} />
+      <Maps id={id} selectedMapZoneId={selectedMapZoneId} />
       <div className="space-y-8">
         <div id="zone-tabs">
           <h3 className="text-xl font-medium">Data Analysis</h3>
@@ -341,7 +336,11 @@ const Analytics = () => {
         </div>
         <div id="tour-line-chart">
           <h4 className="mb-4 font-medium">Busyness Activity by Location</h4>
-          <LineChart searchId={id} zoneId={selectedZoneId} date={selectedDate} />
+          <LineChart
+            searchId={id}
+            zoneId={selectedZoneId}
+            date={selectedDate}
+          />
         </div>
         <div id="tour-column-chart">
           <h4 className="mb-4 font-medium">Demographic by Location</h4>
