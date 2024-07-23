@@ -54,7 +54,6 @@ export default function Map({ id, selectedDate, selectedMapZoneId, selectedTime 
   useEffect(() => {
     getZoneInfo();
     getZonesData();
-    console.log(zoneData);
     const intervalId = setInterval(() => {
       getZoneInfo();
       getZonesData();
