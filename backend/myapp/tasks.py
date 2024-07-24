@@ -12,9 +12,11 @@ import time
 
 @shared_task
 def background_task(search_id):
+
     print(f'Background task started for search_id: {search_id}')
     print("OK")
     start = time.time()
+
     search = Search.objects.get(id=search_id)
     zones = Zone.objects.all()
 
@@ -55,25 +57,27 @@ def background_task(search_id):
     current_date = search.start_date
     end_date = search.end_date
 
-    # while current_date <= end_date:
-    #     for hour in range(24):
-    #         naive_datetime = datetime.datetime.combine(current_date, datetime.time(hour=hour))
-    #         aware_datetime = timezone.make_aware(naive_datetime)
 
-    #         for zone in zones:
-    #             busyness_entry = Busyness.objects.filter(datetime=aware_datetime, zone=zone).first()
-    #             if busyness_entry:
-    #                 busyness_score = busyness_entry.busyness_score
-    #                 Busyness.objects.update_or_create(
-    #                     datetime=aware_datetime,
-    #                     zone=zone,
-    #                     defaults={'busyness_score': busyness_score}
-    #                 )
-    #             else:
-    #                 print(f"No busyness entry found for zone {zone.id} at {aware_datetime}")
-    #     current_date += datetime.timedelta(days=1)
+    while current_date <= end_date:
+        for hour in range(24):
+            naive_datetime = datetime.datetime.combine(current_date, datetime.time(hour=hour))
+            aware_datetime = timezone.make_aware(naive_datetime)
 
-    print(f'Background task completed for search_id: {search_id} Time: {time.time() - start}')
+            for zone in zones:
+                busyness_entry = Busyness.objects.filter(datetime=aware_datetime, zone=zone).first()
+                if busyness_entry:
+                    busyness_score = busyness_entry.busyness_score
+                    Busyness.objects.update_or_create(
+                        datetime=aware_datetime,
+                        zone=zone,
+                        defaults={'busyness_score': busyness_score}
+                    )
+                else:
+                    print(f"No busyness entry found for zone {zone.id} at {aware_datetime}")
+        current_date += datetime.timedelta(days=1)
+
+    
+
     
 @shared_task
 def check_and_populate_busyness():
@@ -139,6 +143,7 @@ def calculate_demographic_score(zone, search):
     demographic_score = age_score + interest_score
     
     
+
     return demographic_score
 
 
