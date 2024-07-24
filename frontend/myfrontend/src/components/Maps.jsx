@@ -11,11 +11,11 @@ export default function Map({
   selectedMapZoneId,
   selectedTime,
 }) {
+  // const [isLoading, setIsLoading] = useState(false);
   const { zones: zoneData } = useZones();
   const [geoJson, setGeoJson] = useState(null);
   const [zoneInfo, setZoneInfo] = useState([]);
   const [selectedHour, setSelectedHour] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
   const [isLoadingBillboards, setIsLoadingBillboards] = useState(false);
   const [completeZoneInfo, setCompleteZoneInfo] = useState(null);
   const [selectedZone, setSelectedZone] = useState(null);
@@ -152,15 +152,8 @@ export default function Map({
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
-    if (zoneData && isMounted) {
-      console.log(zoneData);
-      setGeoJson(generateGeoJSON(zoneData));
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, [zoneData]);
+    setGeoJson(generateGeoJSON());
+  }, [zoneData, zoneInfo]);
 
   //My getZoneDetails function
   const getZoneDetails = (zoneName) => {
@@ -236,12 +229,12 @@ export default function Map({
     };
   }, [selectedZone]);
 
-  const generateGeoJSON = (zoneData) => {
+  const generateGeoJSON = () => {
     let geoJson = {
       type: "FeatureCollection",
       features: [],
     };
-    if (zoneData && zoneInfo.length) {
+    if (zoneData.length && zoneInfo.length) {
       zoneData.forEach((zone) => {
         const { id, name, boundary_coordinates } = zone;
         const zoneScore = zoneInfo.find((score) => score.zone_id === id);
@@ -439,7 +432,9 @@ export default function Map({
     }
   };
 
-  let selectedBusynessScore = busynessScores.find(score => score.time === selectedTime)
+  let selectedBusynessScore = busynessScores.find(
+    (score) => score.time === selectedTime
+  );
   let busynessActivity = selectedBusynessScore?.busyness_score || 0;
 
   return (
@@ -473,10 +468,7 @@ export default function Map({
                     <h3 className="font-bold">{selectedZone.name}</h3>
                     {selectedZone.selectedHour ? (
                       <>
-                        <p>
-                          Busyness Activity:{" "}
-                          {busynessActivity.toFixed(2)}
-                        </p>
+                        <p>Busyness Activity: {busynessActivity.toFixed(2)}</p>
                         <p>
                           Time:{" "}
                           {new Date(
