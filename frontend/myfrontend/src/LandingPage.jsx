@@ -22,21 +22,6 @@ export default function LandingPage() {
 
   return (
     <> 
-    {/* <nav className="flex justify-between items-center bg-blue-600 w-full pt-2.5 pr-4 pb-3 px-4 h-12	 text-white">
-        <h2 className=" w-[95px] h-[28px]">Ad Optima</h2>
-        <ul className="flex space-x-4">
-                <li href="#" className="cursor-pointer  w-[95px] h-[28px]">
-                    Features
-                </li>
-                <li href="#" className="cursor-pointer  w-[95px] h-[28px]">
-                    Testimonials
-                </li>
-                <li href="#" className="cursor-pointer  w-[95px] h-[28px]">
-                    FAQ
-                </li>
-        </ul>
-        <Button type="primary" onClick={handleNavigate}>Get Started</Button>
-    </nav> */}
         <nav className="flex justify-between items-center bg-blue-600 w-full pt-2.5 pr-4 pb-3 px-4 h-12 text-white">
         <h2 className="w-[95px] h-[28px]">Ad Optima</h2>
         <ul className="flex space-x-4">
@@ -200,9 +185,29 @@ export default function LandingPage() {
             </div>
         </div>
 
-        <div>
-            
+        {/* <div className="flex justify-center items-center">
+            <div className="flex justify-between w-[1248px] h-[155px] border-solid border-slate-300 border-2 rounded-lg p-8 items-center">
+                <div>
+                    <h2 className="text-blue-600 text-4xl font-extrabold	">Call To Action</h2>
+                    <p className="text-slate-200">Get personalized advertising recommendations for your business in Manhattan.</p>
+                </div>
+                <div>
+                    <Button type="primary" onClick={handleNavigate}>Get Started</Button>
+                </div>
+            </div>
+        </div> */}
+        <div className="flex justify-center items-center mb-8"> {/* Added margin-bottom */}
+            <div className="flex justify-between w-[1248px] h-[155px] border-solid border-slate-300 border-2 rounded-lg p-8 items-center">
+                <div>
+                    <h2 className="text-blue-600 text-4xl font-extrabold">Call To Action</h2>
+                    <p className="text-slate-200">Get personalized advertising recommendations for your business in Manhattan.</p>
+                </div>
+                <div>
+                    <Button type="primary" onClick={handleNavigate}>Get Started</Button>
+                </div>
+            </div>
         </div>
+
             
 
 
