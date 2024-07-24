@@ -259,7 +259,8 @@ export default function Map({
           width: "200px",
           height: "24px",
           background:
-            "linear-gradient(to right, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)",
+            "linear-gradient(to right, #FFFEDA, #F9F962, #FBFD3B, #E9D328, #F99E18, #F99E18, #EC8110, #F86218, #F7380F, #F31115, #D50000)", 
+          opacity: "0.9",
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
         }}
@@ -274,12 +275,12 @@ export default function Map({
           }}
         >
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
+            style={{ fontSize: "12px", color: "black", fontWeight: "medium" }}
           >
             Low Score
           </span>
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
+            style={{ fontSize: "12px", color: "black", fontWeight: "medium" }}
           >
             High Score
           </span>
@@ -321,26 +322,26 @@ export default function Map({
           ["linear"],
           ["get", "total_score"],
           0,
-          "#FFEBEE",
+          "#FFFEDA",
           25,
-          "#FFCDD2",
+          "#F9F962",
           50,
-          "#EF9A9A",
+          "#FBFD3B",
           75,
-          "#E57373",
+          "#E9D328",
           100,
-          "#EF5350",
+          "#F99E18",
           125,
-          "#E53935",
+          "#F86218",
           150,
-          "#D32F2F",
+          "#F7380F",
           175,
-          "#C62828",
+          "#F31115",
           200,
-          "#B71C1C",
+          "#D50000",
         ],
       ],
-      "fill-opacity": 0.5,
+      "fill-opacity": 0.6,
     },
   };
 
