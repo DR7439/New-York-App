@@ -16,9 +16,7 @@ export default function LandingPage() {
     console.log("Navigating to /register")
     navigate("/register");
   };
-
-
-
+  
 
   return (
     <> 
@@ -40,6 +38,7 @@ export default function LandingPage() {
                 FAQ
             </Link>
             </li>
+            
         </ul>
         <Button type="primary" onClick={handleNavigate}>Get Started</Button>
         </nav>
@@ -156,71 +155,48 @@ export default function LandingPage() {
         </Element>
         
         <Element name="faq">
-            <section className="mt-8">
+        <section className="mt-8">
 
-        <div className="flex flex-col items-center p-8">
-            <h2 className="font-bold text-2xl mb-8">FAQ</h2>
+            <div className="flex flex-col items-center p-8">
+                <h2 className="font-bold text-2xl mb-8">FAQ</h2>
 
-            <div className="flex items-center space-x-[112px]">
-                <div className="flex-shrink-0">
-                    <img src={FAQ} alt="FAQ Image" className="w-[536px] h-[536px] object-cover rounded-lg" />
-                </div>
-
-                <div className="max-w-[536px] flex flex-col justify-center">
-                    <div className="mb-6">
-                        <p className="font-semibold">How does Ad Optima analyze foot traffic?</p>
-                        <p className="pt-4 pr-6 pb-4 pl-4">Ad Optima utilizes GPS tracking data from mobile devices and partnerships with location data providers to analyze foot traffic patterns in real-time.</p>
+                <div className="flex items-center space-x-[112px]">
+                    <div className="flex-shrink-0">
+                        <img src={FAQ} alt="FAQ Image" className="w-[536px] h-[536px] object-cover rounded-lg" />
                     </div>
 
-                    <div className="mb-6">
-                        <p className="font-semibold">What demographic data does Ad Optima consider?</p>
-                        <p className="pt-4 pr-6 pb-4 pl-4"></p>
-                    </div>
+                    <div className="max-w-[536px] flex flex-col justify-center">
+                        <div className="mb-6">
+                            <p className="font-semibold text-gray-500">How does Ad Optima analyze foot traffic?</p>
+                            <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal	">Ad Optima utilizes GPS tracking data from mobile devices and partnerships with location data providers to analyze foot traffic patterns in real-time.</p>
+                        </div>
 
-                    <div className="mb-6">
-                        <p className="font-semibold">How does Ad Optima integrate local demographic and foot traffic data to recommend the most effective advertisement locations?</p>
-                        <p className="pt-4 pr-6 pb-4 pl-4"></p>
+                        <div className="mb-6">
+                            <p className="font-semibold text-gray-500">What demographic data does Ad Optima consider?</p>
+                            <p className="pt-4 pr-6 pb-4 pl-4"></p>
+                        </div>
+
+                        <div className="mb-6">
+                            <p className="font-semibold text-gray-500">How does Ad Optima integrate local demographic and foot traffic data to recommend the most effective advertisement locations?</p>
+                            <p className="pt-4 pr-6 pb-4 pl-4"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        {/* <div className="flex justify-center items-center">
-            <div className="flex justify-between w-[1248px] h-[155px] border-solid border-slate-300 border-2 rounded-lg p-8 items-center">
-                <div>
-                    <h2 className="text-blue-600 text-4xl font-extrabold	">Call To Action</h2>
-                    <p className="text-slate-200">Get personalized advertising recommendations for your business in Manhattan.</p>
-                </div>
-                <div>
-                    <Button type="primary" onClick={handleNavigate}>Get Started</Button>
-                </div>
-            </div>
-        </div> */}
-        <div className="flex justify-center items-center mb-8"> {/* Added margin-bottom */}
-            <div className="flex justify-between w-[1248px] h-[155px] border-solid border-slate-300 border-2 rounded-lg p-8 items-center">
-                <div>
-                    <h2 className="text-blue-600 text-4xl font-extrabold">Call To Action</h2>
-                    <p className="text-slate-200">Get personalized advertising recommendations for your business in Manhattan.</p>
-                </div>
-                <div>
-                    <Button type="primary" onClick={handleNavigate}>Get Started</Button>
+            <div className="flex justify-center items-center mb-8"> {/* Added margin-bottom */}
+                <div className="flex justify-between w-[1248px] h-[155px] border-solid border-slate-300 border-2 rounded-lg p-6 items-center">
+                    <div>
+                        <h2 className="text-blue-600 text-4xl font-extrabold">Call To Action</h2>
+                        <p className="text-neutral-500">Get personalized advertising recommendations for your business in Manhattan.</p>
+                    </div>
+                    <div>
+                        <Button type="primary" onClick={handleNavigate}>Get Started</Button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-            
-
-
         </section>
         </Element>
-        
-
-
-
-
-
-
-
   </>
   )
 } 
