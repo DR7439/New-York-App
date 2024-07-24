@@ -497,25 +497,25 @@ export default function Map({
         <Card
           className="w-[39%] h-full overflow-auto"
           title={
-            <div className="text-center">Available Billboards by Location</div>
+            <div> Available Billboards by Location</div>
           }
           styles={{ header: { borderBottom: "1px solid #f0f0f0" } }}
         >
           <div className="text-left">
             {!selectedZone && (
-              <p className="text-center">
-                Select an location from the Recommendations table or click on a
-                location from the hilighted area to display billboard
+              <p>
+                Select a location from the Recommendations table or click on a
+                location from the highlighted area to display billboard
                 information.
               </p>
             )}
             {selectedZone && isLoadingBillboards && (
-              <p className="text-center">Loading billboard information...</p>
+              <p>Loading billboard information...</p>
             )}
             {selectedZone &&
               !isLoadingBillboards &&
               billboards.length === 0 && (
-                <p className="text-center">No billboards for this location</p>
+                <p>No billboards for this location</p>
               )}
             {selectedZone &&
               !isLoadingBillboards &&

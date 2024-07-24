@@ -97,7 +97,7 @@ export function AnalyticTable({ tableData, onRowClick, topZones }) {
       dataIndex: "demographic_score",
       sorter: (a, b) => a.demographic_score - b.demographic_score,
       render: (text, record) => (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-start">
           <Tag icon={<CheckCircleOutlined />} color="success">
             {Number(text).toFixed(2)}/100
           </Tag>
@@ -122,7 +122,7 @@ export function AnalyticTable({ tableData, onRowClick, topZones }) {
       dataIndex: "busyness_score",
       sorter: (a, b) => a.busyness_score - b.busyness_score,
       render: (text, record) => (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-start">
           <Tag icon={<CheckCircleOutlined />} color="success">
             {Number(text).toFixed(2)}/100
           </Tag>
