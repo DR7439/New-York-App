@@ -266,7 +266,7 @@ export default function Map({
           width: "200px",
           height: "24px",
           background:
-            "linear-gradient(to right, #FFEBEE, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)",
+            "linear-gradient(to right, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)",
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
         }}
@@ -281,12 +281,12 @@ export default function Map({
           }}
         >
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "bold" }}
+            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
           >
             Low Score
           </span>
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "bold" }}
+            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
           >
             High Score
           </span>
@@ -499,25 +499,25 @@ export default function Map({
         <Card
           className="w-[39%] h-full overflow-auto"
           title={
-            <div className="text-center">Available Billboards by Location</div>
+            <div> Available Billboards by Location</div>
           }
           styles={{ header: { borderBottom: "1px solid #f0f0f0" } }}
         >
           <div className="text-left">
             {!selectedZone && (
-              <p className="text-center">
-                Select an location from the Recommendations table or click on a
-                location from the hilighted area to display billboard
+              <p>
+                Select a location from the Recommendations table or click on a
+                location from the highlighted area to display billboard
                 information.
               </p>
             )}
             {selectedZone && isLoadingBillboards && (
-              <p className="text-center">Loading billboard information...</p>
+              <p>Loading billboard information...</p>
             )}
             {selectedZone &&
               !isLoadingBillboards &&
               billboards.length === 0 && (
-                <p className="text-center">No billboards for this location</p>
+                <p>No billboards for this location</p>
               )}
             {selectedZone &&
               !isLoadingBillboards &&
