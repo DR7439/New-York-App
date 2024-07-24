@@ -3,12 +3,15 @@ import { Button, Popover, Table, Tag } from "antd";
 import React from "react";
 import { TABLE_TOOLTIP_TEXT } from "../constant";
 
-const pad0 = (num) => num.toString().padStart(2, "0");
-
-const timeFilters = [...Array(24).keys()].map((i) => ({
-  text: `${pad0(i)}:00`,
-  value: `${pad0(i)}:00`,
-}));
+const timeFilters = [...Array(24).keys()].map((i) => {
+  let newDate = new Date()
+  newDate.setHours(i, 0, 0, 0)
+  let time = newDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+  return {
+    text: time,
+    value: time,
+  }
+})
 
 export function AnalyticTable({ tableData, onRowClick, topZones }) {
   const columns = [
@@ -69,8 +72,11 @@ export function AnalyticTable({ tableData, onRowClick, topZones }) {
       },
 
       onFilter: (value, record) => {
-        let time = `${record.datetime.split("T")[1].split(":")[0]}:00`;
-        return time === value;
+        let timeToShow = new Date(record.datetime).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        return timeToShow === value;
       },
     },
     {
