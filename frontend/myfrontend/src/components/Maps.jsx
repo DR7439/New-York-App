@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { Layer, Marker, Popup, Source } from "react-map-gl";
 import axiosInstance from "../axiosInstance";
 import useZones from "../hooks/useZones";
-import {FlyToInterpolator} from '@deck.gl/core';
+import { FlyToInterpolator } from "@deck.gl/core";
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
 export default function Map({
   id,
@@ -84,7 +84,7 @@ export default function Map({
           setBillboards([]);
           setSelectedHour(null);
           if (newSelectedZone.score !== "N/A") {
-            getZoneDetails(matchedZone.name);
+            getZoneDetails(matchedZone.id);
           }
           getBillboards(newSelectedZone.id);
         } else {
@@ -93,7 +93,7 @@ export default function Map({
             clickLngLat: event.lngLat,
           }));
         }
-        console.log("🚀 ~ setSelectedZone ~ event:", event.lngLat)
+        console.log("🚀 ~ setSelectedZone ~ event:", event.lngLat);
 
         setViewport({
           ...viewport,
@@ -101,7 +101,7 @@ export default function Map({
           latitude: event.lngLat.lat,
           zoom: 14,
           transitionDuration: 1000,
-          transitionInterpolator: new FlyToInterpolator({speed: 2}),
+          transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
         });
       }
     }
@@ -157,25 +157,18 @@ export default function Map({
   }, [zoneData, zoneInfo]);
 
   //My getZoneDetails function
-  const getZoneDetails = async (zoneName) => {
-    const zoneIds = completeZoneInfo
-      .filter((zone) => zone.name === zoneName)
-      .map((zone) => zone.id);
-
-    for (let zoneId of zoneIds) {
-      let res = await axiosInstance.get(
-        `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
-      );
-      if (res.data && res.data.busyness_scores) {
-        setBusynessScores(res.data.busyness_scores);
-        // todo check
-        // setSelectedZone((prevZone) => ({
-        //   ...prevZone,
-        //   demographic_score: res.data.demographic_score,
-        //   busyness_score: res.data.busyness_scores[0].busyness_score,
-        // }));
-        break;
-      }
+  const getZoneDetails = async (zoneId) => {
+    let res = await axiosInstance.get(
+      `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
+    );
+    if (res.data && res.data.busyness_scores) {
+      setBusynessScores(res.data.busyness_scores);
+      // todo check
+      // setSelectedZone((prevZone) => ({
+      //   ...prevZone,
+      //   demographic_score: res.data.demographic_score,
+      //   busyness_score: res.data.busyness_scores[0].busyness_score,
+      // }));
     }
   };
 
@@ -385,7 +378,7 @@ export default function Map({
           latitude: newSelectedZone.clickLngLat.lat,
           zoom: 14,
         });
-        getZoneDetails(zone.name);
+        getZoneDetails(zone.id);
       }
     }
   }, [selectedMapZoneId, completeZoneInfo]);
@@ -498,9 +491,7 @@ export default function Map({
         </ReactMapGL>
         <Card
           className="w-[39%] h-full overflow-auto"
-          title={
-            <div> Available Billboards by Location</div>
-          }
+          title={<div> Available Billboards by Location</div>}
           styles={{ header: { borderBottom: "1px solid #f0f0f0" } }}
         >
           <div className="text-left">
@@ -516,9 +507,7 @@ export default function Map({
             )}
             {selectedZone &&
               !isLoadingBillboards &&
-              billboards.length === 0 && (
-                <p>No billboards for this location</p>
-              )}
+              billboards.length === 0 && <p>No billboards for this location</p>}
             {selectedZone &&
               !isLoadingBillboards &&
               billboards.length > 0 &&
