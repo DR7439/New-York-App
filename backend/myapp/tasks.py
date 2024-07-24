@@ -39,7 +39,7 @@ def background_task(search_id):
 
     # Calculate the combined scores and ranks
     combined_scores = calculate_combined_scores_and_ranks(demographics_data, business_data, selected_genders, selected_age_groups, selected_businesses, demographic_weight, business_weight)
-    print(combined_scores)
+    
     # Create demographic scores for each zone for the search
     for _, row in combined_scores.iterrows():
         zone = Zone.objects.get(id=row['zone_id'])
@@ -138,9 +138,7 @@ def calculate_demographic_score(zone, search):
     # Combine scores
     demographic_score = age_score + interest_score
     
-    # Print scores in a single line
-    print(f'{zone.name} - Age Score: {age_score}, Interest Count: {total_interest_count}, Interest Score: {interest_score}')
-
+    
     return demographic_score
 
 
@@ -158,7 +156,6 @@ def validate_selection(selection, valid_values, selection_name):
 
     invalid_values = [item for item in selection if item not in valid_values]
     if invalid_values:
-        print(valid_values)
         raise ValueError(f"Invalid {selection_name} values: {invalid_values}")
 
     return selection
