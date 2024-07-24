@@ -20,13 +20,11 @@ const AdvertisingCarousel = ({ advertisingLocations, onCardClick }) => {
         className="pb-8"
         dotPosition="bottom"
         ref={carouselRef}
-        slidesToShow={2}
+        slidesToShow={3}
         initialSlide={1}
         centerMode
         centerPadding="40px"
         adaptiveHeight
-        swipeToSlide
-        draggable
         easing
         // infinite
       >
@@ -62,9 +60,9 @@ const AdvertisingCarousel = ({ advertisingLocations, onCardClick }) => {
 
 function CardItem({ location, index, onClick }) {
   return (
-    <div className="mr-12 select-none">
+    <div className="mr-12 pb-4 select-none">
       <div
-        className="hover:shadow-xl hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer"
+        className="hover:shadow-md rounded-lg hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer"
         onClick={onClick}
       >
         <div className="text-base px-4">
@@ -80,7 +78,7 @@ function CardItem({ location, index, onClick }) {
         </div>
         <ul className="text-sm space-y-2 px-4">
           <li>
-            <b>Zone:</b> {location.zone_name}
+            <b>Location:</b> {location.zone_name}
           </li>
           <li>
             <b>Description:</b> {location.description}
@@ -88,96 +86,25 @@ function CardItem({ location, index, onClick }) {
           <li className="space-x-2">
             <span>
               <b>Busyness Score:</b> {location.max_busyness.toFixed(2)}/100
-            </span>
-            <span>
-              <b className="mr-1">Recommend Time:</b>
+            </span> 
+          </li> 
+          <li>
+              <b className="mr-1">Recommended Time:</b>
               {new Date(location.max_busyness_time).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
-            </span>
-          </li>
+            </li>
           <li className="space-x-2">
             <span>
               <b>Demographic Score:</b> {location.demographic_score.toFixed(2)}
               /100
             </span>
-            <span>
+          </li>
+          <li>
               <b>Cost per Day:</b> ${location.cost_per_day}
-            </span>
           </li>
         </ul>
-      </div>
-    </div>
-  );
-}
-
-function CardItem2({ location, index }) {
-  return (
-    <div className="pr-12">
-      <div className="shadow-lg p-4">
-        <div className="flex justify-between items-center mb-4">
-          <div className="w-3/5 pr-4">
-            <h3 className="text-2xl font-bold">Rank #{index + 1}</h3>
-            <h4 className="text-xl font-medium">{location.location}</h4>
-            <p className="text-sm">
-              <strong>Zone:</strong> {location.zone_name}
-            </p>
-            <p className="text-sm">{location.description}</p>
-          </div>
-          <div className="w-2/5">
-            <img
-              src={`/img/${location.property}/${location.photo_url}`}
-              alt={location.location}
-              className="max-w-full h-auto"
-            />
-          </div>
-        </div>
-        <div className="flex justify-between items-center mt-4">
-          <div className="flex flex-col items-center w-1/4">
-            <h4 className="text-lg font-medium">Busyness Score</h4>
-            <div className="w-3/4 h-2 bg-gray-200 rounded">
-              <div
-                className={`h-full rounded ${
-                  location.max_busyness > 50 ? "bg-green-500" : "bg-yellow-500"
-                }`}
-                style={{ width: `${location.max_busyness}%` }}
-              />
-            </div>
-            <span className="text-sm">
-              {location.max_busyness.toFixed(2)}/100
-            </span>
-          </div>
-          <div className="flex flex-col items-center w-1/4">
-            <h4 className="text-lg font-medium">Demographic Score</h4>
-            <div className="w-3/4 h-2 bg-gray-200 rounded">
-              <div
-                className={`h-full rounded ${
-                  location.demographic_score > 50
-                    ? "bg-green-500"
-                    : "bg-yellow-500"
-                }`}
-                style={{ width: `${location.demographic_score}%` }}
-              />
-            </div>
-            <span className="text-sm">
-              {location.demographic_score.toFixed(2)}/100
-            </span>
-          </div>
-          <div className="flex flex-col items-center w-1/4">
-            <h4 className="text-lg font-medium">Cost per Day</h4>
-            <span className="text-xl font-bold">${location.cost_per_day}</span>
-          </div>
-          <div className="flex flex-col items-center w-1/4">
-            <h4 className="text-lg font-medium">Peak Time</h4>
-            <span className="text-lg font-bold">
-              {new Date(location.max_busyness_time).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

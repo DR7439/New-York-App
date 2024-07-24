@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { Layer, Marker, Popup, Source } from "react-map-gl";
 import axiosInstance from "../axiosInstance";
 import useZones from "../hooks/useZones";
+import { FlyToInterpolator } from "@deck.gl/core";
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
 export default function Map({
   id,
@@ -83,7 +84,7 @@ export default function Map({
           setBillboards([]);
           setSelectedHour(null);
           if (newSelectedZone.score !== "N/A") {
-            getZoneDetails(matchedZone.name);
+            getZoneDetails(matchedZone.id);
           }
           getBillboards(newSelectedZone.id);
         } else {
@@ -92,14 +93,15 @@ export default function Map({
             clickLngLat: event.lngLat,
           }));
         }
+        console.log("🚀 ~ setSelectedZone ~ event:", event.lngLat);
 
         setViewport({
           ...viewport,
-          longitude: event.lngLat[0],
-          latitude: event.lngLat[1],
+          longitude: event.lngLat.lng,
+          latitude: event.lngLat.lat,
           zoom: 14,
           transitionDuration: 1000,
-          transitionInterpolator: new FlyToInterpolator(),
+          transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
         });
       }
     }
@@ -155,25 +157,18 @@ export default function Map({
   }, [zoneData, zoneInfo]);
 
   //My getZoneDetails function
-  const getZoneDetails = async (zoneName) => {
-    const zoneIds = completeZoneInfo
-      .filter((zone) => zone.name === zoneName)
-      .map((zone) => zone.id);
-
-    for (let zoneId of zoneIds) {
-      let res = await axiosInstance.get(
-        `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
-      );
-      if (res.data && res.data.busyness_scores) {
-        setBusynessScores(res.data.busyness_scores);
-        // todo check
-        // setSelectedZone((prevZone) => ({
-        //   ...prevZone,
-        //   demographic_score: res.data.demographic_score,
-        //   busyness_score: res.data.busyness_scores[0].busyness_score,
-        // }));
-        break;
-      }
+  const getZoneDetails = async (zoneId) => {
+    let res = await axiosInstance.get(
+      `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
+    );
+    if (res.data && res.data.busyness_scores) {
+      setBusynessScores(res.data.busyness_scores);
+      // todo check
+      // setSelectedZone((prevZone) => ({
+      //   ...prevZone,
+      //   demographic_score: res.data.demographic_score,
+      //   busyness_score: res.data.busyness_scores[0].busyness_score,
+      // }));
     }
   };
 
@@ -264,7 +259,7 @@ export default function Map({
           width: "200px",
           height: "24px",
           background:
-            "linear-gradient(to right, #FFEBEE, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)",
+            "linear-gradient(to right, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)",
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
         }}
@@ -279,12 +274,12 @@ export default function Map({
           }}
         >
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "bold" }}
+            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
           >
             Low Score
           </span>
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "bold" }}
+            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
           >
             High Score
           </span>
@@ -383,7 +378,7 @@ export default function Map({
           latitude: newSelectedZone.clickLngLat.lat,
           zoom: 14,
         });
-        getZoneDetails(zone.name);
+        getZoneDetails(zone.id);
       }
     }
   }, [selectedMapZoneId, completeZoneInfo]);
@@ -496,27 +491,23 @@ export default function Map({
         </ReactMapGL>
         <Card
           className="w-[39%] h-full overflow-auto"
-          title={
-            <div className="text-center">Available Billboards by Location</div>
-          }
+          title={<div> Available Billboards by Location</div>}
           styles={{ header: { borderBottom: "1px solid #f0f0f0" } }}
         >
           <div className="text-left">
             {!selectedZone && (
-              <p className="text-center">
-                Select an location from the Recommendations table or click on a
-                location from the hilighted area to display billboard
+              <p>
+                Select a location from the Recommendations table or click on a
+                location from the highlighted area to display billboard
                 information.
               </p>
             )}
             {selectedZone && isLoadingBillboards && (
-              <p className="text-center">Loading billboard information...</p>
+              <p>Loading billboard information...</p>
             )}
             {selectedZone &&
               !isLoadingBillboards &&
-              billboards.length === 0 && (
-                <p className="text-center">No billboards for this location</p>
-              )}
+              billboards.length === 0 && <p>No billboards for this location</p>}
             {selectedZone &&
               !isLoadingBillboards &&
               billboards.length > 0 &&

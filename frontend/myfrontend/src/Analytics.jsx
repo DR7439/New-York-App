@@ -33,6 +33,7 @@ import {
 import AdvertisingCarousel from "./components/AdvertisingCarousel";
 import { getDateArray, parseScoresFromTopZones } from "./utils/analytics";
 import { AnalyticTable } from "./components/AnalyticTable";
+import axiosInstance from "./axiosInstance";
 
 const Analytics = () => {
   let { id } = useParams();
@@ -81,10 +82,10 @@ const Analytics = () => {
     setLoading(true);
     // for testing skeleton
     // await new Promise((resolve) => setTimeout(resolve, 2000));
-    fetchWithCache(`/api/top-zones/?search_id=${id}&date=${date}`)
+    axiosInstance.get(`/api/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
-        if (res) {
-          let topZones = res;
+        if (res.data) {
+          let topZones = res.data;
           setTopZones(topZones);
           setSelectedZoneId(topZones[0]?.zone_id);
           let scores = parseScoresFromTopZones(topZones);
