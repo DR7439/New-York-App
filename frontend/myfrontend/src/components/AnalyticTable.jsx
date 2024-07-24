@@ -52,7 +52,7 @@ export function AnalyticTable({ tableData, onRowClick, topZones }) {
       ),
     },
     {
-      title: "Time",
+      title: "Recommended Time",
       dataIndex: "datetime",
       filters: timeFilters,
       render(text, record) {

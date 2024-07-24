@@ -80,7 +80,7 @@ function CardItem({ location, index, onClick }) {
         </div>
         <ul className="text-sm space-y-2 px-4">
           <li>
-            <b>Zone:</b> {location.zone_name}
+            <b>Location:</b> {location.zone_name}
           </li>
           <li>
             <b>Description:</b> {location.description}
@@ -90,7 +90,7 @@ function CardItem({ location, index, onClick }) {
               <b>Busyness Score:</b> {location.max_busyness.toFixed(2)}/100
             </span>
             <span>
-              <b className="mr-1">Recommend Time:</b>
+              <b className="mr-1">Recommended Time:</b>
               {new Date(location.max_busyness_time).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
