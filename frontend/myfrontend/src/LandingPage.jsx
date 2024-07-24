@@ -111,23 +111,37 @@ export default function LandingPage() {
     <h2 className="font-bold text-2xl mb-8 text-center">What Others Say About Us</h2>
     <div className="flex flex-row space-x-8">
         <div className="flex flex-col items-center">
-            <p className="text-gray-600 font-semibold mb-2">John Doe</p>
-            <p className="text-gray-400 text-sm mb-4">Marketing Manager</p>
             <p className="text-gray-500 text-center mb-2">"Ad Optima has revolutionized the way we approach advertising. The recommendations are spot on and have significantly improved our campaign outcomes."</p>
-            <img src={Review1} alt="Customer Review 1" className="w-16 h-16 rounded-full"/>
+            <div className="flex items-center space-x-4">
+                <img src={Review1} alt="Customer Review 1" className="w-16 h-16 rounded-full"/>
+                <div className="flex flex-col justify-center">
+                    <p className="text-gray-600 font-semibold mb-0">Jessica Smith</p>
+                    <p className="text-gray-400 text-sm mt-1">Marketing Manager</p>
+                </div>
+            </div>
+            
         </div>
         <div className="flex flex-col items-center">
-            <p className="text-gray-600 font-semibold mb-2">Jane Smith</p>
-            <p className="text-gray-400 text-sm mb-4">Sales Director</p>
             <p className="text-gray-500 text-center mb-2">"I was skeptical at first, but Ad Optima proved its worth. We saw a noticeable increase in foot traffic and sales after following its suggestions."</p>
-            <img src={Review2} alt="Customer Review 2" className="w-16 h-16 rounded-full"/>
+            <div className="flex items-center space-x-4">
+                <img src={Review2} alt="Customer Review 2" className="w-16 h-16 rounded-full"/>
+                <div className="flex flex-col justify-center">
+                    <p className="text-gray-600 font-semibold mb-0">Michael Johnson</p>
+                    <p className="text-gray-400 text-sm mt-1">Sales Director</p>
+                </div>
+            </div>
         </div>
         <div className="flex flex-col items-center">
-            <p className="text-gray-600 font-semibold mb-2">Emily Johnson</p>
-            <p className="text-gray-400 text-sm mb-4">Business Owner</p>
             <p className="text-gray-500 text-center mb-2">"Ad Optima is a game-changer for businesses in Manhattan. The insights provided are invaluable, and the interface is user-friendly. Highly recommend it!"</p>
-            <img src={Review3} alt="Customer Review 3" className="w-16 h-16 rounded-full"/>
+            <div className="flex items-center space-x-4">
+                <img src={Review3} alt="Customer Review 3" className="w-16 h-16 rounded-full"/>
+                <div className="flex flex-col justify-center">
+                    <p className="text-gray-600 font-semibold mb-0">Emily Brown</p>
+                    <p className="text-gray-400 text-sm mt-1">Business Owner</p>
+                </div>
+            </div>
         </div>
+
     </div>
     
 </section>
