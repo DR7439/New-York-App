@@ -20,7 +20,7 @@ const AdvertisingCarousel = ({ advertisingLocations, onCardClick }) => {
         className="pb-8"
         dotPosition="bottom"
         ref={carouselRef}
-        slidesToShow={2}
+        slidesToShow={3}
         initialSlide={1}
         centerMode
         centerPadding="40px"
@@ -62,9 +62,9 @@ const AdvertisingCarousel = ({ advertisingLocations, onCardClick }) => {
 
 function CardItem({ location, index, onClick }) {
   return (
-    <div className="mr-12 select-none">
+    <div className="mr-12 pb-4 select-none">
       <div
-        className="hover:shadow-xl hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer"
+        className="hover:shadow-md rounded-lg hover:border-transparent space-y-4 py-6 border border-neutral-100 cursor-pointer"
         onClick={onClick}
       >
         <div className="text-base px-4">
@@ -88,23 +88,23 @@ function CardItem({ location, index, onClick }) {
           <li className="space-x-2">
             <span>
               <b>Busyness Score:</b> {location.max_busyness.toFixed(2)}/100
-            </span>
-            <span>
+            </span> 
+          </li> 
+          <li>
               <b className="mr-1">Recommended Time:</b>
               {new Date(location.max_busyness_time).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
-            </span>
-          </li>
+            </li>
           <li className="space-x-2">
             <span>
               <b>Demographic Score:</b> {location.demographic_score.toFixed(2)}
               /100
             </span>
-            <span>
+          </li>
+          <li>
               <b>Cost per Day:</b> ${location.cost_per_day}
-            </span>
           </li>
         </ul>
       </div>
