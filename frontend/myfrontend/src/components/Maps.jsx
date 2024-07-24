@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { Layer, Marker, Popup, Source } from "react-map-gl";
 import axiosInstance from "../axiosInstance";
 import useZones from "../hooks/useZones";
+import {FlyToInterpolator} from '@deck.gl/core';
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
 export default function Map({
   id,
@@ -92,14 +93,15 @@ export default function Map({
             clickLngLat: event.lngLat,
           }));
         }
+        console.log("🚀 ~ setSelectedZone ~ event:", event.lngLat)
 
         setViewport({
           ...viewport,
-          longitude: event.lngLat[0],
-          latitude: event.lngLat[1],
+          longitude: event.lngLat.lng,
+          latitude: event.lngLat.lat,
           zoom: 14,
           transitionDuration: 1000,
-          transitionInterpolator: new FlyToInterpolator(),
+          transitionInterpolator: new FlyToInterpolator({speed: 2}),
         });
       }
     }
