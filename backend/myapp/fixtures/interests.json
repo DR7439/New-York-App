@@ -2,7 +2,6 @@
     {"model": "myapp.interest", "pk": "Food, beverages", "fields": {}},
     {"model": "myapp.interest", "pk": "General store, department store, mall", "fields": {}},
     {"model": "myapp.interest", "pk": "Clothing, shoes, accessories", "fields": {}},
-    {"model": "myapp.interest", "pk": "Discount store, charity", "fields": {}},
     {"model": "myapp.interest", "pk": "Health and beauty", "fields": {}},
     {"model": "myapp.interest", "pk": "Do-it-yourself, household, building materials, gardening", "fields": {}},
     {"model": "myapp.interest", "pk": "Furniture and interior", "fields": {}},
