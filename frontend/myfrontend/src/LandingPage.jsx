@@ -9,6 +9,7 @@ import Review1 from "/review1.png"
 import Review2 from "/review2.png"
 import Review3 from "/review3.png"
 import FAQ from "/FAQ.png"
+
 export default function LandingPage() {
     const navigate = useNavigate();
 
@@ -24,17 +25,17 @@ export default function LandingPage() {
         <h2 className="w-[95px] h-[28px]">Ad Optima</h2>
         <ul className="flex space-x-4">
             <li className="cursor-pointer w-[95px] h-[28px]">
-            <Link to="features" smooth={true} duration={500} className="hover:underline">
-                Features
+            <Link to="insights" smooth={true} duration={500} className="nav-link text-white transition-opacity duration-500">
+                Insights
             </Link>
             </li>
             <li className="cursor-pointer w-[95px] h-[28px]">
-            <Link to="testimonials" smooth={true} duration={500} className="hover:underline">
+            <Link to="testimonials" smooth={true} duration={500} className="nav-link text-white  transition-opacity duration-500">
                 Testimonials
             </Link>
             </li>
             <li className="cursor-pointer w-[95px] h-[28px]">
-            <Link to="faq" smooth={true} duration={500} className="hover:underline">
+            <Link to="faq" smooth={true} duration={500} className="nav-link text-white -150 transition-opacity duration-111000">
                 FAQ
             </Link>
             </li>
@@ -51,7 +52,10 @@ export default function LandingPage() {
                 <p className="text-gray-400 text-justify">Get targeted advertising recommendations based on foot traffic and demographics in Manhattan.</p>
                 <div className="flex space-x-4">
                     <Button type="primary" onClick={handleNavigate}>Get Started</Button>
-                    <Button type="default">Learn More</Button>
+                    {/* <Button type="default">Learn More</Button> */}
+                    <Link to="features" smooth={true} duration={500}>
+                        <Button type="default">Learn More</Button>
+                    </Link>
                 </div>
 
                 <div className="flex items-center">
@@ -84,7 +88,7 @@ export default function LandingPage() {
                 />
             </div>
         </section>
-        <Element name="features">
+        <Element name="insights">
             <section>
             <div className="flex flex-col items-center justify-center">
                 <div className="text-center mb-16"> 
@@ -115,7 +119,7 @@ export default function LandingPage() {
         </Element>
         <Element name="testimonials">
             <section className="mt-8">
-            <h2 className="font-bold text-2xl mb-8 text-center">What Others Say About Us</h2>
+            <h2 className="font-bold text-2xl mb-8 text-center">Testimonials</h2>
             <div className="flex flex-row space-x-8">
                 <div className="flex flex-col items-center">
                     <p className="text-gray-500 text-center mb-2">"Ad Optima has revolutionized the way we approach advertising. The recommendations are spot on and have significantly improved our campaign outcomes."</p>
@@ -153,7 +157,6 @@ export default function LandingPage() {
             
         </section>
         </Element>
-        
         <Element name="faq">
         <section className="mt-8">
 
@@ -184,7 +187,7 @@ export default function LandingPage() {
                 </div>
             </div>
 
-            <div className="flex justify-center items-center mb-8"> {/* Added margin-bottom */}
+            <div className="flex justify-center items-center mb-8"> 
                 <div className="flex justify-between w-[1248px] h-[155px] border-solid border-slate-300 border-2 rounded-lg p-6 items-center">
                     <div>
                         <h2 className="text-blue-600 text-4xl font-extrabold">Call To Action</h2>
@@ -197,6 +200,12 @@ export default function LandingPage() {
             </div>
         </section>
         </Element>
+        
+        
+
+
   </>
   )
 } 
+
+
