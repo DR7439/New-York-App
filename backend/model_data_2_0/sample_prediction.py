@@ -1,28 +1,18 @@
 import busyness_prediction
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
+import folium
+import json
+import branca.colormap as cm
 
-# Make predictions using the busyness prediction model
-predictions = busyness_prediction.make_prediction('2100-09-19 18:00:00', 'busyness_model.pkl')
+pred_time = '2024-08-18 18:00:00'
+pkl_directory = './busyness_model_percentiles.pkl'
 
-# Logarithmic scaling of the 'predicted_busyness_score' column to a 1-100 scale
-# Adding a small value to avoid taking log of zero
-predictions['log_normalized_score'] = np.log1p(predictions['predicted_busyness_score'])
+predictions = busyness_prediction.make_prediction(pred_time,pkl_directory)
 
-# Min-max scaling the log-transformed scores to 1-100
-min_log_score = predictions['log_normalized_score'].min()
-max_log_score = predictions['log_normalized_score'].max()
+#if the pickle file is in the same directory as this script, you can just call the function without the path
+#predictions = predictss.make_prediction('2024-07-09 18:00:00')
 
-predictions['log_normalized_score'] = 1 + (predictions['log_normalized_score'] - min_log_score) * 99 / (max_log_score - min_log_score)
+#predictions is a pandas dataframe
+print(predictions)
 
-# Plotting the log normalized busyness score
-plt.figure(figsize=(12, 6))
-plt.scatter(predictions['zone_id'], predictions['log_normalized_score'], c='blue', label='Log Normalized Busyness Score')
-plt.xlabel('Zone ID')
-plt.ylabel('Log Normalized Busyness Score')
-plt.title('Log Normalized Busyness Score by Zone ID')
-plt.legend()
-plt.grid(True)
-plt.show()
 
