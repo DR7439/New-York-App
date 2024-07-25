@@ -35,3 +35,6 @@ data-analytics/.env
 
 # Env Files
 *.env
+
+#CSV files
+*.csv
