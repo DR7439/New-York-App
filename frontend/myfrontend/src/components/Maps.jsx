@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { Layer, Marker, Popup, Source } from "react-map-gl";
 import axiosInstance from "../axiosInstance";
 import useZones from "../hooks/useZones";
-import {FlyToInterpolator} from '@deck.gl/core';
+import { FlyToInterpolator } from "@deck.gl/core";
 const billboardImageUrl = "https://i.imgur.com/ZOlWTLF.jpeg";
 export default function Map({
   id,
@@ -84,7 +84,7 @@ export default function Map({
           setBillboards([]);
           setSelectedHour(null);
           if (newSelectedZone.score !== "N/A") {
-            getZoneDetails(matchedZone.name);
+            getZoneDetails(matchedZone.id);
           }
           getBillboards(newSelectedZone.id);
         } else {
@@ -93,7 +93,7 @@ export default function Map({
             clickLngLat: event.lngLat,
           }));
         }
-        console.log("🚀 ~ setSelectedZone ~ event:", event.lngLat)
+        console.log("🚀 ~ setSelectedZone ~ event:", event.lngLat);
 
         setViewport({
           ...viewport,
@@ -101,7 +101,7 @@ export default function Map({
           latitude: event.lngLat.lat,
           zoom: 14,
           transitionDuration: 1000,
-          transitionInterpolator: new FlyToInterpolator({speed: 2}),
+          transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
         });
       }
     }
@@ -157,25 +157,18 @@ export default function Map({
   }, [zoneData, zoneInfo]);
 
   //My getZoneDetails function
-  const getZoneDetails = async (zoneName) => {
-    const zoneIds = completeZoneInfo
-      .filter((zone) => zone.name === zoneName)
-      .map((zone) => zone.id);
-
-    for (let zoneId of zoneIds) {
-      let res = await axiosInstance.get(
-        `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
-      );
-      if (res.data && res.data.busyness_scores) {
-        setBusynessScores(res.data.busyness_scores);
-        // todo check
-        // setSelectedZone((prevZone) => ({
-        //   ...prevZone,
-        //   demographic_score: res.data.demographic_score,
-        //   busyness_score: res.data.busyness_scores[0].busyness_score,
-        // }));
-        break;
-      }
+  const getZoneDetails = async (zoneId) => {
+    let res = await axiosInstance.get(
+      `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
+    );
+    if (res.data && res.data.busyness_scores) {
+      setBusynessScores(res.data.busyness_scores);
+      // todo check
+      // setSelectedZone((prevZone) => ({
+      //   ...prevZone,
+      //   demographic_score: res.data.demographic_score,
+      //   busyness_score: res.data.busyness_scores[0].busyness_score,
+      // }));
     }
   };
 
@@ -266,7 +259,8 @@ export default function Map({
           width: "200px",
           height: "24px",
           background:
-            "linear-gradient(to right, #FFCDD2, #EF9A9A, #E57373, #EF5350, #F44336, #E53935, #D32F2F, #C62828, #B71C1C)",
+            "linear-gradient(to right, #FFFEDA, #F9F962, #FBFD3B, #E9D328, #F99E18, #F99E18, #EC8110, #F86218, #F7380F, #F31115, #D50000)", 
+          opacity: "0.9",
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
         }}
@@ -281,12 +275,12 @@ export default function Map({
           }}
         >
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
+            style={{ fontSize: "12px", color: "black", fontWeight: "medium" }}
           >
             Low Score
           </span>
           <span
-            style={{ fontSize: "12px", color: "white", fontWeight: "medium" }}
+            style={{ fontSize: "12px", color: "black", fontWeight: "medium" }}
           >
             High Score
           </span>
@@ -328,26 +322,26 @@ export default function Map({
           ["linear"],
           ["get", "total_score"],
           0,
-          "#FFEBEE",
+          "#FFFEDA",
           25,
-          "#FFCDD2",
+          "#F9F962",
           50,
-          "#EF9A9A",
+          "#FBFD3B",
           75,
-          "#E57373",
+          "#E9D328",
           100,
-          "#EF5350",
+          "#F99E18",
           125,
-          "#E53935",
+          "#F86218",
           150,
-          "#D32F2F",
+          "#F7380F",
           175,
-          "#C62828",
+          "#F31115",
           200,
-          "#B71C1C",
+          "#D50000",
         ],
       ],
-      "fill-opacity": 0.5,
+      "fill-opacity": 0.6,
     },
   };
 
@@ -385,7 +379,7 @@ export default function Map({
           latitude: newSelectedZone.clickLngLat.lat,
           zoom: 14,
         });
-        getZoneDetails(zone.name);
+        getZoneDetails(zone.id);
       }
     }
   }, [selectedMapZoneId, completeZoneInfo]);
@@ -498,9 +492,7 @@ export default function Map({
         </ReactMapGL>
         <Card
           className="w-[39%] h-full overflow-auto"
-          title={
-            <div> Available Billboards by Location</div>
-          }
+          title={<div> Available Billboards by Location</div>}
           styles={{ header: { borderBottom: "1px solid #f0f0f0" } }}
         >
           <div className="text-left">
@@ -516,9 +508,7 @@ export default function Map({
             )}
             {selectedZone &&
               !isLoadingBillboards &&
-              billboards.length === 0 && (
-                <p>No billboards for this location</p>
-              )}
+              billboards.length === 0 && <p>No billboards for this location</p>}
             {selectedZone &&
               !isLoadingBillboards &&
               billboards.length > 0 &&
