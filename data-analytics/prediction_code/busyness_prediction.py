@@ -3,6 +3,7 @@ from datetime import timedelta
 import pandas as pd
 import numpy as np
 import pickle
+import datetime
 
 def get_last_12_months_rows(df, timestamp, zone_id):
     current_time = pd.to_datetime(timestamp)
@@ -98,10 +99,11 @@ def make_prediction(pred_time,path_to_pickle='./busyness_model.pkl'):
     week_cos = np.cos(2 * np.pi * week / 52)
     year_sin = np.sin(2 * np.pi * (year - min_year) / (max_year - min_year + 1))
     year_cos = np.cos(2 * np.pi * (year - min_year) / (max_year - min_year + 1))
+    is_it_holiday = is_holiday(pred_time_dt)
 
     features = [
         'hour_sin', 'hour_cos', 'day_sin', 'day_cos', 'weekday_sin', 'weekday_cos', 'month_sin', 'month_cos', 'week_sin', 'week_cos', 'year_sin', 'year_cos',
-        'is_weekend', 'is_rush_hour', 'zone_area_km2', 'subway_station_present',
+        'is_weekend', 'is_rush_hour', 'zone_area_km2', 'subway_station_present', 'is_holiday',
         'rolling_mean_24h', 'rolling_std_24h', 'rolling_mean_7d', 'rolling_std_7d',
         'lag_1h', 'lag_24h', 'lag_7d'
     ]
@@ -134,11 +136,18 @@ def make_prediction(pred_time,path_to_pickle='./busyness_model.pkl'):
         X['year_sin'] = year_sin
         X['year_cos'] = year_cos
         X['zone_id'] = zone
+        X['is_holiday'] = is_it_holiday
         X['zone_area_km2'] = zones_df[zones_df['zone_id'] == zone]['zone_area_km2'].iloc[0]
         X['subway_station_present'] = zones_df[zones_df['zone_id'] == zone]['subway_station_present'].iloc[0]
         X = X[features + ['zone_id']]
         X_transformed = pipeline.named_steps['preprocessor'].transform(X)
+        # X_scaled = pipeline.named_steps['scaler'].transform(X)
+
+        # Step 2: Apply PCA using the 'pca' step
+        # X_transformed = pipeline.named_steps['pca'].transform(X_scaled)
+
         y_pred = pipeline.named_steps['model'].predict(X_transformed)
+
         res = {
             'timestamp': pred_time,
             'zone_id': zone,
@@ -150,3 +159,48 @@ def make_prediction(pred_time,path_to_pickle='./busyness_model.pkl'):
 
     return results_df
 
+def is_holiday(date):
+    holidays = {
+        "New Year's Day": (1, 1),
+        "Martin Luther King Jr. Day": (1, 'third', 'Monday'),
+        "Presidents' Day": (2, 'third', 'Monday'),
+        "Memorial Day": (5, 'last', 'Monday'),
+        "Juneteenth": (6, 19),
+        "Independence Day": (7, 4),
+        "Labor Day": (9, 'first', 'Monday'),
+        "Columbus Day": (10, 'second', 'Monday'),
+        "Veterans Day": (11, 11),
+        "Thanksgiving Day": (11, 'fourth', 'Thursday'),
+        "Christmas Day": (12, 25),
+        "New Year's Eve": (12, 31)
+    }
+    
+    def nth_weekday(n, weekday_name, month, year):
+        weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        first_day = datetime(year, month, 1)
+        first_weekday = weekdays.index(first_day.strftime('%A'))
+        weekday_index = weekdays.index(weekday_name)
+        
+        if n == 'last':
+            next_month_first_day = datetime(year, month + 1, 1) if month != 12 else datetime(year + 1, 1, 1)
+            last_weekday = next_month_first_day - timedelta(days=1)
+            while last_weekday.strftime('%A') != weekday_name:
+                last_weekday -= timedelta(days=1)
+            return last_weekday
+        else:
+            n = ['first', 'second', 'third', 'fourth'].index(n) + 1
+            day = (weekday_index - first_weekday + 7) % 7 + 1 + (n - 1) * 7
+            return datetime(year, month, day)
+
+    for holiday, date_info in holidays.items():
+        if len(date_info) == 2:
+            month, day = date_info
+            if date.month == month and date.day == day:
+                return True
+        elif len(date_info) == 3:
+            month, occurrence, day_name = date_info
+            if date.month == month and date.strftime('%A') == day_name:
+                holiday_date = nth_weekday(occurrence, day_name, month, date.year)
+                if date == holiday_date:
+                    return True
+    return False
