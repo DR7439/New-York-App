@@ -21,7 +21,6 @@ function PersonalInfo() {
   let [submitting, setSubmitting] = useState(false);
   let [form] = Form.useForm();
   let handleSubmit = async (values) => {
-    console.log(values);
     let formData = new FormData();
     formData.append("email", values.email || "");
     formData.append("first_name", values.first_name || "");
@@ -49,7 +48,6 @@ function PersonalInfo() {
     }
   };
   let handleEdit = () => {
-    console.log("handleEdit");
     form.submit();
   };
 
@@ -219,9 +217,6 @@ function PersonalInfo() {
 }
 
 export default function Settings() {
-  const onChange = (key) => {
-    console.log(key);
-  };
   return (
     <>
       <div>
@@ -247,7 +242,6 @@ export default function Settings() {
               ),
             },
           ]}
-          onChange={onChange}
         />
       </div>
     </>

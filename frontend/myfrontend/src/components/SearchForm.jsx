@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { AGES_RANGES } from "../constant";
 import useCredits from "../hooks/useCredits";
@@ -26,11 +26,16 @@ export default function SearchForm({
   onSuccess,
   showSubmitButton = true,
   formRef,
+  isFreeSearch = false,
 }) {
   const interests = useInterests();
   const { fetchSearches } = useSearches();
   const { fetchCreditData, isInsufficientCredits } = useCredits();
   const [form] = useForm(formInstance);
+  const [submitting, setSubmitting] = useState(false);
+  let alertMessage = isFreeSearch
+    ? "Your first search is free. Subsequent searches cost 10 credits per day for each selected target date."
+    : "A rate of 10 credits per day applies for your selected target date.";
 
   let onFinish = async (values) => {
     let data = new FormData();
@@ -48,12 +53,15 @@ export default function SearchForm({
 
     // cors allow origin
     try {
+      setSubmitting(true);
       const res = await axiosInstance.post("/api/search/", data);
       onSuccess && onSuccess();
       fetchSearches();
       fetchCreditData();
     } catch (error) {
       console.error(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -61,9 +69,13 @@ export default function SearchForm({
     let startDate = values.dateRange[0];
     let endDate = values.dateRange[1];
     let selectedDateNumber = Math.abs(startDate.diff(endDate, "day")) + 1;
-    let creditCost = selectedDateNumber * 100;
+    let creditCost = selectedDateNumber * 10;
     if (isInsufficientCredits(creditCost)) {
       message.error("You don't have enough credits to make this search.");
+      return;
+    }
+    if (isFreeSearch) {
+      onFinish(values);
       return;
     }
     confirm({
@@ -188,14 +200,10 @@ export default function SearchForm({
           />
         </Form.Item>
       </div>
-      <Alert
-        message="A rate of 10 credits per day applies for your selected target date."
-        type="info"
-        showIcon
-      />
+      <Alert message={alertMessage} type="info" showIcon />
       {showSubmitButton && (
         <Form.Item className="mt-4">
-          <Button type="primary" htmlType="submit" id="submit-button">
+          <Button type="primary" htmlType="submit" id="submit-button" loading={submitting}>
             Start my free search
           </Button>
         </Form.Item>

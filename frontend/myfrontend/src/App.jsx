@@ -56,9 +56,9 @@ const App = () => {
                 </Route>
                 <Route element={<PrivateRoute />}>
                   <Route path="/" element={<Dashboard />} />
+                  <Route path="/onboarding" element={<Onboard />} />
                   <Route path="/credits" element={<Credits />} />
                   <Route path="/settings" element={<Settings />} />
-                  <Route path="/onboarding" element={<Onboard />} />
                   <Route path="/analytics/:id" element={<Analytics />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
