@@ -2,7 +2,7 @@ from celery import shared_task
 from django.utils import timezone
 from search.models import Search
 from zones.models import Zone, PopulationData, InterestZoneCount
-from .models import Busyness, Demographic
+from analytics.models import Busyness, Demographic
 import datetime
 from model_data_2_0 import busyness_prediction
 from datetime import timedelta

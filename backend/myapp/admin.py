@@ -2,7 +2,7 @@ from django.contrib import admin
 from users.models import CustomUser
 from search.models import Search
 from zones.models import Zone, AgeCategory
-from .models import Busyness, Demographic
+from analytics.models import Busyness, Demographic
 
 class CustomUserAdmin(admin.ModelAdmin):
     """
