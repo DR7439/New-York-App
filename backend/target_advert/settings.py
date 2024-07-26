@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "users",
     "search",
     "zones",
+    "analytics",
     'drf_spectacular',
     'rest_framework_simplejwt.token_blacklist',
 ]
