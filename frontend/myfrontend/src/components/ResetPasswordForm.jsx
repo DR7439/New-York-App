@@ -9,7 +9,7 @@ const ResetPasswordForm = ({ label }) => {
   const handleSubmit = async () => {
     try {
       setSending(true);
-      await axiosInstance.post("/api/password-reset/", { email });
+      await axiosInstance.post("/api/users/password-reset/", { email });
       message.success("Password reset link sent to your email");
     } catch (error) {
       message.error("Error sending password reset link");

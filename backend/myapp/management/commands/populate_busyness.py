@@ -2,7 +2,9 @@ import pandas as pd
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.db import transaction
-from myapp.models import Busyness, Zone
+from zones.models import Zone
+from analytics.models import Busyness
+from model_data_2_0 import busyness_prediction
 
 class Command(BaseCommand):
     help = 'Populates the Busyness table with pre-calculated scores from busyness_predictions.csv.'

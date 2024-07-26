@@ -1,7 +1,7 @@
 # your_app/management/commands/load_billboards.py
 from django.core.management.base import BaseCommand
 import pandas as pd
-from myapp.models import Zone, Billboard
+from zones.models import Zone, Billboard
 
 class Command(BaseCommand):
     help = 'Load billboards from CSV file'
