@@ -16,23 +16,8 @@ Classes:
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.conf import settings
+from users.models import CustomUser
 
-class CustomUser(AbstractUser):
-    name = models.CharField(max_length=100, blank=True)
-    credits = models.IntegerField(default=0)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=30, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    nationality = models.CharField(max_length=50, blank=True)
-    industry = models.CharField(max_length=50, blank=True)
-    business_size = models.CharField(max_length=50, blank=True)
-    budget = models.CharField(max_length=50, blank=True)
-    business_description = models.TextField(blank=True)
-    free_search = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.username)
     
 class Zone(models.Model):
     """
@@ -71,6 +56,31 @@ class Interest(models.Model):
     def __str__(self):
         return self.name
 
+class Search(models.Model):
+    """
+    Represents a search created by a user for advertising purposes.
+
+    Attributes:
+        name (str): The name of the search.
+        user (User): The user who created the search.
+        start_date (date): The start date of the search.
+        end_date (date): The end date of the search.
+        date_search_made_on (date): The date when the search was made.
+        target_market_interests (ManyToManyField): Many-to-many relationship with Interest.
+        target_age (ManyToManyField): Many-to-many relationship with AgeCategory.
+        gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
+    """
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    date_search_made_on = models.DateField()
+    target_market_interests = models.ManyToManyField(Interest)
+    target_age = models.ManyToManyField(AgeCategory)
+    gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
+
+    def __str__(self):
+        return self.name
 class InterestZoneCount(models.Model):
     """
     Represents the count of a particular interest within a zone.
@@ -104,32 +114,6 @@ class PopulationData(models.Model):
 
     def __str__(self):
         return f"{self.zone.name} - {self.age_category.age_range}: {self.population}"
-
-class Search(models.Model):
-    """
-    Represents a search created by a user for advertising purposes.
-
-    Attributes:
-        name (str): The name of the search.
-        user (User): The user who created the search.
-        start_date (date): The start date of the search.
-        end_date (date): The end date of the search.
-        date_search_made_on (date): The date when the search was made.
-        target_market_interests (ManyToManyField): Many-to-many relationship with Interest.
-        target_age (ManyToManyField): Many-to-many relationship with AgeCategory.
-        gender (str): The gender of the target demographic (M: Male, F: Female, B: Both).
-    """
-    name = models.CharField(max_length=255)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    date_search_made_on = models.DateField()
-    target_market_interests = models.ManyToManyField(Interest)
-    target_age = models.ManyToManyField(AgeCategory)
-    gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
-
-    def __str__(self):
-        return self.name
 
 
 
@@ -201,10 +185,3 @@ class AdvertisingLocation(models.Model):
     def __str__(self):
         return f'{self.location} ({self.latitude}, {self.longitude})'
     
-class CreditUsage(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date_used = models.DateTimeField(auto_now_add=True)
-    credits_used = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.user.username} used {self.credits_used} credits on {self.date_used}"

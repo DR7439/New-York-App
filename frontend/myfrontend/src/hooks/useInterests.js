@@ -10,8 +10,8 @@ const state = atom({
 export default function useInterests() {
   let [interests, setInterests] = useRecoilState(state);
   let fetchInterests = async () => {
-    let data = await fetchWithCache("/api/interests/");
-    // let res = await axiosInstance.get("/api/interests/");
+    let data = await fetchWithCache("/api/zones/interests/");
+    // let res = await axiosInstance.get("/api/zones/interests/");
     setInterests(data);
   };
   useEffect(() => {

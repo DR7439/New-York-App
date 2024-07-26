@@ -1,14 +1,14 @@
 """
-Utility functions for the 'myapp' application.
+Utility functions for the 'users' application.
 
-This module contains utility functions that assist with common tasks within the 'myapp' application.
+This module contains utility functions that assist with common tasks within the 'users' application.
 
 Functions:
     my_jwt_response_handler: Custom handler for JWT responses, including the token and serialized user data.
 
 """
 
-from myapp.serializers import UserSerializer
+from users.serializers import UserSerializer
 
 def my_jwt_response_handler(token, user=None, request=None):
     """

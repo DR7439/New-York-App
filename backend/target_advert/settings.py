@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     "myapp",
+    "users",
     'drf_spectacular',
     'rest_framework_simplejwt.token_blacklist',
 ]
@@ -86,7 +87,7 @@ SIMPLE_JWT = {
 
 # Add JWT settings
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'myapp.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.utils.my_jwt_response_handler'
 }
 
 # Add CORS settings if needed
@@ -98,7 +99,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost',
 ]
 
-AUTH_USER_MODEL = 'myapp.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  
@@ -109,7 +110,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'myapp.middleware.JWTSessionMiddleware',  
+    'users.middleware.JWTSessionMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
 ]

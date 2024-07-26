@@ -7,18 +7,18 @@ from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordRes
 
 
 urlpatterns = [
-    path('users/register/', UserCreate.as_view(), name='register'),
-    path('users/login/', MyTokenObtainPairView.as_view(), name='login'),
-    path('users/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('users/password-reset/', PasswordResetRequestView.as_view(), name='password_reset_request'),
-    path('users/reset-password/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('users/profile/', UpdateUserProfileView.as_view(), name='update-user-profile'),
-    path('users/dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),
-    path('users/create-payment-intent/', CreatePaymentIntentView.as_view(), name='create-payment-intent'),
-    path('users/stripe-webhook', StripeWebhookView.as_view(), name='stripe-webhook'),
-    path('users/credits/usage/', CreditUsageAPIView.as_view(), name='credit-usage'),
-    path('users/credits/', UserCreditsAPIView.as_view(), name='user-credits'),
-    path('users/free-search/', UserFreeSearchAPIView.as_view(), name='user-free-search'),
+    # path('users/register/', UserCreate.as_view(), name='register'),
+    # path('users/login/', MyTokenObtainPairView.as_view(), name='login'),
+    # path('users/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('users/password-reset/', PasswordResetRequestView.as_view(), name='password_reset_request'),
+    # path('users/reset-password/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # path('users/profile/', UpdateUserProfileView.as_view(), name='update-user-profile'),
+    # path('users/dropdown-options/', DropdownOptionsView.as_view(), name='dropdown-options'),#_____________________________________________________________Didnt find in FE
+    # path('users/create-payment-intent/', CreatePaymentIntentView.as_view(), name='create-payment-intent'), 
+    # path('users/stripe-webhook', StripeWebhookView.as_view(), name='stripe-webhook'),
+    # path('users/credits/usage/', CreditUsageAPIView.as_view(), name='credit-usage'),
+    # path('users/credits/', UserCreditsAPIView.as_view(), name='user-credits'),
+    # path('users/free-search/', UserFreeSearchAPIView.as_view(), name='user-free-search'),
 
 
     path('analytics/top-zones/', TopZonesView.as_view(), name='top-zones'), #used to populate the table
@@ -32,14 +32,11 @@ urlpatterns = [
     path('search/<int:id>/', SingleSearchAPIView.as_view(), name='single_search_api'),
 
 
-    path('interests/', InterestAPIView.as_view(), name='interests'),
-
-
     path('zones/', ZoneListView.as_view(), name='zone-list'),
     path('zones/<int:zone_id>/interests', InterestZoneCountByZoneView.as_view(), name='interest-zone-counts-by-zone'),
     path('zones/<int:zone_id>/details/', ZoneDetailView.as_view(), name='zone-details'),
     path('zones/<int:zone_id>/billboards', BillboardsByZoneView.as_view(), name='billboards-by-zone'),
-
+    path('zones/interests/', InterestAPIView.as_view(), name='interests'),
 
     #path('top-scores-in-zone/', TopNScoresInZoneView.as_view(), name='top-scores-in-zone'), #not used by frontend
     #path('searches/<int:search_id>/scores/', SearchScoresView.as_view(), name='search-scores'), #not used by frontend, good for testing
