@@ -38,7 +38,7 @@ export default function Map({
     const formattedDate = roundedDate.toISOString().split(".")[0] + "Z";
     axiosInstance
       .get(
-        `/api/zone-scores-by-datetime/?search_id=${id}&datetime=${formattedDate}`
+        `/api/analytics/zone-scores-by-datetime/?search_id=${id}&datetime=${formattedDate}`
       )
       .then((res) => {
         let zone_scores = res?.data?.zone_scores;
@@ -159,7 +159,7 @@ export default function Map({
   //My getZoneDetails function
   const getZoneDetails = async (zoneId) => {
     let res = await axiosInstance.get(
-      `/api/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
+      `/api/analytics/zone-details-by-search-date-zone/?search_id=${id}&date=${selectedDate}&zone_id=${zoneId}`
     );
     if (res.data && res.data.busyness_scores) {
       setBusynessScores(res.data.busyness_scores);
@@ -178,7 +178,7 @@ export default function Map({
     if (selectedZone && selectedZone.id) {
       setIsLoadingBillboards(true);
       axiosInstance
-        .get(`/api/billboards/zone/${selectedZone.id}/`)
+        .get(`/api/zones/${selectedZone.id}/billboards/`)
         .then((res) => {
           setTimeout(() => {
             setBillboards(res.data);

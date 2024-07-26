@@ -82,7 +82,7 @@ const Analytics = () => {
     setLoading(true);
     // for testing skeleton
     // await new Promise((resolve) => setTimeout(resolve, 2000));
-    axiosInstance.get(`/api/top-zones/?search_id=${id}&date=${date}`)
+    axiosInstance.get(`/api/analytics/top-zones/?search_id=${id}&date=${date}`)
       .then((res) => {
         if (res.data) {
           let topZones = res.data;
@@ -97,7 +97,7 @@ const Analytics = () => {
       });
 
     fetchWithCache(
-      `/api/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`
+      `/api/analytics/recommend-advertising-locations/?search_id=${id}&date=${date}&top_n=10`
     ).then((res) => {
       if (res) {
         console.log("🚀 ~ ).then ~ res:", res);

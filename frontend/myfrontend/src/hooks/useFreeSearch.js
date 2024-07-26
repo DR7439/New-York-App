@@ -38,7 +38,7 @@ export function useFreeSearch() {
     if (loaded) {
       return;
     }
-    axiosInstance.get("/api/user/free-search").then((res) => {
+    axiosInstance.get("/api/users/free-search").then((res) => {
       let free_search = res.data.free_search;
       checkOnbardingRoute(free_search);
       setFreeSearch(free_search);

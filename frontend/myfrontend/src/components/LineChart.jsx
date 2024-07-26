@@ -12,7 +12,7 @@ const LineChart = ({ searchId, zoneId, date }) => {
   let [data, setData] = useState([]);
   function fetchScore() {
     fetchWithCache(
-      `/api/zone-details-by-search-date-zone/?search_id=${searchId}&date=${date}&zone_id=${zoneId}`
+      `/api/analytics/zone-details-by-search-date-zone/?search_id=${searchId}&date=${date}&zone_id=${zoneId}`
     ).then((_data) => {
       if (_data) {
         let data = _data.busyness_scores.sort(sortByTime).map((item) => ({

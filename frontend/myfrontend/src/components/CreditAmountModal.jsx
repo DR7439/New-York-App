@@ -121,7 +121,7 @@ function CheckoutForm({ amount, onCancel, onOk }) {
     let card = elements.getElement(CardElement);
 
     try {
-      const response = await axiosInstance.post("/api/create-payment-intent/", {
+      const response = await axiosInstance.post("/api/users/create-payment-intent/", {
         amount,
       });
       const clientSecret = response.data.client_secret;

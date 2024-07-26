@@ -36,7 +36,7 @@ function PersonalInfo() {
     formData.append("budget", values.budget || "");
     try {
       setSubmitting(true);
-      let res = await axiosInstance.put("/api/user/profile/", formData);
+      let res = await axiosInstance.put("/api/users/profile/", formData);
       setData(res.data);
       message.success("Your profile has been updated successfully");
       setOpen(false);
@@ -71,7 +71,7 @@ function PersonalInfo() {
 
   useEffect(() => {
     if (Object.keys(data).length === 0) {
-      axiosInstance.get("/api/user/profile/").then((res) => {
+      axiosInstance.get("/api/users/profile/").then((res) => {
         setData(res.data);
       });
     }
