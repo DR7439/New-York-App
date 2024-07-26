@@ -4,8 +4,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 
-from .models import CustomUser, Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, CreditUsage, AdvertisingLocation
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer, UpdateUserSerializer, CreditUsageSerializer, UserFreeSearchSerializer
+from .models import Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, AdvertisingLocation
+from users.models import CreditUsage
+from .serializers import  SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer
 
 from .tasks import background_task
 
@@ -336,6 +337,7 @@ class TopZonesView(APIView):
 
         # Ensure the provided date is within the range of the search
         if not (search.start_date <= date.date() <= search.end_date):
+            print(search.start_date , date.date() , search.end_date)
             return Response({"error": "Date is out of range for the specified search."}, status=status.HTTP_400_BAD_REQUEST)
 
         cache_key = f"top_zones_{search_id}_{date_str}_{top_n}"

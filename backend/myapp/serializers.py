@@ -12,10 +12,8 @@ Classes:
 
 """
 
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData, Billboard, CreditUsage
+from .models import Search, AgeCategory, Interest, Zone, Busyness, Demographic, PopulationData, Billboard
 
 
 class AgeCategorySerializer(serializers.ModelSerializer):

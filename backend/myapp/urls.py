@@ -1,9 +1,8 @@
 
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
 
 
-from .views import UserCreate, MyTokenObtainPairView, SearchAPIView, PasswordResetRequestView, PasswordResetConfirmView, InterestAPIView, SingleSearchAPIView, ZoneListView, SearchScoresView, ZoneDetailView, TopNScoresView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, TopNScoresInZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, UpdateUserProfileView, DropdownOptionsView, CreditUsageAPIView, UserCreditsAPIView, CreatePaymentIntentView, StripeWebhookView, UserFreeSearchAPIView, RecommendAdvertisingLocationsView
+from .views import SearchAPIView, InterestAPIView, SingleSearchAPIView, ZoneListView,  ZoneDetailView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, RecommendAdvertisingLocationsView
 
 
 urlpatterns = [
