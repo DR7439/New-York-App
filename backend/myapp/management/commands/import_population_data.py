@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from django.core.management.base import BaseCommand
-from myapp.models import Zone, AgeCategory, PopulationData
+from zones.models import Zone, AgeCategory, PopulationData
 
 class Command(BaseCommand):
     help = 'Import population data from a CSV file'

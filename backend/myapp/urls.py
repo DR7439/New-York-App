@@ -2,7 +2,7 @@
 from django.urls import path
 
 
-from .views import SearchAPIView, InterestAPIView, SingleSearchAPIView, ZoneListView,  ZoneDetailView, TopZonesView, BillboardsByZoneView, InterestZoneCountByZoneView, ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, RecommendAdvertisingLocationsView
+from .views import TopZonesView,  ZoneScoresByDatetimeView, ZoneDetailsBySearchDateZoneView, PredictBusynessAPIView, TestMethodAPIView, RecommendAdvertisingLocationsView
 
 
 urlpatterns = [
@@ -27,15 +27,15 @@ urlpatterns = [
     path('analytics/recommend-advertising-locations/', RecommendAdvertisingLocationsView.as_view(), name='recommend-advertising-locations'),
     
 
-    path('search/', SearchAPIView.as_view(), name='search_api'),
-    path('search/<int:id>/', SingleSearchAPIView.as_view(), name='single_search_api'),
+    #path('search/', SearchAPIView.as_view(), name='search_api'),
+    #path('search/<int:id>/', SingleSearchAPIView.as_view(), name='single_search_api'),
 
 
-    path('zones/', ZoneListView.as_view(), name='zone-list'),
-    path('zones/<int:zone_id>/interests', InterestZoneCountByZoneView.as_view(), name='interest-zone-counts-by-zone'),
-    path('zones/<int:zone_id>/details/', ZoneDetailView.as_view(), name='zone-details'),
-    path('zones/<int:zone_id>/billboards', BillboardsByZoneView.as_view(), name='billboards-by-zone'),
-    path('zones/interests/', InterestAPIView.as_view(), name='interests'),
+    # path('zones/', ZoneListView.as_view(), name='zone-list'),
+    # path('zones/<int:zone_id>/interests', InterestZoneCountByZoneView.as_view(), name='interest-zone-counts-by-zone'),
+    # path('zones/<int:zone_id>/details/', ZoneDetailView.as_view(), name='zone-details'),
+    # path('zones/<int:zone_id>/billboards', BillboardsByZoneView.as_view(), name='billboards-by-zone'),
+    # path('zones/interests/', InterestAPIView.as_view(), name='interests'),
 
     #path('top-scores-in-zone/', TopNScoresInZoneView.as_view(), name='top-scores-in-zone'), #not used by frontend
     #path('searches/<int:search_id>/scores/', SearchScoresView.as_view(), name='search-scores'), #not used by frontend, good for testing

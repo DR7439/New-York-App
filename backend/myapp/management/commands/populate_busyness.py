@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from myapp.models import Busyness, Zone
+from zones.models import Zone
+from myapp.models import Busyness
 from model_data_2_0 import busyness_prediction
 
 class Command(BaseCommand):

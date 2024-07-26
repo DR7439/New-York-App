@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import CustomUser, Zone, Search, Busyness, Demographic, AgeCategory
+from users.models import CustomUser
+from search.models import Search
+from zones.models import Zone, AgeCategory
+from .models import Busyness, Demographic
 
 class CustomUserAdmin(admin.ModelAdmin):
     """

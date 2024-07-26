@@ -4,11 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 
-from .models import Search, Interest, Zone, Busyness, Demographic, Billboard, InterestZoneCount, AdvertisingLocation
-from users.models import CreditUsage
-from .serializers import  SearchSerializer, InterestSerializer, ZoneSerializer, BusynessSerializer, ZoneDetailSerializer, BillboardSerializer, PredictionRequestSerializer, PredictionSerializer
+from .models import Zone, Busyness, Demographic
+from search.models import Search
+from zones.models import AdvertisingLocation
 
-from .tasks import background_task
+from .serializers import   BusynessSerializer,  PredictionRequestSerializer, PredictionSerializer
+
 
 
 from django.core.cache import cache
@@ -35,138 +36,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-
-class SearchAPIView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = SearchSerializer
-
-    def get_cache_key(self, user_id):
-        return f"user_searches_{user_id}"
-
-    def get(self, request, *args, **kwargs):
-
-        searches = Search.objects.filter(user=request.user)
-        serializer = self.serializer_class(searches, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, *args, **kwargs):
-        user = request.user
-        data = request.data
-
-        # Error checking for dates
-        start_date = data.get('start_date')
-        end_date = data.get('end_date')
-
-        if not start_date or not end_date:
-            return Response({"error": "Start date and end date are required."}, status=status.HTTP_400_BAD_REQUEST)
-
-        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-        end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
-
-        if start_date > end_date:
-            return Response({"error": "Start date must be before end date."}, status=status.HTTP_400_BAD_REQUEST)
-
-        search_duration = (end_date - start_date).days + 1  # Including both start and end date
-        if search_duration > 15:
-            return Response({"error": "Search duration cannot be more than 15 days."}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Calculate required credits
-        required_credits = 10 * search_duration
-
-        # Check if the user has used their free search and has enough credits
-        if not user.free_search and user.credits < required_credits:
-            return Response({"error": "Insufficient credits"}, status=status.HTTP_400_BAD_REQUEST)
-
-        serializer = self.serializer_class(data=data)
-        if serializer.is_valid():
-            serializer.save(user=user)
-            search_id = serializer.instance.id
-
-            # Deduct credits and record usage if the user has used their free search
-            if user.free_search:
-                # Mark that the user has used their free search
-                user.free_search = False
-            else:
-                user.credits -= required_credits
-                CreditUsage.objects.create(user=user, credits_used=required_credits)
-            
-            user.save()
-            background_task.delay(search_id)
-
-            # Invalidate cache for the user
-            cache_key = self.get_cache_key(request.user.id)
-            cache.delete(cache_key)
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class SingleSearchAPIView(APIView):
-    """
-    API view for handling a single search instance based on the ID.
-
-    This view handles GET requests for retrieving a single search instance.
-    """
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request, id, *args, **kwargs):
-        """
-        Handles GET requests and returns a single search instance for the authenticated user.
-        """
-        try:
-            search = Search.objects.get(id=id, user=request.user)
-            serializer = SearchSerializer(search)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except Search.DoesNotExist:
-            return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
-    
-    def delete(self, request, id, *args, **kwargs):
-        """
-        Handles DELETE requests and deletes a single search instance for the authenticated user.
-        """
-        try:
-            search = Search.objects.get(id=id, user=request.user)
-            search.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Search.DoesNotExist:
-            return Response({'error': 'Search not found'}, status=status.HTTP_404_NOT_FOUND)
-
-class InterestAPIView(APIView):
-    """
-    API view for handling interests.
-
-    This view handles GET requests for the list of all interests.
-    """
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = InterestSerializer
-
-    def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and returns a list of all interests.
-        """
-        interests = Interest.objects.all()
-        serializer = self.serializer_class(interests, many=True)
-        return Response(serializer.data)
-
-class ZoneListView(APIView):
-    """
-    API view to retrieve zone coordinates.
-    """
-    permission_classes = [permissions.AllowAny]
-
-    def get(self, request, *args, **kwargs):
-        cache_key = 'zones_data'
-        cached_data = cache.get(cache_key)
-
-        if cached_data is not None:
-            return Response(cached_data, status=status.HTTP_200_OK)
-
-        zones = Zone.objects.all()
-        serializer = ZoneSerializer(zones, many=True)
-        data = serializer.data
-        cache.set(cache_key, data, timeout=60 * 60)  # Cache for 1 hour
-
-        return Response(data, status=status.HTTP_200_OK)
-    
 class SearchScoresView(APIView):
     """
     API view to retrieve demographic and busyness scores for a search.
@@ -198,18 +67,6 @@ class SearchScoresView(APIView):
         return Response({"zones": data}, status=status.HTTP_200_OK)
 
 
-class ZoneDetailView(APIView):
-    """
-    API view to retrieve detailed information about a zone, including age demographics.
-    """
-    def get(self, request, zone_id, *args, **kwargs):
-        try:
-            zone = Zone.objects.get(id=zone_id)
-        except Zone.DoesNotExist:
-            return Response({'error': 'Zone not found'}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = ZoneDetailSerializer(zone)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TopNScoresView(APIView):
@@ -507,15 +364,7 @@ class ZoneDetailsBySearchDateZoneView(APIView):
 
         return Response(data, status=status.HTTP_200_OK)
 
-class BillboardsByZoneView(APIView):
-    """
-    API view to retrieve all billboards in a specific zone.
-    """
-    def get(self, request, zone_id, *args, **kwargs):
-        billboards = Billboard.objects.filter(zone_id=zone_id)
-        serializer = BillboardSerializer(billboards, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 
 class RecommendAdvertisingLocationsView(APIView):
     """
@@ -613,17 +462,7 @@ class RecommendAdvertisingLocationsView(APIView):
         cache.set(cache_key, recommendations, timeout=60 * 60)  # Cache for 1 hour
         return Response(recommendations, status=status.HTTP_200_OK)
 
-class InterestZoneCountByZoneView(APIView):
-    """
-    API view to retrieve all interest zone counts in a specific zone.
-    """
-    def get(self, request, zone_id, *args, **kwargs):
-        interest_zone_counts = InterestZoneCount.objects.filter(zone_id=zone_id).select_related('interest')
-        
-        data = {item.interest.name: item.count for item in interest_zone_counts}
-        
-        return Response(data, status=status.HTTP_200_OK)
-    
+
 
 import logging
 

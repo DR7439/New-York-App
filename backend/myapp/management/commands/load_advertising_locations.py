@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import pandas as pd
-from myapp.models import Zone, AdvertisingLocation
+from zones.models import Zone, AdvertisingLocation
 
 class Command(BaseCommand):
     help = 'Load advertising locations from CSV file'

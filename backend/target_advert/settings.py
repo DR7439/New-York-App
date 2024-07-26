@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
     "myapp",
     "users",
+    "search",
+    "zones",
     'drf_spectacular',
     'rest_framework_simplejwt.token_blacklist',
 ]

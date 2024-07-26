@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from myapp.models import AgeCategory
+from zones.models import AgeCategory
 
 class Command(BaseCommand):
     help = 'Populates the AgeCategory model with predefined age ranges'

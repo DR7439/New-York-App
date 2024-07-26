@@ -2,7 +2,7 @@ import os
 import json
 import geopandas as gpd
 from django.core.management.base import BaseCommand
-from myapp.models import Zone
+from zones.models import Zone
 
 class Command(BaseCommand):
     help = 'Import zones from a GeoJSON file'
