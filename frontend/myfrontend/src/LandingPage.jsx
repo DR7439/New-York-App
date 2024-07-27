@@ -2,20 +2,20 @@ import React from "react";
 import { Button, Rate, Collapse } from "antd";
 import { DownOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import {Link, Element} from "react-scroll"
-const FAQURL = "https://i.imgur.com/qAcFhCm.png"
-const LoyalCustomerURL = "https://i.imgur.com/yoeEJxl.jpeg"
-const Review1URL = "https://i.imgur.com/BljlzeW.png"
-const Review2URL = "https://i.imgur.com/eVxQbFk.png"
-const Review3URL = "https://i.imgur.com/qPtFwCu.png"
-const AnalyticsURL = "https://i.imgur.com/O2NT6DB.png"
-const BillBoardsURL = "https://i.imgur.com/j58CQma.png"
+import { Link, Element } from "react-scroll";
+const FAQURL = "https://i.imgur.com/qAcFhCm.png";
+const LoyalCustomerURL = "https://i.imgur.com/yoeEJxl.jpeg";
+const Review1URL = "https://i.imgur.com/BljlzeW.png";
+const Review2URL = "https://i.imgur.com/eVxQbFk.png";
+const Review3URL = "https://i.imgur.com/qPtFwCu.png";
+const AnalyticsURL = "https://i.imgur.com/O2NT6DB.png";
+const BillBoardsURL = "https://i.imgur.com/j58CQma.png";
 
 export default function LandingPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleNavigate = () => {
-    console.log("Navigating to /register")
+  const handleNavigate = () => {
+    console.log("Navigating to /register");
     navigate("/register");
   };
 
@@ -25,7 +25,6 @@ export default function LandingPage() {
  
 
   return (
- 
     <>
     <nav className="flex justify-between items-center bg-blue-600 w-full pt-2.5 pr-4 pb-3 px-4 h-12 text-white">
       <h2 className="text-xl">Ad Optima</h2>
@@ -73,8 +72,12 @@ export default function LandingPage() {
               <h1 className="text-4xl font-bold pb-4 leading-[48px] " style={{ maxWidth: '547px' }}>
                 Boost Your Advertising Strategy with Ad Optima
               </h1>
-              <p className="text-gray-500 font-normal leading-5 mt-2" style={{ maxWidth: '547px' }}>
-                Get targeted advertising recommendations based on foot traffic and demographics in Manhattan.
+              <p
+                className="text-gray-500 font-normal leading-5 mt-2"
+                style={{ maxWidth: "547px" }}
+              >
+                Get targeted advertising recommendations based on foot traffic
+                and demographics in Manhattan.
               </p>
             </div>
             <div className="flex space-x-4">
@@ -90,7 +93,12 @@ export default function LandingPage() {
               <div className="w-px bg-gray-300 h-auto mx-4"></div>
               <div className="flex flex-col items-start">
                 <div className="flex items-center">
-                  <Rate allowHalf={false} defaultValue={5} disabled className="text-[16px]" />
+                  <Rate
+                    allowHalf={false}
+                    defaultValue={5}
+                    disabled
+                    className="text-[16px]"
+                  />
                   <span className="text-gray-500 pl-1.5 text-xs">5.0</span>
                 </div>
                 <div className="mt-2 text-gray-500 text-sm">
@@ -140,14 +148,17 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
-                <img src={AnalyticsURL} alt="Recommended Advertising Locations" className="max-w-[672px] h-auto object-contain rounded-lg" />
+                <img
+                  src={AnalyticsURL}
+                  alt="Recommended Advertising Locations"
+                  className="max-w-[672px] h-auto object-contain rounded-lg"
+                />
               </div>
             </div>
           </div>
         </section>
       </Element>
 
-     
       <Element name="testimonials">
         <section className="pt-20 pb-20 bg-gray-200 relative">
             <div className="max-w-[1248px] mx-auto px-4">
@@ -246,5 +257,5 @@ export default function LandingPage() {
       </Element>
 
     </>
-  );  
-} 
+  );
+}
