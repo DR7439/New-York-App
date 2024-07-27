@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 
 const NAV_ITEMS = [
-  { to: "/dashboard", icon: <DashboardOutlined />, title: "Dashboard" },
+  { to: "/", icon: <DashboardOutlined />, title: "Dashboard" },
   { to: "/credits", icon: <ShoppingOutlined />, title: "Credits" },
   { to: "/settings", icon: <SettingOutlined />, title: "Settings" },
 ];

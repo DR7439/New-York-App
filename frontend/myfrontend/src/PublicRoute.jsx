@@ -8,7 +8,7 @@ import AuthLayout from './components/authentication/AuthLayout';
 const PublicRoute = () => {
     const { authState } = useContext(AuthContext);
 
-    return authState.token ? <Navigate to="/dashboard" /> : <AuthLayout />;
+    return authState.token ? <Navigate to="/" /> : <AuthLayout />;
 };
 
 export default PublicRoute;

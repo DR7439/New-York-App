@@ -6,7 +6,7 @@ export function Logo() {
   const navigate = useNavigate();
   let handleClick = () => {
     if (!isOnboarding) {
-      navigate("/dashboard");
+      navigate("/");
     }
   };
 

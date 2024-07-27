@@ -30,7 +30,7 @@ export function useFreeSearch() {
       }
     } else {
       if (isOnboarding) {
-        navigate("/dashboard");
+        navigate("/");
       }
     }
   }

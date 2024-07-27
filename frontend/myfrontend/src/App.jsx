@@ -22,7 +22,6 @@ import Settings from "./Settings";
 import Onboard from "./Onboard";
 import Analytics from "./Analytics";
 import { RecoilRoot } from "recoil";
-import LandingPage from "./LandingPage";
 const App = () => {
   return (
     <Router>
@@ -43,7 +42,6 @@ const App = () => {
           >
             <AuthProvider>
               <Routes>
-                <Route path="/" element={<LandingPage />} />
                 <Route element={<PublicRoute />}>
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
@@ -57,7 +55,7 @@ const App = () => {
                   />
                 </Route>
                 <Route element={<PrivateRoute />}>
-                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/" element={<Dashboard />} />
                   <Route path="/onboarding" element={<Onboard />} />
                   <Route path="/credits" element={<Credits />} />
                   <Route path="/settings" element={<Settings />} />

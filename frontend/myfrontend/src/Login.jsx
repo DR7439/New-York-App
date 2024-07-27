@@ -18,7 +18,7 @@ function Login() {
     try {
       setSending(true);
       await loginUser(username, password);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.detail) {
         message.error(err.response.data.detail);
