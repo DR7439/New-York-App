@@ -5,7 +5,7 @@ import { useNoti } from "./useNoti";
 import { message } from "antd";
 const activeCreditsState = atom({
   key: "activeCredits",
-  default: 0,
+  default: null,
 });
 const usedCreditsState = atom({
   key: "usedCredit",
@@ -17,7 +17,7 @@ export default function useCredits() {
   let [usedCredits, setUsedCredits] = useRecoilState(usedCreditsState);
   let { checkNoti } = useNoti();
   let fetchCreditData = async () => {
-    axiosInstance.get("/api/credits").then((res) => {
+    axiosInstance.get("/api/users/credits").then((res) => {
       let activeNum = res.data.credits;
       setActiveCredits(activeNum);
       if (activeNum === 0) {
@@ -25,7 +25,7 @@ export default function useCredits() {
         checkNoti();
       }
     });
-    axiosInstance.get("/api/credits/usage/").then((res) => {
+    axiosInstance.get("/api/users/credits/usage/").then((res) => {
       setUsedCredits({
         today: res.data.credits_used_today,
         thisMonth: res.data.credits_used_last_30_days,

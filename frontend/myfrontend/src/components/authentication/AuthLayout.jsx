@@ -4,11 +4,11 @@ import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <Row className="h-screen">
+    <div className="h-screen grid grid-rows-[1fr_2fr] md:grid-rows-1 md:grid-cols-2">
       <LeftSide />
-      <Col span={12} className="flex items-center justify-center">
+      <div className="flex items-center justify-center px-4 md:px-8">
         <Outlet />
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }

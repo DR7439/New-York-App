@@ -401,723 +401,723 @@ MANHATTAN,3,TIMES SQUARE                    ,1014,33,1024686,105,Y,WALL,0,924,0,
 MANHATTAN,281,LAFAYETTE ST                    ,510,33,1007937,102,,ROOF,168,469,0,196,N,0,0,,,,Others,40.723961,-73.996053,144
 MANHATTAN,80,UNIVERSITY PLACE                ,569,28,1009287,102,,WALL,0,132,0,7,N,0,0,,,,Others,40.733472,-73.993361,113
 MANHATTAN,2144,THIRD AVENUE                    ,1645,33,1052347,111,,WALL,0,144,0,10,N,0,0,,,,Others,40.7988,-73.939618,74
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.789307,-73.94616,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.79182,-73.944332,75
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.803386,-73.952176,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.802923,-73.952078,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.80419,-73.955667,41
-MANHATTAN,,Kingsbridge-Marble Hill,,,,,Y,,,,,24,,,,,,,,40.874493,-73.909328,153
-MANHATTAN,,Kingsbridge-Marble Hill,,,,,Y,,,,,24,,,,,,,,40.874775,-73.9092,153
-MANHATTAN,,Kingsbridge-Marble Hill,,,,,Y,,,,,24,,,,,,,,40.874178,-73.909302,153
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.702911,-74.011064,88
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.705301,-74.007033,87
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.708661,-74.002906,209
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.709025,-74.002084,209
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.709229,-74.002178,209
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.709547,-74.001878,209
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.710473,-74.00077,45
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.711889,-73.999406,45
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.711813,-74.006176,209
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.711696,-74.00667,209
-MANHATTAN,,Tribeca-Civic Center,,,,,Y,,,,,24,,,,,,,,40.716405,-74.008651,231
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.726882,-74.005717,125
-MANHATTAN,,Greenwich Village,,,,,Y,,,,,24,,,,,,,,40.728643,-74.002559,114
-MANHATTAN,,Greenwich Village,,,,,Y,,,,,24,,,,,,,,40.726979,-73.999644,114
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.715986,-73.996399,45
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.716136,-73.986951,232
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.715411,-73.984556,232
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.714516,-73.981456,232
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.71325,-73.977907,232
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.713563,-73.978193,232
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.723429,-73.988258,79
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.731525,-73.982282,224
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.733105,-73.981133,107
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.735304,-73.97953,107
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.734614,-73.978642,224
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.737346,-73.978044,137
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.737226,-73.979064,107
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.738963,-73.976856,137
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.749219,-73.970515,233
-MANHATTAN,,United Nations,,,,,Y,,,,,24,,,,,,,,40.749211,-73.969341,233
-MANHATTAN,,United Nations,,,,,Y,,,,,24,,,,,,,,40.750595,-73.968391,233
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.753602,-73.966189,229
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.753497,-73.967047,229
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.763024,-73.959317,140
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.757283,-73.963507,229
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.758493,-73.962623,229
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.764996,-73.957881,140
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.768014,-73.955691,140
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.768021,-73.95627,141
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.779036,-73.947634,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.781452,-73.945841,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.776262,-73.947031,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.7732,-73.949271,262
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.77115,-73.950765,140
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.771595,-73.950665,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.770601,-73.948311,262
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.768337,-73.952526,140
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.766662,-73.95404,140
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.7671,-73.953426,140
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.79133,-73.951025,75
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.766868,-73.954025,140
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.76512,-73.955164,140
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.7849,-73.946288,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.785189,-73.946589,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.784504,-73.947414,75
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.782671,-73.948406,263
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.854695,-73.929955,243
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.834202,-73.944547,244
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.775101,-73.953924,263
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.837042,-73.942939,244
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.800486,-73.94674,41
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.790278,-73.942834,75
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.805964,-73.940374,74
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.773091,-73.955382,141
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.843441,-73.939014,244
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.733521,-73.9875,107
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.72867,-73.9815,79
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.77354,-73.955293,263
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.842153,-73.935393,244
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.763717,-73.984892,230
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.723349,-73.990539,148
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.812525,-73.937407,74
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.804445,-73.955732,41
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.801571,-73.961316,24
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.802483,-73.964064,24
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.793855,-73.970159,238
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.835774,-73.943867,244
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.820426,-73.955559,152
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.801006,-73.958942,41
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.834582,-73.945581,244
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.794031,-73.970033,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.793313,-73.967338,238
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.826715,-73.950488,116
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.79931,-73.966385,151
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.76848,-73.958759,141
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.753353,-73.995985,68
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.811105,-73.958071,166
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.821187,-73.93605,42
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.777525,-73.986331,143
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.811627,-73.961497,166
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.824133,-73.948266,116
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.7454,-73.98457,164
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.746649,-73.983661,164
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.709643,-74.016438,13
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.708452,-74.017108,13
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.768813,-73.958676,141
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.759881,-73.995767,50
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.706016,-74.006383,87
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.713026,-73.984655,232
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712858,-73.986483,232
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.723087,-73.979467,4
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.769003,-73.958667,141
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.720377,-73.97833,4
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.765902,-73.994861,50
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.744393,-73.996099,90
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.792115,-73.950469,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.793388,-73.949529,75
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.800239,-73.945174,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.800658,-73.946164,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.798439,-73.945847,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.807233,-73.939448,42
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.799248,-73.942829,74
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.725168,-73.975629,4
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.785346,-73.943024,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.787357,-73.941564,75
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.793212,-73.937282,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.797251,-73.938086,74
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.766086,-73.960501,141
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.790204,-73.951831,75
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.802499,-73.933917,74
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.85707,-73.927983,243
-MANHATTAN,,Highbridge Park,,,,,Y,,,,,24,,,,,,,,40.841814,-73.935342,120
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.855098,-73.933524,243
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.841283,-73.939848,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.838253,-73.942061,244
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.738174,-73.981334,107
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.716474,-73.980305,232
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.859521,-73.931398,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.858472,-73.931579,243
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.844263,-73.940883,244
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.763614,-73.9623,141
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.843755,-73.939214,244
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.870861,-73.914343,127
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.791345,-73.96878,238
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.76172,-73.993809,48
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.768146,-73.985999,48
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.740017,-74.002919,68
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.754717,-73.968814,229
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.753183,-73.996624,68
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.750422,-74.002006,68
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.73663,-73.978193,224
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.73544,-74.00591,249
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.747852,-74.003877,68
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.758213,-73.992386,48
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.792645,-73.96728,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.785,-73.973407,239
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.761582,-73.963805,141
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.760429,-73.994755,48
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.722239,-73.993466,144
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.724252,-73.978612,4
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.719632,-73.978409,232
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.726652,-73.999719,211
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.816135,-73.954403,152
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.853564,-73.937275,243
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.775272,-73.9824,142
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.722019,-73.977124,4
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.774115,-73.982693,142
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.773523,-73.981304,142
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.788221,-73.971057,238
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.767572,-73.955697,140
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.715146,-73.996565,148
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.759155,-73.965593,229
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.761414,-73.957551,140
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.769589,-73.951606,140
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.722416,-74.005119,211
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.723962,-73.991512,79
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.721685,-73.984017,79
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.757219,-73.966982,229
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.763257,-73.956198,140
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.77166,-73.950093,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.773534,-73.948714,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.777069,-73.946448,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.774431,-73.948371,262
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.769926,-73.951657,140
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.787354,-73.949994,75
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.759521,-73.965533,229
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.766333,-73.990441,48
-MANHATTAN,,Tribeca-Civic Center,,,,,Y,,,,,24,,,,,,,,40.715132,-74.007646,231
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.743288,-73.988472,234
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.787653,-73.974663,238
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.855587,-73.933088,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.852363,-73.937648,243
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.787216,-73.977196,239
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.772698,-73.981521,142
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.721506,-73.980825,4
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.720583,-73.993799,148
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.770093,-73.960182,141
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.768887,-73.98858,48
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.763779,-73.98146,163
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.717729,-73.979761,232
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.716964,-73.988895,148
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.713104,-73.985512,232
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.767647,-73.985329,48
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.775826,-73.986528,143
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.797731,-73.939763,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.795969,-73.935053,74
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.794504,-73.948728,75
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.763493,-73.956358,140
-MANHATTAN,,Tribeca-Civic Center,,,,,Y,,,,,24,,,,,,,,40.72106,-74.005098,231
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.739158,-73.98274,107
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.820098,-73.946484,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.801362,-73.957483,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.811943,-73.95003,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.812926,-73.949316,42
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.842671,-73.939367,244
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.801469,-73.960726,24
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.767031,-73.982494,163
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.803446,-73.942238,74
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.835476,-73.943611,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.833301,-73.941866,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.83155,-73.94266,244
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.71425,-73.992449,232
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.744875,-73.978582,137
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.867927,-73.920057,127
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.759722,-73.980402,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.762035,-73.972016,163
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.748857,-73.982047,170
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.746493,-73.990025,164
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.750147,-73.987366,164
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.755954,-73.983142,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.756937,-73.98241,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.761966,-73.978762,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.763799,-73.977426,163
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.766047,-73.979808,163
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.748914,-73.992286,186
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.751943,-73.993118,186
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.757497,-73.990146,48
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.782069,-73.978952,239
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.777146,-73.979137,142
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.780776,-73.979907,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.784652,-73.977087,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.785921,-73.976159,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.792298,-73.971507,238
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.795539,-73.969136,151
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.798094,-73.967274,151
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.800674,-73.9654,24
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.800193,-73.965402,151
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.813624,-73.960052,166
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.816624,-73.953745,152
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.817867,-73.952837,152
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.812026,-73.960741,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.815245,-73.958086,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.814843,-73.959157,166
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.829006,-73.937575,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.830632,-73.936381,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.81041,-73.951148,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.815011,-73.936132,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.813812,-73.940424,42
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.764058,-73.976838,163
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.766575,-73.982276,163
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.836276,-73.937214,244
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.799034,-73.962648,151
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.737619,-73.98055,107
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.796912,-73.96813,151
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.738307,-73.999353,249
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.785642,-73.978888,239
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.790852,-73.942721,75
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.8009,-73.9594,24
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.82172,-73.942595,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.811747,-73.949873,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.820522,-73.943463,42
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.749556,-73.972567,233
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.823443,-73.937994,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.823067,-73.937803,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.810744,-73.947291,42
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.775589,-73.983692,142
-MANHATTAN,,Tribeca-Civic Center,,,,,Y,,,,,24,,,,,,,,40.71673,-74.005671,231
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.801787,-73.945807,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.812874,-73.949044,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.824246,-73.936951,42
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.750054,-73.972496,233
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.77415,-73.982018,142
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.779304,-73.953468,263
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.829829,-73.944407,116
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.821075,-73.946314,152
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.769046,-73.985047,142
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.708184,-74.01258,261
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.737902,-73.981214,107
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712399,-73.991971,232
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712556,-73.992098,232
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.776869,-73.949086,262
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.742094,-73.997256,90
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.727113,-73.988898,79
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.792029,-73.946017,75
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.707852,-74.003488,209
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.820198,-73.9366,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.804821,-73.956873,41
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.724488,-73.978674,4
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.716453,-73.988717,232
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.713247,-73.984248,232
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.835169,-73.940188,244
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.85732,-73.935338,243
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.817998,-73.941502,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.819589,-73.94081,42
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.749604,-73.972006,233
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.788605,-73.949055,75
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.807956,-73.945168,41
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.829123,-73.948246,116
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.756691,-73.997451,68
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.868991,-73.917626,127
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.788199,-73.938613,75
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.832514,-73.945487,116
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.803457,-73.935507,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.81209,-73.936374,74
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.745011,-73.976174,170
-MANHATTAN,,Inwood Hill Park,,,,,Y,,,,,24,,,,,,,,40.8722,-73.913022,128
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.81247,-73.936681,74
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.784964,-73.949067,263
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.80398,-73.967087,24
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.816469,-73.939329,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.80388,-73.957774,41
-MANHATTAN,,Upper East Side-Carnegie Hill,,,,,Y,,,,,24,,,,,,,,40.786893,-73.954289,236
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.807495,-73.945917,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.809293,-73.94419,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.815233,-73.940226,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.813724,-73.941328,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.805295,-73.956524,41
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.763251,-73.977812,161
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.771608,-73.950711,262
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.774559,-73.988499,143
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.788918,-73.9403,75
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.728033,-74.002453,125
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.721817,-73.988837,148
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.805688,-73.961733,166
-MANHATTAN,,Tribeca-Civic Center,,,,,Y,,,,,24,,,,,,,,40.718835,-74.011422,231
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.813249,-73.945447,42
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.78989,-73.94042,75
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.76886,-73.988228,48
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.823113,-73.941565,42
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.737645,-73.981231,107
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.81671,-73.946251,42
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.743611,-73.971497,233
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.81985,-73.955505,152
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.821955,-73.953966,152
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.817077,-73.942649,42
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.723293,-73.979549,4
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.778951,-73.986856,143
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.820395,-73.954633,152
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.735804,-73.982571,107
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.819824,-73.9547,152
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.72248,-73.98906,148
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.730786,-73.973862,224
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.789474,-73.952378,75
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.713367,-73.997449,45
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.773528,-73.95526,263
-MANHATTAN,,Highbridge Park,,,,,Y,,,,,24,,,,,,,,40.848328,-73.93059,120
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.732147,-73.985228,79
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.725451,-73.986708,79
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.813137,-73.956613,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.811422,-73.957502,166
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.766726,-73.956626,140
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.728001,-74.007452,125
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.802143,-73.939162,74
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.769524,-73.960329,141
-MANHATTAN,,Tribeca-Civic Center,,,,,Y,,,,,24,,,,,,,,40.716855,-74.006268,231
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712958,-73.987285,232
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.732085,-73.984605,79
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.728881,-73.987605,79
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.717414,-74.013934,13
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.73301,-73.987564,79
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.842338,-73.94211,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.830755,-73.940768,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.830838,-73.940479,244
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.802804,-73.967919,24
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.813655,-73.955909,166
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.771112,-73.947816,262
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.77482,-73.947816,262
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712727,-73.992683,45
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.802294,-73.949295,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.825562,-73.935974,42
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.759092,-73.980863,161
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.748054,-73.969878,233
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.864012,-73.918118,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.864032,-73.918155,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.86444,-73.918599,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.864464,-73.918636,127
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.810666,-73.939276,42
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.733681,-73.986697,107
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.733818,-73.989734,79
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.838823,-73.943718,244
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.749297,-73.984089,164
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.751218,-73.982689,164
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.751433,-73.982477,164
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.742831,-73.980058,137
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.751723,-73.982321,164
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.754563,-73.980251,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.757474,-73.978119,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.758142,-73.977636,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.759586,-73.976579,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.760184,-73.976147,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.761263,-73.975372,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.763348,-73.973849,163
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.745956,-73.97844,170
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.741062,-73.988707,234
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.75557,-73.97952,161
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.755899,-73.979282,161
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.747903,-73.976369,170
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.814858,-73.958634,166
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712109,-73.997305,45
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.864723,-73.928553,243
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.761175,-73.983598,230
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.759231,-73.968088,229
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.713462,-73.982304,232
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.814448,-73.936259,74
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.810443,-73.950838,41
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.743803,-73.973823,137
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.744049,-73.973885,170
-MANHATTAN,,Randall's Island,,,,,Y,,,,,24,,,,,,,,40.79251,-73.923455,194
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.725913,-74.008864,125
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.802019,-73.961366,166
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.715732,-73.986389,232
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.787229,-73.945105,75
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.731866,-73.982035,224
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.793959,-73.963183,151
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.820559,-73.951165,152
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.840486,-73.942848,244
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.75233,-73.973151,233
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.73908,-73.983136,107
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.7152,-73.9846,232
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.723175,-73.989018,79
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.716414,-73.99205,148
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.81709,-73.959839,166
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.790869,-73.942429,75
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.795858,-73.938818,74
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.790019,-73.939599,75
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.737958,-73.977602,137
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.731864,-73.985432,79
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.754213,-73.97177,233
-MANHATTAN,,United Nations,,,,,Y,,,,,24,,,,,,,,40.749738,-73.969007,233
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.724145,-73.987655,79
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.717164,-73.991193,148
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.731836,-73.982058,224
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.826846,-73.95173,116
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.754511,-73.968959,229
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.765961,-73.960592,141
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.7588,-73.9624,229
-MANHATTAN,,Upper East Side-Carnegie Hill,,,,,Y,,,,,24,,,,,,,,40.776048,-73.96173,236
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.755388,-73.971525,162
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.822578,-73.942268,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.82836,-73.93804,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.825865,-73.939864,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.828056,-73.937969,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.80139,-73.95363,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.803753,-73.948618,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.805679,-73.950967,41
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.795133,-73.971211,238
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.800531,-73.954736,41
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.821104,-73.957165,152
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.711878,-73.997931,45
-MANHATTAN,,Financial District-Battery Park City,,,,,Y,,,,,24,,,,,,,,40.707938,-74.003737,209
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.869681,-73.915918,127
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.798899,-73.961184,24
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.71434,-73.979653,232
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.735431,-73.985439,107
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.778734,-73.985113,143
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.820961,-73.936064,42
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.723461,-73.988233,79
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.803031,-73.944898,41
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.795127,-73.971697,238
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.81025,-73.96248,166
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.796513,-73.934879,74
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.743234,-74.003858,68
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.747373,-73.981854,164
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.751924,-73.993078,186
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.749579,-73.987464,164
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.788386,-73.976942,239
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.737985,-73.977579,137
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.80322,-73.93438,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.80405,-73.93691,74
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.784218,-73.943859,75
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.744264,-73.97299,233
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.731736,-73.982126,224
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.759972,-73.96717,229
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.731709,-73.982144,224
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.740482,-73.975807,137
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.777412,-73.948873,262
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.796107,-73.938583,74
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.760491,-73.96783,162
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.80408,-73.93696,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.805469,-73.940277,74
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.807516,-73.945134,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.80688,-73.9501,41
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.783815,-73.947573,263
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.810537,-73.952317,41
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.760088,-73.96763,162
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.774857,-73.987926,143
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.76553,-73.96351,141
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.777381,-73.948888,262
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.752415,-73.981814,164
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.753185,-73.981253,164
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.768038,-73.961721,141
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.740453,-73.975826,137
-MANHATTAN,,Randall's Island,,,,,Y,,,,,24,,,,,,,,40.785445,-73.929232,194
-MANHATTAN,,Randall's Island,,,,,Y,,,,,24,,,,,,,,40.789941,-73.925567,194
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.778101,-73.95178,263
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.80069,-73.946793,41
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.806162,-73.94192,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.79976,-73.944579,74
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.798226,-73.940402,74
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.830693,-73.947585,116
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.773121,-73.957975,141
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.856262,-73.933028,243
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.825223,-73.947343,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.826054,-73.949862,116
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.824797,-73.940344,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.826152,-73.939364,42
-MANHATTAN,,Highbridge Park,,,,,Y,,,,,24,,,,,,,,40.843266,-73.934292,120
-MANHATTAN,,Highbridge Park,,,,,Y,,,,,24,,,,,,,,40.845269,-73.932826,120
-MANHATTAN,,Upper East Side-Lenox Hill-Roosevelt Island,,,,,Y,,,,,24,,,,,,,,40.773964,-73.95677,141
-MANHATTAN,,Upper East Side-Carnegie Hill,,,,,Y,,,,,24,,,,,,,,40.774531,-73.957617,236
-MANHATTAN,,Upper East Side-Yorkville,,,,,Y,,,,,24,,,,,,,,40.782203,-73.951349,263
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.751056,-73.974857,162
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.750846,-73.974869,170
-MANHATTAN,,Upper East Side-Carnegie Hill,,,,,Y,,,,,24,,,,,,,,40.770635,-73.962452,237
-MANHATTAN,,Upper East Side-Carnegie Hill,,,,,Y,,,,,24,,,,,,,,40.770413,-73.962439,237
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.760696,-73.968848,162
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.739708,-73.984959,107
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.740843,-73.987655,234
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.747613,-73.973989,170
-MANHATTAN,,Midtown-Times Square,,,,,Y,,,,,24,,,,,,,,40.751106,-73.980403,170
-MANHATTAN,,Upper East Side-Carnegie Hill,,,,,Y,,,,,24,,,,,,,,40.771796,-73.965225,237
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.728692,-73.976031,224
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.747359,-73.981816,164
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.740463,-73.986767,234
-MANHATTAN,,Gramercy,,,,,Y,,,,,24,,,,,,,,40.739915,-73.985993,107
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.782052,-73.972019,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.785304,-73.969632,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.785605,-73.969777,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.791663,-73.965001,238
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.79676,-73.964828,151
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.786488,-73.972444,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.781084,-73.97627,239
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.775364,-73.980433,142
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.770078,-73.984312,142
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.766474,-73.986943,48
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.763333,-73.989231,48
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.753138,-73.995951,68
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.746156,-74.000761,68
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.749159,-74.002928,68
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.754361,-73.998876,68
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.761601,-74.00046,246
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.762987,-73.992883,48
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.764239,-73.99197,48
-MANHATTAN,,Hell's Kitchen,,,,,Y,,,,,24,,,,,,,,40.770053,-73.991062,50
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.778863,-73.981305,142
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.783141,-73.978033,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.783386,-73.978013,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.7877,-73.9753,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.794256,-73.970069,238
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.802743,-73.96356,24
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.806976,-73.960795,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.80659,-73.961378,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.807879,-73.960431,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.808357,-73.959788,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.809117,-73.959528,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.809548,-73.958921,166
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.81384,-73.956494,152
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.81284,-73.956,166
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.821005,-73.95055,152
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.82375,-73.948843,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.825021,-73.947912,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.825502,-73.947262,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.825245,-73.947881,116
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.832005,-73.942836,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.835522,-73.94024,244
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.848314,-73.930898,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.856903,-73.935884,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.851155,-73.938083,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.850636,-73.9385,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.845883,-73.94043,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.83995,-73.943251,244
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.849148,-73.934014,243
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.827504,-73.942849,116
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.817334,-73.948044,152
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.81044,-73.952067,41
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.811363,-73.954278,166
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.812432,-73.938036,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.806618,-73.942477,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.808032,-73.945816,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.820726,-73.93665,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.821686,-73.939451,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.821419,-73.939486,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.816732,-73.942434,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.815121,-73.944064,42
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.815526,-73.943314,42
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.809246,-73.948377,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.809281,-73.94878,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.80992,-73.950851,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.810455,-73.951579,41
-MANHATTAN,,Harlem (North),,,,,Y,,,,,24,,,,,,,,40.822598,-73.941619,42
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.870953,-73.914653,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.86973,-73.916251,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.867912,-73.920105,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.867579,-73.921857,127
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.866982,-73.92353,127
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.84995,-73.93575,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.84999,-73.936045,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.840289,-73.940096,244
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.832589,-73.946203,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.826704,-73.950029,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.824041,-73.951962,116
-MANHATTAN,,Hamilton Heights-Sugar Hill,,,,,Y,,,,,24,,,,,,,,40.823131,-73.953102,116
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.818623,-73.956399,152
-MANHATTAN,,Manhattanville-West Harlem,,,,,Y,,,,,24,,,,,,,,40.818617,-73.955935,152
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.807774,-73.963843,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.807816,-73.964288,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.806579,-73.965187,166
-MANHATTAN,,Morningside Heights,,,,,Y,,,,,24,,,,,,,,40.805321,-73.966098,166
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.803827,-73.966143,24
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.803072,-73.967271,24
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.801548,-73.96767,24
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.801075,-73.968114,151
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.7996,-73.968522,151
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.798313,-73.969363,151
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.797964,-73.969147,151
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.797024,-73.970297,151
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.791936,-73.974023,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.791645,-73.973753,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.78977,-73.975116,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.788562,-73.976031,238
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.78816,-73.976885,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.786861,-73.977984,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.785973,-73.978171,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.784062,-73.979589,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.783663,-73.980369,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.783893,-73.980361,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.782667,-73.980506,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.781572,-73.981336,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.781258,-73.981033,239
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.780117,-73.981783,143
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.779076,-73.982476,143
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.776866,-73.982315,142
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.776562,-73.981917,142
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.776217,-73.987264,143
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.77197,-73.982385,142
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.769513,-73.982315,142
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.769496,-73.981907,142
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.731317,-73.982279,224
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.729637,-73.978289,224
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.729474,-73.978365,79
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.785693,-73.948801,75
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.73153,-74.006532,249
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.787422,-73.947546,75
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.733062,-73.974696,224
-MANHATTAN,,SoHo-Little Italy-Hudson Square,,,,,Y,,,,,24,,,,,,,,40.727123,-74.003227,125
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.73332,-74.008751,158
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.733339,-74.006239,249
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.727301,-73.976337,4
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.73061,-73.980576,224
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.725093,-73.984104,79
-MANHATTAN,,Chinatown-Two Bridges,,,,,Y,,,,,24,,,,,,,,40.712594,-73.989583,232
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.726304,-73.977058,4
-MANHATTAN,,Lower East Side,,,,,Y,,,,,24,,,,,,,,40.713353,-73.980751,232
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.745389,-74.005701,68
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.770604,-73.987329,142
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.739446,-73.991252,234
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.741317,-73.989891,234
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.747525,-73.98537,164
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.747081,-73.993654,186
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.743811,-73.995246,90
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.745548,-73.99886,68
-MANHATTAN,,Murray Hill-Kips Bay,,,,,Y,,,,,24,,,,,,,,40.746796,-73.980932,170
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.729927,-73.974732,224
-MANHATTAN,,Stuyvesant Town-Peter Cooper Village,,,,,Y,,,,,24,,,,,,,,40.728713,-73.97562,224
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.779568,-73.984181,143
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.779635,-73.984749,143
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.775115,-73.987307,143
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.7739,-73.984494,142
-MANHATTAN,,Upper West Side-Manhattan Valley,,,,,Y,,,,,24,,,,,,,,40.800358,-73.962207,24
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.786227,-73.972511,239
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.782814,-73.975002,239
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.803551,-73.953039,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.801683,-73.949143,41
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.799397,-73.954986,41
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.795787,-73.947784,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.791967,-73.946598,75
-MANHATTAN,,East Harlem (North),,,,,Y,,,,,24,,,,,,,,40.81041,-73.937101,74
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.784257,-73.943824,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.787168,-73.953762,75
-MANHATTAN,,East Harlem (South),,,,,Y,,,,,24,,,,,,,,40.791548,-73.944363,75
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.846803,-73.939834,244
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.853943,-73.933948,243
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.852308,-73.92798,243
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.835079,-73.937764,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.837521,-73.944233,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.844494,-73.940976,244
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.863106,-73.930153,243
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.832457,-73.939932,244
-MANHATTAN,,Washington Heights (South),,,,,Y,,,,,24,,,,,,,,40.845924,-73.932635,244
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.856351,-73.928754,243
-MANHATTAN,,Chelsea-Hudson Yards,,,,,Y,,,,,24,,,,,,,,40.749468,-73.999331,68
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.790097,-73.969696,238
-MANHATTAN,,East Midtown-Turtle Bay,,,,,Y,,,,,24,,,,,,,,40.752536,-73.970387,233
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.85487,-73.937071,243
-MANHATTAN,,Upper West Side (Central),,,,,Y,,,,,24,,,,,,,,40.791017,-73.972419,238
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.858726,-73.934533,243
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.740606,-74.004781,249
-MANHATTAN,,Inwood,,,,,Y,,,,,24,,,,,,,,40.86557,-73.926832,127
-MANHATTAN,,Harlem (South),,,,,Y,,,,,24,,,,,,,,40.806194,-73.94253,41
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.854415,-73.933479,243
-MANHATTAN,,Upper West Side-Lincoln Square,,,,,Y,,,,,24,,,,,,,,40.776247,-73.986886,143
-MANHATTAN,,East Village,,,,,Y,,,,,24,,,,,,,,40.726906,-73.976911,4
-MANHATTAN,,Washington Heights (North),,,,,Y,,,,,24,,,,,,,,40.852567,-73.934659,243
-MANHATTAN,,Greenwich Village,,,,,Y,,,,,24,,,,,,,,40.730775,-74.001425,114
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.747275,-73.9832,164
-MANHATTAN,,Greenwich Village,,,,,Y,,,,,24,,,,,,,,40.733097,-73.999796,113
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.741712,-73.987259,234
-MANHATTAN,,Greenwich Village,,,,,Y,,,,,24,,,,,,,,40.734938,-73.998448,113
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.743004,-73.986306,234
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.742277,-73.985028,234
-MANHATTAN,,Midtown South-Flatiron-Union Square,,,,,Y,,,,,24,,,,,,,,40.743871,-73.98806,234
-MANHATTAN,,West Village,,,,,Y,,,,,24,,,,,,,,40.732884,-74.010059,158
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.789307,-73.94616,75
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.79182,-73.944332,75
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.803386,-73.952176,41
+MANHATTAN,,W 116 ST,,,,,Y,,,,,24,,,,,,,,40.802923,-73.952078,41
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.80419,-73.955667,41
+MANHATTAN,,W 225 ST,,,,,Y,,,,,24,,,,,,,,40.874493,-73.909328,153
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.874775,-73.9092,153
+MANHATTAN,,W 225 ST,,,,,Y,,,,,24,,,,,,,,40.874178,-73.909302,153
+MANHATTAN,,WATER ST,,,,,Y,,,,,24,,,,,,,,40.702911,-74.011064,88
+MANHATTAN,,WATER ST,,,,,Y,,,,,24,,,,,,,,40.705301,-74.007033,87
+MANHATTAN,,PEARL ST,,,,,Y,,,,,24,,,,,,,,40.708661,-74.002906,209
+MANHATTAN,,PEARL ST,,,,,Y,,,,,24,,,,,,,,40.709025,-74.002084,209
+MANHATTAN,,PEARL ST,,,,,Y,,,,,24,,,,,,,,40.709229,-74.002178,209
+MANHATTAN,,FRANKFORT ST,,,,,Y,,,,,24,,,,,,,,40.709547,-74.001878,209
+MANHATTAN,,PEARL ST,,,,,Y,,,,,24,,,,,,,,40.710473,-74.00077,45
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.711889,-73.999406,45
+MANHATTAN,,PARK ROW,,,,,Y,,,,,24,,,,,,,,40.711813,-74.006176,209
+MANHATTAN,,PARK ROW,,,,,Y,,,,,24,,,,,,,,40.711696,-74.00667,209
+MANHATTAN,,W BROADWAY,,,,,Y,,,,,24,,,,,,,,40.716405,-74.008651,231
+MANHATTAN,,VARICK ST,,,,,Y,,,,,24,,,,,,,,40.726882,-74.005717,125
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.728643,-74.002559,114
+MANHATTAN,,W HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.726979,-73.999644,114
+MANHATTAN,,BOWERY,,,,,Y,,,,,24,,,,,,,,40.715986,-73.996399,45
+MANHATTAN,,GRAND ST,,,,,Y,,,,,24,,,,,,,,40.716136,-73.986951,232
+MANHATTAN,,GRAND ST,,,,,Y,,,,,24,,,,,,,,40.715411,-73.984556,232
+MANHATTAN,,GRAND ST,,,,,Y,,,,,24,,,,,,,,40.714516,-73.981456,232
+MANHATTAN,,GRAND ST,,,,,Y,,,,,24,,,,,,,,40.71325,-73.977907,232
+MANHATTAN,,Grand St,,,,,Y,,,,,24,,,,,,,,40.713563,-73.978193,232
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.723429,-73.988258,79
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.731525,-73.982282,224
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.733105,-73.981133,107
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.735304,-73.97953,107
+MANHATTAN,,E 20 ST,,,,,Y,,,,,24,,,,,,,,40.734614,-73.978642,224
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.737346,-73.978044,137
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.737226,-73.979064,107
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.738963,-73.976856,137
+MANHATTAN,,E 42 ST,,,,,Y,,,,,24,,,,,,,,40.749219,-73.970515,233
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.749211,-73.969341,233
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.750595,-73.968391,233
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.753602,-73.966189,229
+MANHATTAN,,E 49 ST,,,,,Y,,,,,24,,,,,,,,40.753497,-73.967047,229
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.763024,-73.959317,140
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.757283,-73.963507,229
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.758493,-73.962623,229
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.764996,-73.957881,140
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.768014,-73.955691,140
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.768021,-73.95627,141
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.779036,-73.947634,262
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.781452,-73.945841,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.776262,-73.947031,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.7732,-73.949271,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.77115,-73.950765,140
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.771595,-73.950665,262
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.770601,-73.948311,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.768337,-73.952526,140
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.766662,-73.95404,140
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.7671,-73.953426,140
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.79133,-73.951025,75
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.766868,-73.954025,140
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.76512,-73.955164,140
+MANHATTAN,,E 97 ST,,,,,Y,,,,,24,,,,,,,,40.7849,-73.946288,75
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.785189,-73.946589,75
+MANHATTAN,,E 96 ST,,,,,Y,,,,,24,,,,,,,,40.784504,-73.947414,75
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.782671,-73.948406,263
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.854695,-73.929955,243
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.834202,-73.944547,244
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.775101,-73.953924,263
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.837042,-73.942939,244
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.800486,-73.94674,41
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.790278,-73.942834,75
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.805964,-73.940374,74
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.773091,-73.955382,141
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.843441,-73.939014,244
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.733521,-73.9875,107
+MANHATTAN,,AV A,,,,,Y,,,,,24,,,,,,,,40.72867,-73.9815,79
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.77354,-73.955293,263
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.842153,-73.935393,244
+MANHATTAN,,8 AV,,,,,Y,,,,,24,,,,,,,,40.763717,-73.984892,230
+MANHATTAN,,E HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.723349,-73.990539,148
+MANHATTAN,,E 135 ST,,,,,Y,,,,,24,,,,,,,,40.812525,-73.937407,74
+MANHATTAN,,W 116 ST,,,,,Y,,,,,24,,,,,,,,40.804445,-73.955732,41
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.801571,-73.961316,24
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.802483,-73.964064,24
+MANHATTAN,,W 96 ST,,,,,Y,,,,,24,,,,,,,,40.793855,-73.970159,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.835774,-73.943867,244
+MANHATTAN,,W 135 ST,,,,,Y,,,,,24,,,,,,,,40.820426,-73.955559,152
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.801006,-73.958942,41
+MANHATTAN,,EDWARD MORGAN PL,,,,,Y,,,,,24,,,,,,,,40.834582,-73.945581,244
+MANHATTAN,,W 96 ST,,,,,Y,,,,,24,,,,,,,,40.794031,-73.970033,238
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.793313,-73.967338,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.826715,-73.950488,116
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.79931,-73.966385,151
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.76848,-73.958759,141
+MANHATTAN,,W 34 ST,,,,,Y,,,,,24,,,,,,,,40.753353,-73.995985,68
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.811105,-73.958071,166
+MANHATTAN,,W 146 ST,,,,,Y,,,,,24,,,,,,,,40.821187,-73.93605,42
+MANHATTAN,,WEST END AV,,,,,Y,,,,,24,,,,,,,,40.777525,-73.986331,143
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.811627,-73.961497,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.824133,-73.948266,116
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.7454,-73.98457,164
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.746649,-73.983661,164
+MANHATTAN,,SOUTH END AV,,,,,Y,,,,,24,,,,,,,,40.709643,-74.016438,13
+MANHATTAN,,W THAMES ST,,,,,Y,,,,,24,,,,,,,,40.708452,-74.017108,13
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.768813,-73.958676,141
+MANHATTAN,,W 42 ST,,,,,Y,,,,,24,,,,,,,,40.759881,-73.995767,50
+MANHATTAN,,WATER ST,,,,,Y,,,,,24,,,,,,,,40.706016,-74.006383,87
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.713026,-73.984655,232
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.712858,-73.986483,232
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.723087,-73.979467,4
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.769003,-73.958667,141
+MANHATTAN,,AV D,,,,,Y,,,,,24,,,,,,,,40.720377,-73.97833,4
+MANHATTAN,,W 50 ST,,,,,Y,,,,,24,,,,,,,,40.765902,-73.994861,50
+MANHATTAN,,W 23 ST,,,,,Y,,,,,24,,,,,,,,40.744393,-73.996099,90
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.792115,-73.950469,75
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.793388,-73.949529,75
+MANHATTAN,,E 116 ST,,,,,Y,,,,,24,,,,,,,,40.800239,-73.945174,74
+MANHATTAN,,E 116 ST,,,,,Y,,,,,24,,,,,,,,40.800658,-73.946164,74
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.798439,-73.945847,74
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.807233,-73.939448,42
+MANHATTAN,,E 116 ST,,,,,Y,,,,,24,,,,,,,,40.799248,-73.942829,74
+MANHATTAN,,E 10 ST,,,,,Y,,,,,24,,,,,,,,40.725168,-73.975629,4
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.785346,-73.943024,75
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.787357,-73.941564,75
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.793212,-73.937282,74
+MANHATTAN,,E 116 ST,,,,,Y,,,,,24,,,,,,,,40.797251,-73.938086,74
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.766086,-73.960501,141
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.790204,-73.951831,75
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.802499,-73.933917,74
+MANHATTAN,,FT GEORGE AV,,,,,Y,,,,,24,,,,,,,,40.85707,-73.927983,243
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.841814,-73.935342,120
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.855098,-73.933524,243
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.841283,-73.939848,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.838253,-73.942061,244
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.738174,-73.981334,107
+MANHATTAN,,DELANCEY ST,,,,,Y,,,,,24,,,,,,,,40.716474,-73.980305,232
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.859521,-73.931398,243
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.858472,-73.931579,243
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.844263,-73.940883,244
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.763614,-73.9623,141
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.843755,-73.939214,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.870861,-73.914343,127
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.791345,-73.96878,238
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.76172,-73.993809,48
+MANHATTAN,,W 57 ST,,,,,Y,,,,,24,,,,,,,,40.768146,-73.985999,48
+MANHATTAN,,W 14 ST,,,,,Y,,,,,24,,,,,,,,40.740017,-74.002919,68
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.754717,-73.968814,229
+MANHATTAN,,9 AV,,,,,Y,,,,,24,,,,,,,,40.753183,-73.996624,68
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.750422,-74.002006,68
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.73663,-73.978193,224
+MANHATTAN,,HUDSON ST,,,,,Y,,,,,24,,,,,,,,40.73544,-74.00591,249
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.747852,-74.003877,68
+MANHATTAN,,W 42 ST,,,,,Y,,,,,24,,,,,,,,40.758213,-73.992386,48
+MANHATTAN,,W 96 ST,,,,,Y,,,,,24,,,,,,,,40.792645,-73.96728,238
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.785,-73.973407,239
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.761582,-73.963805,141
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.760429,-73.994755,48
+MANHATTAN,,BOWERY,,,,,Y,,,,,24,,,,,,,,40.722239,-73.993466,144
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.724252,-73.978612,4
+MANHATTAN,,E HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.719632,-73.978409,232
+MANHATTAN,,W HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.726652,-73.999719,211
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.816135,-73.954403,152
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.853564,-73.937275,243
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.775272,-73.9824,142
+MANHATTAN,,AV D,,,,,Y,,,,,24,,,,,,,,40.722019,-73.977124,4
+MANHATTAN,,W 66 ST,,,,,Y,,,,,24,,,,,,,,40.774115,-73.982693,142
+MANHATTAN,,W 66 ST,,,,,Y,,,,,24,,,,,,,,40.773523,-73.981304,142
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.788221,-73.971057,238
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.767572,-73.955697,140
+MANHATTAN,,BOWERY,,,,,Y,,,,,24,,,,,,,,40.715146,-73.996565,148
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.759155,-73.965593,229
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.761414,-73.957551,140
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.769589,-73.951606,140
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.722416,-74.005119,211
+MANHATTAN,,E HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.723962,-73.991512,79
+MANHATTAN,,E HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.721685,-73.984017,79
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.757219,-73.966982,229
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.763257,-73.956198,140
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.77166,-73.950093,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.773534,-73.948714,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.777069,-73.946448,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.774431,-73.948371,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.769926,-73.951657,140
+MANHATTAN,,LEXINGTON AV,,,,,Y,,,,,24,,,,,,,,40.787354,-73.949994,75
+MANHATTAN,,E 57 ST,,,,,Y,,,,,24,,,,,,,,40.759521,-73.965533,229
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.766333,-73.990441,48
+MANHATTAN,,CHURCH ST,,,,,Y,,,,,24,,,,,,,,40.715132,-74.007646,231
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.743288,-73.988472,234
+MANHATTAN,,W 86 ST,,,,,Y,,,,,24,,,,,,,,40.787653,-73.974663,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.855587,-73.933088,243
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.852363,-73.937648,243
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.787216,-73.977196,239
+MANHATTAN,,W 65 ST,,,,,Y,,,,,24,,,,,,,,40.772698,-73.981521,142
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.721506,-73.980825,4
+MANHATTAN,,BOWERY,,,,,Y,,,,,24,,,,,,,,40.720583,-73.993799,148
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.770093,-73.960182,141
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.768887,-73.98858,48
+MANHATTAN,,7 AV,,,,,Y,,,,,24,,,,,,,,40.763779,-73.98146,163
+MANHATTAN,,COLUMBIA ST,,,,,Y,,,,,24,,,,,,,,40.717729,-73.979761,232
+MANHATTAN,,ESSEX ST,,,,,Y,,,,,24,,,,,,,,40.716964,-73.988895,148
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.713104,-73.985512,232
+MANHATTAN,,W 57 ST,,,,,Y,,,,,24,,,,,,,,40.767647,-73.985329,48
+MANHATTAN,,W 66 ST,,,,,Y,,,,,24,,,,,,,,40.775826,-73.986528,143
+MANHATTAN,,E 116 ST,,,,,Y,,,,,24,,,,,,,,40.797731,-73.939763,74
+MANHATTAN,,E 116 ST,,,,,Y,,,,,24,,,,,,,,40.795969,-73.935053,74
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.794504,-73.948728,75
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.763493,-73.956358,140
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.72106,-74.005098,231
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.739158,-73.98274,107
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.820098,-73.946484,42
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.801362,-73.957483,41
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.811943,-73.95003,42
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.812926,-73.949316,42
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.842671,-73.939367,244
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.801469,-73.960726,24
+MANHATTAN,,8 AV,,,,,Y,,,,,24,,,,,,,,40.767031,-73.982494,163
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.803446,-73.942238,74
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.835476,-73.943611,244
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.833301,-73.941866,244
+MANHATTAN,,W 155 ST,,,,,Y,,,,,24,,,,,,,,40.83155,-73.94266,244
+MANHATTAN,,PIKE ST,,,,,Y,,,,,24,,,,,,,,40.71425,-73.992449,232
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.744875,-73.978582,137
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.867927,-73.920057,127
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.759722,-73.980402,161
+MANHATTAN,,E 57 ST,,,,,Y,,,,,24,,,,,,,,40.762035,-73.972016,163
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.748857,-73.982047,170
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.746493,-73.990025,164
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.750147,-73.987366,164
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.755954,-73.983142,161
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.756937,-73.98241,161
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.761966,-73.978762,161
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.763799,-73.977426,163
+MANHATTAN,,7 AV,,,,,Y,,,,,24,,,,,,,,40.766047,-73.979808,163
+MANHATTAN,,7 AV,,,,,Y,,,,,24,,,,,,,,40.748914,-73.992286,186
+MANHATTAN,,W 34 ST,,,,,Y,,,,,24,,,,,,,,40.751943,-73.993118,186
+MANHATTAN,,W 42 ST,,,,,Y,,,,,24,,,,,,,,40.757497,-73.990146,48
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.782069,-73.978952,239
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.777146,-73.979137,142
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.780776,-73.979907,239
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.784652,-73.977087,239
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.785921,-73.976159,239
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.792298,-73.971507,238
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.795539,-73.969136,151
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.798094,-73.967274,151
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.800674,-73.9654,24
+MANHATTAN,,W 106 ST,,,,,Y,,,,,24,,,,,,,,40.800193,-73.965402,151
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.813624,-73.960052,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.816624,-73.953745,152
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.817867,-73.952837,152
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.812026,-73.960741,166
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.815245,-73.958086,166
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.814843,-73.959157,166
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.829006,-73.937575,42
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.830632,-73.936381,42
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.81041,-73.951148,41
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.815011,-73.936132,42
+MANHATTAN,,W 135 ST,,,,,Y,,,,,24,,,,,,,,40.813812,-73.940424,42
+MANHATTAN,,W 57 ST,,,,,Y,,,,,24,,,,,,,,40.764058,-73.976838,163
+MANHATTAN,,W 57 ST,,,,,Y,,,,,24,,,,,,,,40.766575,-73.982276,163
+MANHATTAN,,EDGECOMBE AV,,,,,Y,,,,,24,,,,,,,,40.836276,-73.937214,244
+MANHATTAN,,W 106 ST,,,,,Y,,,,,24,,,,,,,,40.799034,-73.962648,151
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.737619,-73.98055,107
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.796912,-73.96813,151
+MANHATTAN,,W 14 ST,,,,,Y,,,,,24,,,,,,,,40.738307,-73.999353,249
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.785642,-73.978888,239
+MANHATTAN,,E 106 ST,,,,,Y,,,,,24,,,,,,,,40.790852,-73.942721,75
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.8009,-73.9594,24
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.82172,-73.942595,42
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.811747,-73.949873,42
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.820522,-73.943463,42
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.749556,-73.972567,233
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.823443,-73.937994,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.823067,-73.937803,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.810744,-73.947291,42
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.775589,-73.983692,142
+MANHATTAN,,WORTH ST,,,,,Y,,,,,24,,,,,,,,40.71673,-74.005671,231
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.801787,-73.945807,41
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.812874,-73.949044,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.824246,-73.936951,42
+MANHATTAN,,E 42 ST,,,,,Y,,,,,24,,,,,,,,40.750054,-73.972496,233
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.77415,-73.982018,142
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.779304,-73.953468,263
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.829829,-73.944407,116
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.821075,-73.946314,152
+MANHATTAN,,9 AV,,,,,Y,,,,,24,,,,,,,,40.769046,-73.985047,142
+MANHATTAN,,TRINITY PL,,,,,Y,,,,,24,,,,,,,,40.708184,-74.01258,261
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.737902,-73.981214,107
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.712399,-73.991971,232
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.712556,-73.992098,232
+MANHATTAN,,E 86 ST,,,,,Y,,,,,24,,,,,,,,40.776869,-73.949086,262
+MANHATTAN,,7 AV,,,,,Y,,,,,24,,,,,,,,40.742094,-73.997256,90
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.727113,-73.988898,79
+MANHATTAN,,E 106 ST,,,,,Y,,,,,24,,,,,,,,40.792029,-73.946017,75
+MANHATTAN,,PEARL ST,,,,,Y,,,,,24,,,,,,,,40.707852,-74.003488,209
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.820198,-73.9366,42
+MANHATTAN,,MANHATTAN AV,,,,,Y,,,,,24,,,,,,,,40.804821,-73.956873,41
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.724488,-73.978674,4
+MANHATTAN,,GRAND ST,,,,,Y,,,,,24,,,,,,,,40.716453,-73.988717,232
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.713247,-73.984248,232
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.835169,-73.940188,244
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.85732,-73.935338,243
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.817998,-73.941502,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.819589,-73.94081,42
+MANHATTAN,,E 42 ST,,,,,Y,,,,,24,,,,,,,,40.749604,-73.972006,233
+MANHATTAN,,LEXINGTON AV,,,,,Y,,,,,24,,,,,,,,40.788605,-73.949055,75
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.807956,-73.945168,41
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.829123,-73.948246,116
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.756691,-73.997451,68
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.868991,-73.917626,127
+MANHATTAN,,E 105 ST,,,,,Y,,,,,24,,,,,,,,40.788199,-73.938613,75
+MANHATTAN,,W 155 ST,,,,,Y,,,,,24,,,,,,,,40.832514,-73.945487,116
+MANHATTAN,,E 125 ST,,,,,Y,,,,,24,,,,,,,,40.803457,-73.935507,74
+MANHATTAN,,E 135 ST,,,,,Y,,,,,24,,,,,,,,40.81209,-73.936374,74
+MANHATTAN,,E 34 ST,,,,,Y,,,,,24,,,,,,,,40.745011,-73.976174,170
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.8722,-73.913022,128
+MANHATTAN,,E 135 ST,,,,,Y,,,,,24,,,,,,,,40.81247,-73.936681,74
+MANHATTAN,,E 96 ST,,,,,Y,,,,,24,,,,,,,,40.784964,-73.949067,263
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.80398,-73.967087,24
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.816469,-73.939329,42
+MANHATTAN,,MANHATTAN AV,,,,,Y,,,,,24,,,,,,,,40.80388,-73.957774,41
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.786893,-73.954289,236
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.807495,-73.945917,41
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.809293,-73.94419,42
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.815233,-73.940226,42
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.813724,-73.941328,42
+MANHATTAN,,MANHATTAN AV,,,,,Y,,,,,24,,,,,,,,40.805295,-73.956524,41
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.763251,-73.977812,161
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.771608,-73.950711,262
+MANHATTAN,,WEST END AV,,,,,Y,,,,,24,,,,,,,,40.774559,-73.988499,143
+MANHATTAN,,E 105 ST,,,,,Y,,,,,24,,,,,,,,40.788918,-73.9403,75
+MANHATTAN,,W HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.728033,-74.002453,125
+MANHATTAN,,ALLEN ST,,,,,Y,,,,,24,,,,,,,,40.721817,-73.988837,148
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.805688,-73.961733,166
+MANHATTAN,,HARRISON ST,,,,,Y,,,,,24,,,,,,,,40.718835,-74.011422,231
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.813249,-73.945447,42
+MANHATTAN,,E 106 ST,,,,,Y,,,,,24,,,,,,,,40.78989,-73.94042,75
+MANHATTAN,,W 57 ST,,,,,Y,,,,,24,,,,,,,,40.76886,-73.988228,48
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.823113,-73.941565,42
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.737645,-73.981231,107
+MANHATTAN,,FREDERICK DOUGLASS BLVD,,,,,Y,,,,,24,,,,,,,,40.81671,-73.946251,42
+MANHATTAN,,FDR DR SRV RD,,,,,Y,,,,,24,,,,,,,,40.743611,-73.971497,233
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.81985,-73.955505,152
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.821955,-73.953966,152
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.817077,-73.942649,42
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.723293,-73.979549,4
+MANHATTAN,,W 70 ST,,,,,Y,,,,,24,,,,,,,,40.778951,-73.986856,143
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.820395,-73.954633,152
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.735804,-73.982571,107
+MANHATTAN,,W 135 ST,,,,,Y,,,,,24,,,,,,,,40.819824,-73.9547,152
+MANHATTAN,,ALLEN ST,,,,,Y,,,,,24,,,,,,,,40.72248,-73.98906,148
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.730786,-73.973862,224
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.789474,-73.952378,75
+MANHATTAN,,EAST BROADWAY,,,,,Y,,,,,24,,,,,,,,40.713367,-73.997449,45
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.773528,-73.95526,263
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.848328,-73.93059,120
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.732147,-73.985228,79
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.725451,-73.986708,79
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.813137,-73.956613,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.811422,-73.957502,166
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.766726,-73.956626,140
+MANHATTAN,,KING ST,,,,,Y,,,,,24,,,,,,,,40.728001,-74.007452,125
+MANHATTAN,,LEXINGTON AV,,,,,Y,,,,,24,,,,,,,,40.802143,-73.939162,74
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.769524,-73.960329,141
+MANHATTAN,,CHURCH ST,,,,,Y,,,,,24,,,,,,,,40.716855,-74.006268,231
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.712958,-73.987285,232
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.732085,-73.984605,79
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.728881,-73.987605,79
+MANHATTAN,,NORTH END AV,,,,,Y,,,,,24,,,,,,,,40.717414,-74.013934,13
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.73301,-73.987564,79
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.842338,-73.94211,244
+MANHATTAN,,W 155 ST,,,,,Y,,,,,24,,,,,,,,40.830755,-73.940768,244
+MANHATTAN,,EDGECOMBE AV,,,,,Y,,,,,24,,,,,,,,40.830838,-73.940479,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.802804,-73.967919,24
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.813655,-73.955909,166
+MANHATTAN,,E 80 ST,,,,,Y,,,,,24,,,,,,,,40.771112,-73.947816,262
+MANHATTAN,,YORK AV,,,,,Y,,,,,24,,,,,,,,40.77482,-73.947816,262
+MANHATTAN,,PIKE ST,,,,,Y,,,,,24,,,,,,,,40.712727,-73.992683,45
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.802294,-73.949295,41
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.825562,-73.935974,42
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.759092,-73.980863,161
+MANHATTAN,,E 41 ST,,,,,Y,,,,,24,,,,,,,,40.748054,-73.969878,233
+MANHATTAN,,W 207 ST,,,,,Y,,,,,24,,,,,,,,40.864012,-73.918118,127
+MANHATTAN,,W 207 ST,,,,,Y,,,,,24,,,,,,,,40.864032,-73.918155,127
+MANHATTAN,,W 207 ST,,,,,Y,,,,,24,,,,,,,,40.86444,-73.918599,127
+MANHATTAN,,W 207 ST,,,,,Y,,,,,24,,,,,,,,40.864464,-73.918636,127
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.810666,-73.939276,42
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.733681,-73.986697,107
+MANHATTAN,,4 AV,,,,,Y,,,,,24,,,,,,,,40.733818,-73.989734,79
+MANHATTAN,,FT Washington Av,,,,,Y,,,,,24,,,,,,,,40.838823,-73.943718,244
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.749297,-73.984089,164
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.751218,-73.982689,164
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.751433,-73.982477,164
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.742831,-73.980058,137
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.751723,-73.982321,164
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.754563,-73.980251,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.757474,-73.978119,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.758142,-73.977636,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.759586,-73.976579,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.760184,-73.976147,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.761263,-73.975372,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.763348,-73.973849,163
+MANHATTAN,,E 34 ST,,,,,Y,,,,,24,,,,,,,,40.745956,-73.97844,170
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.741062,-73.988707,234
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.75557,-73.97952,161
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.755899,-73.979282,161
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.747903,-73.976369,170
+MANHATTAN,,Broadway,,,,,Y,,,,,24,,,,,,,,40.814858,-73.958634,166
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.712109,-73.997305,45
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.864723,-73.928553,243
+MANHATTAN,,W 50 ST,,,,,Y,,,,,24,,,,,,,,40.761175,-73.983598,230
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.759231,-73.968088,229
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.713462,-73.982304,232
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.814448,-73.936259,74
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.810443,-73.950838,41
+MANHATTAN,,E 34 ST,,,,,Y,,,,,24,,,,,,,,40.743803,-73.973823,137
+MANHATTAN,,E 34 ST,,,,,Y,,,,,24,,,,,,,,40.744049,-73.973885,170
+MANHATTAN,,MAIN ROADWAY,,,,,Y,,,,,24,,,,,,,,40.79251,-73.923455,194
+MANHATTAN,,SPRING ST,,,,,Y,,,,,24,,,,,,,,40.725913,-74.008864,125
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.802019,-73.961366,166
+MANHATTAN,,GRAND ST,,,,,Y,,,,,24,,,,,,,,40.715732,-73.986389,232
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.787229,-73.945105,75
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.731866,-73.982035,224
+MANHATTAN,,CENTRAL PARK WEST,,,,,Y,,,,,24,,,,,,,,40.793959,-73.963183,151
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.820559,-73.951165,152
+MANHATTAN,,FT Washington Av,,,,,Y,,,,,24,,,,,,,,40.840486,-73.942848,244
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.75233,-73.973151,233
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.73908,-73.983136,107
+MANHATTAN,,Grand St,,,,,Y,,,,,24,,,,,,,,40.7152,-73.9846,232
+MANHATTAN,,E HOUSTON ST,,,,,Y,,,,,24,,,,,,,,40.723175,-73.989018,79
+MANHATTAN,,ALLEN ST,,,,,Y,,,,,24,,,,,,,,40.716414,-73.99205,148
+MANHATTAN,,ST CLAIR PL,,,,,Y,,,,,24,,,,,,,,40.81709,-73.959839,166
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.790869,-73.942429,75
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.795858,-73.938818,74
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.790019,-73.939599,75
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.737958,-73.977602,137
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.731864,-73.985432,79
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.754213,-73.97177,233
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.749738,-73.969007,233
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.724145,-73.987655,79
+MANHATTAN,,ALLEN ST,,,,,Y,,,,,24,,,,,,,,40.717164,-73.991193,148
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.731836,-73.982058,224
+MANHATTAN,,W 145 ST,,,,,Y,,,,,24,,,,,,,,40.826846,-73.95173,116
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.754511,-73.968959,229
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.765961,-73.960592,141
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.7588,-73.9624,229
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.776048,-73.96173,236
+MANHATTAN,,E 49 ST,,,,,Y,,,,,24,,,,,,,,40.755388,-73.971525,162
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.822578,-73.942268,42
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.82836,-73.93804,42
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.825865,-73.939864,42
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.828056,-73.937969,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.80139,-73.95363,41
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.803753,-73.948618,41
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.805679,-73.950967,41
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.795133,-73.971211,238
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.800531,-73.954736,41
+MANHATTAN,,W 135 ST,,,,,Y,,,,,24,,,,,,,,40.821104,-73.957165,152
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.711878,-73.997931,45
+MANHATTAN,,PEARL ST,,,,,Y,,,,,24,,,,,,,,40.707938,-74.003737,209
+MANHATTAN,,Broadway,,,,,Y,,,,,24,,,,,,,,40.869681,-73.915918,127
+MANHATTAN,,MANHATTAN AV,,,,,Y,,,,,24,,,,,,,,40.798899,-73.961184,24
+MANHATTAN,,LEWIS ST,,,,,Y,,,,,24,,,,,,,,40.71434,-73.979653,232
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.735431,-73.985439,107
+MANHATTAN,,WEST END AV,,,,,Y,,,,,24,,,,,,,,40.778734,-73.985113,143
+MANHATTAN,,MALCOLM X BLVD,,,,,Y,,,,,24,,,,,,,,40.820961,-73.936064,42
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.723461,-73.988233,79
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.803031,-73.944898,41
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.795127,-73.971697,238
+MANHATTAN,,Broadway,,,,,Y,,,,,24,,,,,,,,40.81025,-73.96248,166
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.796513,-73.934879,74
+MANHATTAN,,9 AV,,,,,Y,,,,,24,,,,,,,,40.743234,-74.003858,68
+MANHATTAN,,E 34 St,,,,,Y,,,,,24,,,,,,,,40.747373,-73.981854,164
+MANHATTAN,,W 34 St,,,,,Y,,,,,24,,,,,,,,40.751924,-73.993078,186
+MANHATTAN,,W 34 St,,,,,Y,,,,,24,,,,,,,,40.749579,-73.987464,164
+MANHATTAN,,W 86 ST,,,,,Y,,,,,24,,,,,,,,40.788386,-73.976942,239
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.737985,-73.977579,137
+MANHATTAN,,E 125 ST,,,,,Y,,,,,24,,,,,,,,40.80322,-73.93438,74
+MANHATTAN,,E 125 ST,,,,,Y,,,,,24,,,,,,,,40.80405,-73.93691,74
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.784218,-73.943859,75
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.744264,-73.97299,233
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.731736,-73.982126,224
+MANHATTAN,,E 57 ST,,,,,Y,,,,,24,,,,,,,,40.759972,-73.96717,229
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.731709,-73.982144,224
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.740482,-73.975807,137
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.777412,-73.948873,262
+MANHATTAN,,2 Av,,,,,Y,,,,,24,,,,,,,,40.796107,-73.938583,74
+MANHATTAN,,E 57 ST,,,,,Y,,,,,24,,,,,,,,40.760491,-73.96783,162
+MANHATTAN,,E 125 St,,,,,Y,,,,,24,,,,,,,,40.80408,-73.93696,74
+MANHATTAN,,E 125 St,,,,,Y,,,,,24,,,,,,,,40.805469,-73.940277,74
+MANHATTAN,,W 125 St,,,,,Y,,,,,24,,,,,,,,40.807516,-73.945134,41
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.80688,-73.9501,41
+MANHATTAN,,2 Av,,,,,Y,,,,,24,,,,,,,,40.783815,-73.947573,263
+MANHATTAN,,W 125 St,,,,,Y,,,,,24,,,,,,,,40.810537,-73.952317,41
+MANHATTAN,,3 Av,,,,,Y,,,,,24,,,,,,,,40.760088,-73.96763,162
+MANHATTAN,,West End Av,,,,,Y,,,,,24,,,,,,,,40.774857,-73.987926,143
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.76553,-73.96351,141
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.777381,-73.948888,262
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.752415,-73.981814,164
+MANHATTAN,,5 Av,,,,,Y,,,,,24,,,,,,,,40.753185,-73.981253,164
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.768038,-73.961721,141
+MANHATTAN,,1 Av,,,,,Y,,,,,24,,,,,,,,40.740453,-73.975826,137
+MANHATTAN,,Hell Gate Circle,,,,,Y,,,,,24,,,,,,,,40.785445,-73.929232,194
+MANHATTAN,,Hell Gate Circle,,,,,Y,,,,,24,,,,,,,,40.789941,-73.925567,194
+MANHATTAN,,2 Av,,,,,Y,,,,,24,,,,,,,,40.778101,-73.95178,263
+MANHATTAN,,W 116 St,,,,,Y,,,,,24,,,,,,,,40.80069,-73.946793,41
+MANHATTAN,,E 125 St,,,,,Y,,,,,24,,,,,,,,40.806162,-73.94192,74
+MANHATTAN,,E 116 St,,,,,Y,,,,,24,,,,,,,,40.79976,-73.944579,74
+MANHATTAN,,E 116 St,,,,,Y,,,,,24,,,,,,,,40.798226,-73.940402,74
+MANHATTAN,,Broadway,,,,,Y,,,,,24,,,,,,,,40.830693,-73.947585,116
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.773121,-73.957975,141
+MANHATTAN,,Broadway,,,,,Y,,,,,24,,,,,,,,40.856262,-73.933028,243
+MANHATTAN,,W 145 St,,,,,Y,,,,,24,,,,,,,,40.825223,-73.947343,116
+MANHATTAN,,W 145 St,,,,,Y,,,,,24,,,,,,,,40.826054,-73.949862,116
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.824797,-73.940344,42
+MANHATTAN,,Frederick Douglass Blvd,,,,,Y,,,,,24,,,,,,,,40.826152,-73.939364,42
+MANHATTAN,,Amsterdam av,,,,,Y,,,,,24,,,,,,,,40.843266,-73.934292,120
+MANHATTAN,,Amsterdam Av,,,,,Y,,,,,24,,,,,,,,40.845269,-73.932826,120
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.773964,-73.95677,141
+MANHATTAN,,E 79 ST,,,,,Y,,,,,24,,,,,,,,40.774531,-73.957617,236
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.782203,-73.951349,263
+MANHATTAN,,E 42 St,,,,,Y,,,,,24,,,,,,,,40.751056,-73.974857,162
+MANHATTAN,,E 42 St,,,,,Y,,,,,24,,,,,,,,40.750846,-73.974869,170
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.770635,-73.962452,237
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.770413,-73.962439,237
+MANHATTAN,,E 57 ST,,,,,Y,,,,,24,,,,,,,,40.760696,-73.968848,162
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.739708,-73.984959,107
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.740843,-73.987655,234
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.747613,-73.973989,170
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.751106,-73.980403,170
+MANHATTAN,,E 72 ST,,,,,Y,,,,,24,,,,,,,,40.771796,-73.965225,237
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.728692,-73.976031,224
+MANHATTAN,,E 34 ST,,,,,Y,,,,,24,,,,,,,,40.747359,-73.981816,164
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.740463,-73.986767,234
+MANHATTAN,,E 23 ST,,,,,Y,,,,,24,,,,,,,,40.739915,-73.985993,107
+MANHATTAN,,W 81 ST,,,,,Y,,,,,24,,,,,,,,40.782052,-73.972019,239
+MANHATTAN,,W 86 ST,,,,,Y,,,,,24,,,,,,,,40.785304,-73.969632,239
+MANHATTAN,,W 86 ST,,,,,Y,,,,,24,,,,,,,,40.785605,-73.969777,238
+MANHATTAN,,W 96 ST,,,,,Y,,,,,24,,,,,,,,40.791663,-73.965001,238
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.79676,-73.964828,151
+MANHATTAN,,W 86 ST,,,,,Y,,,,,24,,,,,,,,40.786488,-73.972444,239
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.781084,-73.97627,239
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.775364,-73.980433,142
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.770078,-73.984312,142
+MANHATTAN,,9 AV,,,,,Y,,,,,24,,,,,,,,40.766474,-73.986943,48
+MANHATTAN,,9 AV,,,,,Y,,,,,24,,,,,,,,40.763333,-73.989231,48
+MANHATTAN,,W 34 ST,,,,,Y,,,,,24,,,,,,,,40.753138,-73.995951,68
+MANHATTAN,,W 23 ST,,,,,Y,,,,,24,,,,,,,,40.746156,-74.000761,68
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.749159,-74.002928,68
+MANHATTAN,,W 34 ST,,,,,Y,,,,,24,,,,,,,,40.754361,-73.998876,68
+MANHATTAN,,W 42 ST,,,,,Y,,,,,24,,,,,,,,40.761601,-74.00046,246
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.762987,-73.992883,48
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.764239,-73.99197,48
+MANHATTAN,,W 57 ST,,,,,Y,,,,,24,,,,,,,,40.770053,-73.991062,50
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.778863,-73.981305,142
+MANHATTAN,,W 79 ST,,,,,Y,,,,,24,,,,,,,,40.783141,-73.978033,239
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.783386,-73.978013,239
+MANHATTAN,,W 86 ST,,,,,Y,,,,,24,,,,,,,,40.7877,-73.9753,239
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.794256,-73.970069,238
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.802743,-73.96356,24
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.806976,-73.960795,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.80659,-73.961378,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.807879,-73.960431,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.808357,-73.959788,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.809117,-73.959528,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.809548,-73.958921,166
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.81384,-73.956494,152
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.81284,-73.956,166
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.821005,-73.95055,152
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.82375,-73.948843,116
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.825021,-73.947912,116
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.825502,-73.947262,116
+MANHATTAN,,W 145 ST,,,,,Y,,,,,24,,,,,,,,40.825245,-73.947881,116
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.832005,-73.942836,244
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.835522,-73.94024,244
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.848314,-73.930898,243
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.856903,-73.935884,243
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.851155,-73.938083,243
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.850636,-73.9385,244
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.845883,-73.94043,244
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.83995,-73.943251,244
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.849148,-73.934014,243
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.827504,-73.942849,116
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.817334,-73.948044,152
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.81044,-73.952067,41
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.811363,-73.954278,166
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.812432,-73.938036,42
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.806618,-73.942477,41
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.808032,-73.945816,41
+MANHATTAN,,W 145 ST,,,,,Y,,,,,24,,,,,,,,40.820726,-73.93665,42
+MANHATTAN,,W 145 ST,,,,,Y,,,,,24,,,,,,,,40.821686,-73.939451,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.821419,-73.939486,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.816732,-73.942434,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.815121,-73.944064,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.815526,-73.943314,42
+MANHATTAN,,ADAM CLAYTON POWELL BLVD,,,,,Y,,,,,24,,,,,,,,40.809246,-73.948377,41
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.809281,-73.94878,41
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.80992,-73.950851,41
+MANHATTAN,,W 125 ST,,,,,Y,,,,,24,,,,,,,,40.810455,-73.951579,41
+MANHATTAN,,W 145 ST,,,,,Y,,,,,24,,,,,,,,40.822598,-73.941619,42
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.870953,-73.914653,127
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.86973,-73.916251,127
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.867912,-73.920105,127
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.867579,-73.921857,127
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.866982,-73.92353,127
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.84995,-73.93575,243
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.84999,-73.936045,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.840289,-73.940096,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.832589,-73.946203,116
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.826704,-73.950029,116
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.824041,-73.951962,116
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.823131,-73.953102,116
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.818623,-73.956399,152
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.818617,-73.955935,152
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.807774,-73.963843,166
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.807816,-73.964288,166
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.806579,-73.965187,166
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.805321,-73.966098,166
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.803827,-73.966143,24
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.803072,-73.967271,24
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.801548,-73.96767,24
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.801075,-73.968114,151
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.7996,-73.968522,151
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.798313,-73.969363,151
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.797964,-73.969147,151
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.797024,-73.970297,151
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.791936,-73.974023,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.791645,-73.973753,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.78977,-73.975116,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.788562,-73.976031,238
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.78816,-73.976885,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.786861,-73.977984,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.785973,-73.978171,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.784062,-73.979589,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.783663,-73.980369,239
+MANHATTAN,,W 79 ST,,,,,Y,,,,,24,,,,,,,,40.783893,-73.980361,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.782667,-73.980506,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.781572,-73.981336,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.781258,-73.981033,239
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.780117,-73.981783,143
+MANHATTAN,,W 72 ST,,,,,Y,,,,,24,,,,,,,,40.779076,-73.982476,143
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.776866,-73.982315,142
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.776562,-73.981917,142
+MANHATTAN,,WEST END AV,,,,,Y,,,,,24,,,,,,,,40.776217,-73.987264,143
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.77197,-73.982385,142
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.769513,-73.982315,142
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.769496,-73.981907,142
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.731317,-73.982279,224
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.729637,-73.978289,224
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.729474,-73.978365,79
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.785693,-73.948801,75
+MANHATTAN,,HUDSON ST,,,,,Y,,,,,24,,,,,,,,40.73153,-74.006532,249
+MANHATTAN,,3 AV,,,,,Y,,,,,24,,,,,,,,40.787422,-73.947546,75
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.733062,-73.974696,224
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.727123,-74.003227,125
+MANHATTAN,,W 10 ST,,,,,Y,,,,,24,,,,,,,,40.73332,-74.008751,158
+MANHATTAN,,HUDSON ST,,,,,Y,,,,,24,,,,,,,,40.733339,-74.006239,249
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.727301,-73.976337,4
+MANHATTAN,,E 14 ST,,,,,Y,,,,,24,,,,,,,,40.73061,-73.980576,224
+MANHATTAN,,AV A,,,,,Y,,,,,24,,,,,,,,40.725093,-73.984104,79
+MANHATTAN,,MADISON ST,,,,,Y,,,,,24,,,,,,,,40.712594,-73.989583,232
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.726304,-73.977058,4
+MANHATTAN,,JACKSON ST,,,,,Y,,,,,24,,,,,,,,40.713353,-73.980751,232
+MANHATTAN,,10 AV,,,,,Y,,,,,24,,,,,,,,40.745389,-74.005701,68
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.770604,-73.987329,142
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.739446,-73.991252,234
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.741317,-73.989891,234
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.747525,-73.98537,164
+MANHATTAN,,7 AV,,,,,Y,,,,,24,,,,,,,,40.747081,-73.993654,186
+MANHATTAN,,W 23 ST,,,,,Y,,,,,24,,,,,,,,40.743811,-73.995246,90
+MANHATTAN,,W 23 ST,,,,,Y,,,,,24,,,,,,,,40.745548,-73.99886,68
+MANHATTAN,,E 34 ST,,,,,Y,,,,,24,,,,,,,,40.746796,-73.980932,170
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.729927,-73.974732,224
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.728713,-73.97562,224
+MANHATTAN,,W 72 ST,,,,,Y,,,,,24,,,,,,,,40.779568,-73.984181,143
+MANHATTAN,,WEST END AV,,,,,Y,,,,,24,,,,,,,,40.779635,-73.984749,143
+MANHATTAN,,W 65 ST,,,,,Y,,,,,24,,,,,,,,40.775115,-73.987307,143
+MANHATTAN,,W 65 ST,,,,,Y,,,,,24,,,,,,,,40.7739,-73.984494,142
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.800358,-73.962207,24
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.786227,-73.972511,239
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.782814,-73.975002,239
+MANHATTAN,,W 116 ST,,,,,Y,,,,,24,,,,,,,,40.803551,-73.953039,41
+MANHATTAN,,W 116 ST,,,,,Y,,,,,24,,,,,,,,40.801683,-73.949143,41
+MANHATTAN,,W 110 ST,,,,,Y,,,,,24,,,,,,,,40.799397,-73.954986,41
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.795787,-73.947784,75
+MANHATTAN,,LEXINGTON AV,,,,,Y,,,,,24,,,,,,,,40.791967,-73.946598,75
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.81041,-73.937101,74
+MANHATTAN,,1 AV,,,,,Y,,,,,24,,,,,,,,40.784257,-73.943824,75
+MANHATTAN,,E 96 ST,,,,,Y,,,,,24,,,,,,,,40.787168,-73.953762,75
+MANHATTAN,,E 106 ST,,,,,Y,,,,,24,,,,,,,,40.791548,-73.944363,75
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.846803,-73.939834,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.853943,-73.933948,243
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.852308,-73.92798,243
+MANHATTAN,,EDGECOMBE AV,,,,,Y,,,,,24,,,,,,,,40.835079,-73.937764,244
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.837521,-73.944233,244
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.844494,-73.940976,244
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.863106,-73.930153,243
+MANHATTAN,,EDGECOMBE AV,,,,,Y,,,,,24,,,,,,,,40.832457,-73.939932,244
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.845924,-73.932635,244
+MANHATTAN,,ST NICHOLAS AV,,,,,Y,,,,,24,,,,,,,,40.856351,-73.928754,243
+MANHATTAN,,9 AV,,,,,Y,,,,,24,,,,,,,,40.749468,-73.999331,68
+MANHATTAN,,COLUMBUS AV,,,,,Y,,,,,24,,,,,,,,40.790097,-73.969696,238
+MANHATTAN,,2 AV,,,,,Y,,,,,24,,,,,,,,40.752536,-73.970387,233
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.85487,-73.937071,243
+MANHATTAN,,AMSTERDAM AV,,,,,Y,,,,,24,,,,,,,,40.791017,-73.972419,238
+MANHATTAN,,FT WASHINGTON AV,,,,,Y,,,,,24,,,,,,,,40.858726,-73.934533,243
+MANHATTAN,,W 14 ST,,,,,Y,,,,,24,,,,,,,,40.740606,-74.004781,249
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.86557,-73.926832,127
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.806194,-73.94253,41
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.854415,-73.933479,243
+MANHATTAN,,WEST END AV,,,,,Y,,,,,24,,,,,,,,40.776247,-73.986886,143
+MANHATTAN,,AV C,,,,,Y,,,,,24,,,,,,,,40.726906,-73.976911,4
+MANHATTAN,,BROADWAY,,,,,Y,,,,,24,,,,,,,,40.852567,-73.934659,243
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.730775,-74.001425,114
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.747275,-73.9832,164
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.733097,-73.999796,113
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.741712,-73.987259,234
+MANHATTAN,,6 AV,,,,,Y,,,,,24,,,,,,,,40.734938,-73.998448,113
+MANHATTAN,,MADISON AV,,,,,Y,,,,,24,,,,,,,,40.743004,-73.986306,234
+MANHATTAN,,PARK AV,,,,,Y,,,,,24,,,,,,,,40.742277,-73.985028,234
+MANHATTAN,,5 AV,,,,,Y,,,,,24,,,,,,,,40.743871,-73.98806,234
+MANHATTAN,,WEST ST,,,,,Y,,,,,24,,,,,,,,40.732884,-74.010059,158

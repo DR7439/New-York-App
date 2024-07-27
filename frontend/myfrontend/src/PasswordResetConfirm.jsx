@@ -14,7 +14,7 @@ const PasswordResetConfirm = () => {
   const handleSubmit = async () => {
     try {
       setSending(true);
-      await axiosInstance.post(`/api/reset-password/${uidb64}/${token}/`, {
+      await axiosInstance.post(`/api/users/reset-password/${uidb64}/${token}/`, {
         password,
       });
       message.success("Your password has been reset.");

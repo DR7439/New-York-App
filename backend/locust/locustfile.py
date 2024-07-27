@@ -9,12 +9,12 @@ class WebsiteTasks(TaskSet):
 
     def register(self):
         username = f"user{random.randint(1000, 9999)}"
-        response = self.client.post("/api/register/", json={"username": username, "email": f"{username}@example.com", "password": "blahblah"})
+        response = self.client.post("/api/users/register/", json={"username": username, "email": f"{username}@example.com", "password": "blahblah"})
         if response.status_code != 201:
             print("Registration failed", response.status_code, response.text)
 
     def login(self):
-        response = self.client.post("/api/login/", json={"username": "test", "password": "1234"})
+        response = self.client.post("/api/users/login/", json={"username": "test", "password": "1234"})
         if response.status_code == 200:
             data = response.json()
             self.token = data['token']
@@ -30,7 +30,7 @@ class WebsiteTasks(TaskSet):
 
     @task
     def view_interests(self):
-        response = self.client.get("/api/interests/")
+        response = self.client.get("/api/zones/interests/")
         if response.status_code != 200:
             print("Failed to get interests", response.status_code, response.text)
 
@@ -93,7 +93,7 @@ class WebsiteTasks(TaskSet):
 
     # @task
     # def password_reset(self):
-    #     response = self.client.post("/api/password-reset/", json={"email": "blah@blahmail.com"})
+    #     response = self.client.post("/api/users/password-reset/", json={"email": "blah@blahmail.com"})
     #     if response.status_code != 200:
     #         print("Password reset failed", response.status_code, response.text)
 
@@ -102,7 +102,7 @@ class WebsiteTasks(TaskSet):
     #     # Mocking token and uid for the example
     #     uidb64 = "dummy_uid"
     #     token = "dummy_token"
-    #     response = self.client.post(f"/api/reset-password/{uidb64}/{token}/", json={"password": "newpword"})
+    #     response = self.client.post(f"/api/users/reset-password/{uidb64}/{token}/", json={"password": "newpword"})
     #     if response.status_code != 200:
     #         print("Password reset confirm failed", response.status_code, response.text)
 
@@ -113,7 +113,7 @@ class WebsiteTasks(TaskSet):
             "date": "2024-07-13",
             "top_n": 10
         }
-        response = self.client.get("/api/top-zones/", params=params)
+        response = self.client.get("/api/analytics/top-zones/", params=params)
         if response.status_code != 200:
             print("Failed to get top zones", response.status_code, response.text)
 
@@ -124,7 +124,7 @@ class WebsiteTasks(TaskSet):
             "datetime": "2024-07-13T10:00:00Z"
         }
         query_string = urllib.parse.urlencode(params)
-        response = self.client.get(f"/api/zone-scores-by-datetime/?{query_string}")
+        response = self.client.get(f"/api/analytics/zone-scores-by-datetime/?{query_string}")
         if response.status_code != 200:
             print("Failed to get zone scores by datetime", response.status_code, response.text)
 
@@ -136,7 +136,7 @@ class WebsiteTasks(TaskSet):
             "zone_id": 4
         }
         query_string = urllib.parse.urlencode(params)
-        response = self.client.get(f"/api/zone-details-by-search-date-zone/?{query_string}")
+        response = self.client.get(f"/api/analytics/zone-details-by-search-date-zone/?{query_string}")
         if response.status_code != 200:
             print("Failed to get zone details by search, date, and zone", response.status_code, response.text)
 

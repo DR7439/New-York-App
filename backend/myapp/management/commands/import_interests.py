@@ -1,6 +1,6 @@
 import pandas as pd
 from django.core.management.base import BaseCommand
-from myapp.models import Interest, Zone, InterestZoneCount
+from zones.models import Interest, Zone, InterestZoneCount
 
 class Command(BaseCommand):
     help = 'Process CSV file and store counts of interests related to zones'

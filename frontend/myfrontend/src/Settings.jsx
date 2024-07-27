@@ -21,7 +21,6 @@ function PersonalInfo() {
   let [submitting, setSubmitting] = useState(false);
   let [form] = Form.useForm();
   let handleSubmit = async (values) => {
-    console.log(values);
     let formData = new FormData();
     formData.append("email", values.email || "");
     formData.append("first_name", values.first_name || "");
@@ -37,7 +36,7 @@ function PersonalInfo() {
     formData.append("budget", values.budget || "");
     try {
       setSubmitting(true);
-      let res = await axiosInstance.put("/api/user/profile/", formData);
+      let res = await axiosInstance.put("/api/users/profile/", formData);
       setData(res.data);
       message.success("Your profile has been updated successfully");
       setOpen(false);
@@ -49,7 +48,6 @@ function PersonalInfo() {
     }
   };
   let handleEdit = () => {
-    console.log("handleEdit");
     form.submit();
   };
 
@@ -73,7 +71,7 @@ function PersonalInfo() {
 
   useEffect(() => {
     if (Object.keys(data).length === 0) {
-      axiosInstance.get("/api/user/profile/").then((res) => {
+      axiosInstance.get("/api/users/profile/").then((res) => {
         setData(res.data);
       });
     }
@@ -219,9 +217,6 @@ function PersonalInfo() {
 }
 
 export default function Settings() {
-  const onChange = (key) => {
-    console.log(key);
-  };
   return (
     <>
       <div>
@@ -247,7 +242,6 @@ export default function Settings() {
               ),
             },
           ]}
-          onChange={onChange}
         />
       </div>
     </>

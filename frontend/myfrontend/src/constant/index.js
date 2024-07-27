@@ -115,11 +115,53 @@ export const ANALYTICS_TOUR_STEPS = [
     placement: "top",
     id: "select-date",
   },
+  { 
+    title: "Show All Recommendations",
+    description: "Show All Recommendations description",
+    placement: "top",
+    id: "show-recommendations",
+  },
+  {
+    title: "Top Recommendation Highlights",
+    description: "Top Recommendation Highlights description",
+    placement: "top",
+    id: "advertising-carousel",
+  },
   {
     title: "Recommendations table ",
     description: "Recommendations table description",
     placement: "top",
     id: "recommendations-table",
+  },
+    {
+    title: "Recommendations table row",
+    description: "Recommendations table row description",
+    placement: "top",
+    selector: 'tbody>tr:first-child'
+  },
+  // {
+  //   title: "Location cell",
+  //   description: "Location cell description",
+  //   placement: "top",
+  //   selector: 'td.ant-table-cell:nth-child(2)'
+  // },
+  // {
+  //   title: "Time cell",
+  //   description: "Time cell description",
+  //   placement: "top",
+  //   selector: 'td.ant-table-cell:nth-child(3)'
+  // },  
+  {
+    title: "Map Visualization",
+    description: "Map Visualization description",
+    placement: "top",
+    id: "map-container",  
+  },
+  {
+    title: "Busyness chart’s Menu tabs",
+    description: "Busyness chart’s Menu tab description",
+    placement: "top",
+    id: 'zone-tabs'
   },
   {
     title: "Busyness Activity by Location",
@@ -140,3 +182,8 @@ export const ANALYTICS_TOUR_STEPS = [
     id: "tour-pie-chart",
   },
 ];
+
+export const TOUR_STORAGE_KEY = {
+  onboard: "visited-onboard-tour",
+  analytic: "visited-analytic-tour"
+}
