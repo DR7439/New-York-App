@@ -230,7 +230,7 @@ const Analytics = () => {
       <Breadcrumb
         items={[
           {
-            title: <Link to="/">Dashboard</Link>,
+            title: <Link to="/dashboard">Dashboard</Link>,
           },
           {
             title: "Search History",
