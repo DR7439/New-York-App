@@ -25,7 +25,7 @@ export default function LandingPage() {
     <>
       <nav className="flex justify-between items-center bg-blue-600 w-full pt-2.5 pr-4 pb-3 px-4 h-12 text-white">
         <h2 className="text-xl">Ad Optima</h2>
-        <ul className="flex flex-1 justify-center space-x-8">
+        <ul className="hidden lg:flex flex-1 justify-center space-x-8">
           <li className="cursor-pointer">
             <Link
               to="insights"
