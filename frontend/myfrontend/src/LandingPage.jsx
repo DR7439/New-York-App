@@ -155,7 +155,7 @@ export default function LandingPage() {
                     Location Analysis
                   </h3>
                   <p className="text-gray-500 text-center">
-                    Get top 10 recommended ad locations for Manhattan.
+                    Get top 10 highlights and more recommended ad locations for Manhattan.
                   </p>
                 </div>
                 <div>
@@ -341,7 +341,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mt-16">
             <div className="flex justify-between border border-gray-100 border-1 rounded-xl p-6 items-center bg-white container mx-auto">
               <div>
                 <h2 className="text-blue-600 text-4xl font-extrabold pb-5 leading-9 tracking[-1.4px]">
