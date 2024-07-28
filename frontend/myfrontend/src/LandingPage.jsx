@@ -3,6 +3,7 @@ import { Button, Rate, Collapse } from "antd";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Link, Element } from "react-scroll";
+
 const FAQURL = "https://i.imgur.com/qAcFhCm.png";
 const LoyalCustomerURL = "https://i.imgur.com/yoeEJxl.jpeg";
 const Review1URL = "https://i.imgur.com/BljlzeW.png";
@@ -67,7 +68,7 @@ export default function LandingPage() {
         <div className="flex flex-col lg:flex-row gap-x-8 gap-y-16 justify-center items-center container mx-auto relative w-full">
           <div className="flex flex-col space-y-4">
             <div className="pb-5 max-w-2xl">
-              <h1 className="text-4xl lg:text-6xl font-bold pb-4 leading-[48px] ">
+              <h1 className="text-4xl lg:text-6xl font-bold pb-4 leading-[48px]">
                 Boost Your Advertising Strategy with Ad Optima
               </h1>
               <p className="text-gray-500 font-normal leading-5 mt-2 lg:text-xl">
@@ -94,7 +95,7 @@ export default function LandingPage() {
                 <img
                   src={LoyalCustomerURL}
                   alt="Loyal Customer"
-                  className="w-16 h-16 object-cover rounded-lg shrink-0	"
+                  className="w-16 h-16 object-cover rounded-lg shrink-0"
                 />
               </div>
               <div className="w-px bg-gray-300 h-auto mx-4"></div>
@@ -123,7 +124,7 @@ export default function LandingPage() {
               <img
                 src={BillBoardsURL}
                 alt="Times Square"
-                className="w-full h-full object-cover "
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
@@ -137,10 +138,10 @@ export default function LandingPage() {
             style={{ marginTop: "-1px" }}
           >
             <div className="text-center">
-              <h2 className="text-4xl font-extrabold mb-4 leading-9	tracking-[-1.4px] lg:mb-16">
+              <h2 className="text-4xl font-extrabold mb-4 leading-9 tracking-[-1.4px] lg:mb-8">
                 Optimize Your Targeted Advertising
               </h2>
-              <p className="text-gray-500 max-w-[732px] mx-auto text-xl leading-5	pb-16">
+              <p className="text-gray-500 max-w-[732px] mx-auto text-xl leading-5 pb-16">
                 Ad Optima is a web-based application that refines advertising
                 strategies by offering precise location recommendations based on
                 target demographics, market interests, and dates. Maximize the
@@ -148,40 +149,38 @@ export default function LandingPage() {
                 from Ad Optima.
               </p>
             </div>
-            <div className="relative flex flex-col lg:flex-row items-center lg:items-start justify-between w-fit mx-auto gap-8 lg:gap-12 mt-8">
-              <div className="flex flex-col space-y-16 lg:space-y-32 max-w-96 px-8">
-                <div>
-                  <h3 className="font-bold text-xl text-center mb-2.5 leading-5	">
+            <div className="relative flex flex-col lg:flex-row items-center lg:items-start justify-between mx-auto gap-8 lg:gap-12 mt-8">
+              <div className="flex flex-col space-y-8 lg:space-y-16 max-w-lg px-8">
+                <div className="text-center">
+                  <h3 className="font-bold text-2xl mb-2.5 leading-7">
                     Location Analysis
                   </h3>
-                  <p className="text-gray-500 text-center">
+                  <p className="text-gray-500 text-lg">
                     Get top 10 highlights and more recommended ad locations for Manhattan.
                   </p>
                 </div>
-                <div>
-                  <h3 className="font-bold text-xl text-center mb-2.5 leading-5	">
+                <div className="text-center">
+                  <h3 className="font-bold text-2xl mb-2.5 leading-7">
                     Demographic Targeting
                   </h3>
-                  <p className="text-gray-500 text-center">
-                    Refine your ad strategy with targeted demographic insights
-                    and visuals.
+                  <p className="text-gray-500 text-lg">
+                    Refine your ad strategy with targeted demographic insights and visuals.
                   </p>
                 </div>
-                <div>
-                  <h3 className="font-bold text-xl text-center mb-2.5 leading-5	">
+                <div className="text-center">
+                  <h3 className="font-bold text-2xl mb-2.5 leading-7">
                     Ad Placement
                   </h3>
-                  <p className="text-gray-500 text-center">
-                    Explore billboards and placements in selected locations for
-                    tailored ads.
+                  <p className="text-gray-500 text-lg">
+                    Explore billboards and placements in selected locations for tailored ads.
                   </p>
                 </div>
               </div>
-              <div className="max-w-[672px] h-auto rounded-lg">
+              <div className="w-full lg:w-[700px] h-auto rounded-lg overflow-hidden">
                 <img
                   src={AnalyticsURL}
                   alt="Recommended Advertising Locations"
-                  className="w-full h-autoobject-contain rounded-lg"
+                  className="w-full h-auto object-cover"
                 />
               </div>
             </div>
@@ -192,12 +191,12 @@ export default function LandingPage() {
       <Element name="testimonials">
         <section className="pt-20 pb-20 bg-[#f9fafb] relative">
           <div className="container mx-auto px-4">
-            <h2 className="font-bold text-4xl mb-8 text-center leading-9	tracking-[-1.4px]">
+            <h2 className="font-bold text-4xl mb-8 text-center leading-9 tracking-[-1.4px]">
               Testimonials
             </h2>
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="flex flex-col items-center">
-                <p className="text-gray-500 text-center mb-2 leading-normal	">
+                <p className="text-gray-500 text-center mb-2 leading-normal">
                   "Ad Optima has transformed our advertising strategy. Its
                   precise recommendations have markedly enhanced our campaign
                   results, delivering exceptional improvements in performance."
@@ -209,7 +208,7 @@ export default function LandingPage() {
                     className="w-16 h-16 rounded-full"
                   />
                   <div className="flex flex-col justify-center">
-                    <p className="text-blue-600 font-semibold mb-0 leading-4	">
+                    <p className="text-blue-600 font-semibold mb-0 leading-4">
                       Jessica Smith
                     </p>
                     <p className="text-gray-500 text-sm mt-1 leading-[14px]">
@@ -219,7 +218,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="flex flex-col items-center">
-                <p className="text-gray-500 text-center mb-2 leading-normal	">
+                <p className="text-gray-500 text-center mb-2 leading-normal">
                   "Ad Optima proved its value remarkably. Following its
                   recommendations resulted in a substantial increase in both
                   foot traffic and sales."
@@ -231,7 +230,7 @@ export default function LandingPage() {
                     className="w-16 h-16 rounded-full"
                   />
                   <div className="flex flex-col justify-center">
-                    <p className="text-blue-600 font-semibold mb-0 leading-4	">
+                    <p className="text-blue-600 font-semibold mb-0 leading-4">
                       Michael Johnson
                     </p>
                     <p className="text-gray-500 text-sm mt-1 leading-[14px]">
@@ -241,7 +240,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="flex flex-col items-center">
-                <p className="text-gray-500 text-center mb-2 leading-normal	">
+                <p className="text-gray-500 text-center mb-2 leading-normal">
                   "The recommendations from Ad Optima are absolutely
                   outstanding. Our marketing strategies are now more targeted
                   and effective, greatly enhancing our overall ROI."
@@ -253,7 +252,7 @@ export default function LandingPage() {
                     className="w-16 h-16 rounded-full"
                   />
                   <div className="flex flex-col justify-center">
-                    <p className="text-blue-600 font-semibold mb-0 leading-4	">
+                    <p className="text-blue-600 font-semibold mb-0 leading-4">
                       Emily Brown
                     </p>
                     <p className="text-gray-500 text-sm mt-1 leading-[14px]">
@@ -282,8 +281,8 @@ export default function LandingPage() {
                 className="max-w-[536px] flex flex-col justify-start relative"
                 style={{ top: "10px", bottom: "10px" }}
               >
-                <p className="font-normal text-blue-500 text-lg leadin-[18px]">
-                  FAQ
+                <p className="font-medium text-blue-500 text-lg pb-4 leading-[18px]">
+                  FAQs
                 </p>
                 <p className="text-3xl font-bold pb-16 leading-[30px]">
                   Looking for answers?
@@ -298,11 +297,11 @@ export default function LandingPage() {
                   accordion
                 >
                   <Panel
-                    className="font-medium text-gray-500  text-lg  leading-[18px]"
+                    className="font-medium text-gray-500 text-lg leading-[18px]"
                     header="How does Ad Optima analyze foot traffic?"
                     key="1"
                   >
-                    <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal text-base leading-4	">
+                    <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal text-base leading-4">
                       Ad Optima leverages comprehensive datasets from taxi and
                       subway systems to analyze foot traffic patterns. By
                       examining the volume and frequency of taxi pickups and
@@ -311,11 +310,11 @@ export default function LandingPage() {
                     </p>
                   </Panel>
                   <Panel
-                    className="font-medium text-gray-500  text-lg leading-[18px]"
+                    className="font-medium text-gray-500 text-lg leading-[18px]"
                     header="What demographic data does Ad Optima consider?"
                     key="2"
                   >
-                    <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal text-base leading-4	">
+                    <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal text-base leading-4">
                       Ad Optima considers key demographic factors such as age
                       and gender. By analyzing these aspects, Ad Optima tailors
                       advertising strategies to target specific audience
@@ -325,11 +324,11 @@ export default function LandingPage() {
                     </p>
                   </Panel>
                   <Panel
-                    className="font-medium text-gray-500  text-lg leading-[18px]"
+                    className="font-medium text-gray-500 text-lg leading-[18px]"
                     header="How does Ad Optima integrate local demographic and foot traffic data to recommend the most effective advertisement locations?"
                     key="3"
                   >
-                    <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal text-base leading-4	">
+                    <p className="pt-4 pr-6 pb-4 pl-4 text-gray-500 font-normal text-base leading-4">
                       Ad Optima merges local demographic data with real-time
                       foot traffic patterns to pinpoint the best ad locations.
                       By analyzing where your target audience frequently visits,
