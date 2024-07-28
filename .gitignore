@@ -44,3 +44,7 @@ data-analytics/.env
 
 #Datasets
 data-analytics/Datasets/
+
+
+#CSV files
+*.csv
