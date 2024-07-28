@@ -29,8 +29,11 @@ SECRET_KEY = "django-insecure-xzkxr@8pu1*uv5@7nek!8o$7k)kpjy*)9a!$-om6b)@3m%rh7*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', '137.43.49.21', '34.254.196.242', '34.252.245.42', "adoptima.online"]
 
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 
 # Application definition
 
@@ -43,7 +46,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'corsheaders',
-    "myapp", 
+    "myapp",
+    "users",
+    "search",
+    "zones",
+    "analytics",
+    'drf_spectacular',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 REST_FRAMEWORK = {
@@ -54,6 +63,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'API documentation for your project',
+    'VERSION': '1.0.0',
+    # other settings
 }
 
 from datetime import timedelta
@@ -73,17 +90,34 @@ SIMPLE_JWT = {
 
 # Add JWT settings
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'myapp.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.utils.my_jwt_response_handler'
 }
 
 # Add CORS settings if needed
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost",
+    "http://137.43.49.21:3000",
+    "http://34.254.196.242:3000",
+    "http://34.252.245.42:3000",
+    "http://34.252.245.42",
+    "http://adoptima.online",
+    "https://adoptima.online"
 ]
 
-AUTH_USER_MODEL = 'myapp.CustomUser'
+CSRF_TRUSTED_ORIGINS = [
+    'http://34.252.245.42:3000',
+    "http://34.252.245.42",
+    "http://adoptima.online",
+    "https://adoptima.online"
+]
+
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -91,8 +125,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    'users.middleware.JWTSessionMiddleware',  
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "target_advert.urls"
 
@@ -121,6 +159,13 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+CELERY_BEAT_SCHEDULE = {
+    'check-and-populate-busyness-every-day': {
+        'task': 'myapp.tasks.check_and_populate_busyness',
+        'schedule': timedelta(days=1), 
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

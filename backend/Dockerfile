@@ -4,9 +4,15 @@ FROM python:3.10-slim
 # Set the working directory to /app
 WORKDIR /app
 
+# Install curl and other dependencies
+RUN apt-get update && apt-get install -y curl
+
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install gdown to download files from Google Drive
+RUN pip install gdown
 
 # Copy the current directory contents into the container at /app
 COPY . .
@@ -18,8 +24,15 @@ EXPOSE 8000
 # Define environment variable
 ENV PYTHONUNBUFFERED=1
 
-# Run the Django development server with superuser creation
+# Run the Django development server with superuser creation and data loading
 CMD ["bash", "-c", "/wait-for-it.sh db:5432 -- /wait-for-it.sh redis:6379 -- python manage.py migrate && \
                    python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists() or User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '$DJANGO_SUPERUSER_EMAIL', '$DJANGO_SUPERUSER_PASSWORD')\" && \
                    python manage.py loaddata myapp/fixtures/interests.json && \
-                   python manage.py runserver 0.0.0.0:8000"]
+                   python manage.py populate_age_categories && \
+                   python manage.py import_zones /mnt/data/taxi_zones_manhattan.geojson && \
+                   python manage.py import_population_data /mnt/data/census_final.csv && \
+                   python manage.py import_interests /mnt/data/merged_zone_sector_counts.csv && \
+                   python manage.py load_advertising_locations /mnt/data/advertising_locations.csv && \
+                   python manage.py load_billboards /mnt/data/no_text_signs_df.csv && \
+                   python manage.py model_down && \
+                   gunicorn --workers 4 --bind 0.0.0.0:8000 target_advert.wsgi:application"]

@@ -10,17 +10,25 @@ frontend/.DS_Store
 *backend/*.pyc
 backend/__pycache__/
 backend/target_advert/__pycache__/
-backend/user_login/__pycache__/
-backend/user_login/migrations/
+backend/zones/__pycache__/
+backend/zones/migrations/__pycache__/
+backend/analytics/__pycache__/
+backend/analytics/migrations/__pycache__/
+backend/users/__pycache__/
+backend/users/migrations/__pycache__/
+backend/search/__pycache__/
+backend/search/migrations/__pycache__/
 backend/myapp/__pycache__/
-#backend/myapp/migrations/
 backend/myapp/migrations/__pycache__/
+backend\myapp\management\__pycache__\
+backend\myapp\management\commands\__pycache__\
 backend/*.log
 backend/*.pot
 backend/db.sqlite3
 backend/media/
 backend/.env
 backend/.DS_Store
+backend/locust/__pycache__/
 
 # Jupyter Notebooks
 data-analytics/.ipynb_checkpoints/

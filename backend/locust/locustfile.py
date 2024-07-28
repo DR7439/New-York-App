@@ -1,0 +1,145 @@
+from locust import HttpUser, TaskSet, task, between
+import random
+import urllib.parse
+
+class WebsiteTasks(TaskSet):
+    def on_start(self):
+        self.register()
+        self.login()
+
+    def register(self):
+        username = f"user{random.randint(1000, 9999)}"
+        response = self.client.post("/api/users/register/", json={"username": username, "email": f"{username}@example.com", "password": "blahblah"})
+        if response.status_code != 201:
+            print("Registration failed", response.status_code, response.text)
+
+    def login(self):
+        response = self.client.post("/api/users/login/", json={"username": "test", "password": "1234"})
+        if response.status_code == 200:
+            data = response.json()
+            self.token = data['token']
+            self.sessionid = data['sessionid']
+
+            # Update headers with the Authorization token
+            self.client.headers.update({'Authorization': f'Bearer {self.token}'})
+
+            # Set the session ID cookie
+            self.client.cookies.set('sessionid', self.sessionid)
+        else:
+            print("Login failed", response.status_code, response.text)
+
+    @task
+    def view_interests(self):
+        response = self.client.get("/api/zones/interests/")
+        if response.status_code != 200:
+            print("Failed to get interests", response.status_code, response.text)
+
+    @task
+    def search(self):
+        response = self.client.post("/api/search/", json={
+            "id": 5,
+            "name": "123",
+            "start_date": "2024-03-12",
+            "end_date": "2024-04-12",
+            "date_search_made_on": "0121-04-24",
+            "target_market_interests": ["Food, beverages", "Electronics"],
+            "target_age": [8, 3, 6],
+            "gender": "M"
+        })
+        if response.status_code != 201:
+            print("Search creation failed", response.status_code, response.text)
+
+    @task
+    def view_searches(self):
+        response = self.client.get("/api/search/")
+        if response.status_code != 200:
+            print("Failed to get searches", response.status_code, response.text)
+
+    # @task
+    # def single_search(self):
+    #     response = self.client.get("/api/search/5/")
+    #     if response.status_code != 200:
+    #         print("Failed to get single search", response.status_code, response.text)
+
+    # @task
+    # def delete_search(self):
+    #     response = self.client.delete("/api/search/5/")
+    #     if response.status_code != 204:
+    #         print("Failed to delete search", response.status_code, response.text)
+
+    # @task
+    # def search_scores(self):
+    #     response = self.client.get("/api/searches/2/scores/")
+    #     if response.status_code != 200:
+    #         print("Failed to get search scores", response.status_code, response.text)
+
+    # @task
+    # def top_scores(self):
+    #     response = self.client.get("/api/searches/2/top-scores/10/")
+    #     if response.status_code != 200:
+    #         print("Failed to get top scores", response.status_code, response.text)
+
+    @task
+    def zone_details(self):
+        response = self.client.get("/api/zones/4/details/")
+        if response.status_code != 200:
+            print("Failed to get zone details", response.status_code, response.text)
+
+    @task
+    def zones(self):
+        response = self.client.get("/api/zones/")
+        if response.status_code != 200:
+            print("Failed to get zones", response.status_code, response.text)
+
+    # @task
+    # def password_reset(self):
+    #     response = self.client.post("/api/users/password-reset/", json={"email": "blah@blahmail.com"})
+    #     if response.status_code != 200:
+    #         print("Password reset failed", response.status_code, response.text)
+
+    # @task
+    # def password_reset_confirm(self):
+    #     # Mocking token and uid for the example
+    #     uidb64 = "dummy_uid"
+    #     token = "dummy_token"
+    #     response = self.client.post(f"/api/users/reset-password/{uidb64}/{token}/", json={"password": "newpword"})
+    #     if response.status_code != 200:
+    #         print("Password reset confirm failed", response.status_code, response.text)
+
+    @task
+    def top_zones(self):
+        params = {
+            "search_id": 1,
+            "date": "2024-07-13",
+            "top_n": 10
+        }
+        response = self.client.get("/api/analytics/top-zones/", params=params)
+        if response.status_code != 200:
+            print("Failed to get top zones", response.status_code, response.text)
+
+    @task
+    def zone_scores_by_datetime(self):
+        params = {
+            "search_id": 1,
+            "datetime": "2024-07-13T10:00:00Z"
+        }
+        query_string = urllib.parse.urlencode(params)
+        response = self.client.get(f"/api/analytics/zone-scores-by-datetime/?{query_string}")
+        if response.status_code != 200:
+            print("Failed to get zone scores by datetime", response.status_code, response.text)
+
+    @task
+    def zone_details_by_search_date_zone(self):
+        params = {
+            "search_id": 1,
+            "date": "2024-07-13",
+            "zone_id": 4
+        }
+        query_string = urllib.parse.urlencode(params)
+        response = self.client.get(f"/api/analytics/zone-details-by-search-date-zone/?{query_string}")
+        if response.status_code != 200:
+            print("Failed to get zone details by search, date, and zone", response.status_code, response.text)
+
+class WebsiteUser(HttpUser):
+    tasks = [WebsiteTasks]
+    wait_time = between(1, 5)
