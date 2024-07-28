@@ -62,42 +62,41 @@ export const TABLE_TOOLTIP_TEXT = {
 export const ONBOARD_TOUR_STEPS = [
   {
     title: "Welcome to Ad Optima",
-    description: "Welcome to Ad Optima description",
-    imgSrc: "https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png",
+    description: "By making a search with desired inputs, you can know where and when to best place ads to increase ROI. Let's create a first search!",
   },
   {
     title: "Search Name",
-    description: "Search Name description",
+    description: "Fill in this field with a meaningful search search name. This helps you track your search later on when there are many search records.",
     placement: "top",
     id: "field-name",
   },
   {
     title: "Target Market Interest",
-    description: "Target Market Interest description",
+    description: "Pick the fields of interests that are relevant to your ads' target.",
     placement: "top",
     id: "field-target-markets",
   },
   {
     title: "Target Gender",
-    description: "Target Gender description",
+    description: "Pick the genders that are relevant to your ads' target.",
     placement: "top",
     id: "field-target-gender",
   },
   {
     title: "Target Age",
-    description: "Target Age description",
+    description: "Pick the age brackets that are relevant to your ads' target.",
     placement: "top",
     id: "field-target-ages",
   },
   {
     title: "Target Date",
-    description: "Target Date description",
+    description: "Pick the date range that is relevant to your ads' target. Your date range can be 1 day or up to 14 days. Past dates from today are no longer relevant and thus unselectable. A rate of 10 credits applied per selected day.",
     placement: "top",
     id: "field-date-range",
   },
   {
     title: "Start my free search",
-    description: "Start my free search description",
+    description: "As a new user, you are granted 100 credits. Your first search won't charge any credits. We hope you enjoy our gift :)",
     placement: "top",
     id: "submit-button",
   }
@@ -106,36 +105,35 @@ export const ONBOARD_TOUR_STEPS = [
 export const ANALYTICS_TOUR_STEPS = [
   {
     title: "Welcome to Analytics",
-    description: "Analytics description",
-    imgSrc: "https://user-images.githubusercontent.com/5378891/197385811-55df8480-7ff4-44bd-9d43-a7dade598d70.png",
+    description: "Here you can explore top recommendation highlights and see score analysis for recommended time and locations. Use visualized charts to make informed decisions on placing your ads.",
   },
   {
     title: "Select Target Date",
-    description: "Select Target Date description",
+    description: "Use this filter to see the recommendation and chart results for a selected date from your search.",
     placement: "top",
     id: "select-date",
   },
   { 
     title: "Show All Recommendations",
-    description: "Show All Recommendations description",
+    description: "Use this toggle to display all recomendations in a table format. The toggle is Off by default for optimal result viewing but you can turn that on at any time.",
     placement: "top",
     id: "show-recommendations",
   },
   {
     title: "Top Recommendation Highlights",
-    description: "Top Recommendation Highlights description",
+    description: "View our top ten recommendations for you. These are the best matches given what you had in mind when making this search.",
     placement: "top",
     id: "advertising-carousel",
   },
   {
-    title: "Recommendations table ",
-    description: "Recommendations table description",
+    title: "All Recommendations table",
+    description: "This table can be turned on/off with the Show All Recommendations toggle. It is hidden by default until you feel our top ten recommendations are not enough info and you want MORE!",
     placement: "top",
     id: "recommendations-table",
   },
     {
-    title: "Recommendations table row",
-    description: "Recommendations table row description",
+    title: "All Recommendations table row",
+    description: "Click on a row to navigate to its corresponding time and location results shown on map and to see visualized info on busyness per hour, demographics, and point-of-interest in charts.",
     placement: "top",
     selector: 'tbody>tr:first-child'
   },
@@ -153,31 +151,31 @@ export const ANALYTICS_TOUR_STEPS = [
   // },  
   {
     title: "Map Visualization",
-    description: "Map Visualization description",
+    description: "Click on the highlighted area on the map to view a specific location with corresponding busyness at a given hour and all the available billboards within that location.",
     placement: "top",
     id: "map-container",  
   },
   {
-    title: "Busyness chart’s Menu tabs",
-    description: "Busyness chart’s Menu tab description",
+    title: "Data Analysis’s Menu tabs",
+    description: "Click on a tab with your desired location's name to view the busyness, demographic, and point-of-interest data charts of that location. This action can also be done by clicking on the All Recommendations table's rows.",
     placement: "top",
     id: 'zone-tabs'
   },
   {
     title: "Busyness Activity by Location",
-    description: "Busyness Activity by Location description",
+    description: "View all the busyness activity per hour of a location throughout a selected day.",
     placement: "top",
     id: "tour-line-chart",
   },
   {
     title: "Demographic by Location",
-    description: "Demographic by Location description",
+    description: "View all the demographic data of a location throughout a selected day.",
     placement: "top",
     id: "tour-column-chart",
   },
   {
     title: "Point-of-interest by Location",
-    description: "Point-of-interest by Location description",
+    description: "View all the demographic data of a location throughout a selected day.",
     placement: "top",
     id: "tour-pie-chart",
   },
