@@ -63,20 +63,14 @@ export default function LandingPage() {
           </Button>
         </Link>
       </nav>
-      <section className="px-8 py-16 flex justify-center items-center bg-gray-200">
-        <div className="flex flex-col lg:flex-row gap-x-8 gap-y-16 justify-center items-center container mx-auto relative">
-          <div className="flex flex-col space-y-4 max-w-md">
-            <div className="flex flex-col pb-5" style={{ maxWidth: "608px" }}>
-              <h1
-                className="text-4xl font-bold pb-4 leading-[48px] "
-                style={{ maxWidth: "547px" }}
-              >
+      <section className="px-8 py-16 flex justify-center items-center bg-[#f9fafb]">
+        <div className="flex flex-col lg:flex-row gap-x-8 gap-y-16 justify-center items-center container mx-auto relative w-full">
+          <div className="flex flex-col space-y-4">
+            <div className="pb-5 max-w-2xl">
+              <h1 className="text-4xl lg:text-6xl font-bold pb-4 leading-[48px] ">
                 Boost Your Advertising Strategy with Ad Optima
               </h1>
-              <p
-                className="text-gray-500 font-normal leading-5 mt-2"
-                style={{ maxWidth: "547px" }}
-              >
+              <p className="text-gray-500 font-normal leading-5 mt-2 lg:text-xl">
                 Get targeted advertising recommendations based on foot traffic
                 and demographics in Manhattan.
               </p>
@@ -137,9 +131,9 @@ export default function LandingPage() {
       </section>
 
       <Element name="insights">
-        <section className="pt-12 pb-10 relative bg-gray-200">
+        <section className="pt-12 pb-10 relative bg-[#f9fafb]">
           <div
-            className="relative bg-white p-8 lg:p-12 rounded-lg shadow-md container mx-auto"
+            className="relative bg-white p-8 lg:p-12 rounded-lg container mx-auto"
             style={{ marginTop: "-1px" }}
           >
             <div className="text-center">
@@ -155,29 +149,29 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="relative flex flex-col lg:flex-row items-center lg:items-start justify-between w-fit mx-auto gap-8 lg:gap-12 mt-8">
-              <div className="flex flex-col space-y-16">
+              <div className="flex flex-col space-y-16 lg:space-y-32 max-w-96 px-8">
                 <div>
-                  <h3 className="font-bold text-l text-center mb-2.5 leading-5	">
+                  <h3 className="font-bold text-xl text-center mb-2.5 leading-5	">
                     Location Analysis
                   </h3>
-                  <p className="text-gray-500 max-w-[327px] text-center font-normal  text-base leading-4	">
+                  <p className="text-gray-500 text-center">
                     Get top 10 recommended ad locations for Manhattan.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-bold text-l text-center mb-2.5 leading-5	">
+                  <h3 className="font-bold text-xl text-center mb-2.5 leading-5	">
                     Demographic Targeting
                   </h3>
-                  <p className="text-gray-500 max-w-[310px] text-center font-normal text-base leading-4	">
+                  <p className="text-gray-500 text-center">
                     Refine your ad strategy with targeted demographic insights
                     and visuals.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-bold text-l text-center mb-2.5 leading-5	">
+                  <h3 className="font-bold text-xl text-center mb-2.5 leading-5	">
                     Ad Placement
                   </h3>
-                  <p className="text-gray-500 max-w-[310px] text-center font-normal text-base leading-4	">
+                  <p className="text-gray-500 text-center">
                     Explore billboards and placements in selected locations for
                     tailored ads.
                   </p>
@@ -196,7 +190,7 @@ export default function LandingPage() {
       </Element>
 
       <Element name="testimonials">
-        <section className="pt-20 pb-20 bg-gray-200 relative">
+        <section className="pt-20 pb-20 bg-[#f9fafb] relative">
           <div className="container mx-auto px-4">
             <h2 className="font-bold text-4xl mb-8 text-center leading-9	tracking-[-1.4px]">
               Testimonials
@@ -274,7 +268,7 @@ export default function LandingPage() {
       </Element>
 
       <Element name="faq">
-        <section className="pt-16 pb-20 bg-gray-200 relative mb-0">
+        <section className="pt-16 pb-20 bg-[#f9fafb] relative mb-0">
           <div className="flex flex-col items-center p-8">
             <div className="flex items-center flex-col lg:flex-row gap-x-28 gap-y-12">
               <div className="flex-shrink-0">
@@ -348,7 +342,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="flex justify-center items-center">
-            <div className="flex justify-between border-solid border-slate-300 border-2 rounded-lg p-6 items-center bg-white container mx-auto">
+            <div className="flex justify-between border border-gray-100 border-1 rounded-xl p-6 items-center bg-white container mx-auto">
               <div>
                 <h2 className="text-blue-600 text-4xl font-extrabold pb-5 leading-9 tracking[-1.4px]">
                   Elevate Your Advertising Strategy
