@@ -41,3 +41,6 @@ data-analytics/.env
 
 # Env Files
 *.env
+
+#Datasets
+data-analytics/Datasets/
