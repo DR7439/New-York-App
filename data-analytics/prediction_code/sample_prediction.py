@@ -4,7 +4,7 @@ import folium
 import json
 import branca.colormap as cm
 
-pred_time = '2025-02-14 18:00:00'
+pred_time = '2024-08-19 06:00:00'
 pkl_directory = './busyness_model_percentiles.pkl'
 
 predictions = busyness_prediction.make_prediction(pred_time,pkl_directory)
