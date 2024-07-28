@@ -1,0 +1,12 @@
+[
+    {"model": "zones.interest", "pk": "Food, beverages", "fields": {}},
+    {"model": "zones.interest", "pk": "General store, department store, mall", "fields": {}},
+    {"model": "zones.interest", "pk": "Clothing, shoes, accessories", "fields": {}},
+    {"model": "zones.interest", "pk": "Health and beauty", "fields": {}},
+    {"model": "zones.interest", "pk": "Do-it-yourself, household, building materials, gardening", "fields": {}},
+    {"model": "zones.interest", "pk": "Furniture and interior", "fields": {}},
+    {"model": "zones.interest", "pk": "Electronics", "fields": {}},
+    {"model": "zones.interest", "pk": "Outdoors and sport, vehicles", "fields": {}},
+    {"model": "zones.interest", "pk": "Art, music, hobbies", "fields": {}},
+    {"model": "zones.interest", "pk": "Stationery, gifts, books, newspapers", "fields": {}}
+]
