@@ -14,7 +14,7 @@ function LeftSide() {
       <div className="space-y-4 mx-auto max-w-xl text-white">
         <div>
           <h1 className="text-3xl lg:text-4xl font-medium">Welcome to our community</h1>
-          <Paragraph className="text-gray-400 pt-4 text-xl lg:text-2xl">
+          <Paragraph className="text-gray-300 pt-4 text-xl lg:text-2xl">
             Ad Optima gives you the best analytics to step up your target
             advertising game.
           </Paragraph>
@@ -37,7 +37,7 @@ function LeftSide() {
             </div>
             <div className="grid">
               <div>Devon Lane</div>
-              <div className="text-gray-400">Co-Founder, Design.co</div>
+              <div className="text-gray-300">Co-Founder, Design.co</div>
             </div>
           </div>
         </div>
